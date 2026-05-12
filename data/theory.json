@@ -121,12 +121,37 @@
         {
           "heading": "三和弦=1+3+5",
           "content": "和弦（Chord）= 同时弹奏三个或以上不同的音。最基本的三和弦由三个音堆叠而成：\n\n根音（Root）—— 决定和弦的「名字」，是整栋大楼的地基\n三音（Third）—— 决定和弦是大调还是小调（关键！）\n五音（Fifth）—— 支撑和弦的骨架\n\n大三和弦 = 根音 + 大三度（4个半音）+ 纯五度（7个半音）→ 听起来明亮、快乐\n小三和弦 = 根音 + 小三度（3个半音）+ 纯五度（7个半音）→ 听起来柔和、忧伤\n\n一个例子一个C和弦（由C E G组成）：\nC到E = 4个半音（大三度）→ 所以C和弦是大三和弦 → 听起来明亮\n一个Am和弦（由A C E组成）：\nA到C = 3个半音（小三度）→ 所以Am和弦是小三和弦 → 听起来柔和",
-          "fretboard": null
+          "fretboard": {
+            "type": "full",
+            "startFret": 0,
+            "numFrets": 5,
+            "description": "C和弦(C-E-G)在开放把位 — 红=根音, 蓝=3音, 绿=5音",
+            "notes": [
+              {"string": 1, "fret": 3, "label": "R", "color": "#e63946"},
+              {"string": 4, "fret": 2, "label": "3", "color": "#457b9d"},
+              {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+              {"string": 3, "fret": 1, "label": "R", "color": "#e63946"},
+              {"string": 5, "fret": 0, "label": "3", "color": "#457b9d"}
+            ]
+          }
         },
         {
           "heading": "在指板上找到和弦的三个音",
           "content": "现在理解：C和弦就是「在指板上找到C、E、G三个音，同时弹响」。\n\n来看看C和弦（C-E-G）在指板上的分布（开放把位）：\n5弦3品 = C（根音）\n4弦2品 = E（三音）\n3弦0品 = G（五音）\n2弦1品 = C（根音）\n1弦0品 = E（三音）\n\n再看看G和弦（G-B-D）：\n6弦3品 = G（根音）\n5弦2品 = B（三音）\n4弦0品 = D（五音）\n3弦0品 = G（根音）\n2弦0品 = B（三音）\n1弦3品 = G（根音）\n\n🔑 核心理解：和弦不是「死记硬背的手型」，而是在指板上找到根音→三音→五音的位置，然后组合成一个手型。",
-          "fretboard": null
+          "fretboard": {
+            "type": "full",
+            "startFret": 0,
+            "numFrets": 4,
+            "description": "G和弦(G-B-D)在开放把位 — 红=根音, 蓝=3音, 绿=5音",
+            "notes": [
+              {"string": 0, "fret": 3, "label": "R", "color": "#e63946"},
+              {"string": 1, "fret": 2, "label": "3", "color": "#457b9d"},
+              {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+              {"string": 3, "fret": 0, "label": "R", "color": "#e63946"},
+              {"string": 4, "fret": 0, "label": "3", "color": "#457b9d"},
+              {"string": 5, "fret": 3, "label": "R", "color": "#e63946"}
+            ]
+          }
         },
         {
           "heading": "大三度vs小三度 — 大调小调的区别就在这一个音",
@@ -160,7 +185,25 @@
         {
           "heading": "C大调音阶在指板第一把位",
           "content": "这是你必须学会的第一个音阶位置。C大调音阶在第一把位（0-3品）上的指法：\n\n5弦3品 = C（根音/Do）\n4弦0品 = D（Re）\n4弦2品 = E（Mi）\n4弦3品 = F（Fa）\n3弦0品 = G（Sol）\n3弦2品 = A（La）\n2弦1品 = B（Si）\n2弦3品 = C（Do）\n1弦0品 = E（Mi）\n1弦1品 = F（Fa）\n1弦3品 = G（Sol）\n\n从5弦3品C开始弹到1弦3品G，再弹回来。每天5分钟。\n\n指法建议：食指负责1品，中指2品，无名指3品，小指4品（按需）。",
-          "fretboard": null
+          "fretboard": {
+            "type": "full",
+            "startFret": 0,
+            "numFrets": 4,
+            "description": "C大调音阶第一把位 — 1(红)2(橙)3(黄)4(绿)5(青)6(蓝)7(紫)",
+            "notes": [
+              {"string": 1, "fret": 3, "label": "1", "color": "#e63946"},
+              {"string": 2, "fret": 0, "label": "2", "color": "#ff9f1c"},
+              {"string": 4, "fret": 2, "label": "3", "color": "#f0db4f"},
+              {"string": 4, "fret": 3, "label": "4", "color": "#2ec4b6"},
+              {"string": 3, "fret": 0, "label": "5", "color": "#457b9d"},
+              {"string": 3, "fret": 2, "label": "6", "color": "#457b9d"},
+              {"string": 4, "fret": 1, "label": "7", "color": "#7b2cbf"},
+              {"string": 4, "fret": 3, "label": "1", "color": "#e63946"},
+              {"string": 5, "fret": 0, "label": "3", "color": "#f0db4f"},
+              {"string": 5, "fret": 1, "label": "4", "color": "#2ec4b6"},
+              {"string": 5, "fret": 3, "label": "5", "color": "#457b9d"}
+            ]
+          }
         },
         {
           "heading": "为什么叫大调/小调 — 从根音到三音的距离",
@@ -177,6 +220,25 @@
         {
           "heading": "顺阶和弦 — 每个调里「原装」的和弦",
           "content": "在C大调音阶（C D E F G A B）上，以每个音为根音，按照大调音阶的音符建立三和弦，你就得到了C大调的原装和弦：\n\nI级（C）：C E G → C 大三和弦\nii级（Dm）：D F A → Dm 小三和弦\niii级（Em）：E G B → Em 小三和弦\nIV级（F）：F A C → F 大三和弦\nV级（G）：G B D → G 大三和弦\nvi级（Am）：A C E → Am 小三和弦\nvii°级（Bdim）：B D F → B 减三和弦\n\n规律就是：I IV V 是大和弦，ii iii vi 是小和弦，vii 是减和弦。\n\nG大调同理（G A B C D E F#）：\nI=G, ii=Am, iii=Bm, IV=C, V=D, vi=Em, vii°=F#dim\n\n💡 这个规律在任何大调中都是一样的！你只需要知道一个调里有哪些音，就能推出这个调里有哪些和弦。",
+          "fretboard": {
+            "type": "full",
+            "startFret": 0,
+            "numFrets": 4,
+            "description": "C大调音阶的7个音在指板第一把位 — 红I=C, 橙ii=Dm, 黄iii=Em, 绿IV=F, 青V=G, 蓝vi=Am, 紫vii°=Bdim",
+            "notes": [
+              {"string": 1, "fret": 3, "label": "I", "color": "#e63946"},
+              {"string": 2, "fret": 0, "label": "ii", "color": "#ff9f1c"},
+              {"string": 4, "fret": 2, "label": "iii", "color": "#f0db4f"},
+              {"string": 4, "fret": 3, "label": "IV", "color": "#2ec4b6"},
+              {"string": 3, "fret": 0, "label": "V", "color": "#457b9d"},
+              {"string": 3, "fret": 2, "label": "vi", "color": "#457b9d"},
+              {"string": 4, "fret": 1, "label": "vii", "color": "#7b2cbf"}
+            ]
+          }
+        },
+        {
+          "heading": "最常见的和弦进行 I-V-vi-IV",
+          "content": "I-V-vi-IV 是流行音乐中最最最常用的和弦进行，没有之一。在C大调中就是：\n\nC → G → Am → F\n\n这个进行出现在（远不止这些）：\n- 真的爱你（Beyond）\n- Let It Be（The Beatles）\n- No Woman No Cry（Bob Marley）\n- 数不清的流行歌曲\n\n练习方法：用C→G→Am→F 循环，每个和弦弹4拍。用节拍器60BPM开始，慢慢加速到100BPM。练到不需要看手指也能流畅转换，你就解锁了弹唱80%流行歌曲的能力。",
           "fretboard": null
         },
         {

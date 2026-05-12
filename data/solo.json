@@ -65,7 +65,26 @@
         {
           "heading": "Pattern 1：E小调五声音阶指型",
           "content": "这是最重要的一个指型，被称为 Pattern 1 或 E 型指型。学好它，你就学会了 90% 的蓝调/摇滚 Solo 的基础。\n\n各弦上的音符位置（6弦到1弦）：\n\n6弦(E弦)：0品=E（根音）• 3品=G（小三度）\n5弦(A弦)：0品=A（纯四度）• 2品=B（纯五度）\n4弦(D弦)：0品=D（小七度）• 2品=E（根音）\n3弦(G弦)：0品=G（小三度）• 2品=A（纯四度）\n2弦(B弦)：1品=B（纯五度）• 3品=D（小七度）\n1弦(e弦)：0品=E（根音）• 3品=G（小三度）\n\n📌 记忆口诀：「除了 2 弦从 1 品开始，其他弦都是空弦 + 隔 2 品」",
-          "fretboard": null
+          "fretboard": {
+            "type": "full",
+            "startFret": 0,
+            "numFrets": 4,
+            "description": "E小调五声音阶 Pattern 1 — E(红)=根音, G(蓝)=小三度, A(绿)=纯四度, B(黄)=纯五度, D(紫)=小七度",
+            "notes": [
+              {"string": 0, "fret": 0, "label": "R", "color": "#e63946"},
+              {"string": 0, "fret": 3, "label": "b3", "color": "#457b9d"},
+              {"string": 1, "fret": 0, "label": "4", "color": "#2ec4b6"},
+              {"string": 1, "fret": 2, "label": "5", "color": "#ff9f1c"},
+              {"string": 2, "fret": 0, "label": "b7", "color": "#7b2cbf"},
+              {"string": 2, "fret": 2, "label": "R", "color": "#e63946"},
+              {"string": 3, "fret": 0, "label": "b3", "color": "#457b9d"},
+              {"string": 3, "fret": 2, "label": "4", "color": "#2ec4b6"},
+              {"string": 4, "fret": 1, "label": "5", "color": "#ff9f1c"},
+              {"string": 4, "fret": 3, "label": "b7", "color": "#7b2cbf"},
+              {"string": 5, "fret": 0, "label": "R", "color": "#e63946"},
+              {"string": 5, "fret": 3, "label": "b3", "color": "#457b9d"}
+            ]
+          }
         },
         {
           "heading": "第一周练习：音阶上下行",
@@ -97,7 +116,18 @@
         {
           "heading": "锤弦（Hammer-on）— 让音符连起来",
           "content": "锤弦（标记 h，如 0h3）：弹响一个音后，用左手手指用力「锤」到高品上。右手不再拨第二次。\n\n例如：弹 6 弦空弦 E → 无名指用力锤到 3 品 G → 发出 G 音而右手没再拨弦。标记：0h3\n\n🎯 练习：\n1. 单弦锤弦：6弦 0h1、0h2、0h3、0h4（空弦锤到各品）\n2. 在五声音阶中加入锤弦：弹 E（6弦0品）→ 锤到 G（6弦3品）→ 再弹 A（5弦0品）→ 锤到 B（5弦2品）\n\n🔔 要点：锤下去的手指要像小锤子一样快、准、有力。锤下去的声音必须和拨弦一样清晰。",
-          "fretboard": null
+          "fretboard": {
+            "type": "full",
+            "startFret": 0,
+            "numFrets": 4,
+            "description": "锤弦练习示例：6弦0品E→锤到3品G（0h3），5弦0品A→锤到2品B（0h2）",
+            "notes": [
+              {"string": 0, "fret": 0, "label": "E", "color": "#e63946"},
+              {"string": 0, "fret": 3, "label": "G", "color": "#ff9f1c"},
+              {"string": 1, "fret": 0, "label": "A", "color": "#e63946"},
+              {"string": 1, "fret": 2, "label": "B", "color": "#ff9f1c"}
+            ]
+          }
         },
         {
           "heading": "勾弦（Pull-off）— 音符的回落",
@@ -176,7 +206,27 @@
         {
           "heading": "蓝调音阶 — 给五声音阶加点味道",
           "content": "蓝调音阶 = 小调五声音阶 + 一个「蓝调音」（b5/降五音）\n\nE 小调蓝调音阶的 6 个音：E G A Bb B D\n\n这个 Bb（降五音/蓝调音）是蓝调味道的来源。在 E 小调五声音阶 Pattern 1 中：\n- 6 弦 3 品 G 和 5 弦 2 品 B 之间多了一个选择：6 弦 4 品 = G#/Bb\n- 弹这个音时不要停留太久（因为它是「不和谐」的），用它过渡到和谐的音上\n\n🎯 练习：在 12 小节蓝调伴奏中，刻意在某些乐句的结尾用蓝调音过渡到五音。",
-          "fretboard": null
+          "fretboard": {
+            "type": "full",
+            "startFret": 0,
+            "numFrets": 5,
+            "description": "E小调蓝调音阶 — 红=根音, 蓝调音(Bb/6弦4品)用白色突出显示",
+            "notes": [
+              {"string": 0, "fret": 0, "label": "R", "color": "#e63946"},
+              {"string": 0, "fret": 3, "label": "b3", "color": "#457b9d"},
+              {"string": 0, "fret": 4, "label": "b5", "color": "#ffffff"},
+              {"string": 1, "fret": 0, "label": "4", "color": "#2ec4b6"},
+              {"string": 1, "fret": 2, "label": "5", "color": "#ff9f1c"},
+              {"string": 2, "fret": 0, "label": "b7", "color": "#7b2cbf"},
+              {"string": 2, "fret": 2, "label": "R", "color": "#e63946"},
+              {"string": 3, "fret": 0, "label": "b3", "color": "#457b9d"},
+              {"string": 3, "fret": 2, "label": "4", "color": "#2ec4b6"},
+              {"string": 4, "fret": 1, "label": "5", "color": "#ff9f1c"},
+              {"string": 4, "fret": 3, "label": "b7", "color": "#7b2cbf"},
+              {"string": 5, "fret": 0, "label": "R", "color": "#e63946"},
+              {"string": 5, "fret": 3, "label": "b3", "color": "#457b9d"}
+            ]
+          }
         }
       ]
     }
