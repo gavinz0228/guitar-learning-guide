@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>突破前三品 | 学吉他</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* --- Breakthrough Page Styles --- */
+
+    .bp-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+
+    .bp-section h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 32px 0 16px;
+      color: var(--text-primary);
+      text-align: center;
+    }
+
+    .bp-section p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    /* Intro highlight */
+    .bp-intro-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .bp-intro-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .bp-intro-card .highlight-stat {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .bp-intro-card .stat-item {
+      text-align: center;
+    }
+
+    .bp-intro-card .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .bp-intro-card .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Module cards */
+    .module-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 24px 0;
+    }
+
+    .module-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .module-card .mc-header {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .module-card .mc-badge {
+      flex: 0 0 52px;
+      height: 52px;
+      line-height: 52px;
+      text-align: center;
+      border-radius: 12px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .module-card .mc-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .module-card .mc-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .module-card .mc-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .module-card .mc-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .module-card .mc-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-secondary);
+    }
+
+    .module-card .mc-arrow {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform var(--transition);
+    }
+
+    .module-card:hover .mc-arrow {
+      transform: translateX(6px);
+    }
+
+    /* Roadmap path */
+    .bp-path {
+      position: relative;
+      margin: 32px 0;
+      padding: 0;
+    }
+
+    .bp-path::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--card-border);
+    }
+
+    .bp-step {
+      position: relative;
+      padding-left: 64px;
+      margin-bottom: 28px;
+    }
+
+    .bp-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .bp-step .step-dot {
+      position: absolute;
+      left: 14px;
+      top: 4px;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .bp-step .step-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .bp-step .step-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Prerequisite box */
+    .bp-prereq {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .bp-prereq-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+    }
+
+    .bp-prereq-item .prereq-icon {
+      flex: 0 0 32px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .bp-prereq-item .prereq-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .bp-prereq-item .prereq-text strong {
+      color: var(--text-primary);
+    }
+
+    @media (min-width: 768px) {
+      .module-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .bp-prereq {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .module-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">🎸 学吉他</a>
+      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
+      <button class="hamburger" aria-label="菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="chords.html">和弦库</a>
+        <a href="chord-mastery.html" class="active">突破前三品</a>
+        <a href="scales.html">音阶</a>
+        <a href="theory.html">乐理</a>
+        <a href="songs.html">练习曲</a>
+        <a href="roadmap.html">学习路线</a>
+        <a href="solo.html">Solo教程</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Page Content ===== -->
+  <div class="page-content">
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>🚀 突破前三品</h1>
+      <p>走出新手村，用 CAGED 和 Shell Voicing 解锁整个指板</p>
+    </header>
+
+    <!-- Intro Section -->
+    <section class="bp-section">
+      <div class="bp-intro-card">
+        <h3>🎯 为什么叫"突破前三品"？</h3>
+        <p>
+          大多数吉他新手在前三个月都只弹 <strong>前 3 品</strong> 的开放和弦（C、Am、G、Em...）。
+          这完全没问题，但如果你想真正理解指板、能在任何把位弹奏任何和弦，
+          你就需要 <strong>CAGED 系统</strong> 和 <strong>Shell Voicing</strong> 这两把钥匙。
+        </p>
+        <div class="highlight-stat">
+          <div class="stat-item">
+            <div class="stat-num">5</div>
+            <div class="stat-label">种手型覆盖全指板</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">12</div>
+            <div class="stat-label">个调的任意和弦</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label">个音组成一个 Voicing</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">不再被把位限制</div>
+          </div>
+        </div>
+        <p>
+          这两套知识学完，你会惊讶地发现：原来指板是有规律的，而且规律就这么简单。
+          我推荐你<strong>先学 CAGED，再学 Shell Voicing</strong>，两者相辅相成。
+        </p>
+      </div>
+    </section>
+
+    <!-- Prerequisites -->
+    <section class="bp-section">
+      <h2>✅ 学前必备</h2>
+      <p>在开始之前，确保你已掌握以下内容：</p>
+      <div class="bp-prereq">
+        <div class="bp-prereq-item">
+          <div class="prereq-icon">🎵</div>
+          <div class="prereq-text">能流畅切换常用的<strong>开放和弦</strong>（C、A、G、E、D、Am、Em 等）</div>
+        </div>
+        <div class="bp-prereq-item">
+          <div class="prereq-icon">👆</div>
+          <div class="prereq-text">掌握基本的<strong>食指横按</strong>技巧（至少能按 F 或 Bb）</div>
+        </div>
+        <div class="bp-prereq-item">
+          <div class="prereq-icon">🎼</div>
+          <div class="prereq-text">理解<strong>音名</strong>（C D E F G A B）和<strong>半音/全音</strong>概念</div>
+        </div>
+        <div class="bp-prereq-item">
+          <div class="prereq-icon">📐</div>
+          <div class="prereq-text">知道<strong>根音</strong>是什么，能在一根弦上找到任意音符</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning Path -->
+    <section class="bp-section">
+      <h2>🗺️ 推荐学习路径</h2>
+      <div class="bp-path">
+        <div class="bp-step">
+          <div class="step-dot" style="background:#e63946;">1</div>
+          <div class="step-title">CAGED 系统 — 5 个形状</div>
+          <div class="step-desc">学习 C、A、G、E、D 五种和弦形状在指板上的分布。做完这一步，你就能在任意把位找到任意和弦。</div>
+        </div>
+        <div class="bp-step">
+          <div class="step-dot" style="background:#ff9f1c;">2</div>
+          <div class="step-title">CAGED — 形状衔接练习</div>
+          <div class="step-desc">在同一个根音上，沿指板循环 C → A → G → E → D 五个形状。这让你真正理解指板的"网格"结构。</div>
+        </div>
+        <div class="bp-step">
+          <div class="step-dot" style="background:#2ec4b6;">3</div>
+          <div class="step-title">Shell Voicing — 和弦的精简哲学</div>
+          <div class="step-desc">学会 R-3-7 的核心三音和弦。你会发现和弦可以如此干净，而 CAGED 形状正好是 Shell Voicing 的基础。</div>
+        </div>
+        <div class="bp-step">
+          <div class="step-dot" style="background:#7b2cbf;">4</div>
+          <div class="step-title">实战结合：II-V-I 进行</div>
+          <div class="step-desc">用 CAGED 理解指板，用 Shell Voicing 弹出干净的和弦。在 12 个调上练习 II-V-I 是现代吉他的基础功。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module Cards -->
+    <section class="bp-section">
+      <h2>📖 学习模块</h2>
+      <div class="module-grid">
+
+        <a href="caged.html" class="module-card">
+          <div class="mc-header">
+            <div class="mc-badge" style="background:linear-gradient(135deg,#e63946,#ff6b7a);">C</div>
+            <div>
+              <div class="mc-title">CAGED 系统</div>
+              <div class="mc-subtitle">5个形状破解整个指板</div>
+            </div>
+          </div>
+          <div class="mc-desc">
+            用你早已熟悉的 C、A、G、E、D 开放和弦，作为模板在整个指板上移动。
+            交互指板图让你选择根音和形状，实时查看按法。含练习计划和过渡路径。
+          </div>
+          <div class="mc-meta">
+            <span class="mc-tag">🎸 适合中级</span>
+            <span class="mc-tag">📐 12 个调</span>
+            <span class="mc-tag">🖼️ 交互指板</span>
+          </div>
+          <span class="mc-arrow">开始学习 →</span>
+        </a>
+
+        <a href="shell-voicing.html" class="module-card">
+          <div class="mc-header">
+            <div class="mc-badge" style="background:linear-gradient(135deg,#457b9d,#6a9fc4);">S</div>
+            <div>
+              <div class="mc-title">Shell Voicing</div>
+              <div class="mc-subtitle">和弦的精简与升华</div>
+            </div>
+          </div>
+          <div class="mc-desc">
+            学会只用 R-3-7 三个音构建和弦。三种弦组模式（6532/6543/5432），
+            四种和弦类型一键切换。从弹唱到爵士的必经之路。
+          </div>
+          <div class="mc-meta">
+            <span class="mc-tag">🎼 中级进阶</span>
+            <span class="mc-tag">🔢 三种弦组</span>
+            <span class="mc-tag">🎯 实战 II-V-I</span>
+          </div>
+          <span class="mc-arrow">开始学习 →</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Quick Tips -->
+    <section class="bp-section">
+      <h2>💡 几点建议</h2>
+      <div class="bp-intro-card" style="padding:20px 28px;">
+        <p style="margin-bottom:8px;">• <strong>别贪多</strong> — CAGED 的 5 个形状每天只练一个，一周搞定</p>
+        <p style="margin-bottom:8px;">• <strong>用耳朵</strong> — 同一和弦在不同把位音色不同，C 型温暖，E 型明亮，边弹边听</p>
+        <p style="margin-bottom:8px;">• <strong>Shell Voicing 从属七开始</strong> — 属七的 R-3-b7 最常用，先练熟它</p>
+        <p style="margin-bottom:0;">• <strong>两者不冲突</strong> — CAGED 给你"在哪里"，Shell 给你"怎么按更好听"</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+  </footer>
+
+  <!-- ===== Scripts ===== -->
+  <script src="js/nav.js?v=2"></script>
+
+</body>
+</html>
