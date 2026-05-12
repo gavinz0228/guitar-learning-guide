@@ -6,7 +6,17 @@
       "category": "major",
       "frets": [-1, 3, 2, 0, 1, 0],
       "fingers": [0, 3, 2, 0, 1, 0],
-      "notes": ["C", "E", "G"]
+      "notes": ["C", "E", "G"],
+      "difficulty": 1,
+      "commonProgressions": ["C-G-Am-F", "C-Am-F-G"],
+      "tips": "初学者第一个和弦。注意无名指按5弦3品要立起来，不要碰到4弦。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 1, "label": "R", "color": "#ffffff"},
+        {"string": 5, "fret": 0, "label": "3", "color": "#457b9d"}
+      ]
     },
     {
       "name": "D",
@@ -14,7 +24,16 @@
       "category": "major",
       "frets": [-1, -1, 0, 2, 3, 2],
       "fingers": [0, 0, 0, 1, 3, 2],
-      "notes": ["D", "F#", "A"]
+      "notes": ["D", "F#", "A"],
+      "difficulty": 1,
+      "commonProgressions": ["D-G-A", "D-Bm-G-A"],
+      "tips": "注意只弹高4根弦（4-1弦），低音弦不要碰到。食指中指无名指呈三角形排列。",
+      "fretboardNotes": [
+        {"string": 2, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 3, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 2, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "E",
@@ -22,7 +41,18 @@
       "category": "major",
       "frets": [0, 2, 2, 1, 0, 0],
       "fingers": [0, 2, 3, 1, 0, 0],
-      "notes": ["E", "G#", "B"]
+      "notes": ["E", "G#", "B"],
+      "difficulty": 1,
+      "commonProgressions": ["E-A-B", "E-G#m-A-B"],
+      "tips": "六根弦全弹！这个和弦是CAGED系统中E型的基础。先按好中指再按无名指和食指。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 2, "label": "5", "color": "#2ec4b6"},
+        {"string": 2, "fret": 2, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 1, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 0, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "F",
@@ -30,7 +60,18 @@
       "category": "major",
       "frets": [1, 1, 2, 3, 3, 1],
       "fingers": [1, 1, 2, 3, 4, 1],
-      "notes": ["F", "A", "C"]
+      "notes": ["F", "A", "C"],
+      "difficulty": 4,
+      "commonProgressions": ["F-G-C", "F-C-G-Am"],
+      "tips": "这是初学者最大的挑战——大横按和弦。食指横按整个1品，指力需要1-2个月才能练出来。先用小横按版（只按1-2弦）过渡。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 1, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 1, "label": "5", "color": "#2ec4b6"},
+        {"string": 2, "fret": 2, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 3, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 3, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 1, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "G",
@@ -38,7 +79,18 @@
       "category": "major",
       "frets": [3, 2, 0, 0, 0, 3],
       "fingers": [2, 1, 0, 0, 0, 3],
-      "notes": ["G", "B", "D"]
+      "notes": ["G", "B", "D"],
+      "difficulty": 2,
+      "commonProgressions": ["G-C-D", "G-Em-C-D"],
+      "tips": "G和弦有几种按法，这是最常用的一种。注意小指按1弦3品需要独立发力。CAGED系统中G型的基础。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 0, "label": "3", "color": "#457b9d"},
+        {"string": 5, "fret": 3, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "A",
@@ -46,7 +98,17 @@
       "category": "major",
       "frets": [-1, 0, 2, 2, 2, 0],
       "fingers": [0, 0, 1, 2, 3, 0],
-      "notes": ["A", "C#", "E"]
+      "notes": ["A", "C#", "E"],
+      "difficulty": 1,
+      "commonProgressions": ["A-D-E", "A-F#m-D-E"],
+      "tips": "食中无名指并排按2品（4-2弦）。注意不要碰到5弦空弦。CAGED系统中A型的基础。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 2, "fret": 2, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 2, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 5, "fret": 0, "label": "5", "color": "#2ec4b6"}
+      ]
     },
     {
       "name": "B",
@@ -54,7 +116,17 @@
       "category": "major",
       "frets": [-1, 2, 4, 4, 4, 2],
       "fingers": [0, 1, 2, 3, 4, 1],
-      "notes": ["B", "D#", "F#"]
+      "notes": ["B", "D#", "F#"],
+      "difficulty": 5,
+      "commonProgressions": ["B-E-F#", "B-G#m-E-F#"],
+      "tips": "大横按和弦，食指横按2品。这是最不常用的大和弦之一，初学者可以先跳过，等F练好再回头看B。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 2, "label": "R", "color": "#ffffff"},
+        {"string": 2, "fret": 4, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 4, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 4, "label": "3", "color": "#457b9d"},
+        {"string": 5, "fret": 2, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "Am",
@@ -62,7 +134,17 @@
       "category": "minor",
       "frets": [-1, 0, 2, 2, 1, 0],
       "fingers": [0, 0, 2, 3, 1, 0],
-      "notes": ["A", "C", "E"]
+      "notes": ["A", "C", "E"],
+      "difficulty": 1,
+      "commonProgressions": ["Am-C-G", "Am-F-C-G"],
+      "tips": "最简单的小和弦之一。不弹6弦。食指按1品、中指无名指按2品。和C和弦转换非常自然。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 2, "fret": 2, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 2, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 1, "label": "3", "color": "#457b9d"},
+        {"string": 5, "fret": 0, "label": "5", "color": "#2ec4b6"}
+      ]
     },
     {
       "name": "Dm",
@@ -70,7 +152,16 @@
       "category": "minor",
       "frets": [-1, -1, 0, 2, 3, 1],
       "fingers": [0, 0, 0, 2, 3, 1],
-      "notes": ["D", "F", "A"]
+      "notes": ["D", "F", "A"],
+      "difficulty": 2,
+      "commonProgressions": ["Dm-G-C", "Dm-Am-C-G"],
+      "tips": "和高音的D和弦很像，区别是1弦从2品变成1品（F音）。注意区分D和Dm的区别——就这一个音不同。",
+      "fretboardNotes": [
+        {"string": 2, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 2, "label": "5", "color": "#2ec4b6"},
+        {"string": 4, "fret": 3, "label": "3", "color": "#457b9d"},
+        {"string": 5, "fret": 1, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "Em",
@@ -78,7 +169,18 @@
       "category": "minor",
       "frets": [0, 2, 2, 0, 0, 0],
       "fingers": [0, 2, 3, 0, 0, 0],
-      "notes": ["E", "G", "B"]
+      "notes": ["E", "G", "B"],
+      "difficulty": 1,
+      "commonProgressions": ["Em-C-G-D", "Em-Am-B7"],
+      "tips": "最简单的和弦之一！中指无名指按5-4弦2品，其他全空弦。六根弦全弹。CAGED系统中Em型的基础。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 2, "label": "5", "color": "#2ec4b6"},
+        {"string": 2, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 3, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 0, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "Bm",
@@ -86,7 +188,17 @@
       "category": "minor",
       "frets": [-1, 2, 4, 4, 3, 2],
       "fingers": [0, 1, 3, 4, 2, 1],
-      "notes": ["B", "D", "F#"]
+      "notes": ["B", "D", "F#"],
+      "difficulty": 5,
+      "commonProgressions": ["Bm-G-D-A", "Bm-F#m-G-D"],
+      "tips": "另一个大横按和弦。食指横按2品（A弦到e弦）。Bm是A调的ii级和弦，在流行音乐中很常见。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 2, "label": "R", "color": "#ffffff"},
+        {"string": 2, "fret": 4, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 4, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 5, "fret": 2, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "Fm",
@@ -94,7 +206,18 @@
       "category": "minor",
       "frets": [1, 3, 3, 1, 1, 1],
       "fingers": [1, 3, 4, 1, 1, 1],
-      "notes": ["F", "Ab", "C"]
+      "notes": ["F", "Ab", "C"],
+      "difficulty": 5,
+      "commonProgressions": ["Fm-Cm-Gm", "Fm-Bbm-C7"],
+      "tips": "大横按和弦，食指横按1品。Fm比F多一个横按在1品，难度更高。初学者可以等后期再练。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 1, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 3, "label": "5", "color": "#2ec4b6"},
+        {"string": 2, "fret": 3, "label": "3", "color": "#457b9d"},
+        {"string": 3, "fret": 1, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 1, "label": "R", "color": "#ffffff"},
+        {"string": 5, "fret": 1, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "Gm",
@@ -102,7 +225,18 @@
       "category": "minor",
       "frets": [3, 5, 5, 3, 3, 3],
       "fingers": [1, 3, 4, 1, 1, 1],
-      "notes": ["G", "Bb", "D"]
+      "notes": ["G", "Bb", "D"],
+      "difficulty": 5,
+      "commonProgressions": ["Gm-Cm-D7", "Gm-D7-Cm"],
+      "tips": "食指横按3品。Gm是G大调的同名小调，常用于营造忧郁氛围。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 5, "label": "5", "color": "#2ec4b6"},
+        {"string": 2, "fret": 5, "label": "3", "color": "#457b9d"},
+        {"string": 3, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 5, "fret": 3, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "C7",
@@ -110,7 +244,17 @@
       "category": "7th",
       "frets": [-1, 3, 2, 3, 1, 0],
       "fingers": [0, 3, 2, 4, 1, 0],
-      "notes": ["C", "E", "G", "Bb"]
+      "notes": ["C", "E", "G", "Bb"],
+      "difficulty": 2,
+      "commonProgressions": ["C7-F", "C7-F-G7"],
+      "tips": "在C和弦基础上加了Bb音（3弦3品）。比C和弦多了一个小指按3弦3品。蓝调和爵士中大量使用。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 3, "label": "7", "color": "#7b2cbf"},
+        {"string": 5, "fret": 0, "label": "3", "color": "#457b9d"}
+      ]
     },
     {
       "name": "D7",
@@ -118,7 +262,16 @@
       "category": "7th",
       "frets": [-1, -1, 0, 2, 1, 2],
       "fingers": [0, 0, 0, 2, 1, 3],
-      "notes": ["D", "F#", "A", "C"]
+      "notes": ["D", "F#", "A", "C"],
+      "difficulty": 2,
+      "commonProgressions": ["D7-G", "D7-G-C"],
+      "tips": "比D和弦少按一根弦——1弦从3品改成2品（C音）。蓝调12小节中D7是IV级和弦。",
+      "fretboardNotes": [
+        {"string": 2, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 1, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 2, "label": "7", "color": "#7b2cbf"}
+      ]
     },
     {
       "name": "E7",
@@ -126,7 +279,18 @@
       "category": "7th",
       "frets": [0, 2, 0, 1, 0, 0],
       "fingers": [0, 2, 0, 1, 0, 0],
-      "notes": ["E", "G#", "B", "D"]
+      "notes": ["E", "G#", "B", "D"],
+      "difficulty": 1,
+      "commonProgressions": ["E7-A", "E7-A-B7"],
+      "tips": "最简单的属七和弦！比Em和弦多了食指按3弦1品。六根弦全弹。蓝调12小节中E7是V级和弦。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 2, "label": "5", "color": "#2ec4b6"},
+        {"string": 2, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 1, "label": "7", "color": "#7b2cbf"},
+        {"string": 4, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 0, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "G7",
@@ -134,7 +298,18 @@
       "category": "7th",
       "frets": [3, 2, 0, 0, 0, 1],
       "fingers": [3, 2, 0, 0, 0, 1],
-      "notes": ["G", "B", "D", "F"]
+      "notes": ["G", "B", "D", "F"],
+      "difficulty": 2,
+      "commonProgressions": ["G7-C", "C-G7-C"],
+      "tips": "比G和弦简单！只需要按三个位置。G7是C大调的V级和弦，在C→G7→C的进行中大量使用。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 0, "label": "3", "color": "#457b9d"},
+        {"string": 5, "fret": 1, "label": "7", "color": "#7b2cbf"}
+      ]
     },
     {
       "name": "A7",
@@ -142,7 +317,17 @@
       "category": "7th",
       "frets": [-1, 0, 2, 0, 2, 0],
       "fingers": [0, 0, 1, 0, 2, 0],
-      "notes": ["A", "C#", "E", "G"]
+      "notes": ["A", "C#", "E", "G"],
+      "difficulty": 1,
+      "commonProgressions": ["A7-D", "A7-D-E7"],
+      "tips": "比A和弦多了一个空弦G音（3弦）。蓝调12小节中A7是I级和弦。只需按两根弦，非常简单。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 2, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 3, "fret": 0, "label": "7", "color": "#7b2cbf"},
+        {"string": 4, "fret": 2, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 0, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "B7",
@@ -150,7 +335,17 @@
       "category": "7th",
       "frets": [-1, 2, 1, 2, 0, 2],
       "fingers": [0, 2, 1, 3, 0, 4],
-      "notes": ["B", "D#", "F#", "A"]
+      "notes": ["B", "D#", "F#", "A"],
+      "difficulty": 3,
+      "commonProgressions": ["B7-Em", "B7-Em-A7"],
+      "tips": "B7是个有趣的和弦——它不用横按。食指按5弦2品，中指按3弦1品，无名指按4弦2品，小指按1弦2品。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 2, "label": "R", "color": "#ffffff"},
+        {"string": 2, "fret": 1, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 5, "fret": 2, "label": "R", "color": "#ffffff"}
+      ]
     },
     {
       "name": "Fmaj7",
@@ -158,7 +353,16 @@
       "category": "maj7",
       "frets": [-1, -1, 3, 2, 1, 0],
       "fingers": [0, 0, 3, 2, 1, 0],
-      "notes": ["F", "A", "C", "E"]
+      "notes": ["F", "A", "C", "E"],
+      "difficulty": 2,
+      "commonProgressions": ["Fmaj7-G-C", "Fmaj7-Em7-Dm7"],
+      "tips": "Fmaj7比F和弦简单得多——没有横按。用食中无名指依次按B/G/D弦的1/2/3品。音色非常温暖柔和。",
+      "fretboardNotes": [
+        {"string": 2, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 1, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 0, "label": "7", "color": "#7b2cbf"}
+      ]
     },
     {
       "name": "Cmaj7",
@@ -166,7 +370,17 @@
       "category": "maj7",
       "frets": [-1, 3, 2, 0, 0, 0],
       "fingers": [0, 3, 2, 0, 0, 0],
-      "notes": ["C", "E", "G", "B"]
+      "notes": ["C", "E", "G", "B"],
+      "difficulty": 2,
+      "commonProgressions": ["Cmaj7-Fmaj7-G", "Cmaj7-Am7-Dm7-G7"],
+      "tips": "比C和弦少按一根弦（不用按2弦1品），空弦B音是大七度。C大调的Imaj7和弦，爵士乐中最常用的和弦之一。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 3, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 5, "fret": 0, "label": "7", "color": "#7b2cbf"}
+      ]
     },
     {
       "name": "Am7",
@@ -174,7 +388,17 @@
       "category": "maj7",
       "frets": [-1, 0, 2, 0, 1, 0],
       "fingers": [0, 0, 2, 0, 1, 0],
-      "notes": ["A", "C", "E", "G"]
+      "notes": ["A", "C", "E", "G"],
+      "difficulty": 1,
+      "commonProgressions": ["Am7-D7-G", "Am7-Dm7-G7-Cmaj7"],
+      "tips": "比Am和弦少按一根弦（不用按3弦2品）。Am7是C大调的vi级和弦，非常适合营造柔和氛围。",
+      "fretboardNotes": [
+        {"string": 1, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 2, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 3, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 4, "fret": 1, "label": "R", "color": "#ffffff"},
+        {"string": 5, "fret": 0, "label": "7", "color": "#7b2cbf"}
+      ]
     },
     {
       "name": "Dm7",
@@ -182,7 +406,16 @@
       "category": "maj7",
       "frets": [-1, -1, 0, 2, 1, 1],
       "fingers": [0, 0, 0, 3, 1, 1],
-      "notes": ["D", "F", "A", "C"]
+      "notes": ["D", "F", "A", "C"],
+      "difficulty": 2,
+      "commonProgressions": ["Dm7-G7-Cmaj7", "Dm7-G7-C"],
+      "tips": "食指横按1-2弦的1品（小横按）。Dm7是C大调的ii级和弦，在ii-V-I进行中是最重要的和弦之一。",
+      "fretboardNotes": [
+        {"string": 2, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 3, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 4, "fret": 1, "label": "5", "color": "#2ec4b6"},
+        {"string": 5, "fret": 1, "label": "7", "color": "#7b2cbf"}
+      ]
     },
     {
       "name": "Em7",
@@ -190,7 +423,18 @@
       "category": "maj7",
       "frets": [0, 2, 0, 0, 0, 0],
       "fingers": [0, 2, 0, 0, 0, 0],
-      "notes": ["E", "G", "B", "D"]
+      "notes": ["E", "G", "B", "D"],
+      "difficulty": 1,
+      "commonProgressions": ["Em7-Am7-D7", "Em7-C-G-D"],
+      "tips": "最简单的七和弦！只需按5弦2品（中指），其他全空弦。Em7是C大调的iii级和弦。用来替代Em和弦更柔和。",
+      "fretboardNotes": [
+        {"string": 0, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 1, "fret": 2, "label": "3", "color": "#457b9d"},
+        {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
+        {"string": 3, "fret": 0, "label": "R", "color": "#ffffff"},
+        {"string": 4, "fret": 0, "label": "7", "color": "#7b2cbf"},
+        {"string": 5, "fret": 0, "label": "R", "color": "#ffffff"}
+      ]
     }
   ]
 }

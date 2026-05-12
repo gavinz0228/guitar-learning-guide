@@ -6,27 +6,21 @@
   <title>和弦库 | 学吉他</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* --- Chord Library Page Styles --- */
     .chord-section {
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 20px 48px;
     }
-
-    .chord-section:first-of-type {
-      padding-top: 20px;
-    }
-
+    .chord-section:first-of-type { padding-top: 20px; }
     .chord-section h2 {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
     .chord-section h2 .badge {
       font-size: 0.75rem;
       font-weight: 600;
@@ -36,191 +30,216 @@
       color: #fff;
     }
 
+    .page-content { padding-top: 64px; min-height: 100vh; }
+
+    /* --- Filter tabs --- */
+    .filter-bar {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-tab {
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: inherit;
+    }
+    .filter-tab:hover { border-color: var(--accent); color: var(--text-primary); }
+    .filter-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* --- Chord grid --- */
     .chord-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
 
+    /* --- Chord card --- */
     .chord-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 12px 8px 8px;
       box-shadow: var(--shadow);
       transition: transform var(--transition), box-shadow var(--transition);
       cursor: pointer;
+      overflow: hidden;
+    }
+    .chord-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+    .chord-card-top {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      gap: 12px;
+      padding: 16px 16px 8px;
     }
-
-    .chord-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
+    .chord-diagram-wrap {
+      flex: 0 0 130px;
     }
-
-    .chord-card .chord-diagram {
-      display: block;
+    .chord-diagram-wrap svg {
       width: 100%;
-      max-width: 150px;
       height: auto;
+      display: block;
     }
 
-    /* --- Modal / Lightbox --- */
+    .chord-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .chord-card-info .chord-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .chord-card-info .chord-fullname {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .chord-card-info .chord-notes {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .chord-card-info .chord-notes span {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 8px;
+    }
+    .chord-card-info .chord-diff {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .chord-card-info .chord-diff .star { color: #f0a030; }
+    .chord-card-info .chord-progs {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* --- Expandable details --- */
+    .chord-details {
+      display: none;
+      border-top: 1px solid var(--card-border);
+      padding: 12px 16px 16px;
+    }
+    .chord-card.expanded .chord-details { display: block; animation: fadeSlideIn 0.25s ease; }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chord-details .detail-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .chord-details .detail-tips {
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 10px 12px;
+      background: rgba(230,57,70,0.06);
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+      margin-bottom: 10px;
+    }
+    .chord-details .fb-wrap {
+      background: #0d0d0d;
+      border-radius: 6px;
+      padding: 4px;
+      overflow-x: auto;
+    }
+    .chord-details .fb-wrap svg { display: block; max-width: 100%; height: auto; }
+    .chord-details .fb-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .expand-hint {
+      display: block;
+      padding: 8px 16px 10px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+      text-align: center;
+      transition: transform var(--transition);
+    }
+    .chord-card.expanded .expand-hint { display: none; }
+
+    /* --- Modal --- */
     .modal-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
       z-index: 2000;
       justify-content: center;
       align-items: center;
       backdrop-filter: blur(8px);
     }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
+    .modal-overlay.active { display: flex; }
     .modal-content {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 24px;
-      max-width: 340px;
+      max-width: 360px;
       width: 90%;
       position: relative;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
       text-align: center;
     }
+    .modal-content .modal-svg-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+    .modal-content .modal-svg-wrap svg { width: 220px; height: auto; }
+    .modal-content .modal-info { margin-top: 8px; }
+    .modal-content .modal-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary); }
+    .modal-content .modal-info p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px; }
+    .modal-content .modal-info .note-list { display: flex; justify-content: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .modal-content .modal-info .note-list span { display: inline-block; background: var(--accent); color: #fff; font-size: 0.8rem; font-weight: 600; padding: 3px 10px; border-radius: 10px; }
+    .modal-close { position: absolute; top: 12px; right: 16px; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer; background: none; border: none; line-height: 1; transition: color var(--transition); }
+    .modal-close:hover { color: var(--text-primary); }
 
-    .modal-content .modal-svg-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 12px;
-    }
-
-    .modal-content .modal-svg-wrap svg {
-      width: 220px;
-      height: auto;
-    }
-
-    .modal-content .modal-info {
-      margin-top: 8px;
-    }
-
-    .modal-content .modal-info h3 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--text-primary);
-    }
-
-    .modal-content .modal-info p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-    }
-
-    .modal-content .modal-info .note-list {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 8px;
-      flex-wrap: wrap;
-    }
-
-    .modal-content .modal-info .note-list span {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 10px;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      cursor: pointer;
-      background: none;
-      border: none;
-      line-height: 1;
-      transition: color var(--transition);
-    }
-
-    .modal-close:hover {
-      color: var(--text-primary);
-    }
-
-    /* --- Page layout spacing --- */
-    .page-content {
-      padding-top: 64px; /* navbar height */
-      min-height: 100vh;
-    }
-
-    /* --- Responsive --- */
     @media (min-width: 600px) {
-      .chord-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-      }
+      .chord-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
     }
-
     @media (min-width: 900px) {
-      .chord-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-      }
+      .chord-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
-
-    @media (min-width: 1200px) {
-      .chord-grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 22px;
-      }
-    }
-
     @media (max-width: 767px) {
-      .chord-section {
-        padding: 0 12px 36px;
-      }
-
-      .chord-section h2 {
-        font-size: 1.3rem;
-      }
-
-      .modal-content {
-        padding: 18px;
-        max-width: 290px;
-      }
-
-      .modal-content .modal-svg-wrap svg {
-        width: 180px;
-      }
+      .chord-section { padding: 0 12px 36px; }
+      .chord-section h2 { font-size: 1.2rem; }
+      .chord-card-top { flex-direction: column; align-items: center; }
+      .chord-diagram-wrap { flex: 0 0 auto; width: 120px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== Navigation ===== -->
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">🎸 学吉他</a>
-            <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
-      <button class="hamburger" aria-label="菜单">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
+      <button class="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
       <div class="nav-links">
         <a href="index.html">首页</a>
         <a href="chords.html">和弦库</a>
@@ -234,21 +253,19 @@
     </div>
   </nav>
 
-  <!-- ===== Page Content ===== -->
   <div class="page-content">
-
-    <!-- Page Header -->
     <header class="page-header">
       <h1>🎵 和弦库</h1>
-      <p>掌握常用和弦，轻松弹唱</p>
+      <p>掌握常用和弦，理解构成原理</p>
     </header>
 
-    <!-- Sections are dynamically generated by JS -->
-    <div id="chord-library"></div>
+    <!-- Filter bar -->
+    <div class="filter-bar" id="filterBar"></div>
 
+    <div id="chord-library"></div>
   </div>
 
-  <!-- ===== Modal ===== -->
+  <!-- Modal -->
   <div class="modal-overlay" id="chordModal">
     <div class="modal-content">
       <button class="modal-close" id="modalClose">&times;</button>
@@ -257,36 +274,74 @@
     </div>
   </div>
 
-  <!-- ===== Footer ===== -->
   <footer class="footer">
     <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
   </footer>
 
-  <!-- ===== Scripts ===== -->
   <script src="js/nav.js?v=2"></script>
   <script src="js/chord-renderer.js"></script>
+  <script src="js/fretboard-renderer.js"></script>
   <script>
     (function () {
       'use strict';
 
-      // --- Category labels (Chinese) ---
+      var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
       var CATEGORY_LABELS = {
-        'major': { title: 'Major 大三和弦', emoji: '😊', badge: '7' },
-        'minor': { title: 'Minor 小三和弦', emoji: '😢', badge: '6' },
-        '7th': { title: '7th 属七和弦', emoji: '🔥', badge: '6' },
-        'maj7': { title: 'Major 7 大七和弦', emoji: '✨', badge: '5' }
+        'all': { title: '全部', emoji: '🎵' },
+        'major': { title: '大三和弦', emoji: '😊' },
+        'minor': { title: '小三和弦', emoji: '😢' },
+        '7th': { title: '属七和弦', emoji: '🔥' },
+        'maj7': { title: '大七和弦', emoji: '✨' }
       };
 
-      var CATEGORY_ORDER = ['major', 'minor', '7th', 'maj7'];
+      var CATEGORY_ORDER = ['all', 'major', 'minor', '7th', 'maj7'];
+
+      var CATEGORY_COLORS = {
+        'all': '#888',
+        'major': '#2ec4b6',
+        'minor': '#457b9d',
+        '7th': '#e63946',
+        'maj7': '#7b2cbf'
+      };
+
+      var NOTE_COLORS = {
+        'root': '#ffffff',
+        '3rd': '#457b9d',
+        '5th': '#2ec4b6',
+        '7th': '#7b2cbf'
+      };
 
       var chords = [];
+      var currentFilter = 'all';
       var libraryEl = document.getElementById('chord-library');
+      var filterBar = document.getElementById('filterBar');
       var modalOverlay = document.getElementById('chordModal');
       var modalSvgWrap = document.getElementById('modalSvgWrap');
       var modalInfo = document.getElementById('modalInfo');
       var modalClose = document.getElementById('modalClose');
 
-      // --- Load chords data ---
+      // --- Build filter bar ---
+      function buildFilterBar() {
+        filterBar.innerHTML = '';
+        CATEGORY_ORDER.forEach(function (cat) {
+          var label = CATEGORY_LABELS[cat];
+          var count = cat === 'all' ? chords.length : chords.filter(function(c) { return c.category === cat; }).length;
+          var btn = document.createElement('button');
+          btn.className = 'filter-tab' + (cat === currentFilter ? ' active' : '');
+          btn.textContent = label.emoji + ' ' + label.title + ' (' + count + ')';
+          btn.dataset.cat = cat;
+          btn.addEventListener('click', function () {
+            currentFilter = cat;
+            filterBar.querySelectorAll('.filter-tab').forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            renderChords();
+          });
+          filterBar.appendChild(btn);
+        });
+      }
+
+      // --- Load chords ---
       var xhr = new XMLHttpRequest();
       xhr.open('GET', 'data/chords.json', true);
       xhr.onreadystatechange = function () {
@@ -294,108 +349,182 @@
           try {
             var data = JSON.parse(xhr.responseText);
             chords = data.chords || [];
-            buildLibrary();
+            buildFilterBar();
+            renderChords();
           } catch (e) {
-            libraryEl.innerHTML = '<p style="text-align:center;padding:40px;color:var(--text-secondary);">加载和弦数据失败：数据格式错误</p>';
+            libraryEl.innerHTML = '<p style="text-align:center;padding:40px;color:var(--text-secondary);">加载失败</p>';
           }
         } else if (xhr.readyState === 4) {
-          libraryEl.innerHTML = '<p style="text-align:center;padding:40px;color:var(--text-secondary);">加载和弦数据失败，请稍后重试</p>';
+          libraryEl.innerHTML = '<p style="text-align:center;padding:40px;color:var(--text-secondary);">加载失败</p>';
         }
       };
       xhr.send();
 
-      // --- Build chord library sections ---
-      function buildLibrary() {
+      // --- Render chords ---
+      function renderChords() {
         libraryEl.innerHTML = '';
 
-        CATEGORY_ORDER.forEach(function (cat) {
-          var catChords = chords.filter(function (c) { return c.category === cat; });
-          if (catChords.length === 0) return;
+        var displayChords = chords;
+        if (currentFilter !== 'all') {
+          displayChords = chords.filter(function (c) { return c.category === currentFilter; });
+        }
 
-          var section = document.createElement('section');
-          section.className = 'chord-section';
+        if (displayChords.length === 0) {
+          libraryEl.innerHTML = '<p style="text-align:center;padding:60px;color:var(--text-secondary);">没有匹配的和弦</p>';
+          return;
+        }
 
-          var label = CATEGORY_LABELS[cat] || { title: cat, emoji: '', badge: '' };
+        displayChords.forEach(function (chord, idx) {
+          var card = document.createElement('div');
+          card.className = 'chord-card';
+          card.dataset.chordIndex = chords.indexOf(chord);
 
-          var heading = document.createElement('h2');
-          heading.innerHTML = label.emoji + ' ' + label.title +
-            ' <span class="badge">' + catChords.length + '</span>';
-          section.appendChild(heading);
+          // Top: diagram + info
+          var top = document.createElement('div');
+          top.className = 'chord-card-top';
 
-          var grid = document.createElement('div');
-          grid.className = 'chord-grid';
-          section.appendChild(grid);
+          // SVG diagram
+          var diaWrap = document.createElement('div');
+          diaWrap.className = 'chord-diagram-wrap';
+          var svgId = 'chord-svg-' + chord.name.replace('#', 's') + '-' + idx;
+          diaWrap.id = svgId;
+          top.appendChild(diaWrap);
 
-          catChords.forEach(function (chord) {
-            var card = document.createElement('div');
-            card.className = 'chord-card';
-            card.dataset.chordIndex = chords.indexOf(chord);
+          // Info
+          var info = document.createElement('div');
+          info.className = 'chord-card-info';
 
-            // SVG container
-            var svgContainer = document.createElement('div');
-            svgContainer.id = 'chord-' + chord.name.replace('#', 's') + '-' + cat;
-            card.appendChild(svgContainer);
+          // Name + full name
+          info.innerHTML = '<div class="chord-name">' + escapeHtml(chord.name) + '</div>' +
+            '<div class="chord-fullname">' + escapeHtml(chord.fullName || '') + '</div>';
 
-            grid.appendChild(card);
-
-            // Click to open modal (defer to attach event)
-            card.addEventListener('click', function () {
-              openModal(chord);
+          // Notes with color
+          var notesHtml = '';
+          if (chord.notes) {
+            chord.notes.forEach(function (n) {
+              var color = NOTE_COLORS['root'];
+              if (chord.fretboardNotes) {
+                chord.fretboardNotes.forEach(function (fn) {
+                  if (getNoteAt(fn.string, fn.fret) === n) {
+                    if (fn.label === 'R') color = NOTE_COLORS.root;
+                    else if (fn.label === '3' || fn.label === 'b3') color = NOTE_COLORS['3rd'];
+                    else if (fn.label === '5') color = NOTE_COLORS['5th'];
+                    else if (fn.label === '7' || fn.label === 'b7') color = NOTE_COLORS['7th'];
+                  }
+                });
+              }
+              notesHtml += '<span style="background:' + color + ';color:#1a1a1a;">' + escapeHtml(n) + '</span>';
             });
-          });
+          }
+          info.innerHTML += '<div class="chord-notes">' + notesHtml + '</div>';
 
-          libraryEl.appendChild(section);
+          // Difficulty
+          var diff = chord.difficulty || 1;
+          var stars = '';
+          for (var i = 0; i < 5; i++) {
+            stars += i < diff ? '\u2605' : '\u2606';
+          }
+          info.innerHTML += '<div class="chord-diff"><span class="star">' + stars + '</span> 难度' + diff + '/5</div>';
 
-          // Render chords AFTER section is in DOM so getElementById works
-          catChords.forEach(function (chord) {
-            var id = 'chord-' + chord.name.replace('#', 's') + '-' + cat;
-            renderChord(id, chord);
+          // Progressions
+          if (chord.commonProgressions && chord.commonProgressions.length) {
+            info.innerHTML += '<div class="chord-progs">常见进行: ' + escapeHtml(chord.commonProgressions.slice(0,2).join(' / ')) + '</div>';
+          }
+
+          top.appendChild(info);
+          card.appendChild(top);
+
+          // Expand hint
+          var hint = document.createElement('div');
+          hint.className = 'expand-hint';
+          hint.textContent = '▼ 展开详情';
+          card.appendChild(hint);
+
+          // Details
+          var details = document.createElement('div');
+          details.className = 'chord-details';
+
+          // Tips
+          if (chord.tips) {
+            details.innerHTML += '<div class="detail-label">💡 学习提示</div>' +
+              '<div class="detail-tips">' + escapeHtml(chord.tips) + '</div>';
+          }
+
+          // Fretboard diagram
+          if (chord.fretboardNotes && window.renderFretboard) {
+            var fbWrap = document.createElement('div');
+            fbWrap.className = 'fb-wrap';
+            var fbId = 'chord-fb-' + chord.name.replace('#', 's') + '-' + idx;
+            fbWrap.id = fbId;
+            details.appendChild(fbWrap);
+
+            details.innerHTML += '<div class="fb-label">指板上的和弦构成音 — 白=根音 蓝=3音 绿=5音 紫=7音</div>';
+
+            // Defer render
+            setTimeout((function (id, notes) {
+              return function () {
+                window.renderFretboard(document.getElementById(id), {
+                  numFrets: 5,
+                  startFret: chord.name === 'F' || chord.name === 'Fm' ? 1 : chord.name === 'B' || chord.name === 'Bm' ? 2 : chord.name === 'Gm' ? 3 : 0,
+                  showLabels: true,
+                  notes: notes,
+                  width: 500,
+                  height: 180
+                });
+              };
+            })(fbId, chord.fretboardNotes), 50);
+          }
+
+          card.appendChild(details);
+          libraryEl.appendChild(card);
+
+          // Render chord diagram
+          setTimeout((function (id, data) {
+            return function () {
+              if (window.renderChord) window.renderChord(id, data);
+            };
+          })(svgId, chord), 50);
+
+          // Click to toggle expand
+          card.addEventListener('click', function (e) {
+            if (e.target.closest('.modal-overlay')) return;
+            this.classList.toggle('expanded');
           });
         });
       }
 
-      // --- Open modal with enlarged chord ---
-      function openModal(chord) {
-        // Render enlarged chord in modal
-        modalSvgWrap.innerHTML = '';
-        var modalSvgId = 'modal-chord-svg';
-        var modalContainer = document.createElement('div');
-        modalContainer.id = modalSvgId;
-        modalSvgWrap.appendChild(modalContainer);
-
-        // Render with larger dimensions by temporarily overriding?
-        // We'll just render normally and scale with CSS (width: 220px)
-        renderChord(modalSvgId, chord);
-
-        // Info panel
-        modalInfo.innerHTML =
-          '<h3>' + chord.name + '</h3>' +
-          '<p>' + chord.fullName + '</p>' +
-          '<div class="note-list">' +
-          chord.notes.map(function (n) { return '<span>' + n + '</span>'; }).join('') +
-          '</div>';
-
-        modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-
-      // --- Close modal ---
-      function closeModal() {
+      // Modal
+      modalClose.addEventListener('click', function () {
         modalOverlay.classList.remove('active');
         document.body.style.overflow = '';
-      }
-
-      modalClose.addEventListener('click', closeModal);
+      });
       modalOverlay.addEventListener('click', function (e) {
         if (e.target === modalOverlay) {
-          closeModal();
+          modalOverlay.classList.remove('active');
+          document.body.style.overflow = '';
         }
       });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
-          closeModal();
+          modalOverlay.classList.remove('active');
+          document.body.style.overflow = '';
         }
       });
+
+      // Helper
+      function getNoteAt(stringIndex, fret) {
+        var tuning = ['E', 'A', 'D', 'G', 'B', 'E'];
+        var open = tuning[stringIndex];
+        var idx = ALL_NOTES.indexOf(open);
+        if (idx === -1) return '?';
+        return ALL_NOTES[(idx + fret) % 12];
+      }
+
+      function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.appendChild(document.createTextNode(str));
+        return d.innerHTML;
+      }
 
     })();
   </script>
