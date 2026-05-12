@@ -6,18 +6,25 @@
   <title>乐理 | 学吉他</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* --- Theory Page Styles --- */
     .theory-section {
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 20px 48px;
     }
 
-    .theory-section:first-of-type {
-      padding-top: 20px;
+    .page-content {
+      padding-top: 64px;
+      min-height: 100vh;
     }
 
-    /* --- Accordion Card --- */
+    .status-message {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* --- Lesson Cards (accordion) --- */
     .lesson-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -44,14 +51,14 @@
     }
 
     .lesson-header:hover {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255,255,255,0.03);
     }
 
     [data-theme="light"] .lesson-header:hover {
-      background: rgba(0, 0, 0, 0.02);
+      background: rgba(0,0,0,0.02);
     }
 
-    .lesson-header .lesson-title {
+    .lesson-title-area {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -61,48 +68,48 @@
       line-height: 1.4;
     }
 
-    .lesson-header .lesson-title .emoji {
+    .lesson-title-area .emoji {
       font-size: 1.3rem;
       flex-shrink: 0;
     }
 
-    .lesson-header .toggle-icon {
+    .toggle-icon {
       flex-shrink: 0;
       font-size: 1.2rem;
       color: var(--text-secondary);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255,255,255,0.04);
     }
 
-    [data-theme="light"] .lesson-header .toggle-icon {
-      background: rgba(0, 0, 0, 0.04);
+    [data-theme="light"] .toggle-icon {
+      background: rgba(0,0,0,0.04);
     }
 
-    .lesson-card.open .lesson-header .toggle-icon {
+    .lesson-card.open .toggle-icon {
       transform: rotate(180deg);
     }
 
     .lesson-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s ease;
+      transition: max-height 0.4s ease;
     }
 
     .lesson-card.open .lesson-body {
-      max-height: 2000px;
+      max-height: 6000px;
     }
 
     .lesson-body-inner {
       padding: 0 22px 18px;
     }
 
-    /* --- Section items inside accordion --- */
+    /* --- Section items --- */
     .section-item {
       padding: 14px 0;
       border-top: 1px solid var(--card-border);
@@ -113,7 +120,7 @@
       padding-top: 0;
     }
 
-    .section-item .section-heading {
+    .section-heading {
       font-size: 1rem;
       font-weight: 600;
       color: var(--accent);
@@ -123,7 +130,7 @@
       gap: 8px;
     }
 
-    .section-item .section-heading::before {
+    .section-heading::before {
       content: '';
       display: inline-block;
       width: 4px;
@@ -133,93 +140,83 @@
       flex-shrink: 0;
     }
 
-    .section-item .section-content {
+    .section-content {
       font-size: 0.93rem;
       color: var(--text-secondary);
-      line-height: 1.7;
+      line-height: 1.8;
+      white-space: pre-line;
       padding-left: 12px;
     }
 
-    /* --- Page layout spacing --- */
-    .page-content {
-      padding-top: 64px;
-      min-height: 100vh;
+    /* --- Fretboard inside sections --- */
+    .section-fretboard {
+      margin: 12px 0 6px 12px;
+      background: #0d0d0d;
+      border-radius: 8px;
+      padding: 6px;
+      overflow-x: auto;
     }
 
-    /* --- Empty state --- */
-    .theory-empty {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-    }
-
-    .theory-empty .empty-emoji {
-      font-size: 3rem;
+    .section-fretboard svg {
       display: block;
-      margin-bottom: 16px;
+      max-width: 100%;
+      height: auto;
     }
 
-    /* --- Responsive --- */
+    .fb-description {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+      margin-left: 12px;
+      font-style: italic;
+    }
+
+    /* --- Highlight callouts --- */
+    .tip-box {
+      padding: 10px 14px;
+      margin: 8px 0 8px 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .tip-box strong {
+      color: var(--text-primary);
+    }
+
+    /* Nav fix for chord-mastery */
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
     @media (max-width: 767px) {
-      .theory-section {
-        padding: 0 12px 36px;
-      }
-
-      .lesson-header {
-        padding: 14px 16px;
-      }
-
-      .lesson-header .lesson-title {
-        font-size: 1rem;
-      }
-
-      .lesson-body-inner {
-        padding: 0 16px 14px;
-      }
-
-      .section-item {
-        padding: 12px 0;
-      }
-
-      .section-item .section-content {
-        font-size: 0.88rem;
-        padding-left: 0;
-      }
-
-      .section-item .section-heading {
-        font-size: 0.95rem;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .lesson-header {
-        padding: 20px 26px;
-      }
-
-      .lesson-header .lesson-title {
-        font-size: 1.15rem;
-      }
+      .theory-section { padding: 0 12px 36px; }
+      .lesson-header { padding: 14px 16px; }
+      .lesson-title-area { font-size: 1rem; }
+      .lesson-body-inner { padding: 0 16px 14px; }
+      .section-heading { font-size: 0.95rem; }
+      .section-content { font-size: 0.88rem; padding-left: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== Navigation ===== -->
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo">🎸 学吉他</a>
-            <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
+      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
       <button class="hamburger" aria-label="菜单">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
       <div class="nav-links">
         <a href="index.html">首页</a>
         <a href="chords.html">和弦库</a>
         <a href="chord-mastery.html">突破前三品</a>
         <a href="scales.html">音阶</a>
-        <a href="theory.html">乐理</a>
+        <a href="theory.html" class="active">乐理</a>
         <a href="songs.html">练习曲</a>
         <a href="roadmap.html">学习路线</a>
         <a href="solo.html">Solo教程</a>
@@ -227,105 +224,135 @@
     </div>
   </nav>
 
-  <!-- ===== Page Content ===== -->
   <div class="page-content">
-
-    <!-- Page Header -->
     <header class="page-header">
       <h1>📖 乐理</h1>
-      <p>理解音乐的语言</p>
+      <p>用指板可视化理解音乐的语言</p>
     </header>
 
-    <!-- Theory Lessons Container -->
-    <div class="theory-section" id="theory-container"></div>
-
+    <div class="theory-section" id="theory-container">
+      <div class="status-message">加载中...</div>
+    </div>
   </div>
 
-  <!-- ===== Footer ===== -->
   <footer class="footer">
     <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
   </footer>
 
-  <!-- ===== Scripts ===== -->
   <script src="js/nav.js?v=2"></script>
+  <script src="js/fretboard-renderer.js"></script>
   <script>
     (function () {
       'use strict';
 
-      // --- Theory data embedded directly ---
-            var theoryData = {"lessons": [{"id": "ch1", "title": "第一章：吉他基础知识", "emoji": "🎸", "sections": [{"heading": "吉他的构造", "content": "吉他的每个部位都有自己的名字和功能。琴头（Headstock）在最上方，上面装着弦钮（Tuning Pegs），转动弦钮可以改变琴弦的松紧，从而调节音高。往下是上弦枕（Nut），一根小小的骨头或塑料条，它确定了琴弦之间的间距和高度。再往下是指板（Fingerboard），上面嵌着一条条金属条叫做品丝（Frets），按在品丝之间的不同位置就能发出不同的音高。品丝之间的空间称为「品」，从琴头方向数起依次是第1品、第2品…指板上通常有小圆点标记，叫做品记（Inlay），常见位置在第3、5、7、9、12品，方便你快速定位。琴颈（Neck）连接着琴头和琴体，里面有一根调节杆（Truss Rod），用来调整琴颈的弯曲度。琴体（Body）是最大的部分，原声吉他的琴体是中空的，内部有音梁结构，起到共鸣放大声音的作用。音孔（Sound Hole）在琴体正面，声音从这里传出来。琴桥（Bridge）在琴体下方固定琴弦的另一端，下弦枕（Saddle）把琴弦的振动传递给琴体。不同种类的吉他构造略有差异：民谣吉他（Acoustic Guitar）用钢弦，声音明亮清脆；古典吉他（Classical Guitar）用尼龙弦，音色柔和温暖；电吉他（Electric Guitar）琴体是实木的，需要连接音箱才能发声。作为初学者，建议先从民谣吉他开始，钢弦对手指力量有一定要求，但音色和手感更适合弹唱。"}, {"heading": "标准调弦与调音方法", "content": "吉他的标准调弦从最粗的6弦到最细的1弦依次是：E（低音Mi）、A（La）、D（Re）、G（Sol）、B（Si）、e（高音Mi）。记忆口诀可以用英文：Every Average Dog Gets Bones Eventually，或者中文谐音：饿Apple的Dog果然Big饿。每次练琴前都要调音，因为琴弦会因温湿度和弹奏而跑音。最方便的调音方式是使用电子调音器，把调音器夹在琴头上，依次弹响每根弦，调音器会显示当前音高和指针——指针偏左表示音偏低（弦松了），偏右表示音偏高（弦紧了），居中就是准了。手机APP推荐GuitarTuna，免费且准确。如果没有调音器，可以用相对调音法：按住6弦第5品弹响，同时弹响5弦空弦，调整5弦使两个音一致；按住5弦第5品弹响，同时弹响4弦空弦；按住4弦第5品对3弦空弦；按住3弦第4品（注意不是第5品）对2弦空弦；按住2弦第5品对1弦空弦。基本原则：琴弦拧紧音变高、拧松音变低。调音时动作要轻柔，特别是细弦（1、2弦），用力过猛容易断弦。"}, {"heading": "正确的持琴姿势", "content": "坐姿弹吉他时，坐在椅子前半部分，背挺直不要弯腰驼背。把吉他放在右腿上（右手弹奏者），琴体凹陷处贴合右腿，右腿可以踩一个小矮凳让膝盖抬高，这样吉他更稳定。琴颈略向上倾斜，大约与地面呈30度角。右手自然搭在琴桥上方的琴体上，小臂轻触琴体上侧边缘。左手握住琴颈，大拇指放在琴颈背后中间位置（不是绕到指板上面），四根手指自然弯曲对准指板。注意手腕不能太弯，要尽量和前臂保持在一条直线上。站姿弹奏时需要背带，调整背带长度使吉他处于腰部附近的高度（和坐姿时吉他的位置一致）。左手按弦的要点：用指尖按弦，手指关节保持弧形（不要向内凹陷），按在品丝的正上方——越靠近品丝按弦越省力、声音也越清脆干净。每根手指有明确分工：食指按第1品附近、中指第2品、无名指第3品、小指第4品。正确的持琴姿势是半壁江山，姿势不对不仅弹不好，还容易手腕酸痛，所以一开始就养成好习惯。"}, {"heading": "右手拨弦与手指分工", "content": "右手拨弦有手指拨弦和拨片拨弦两种方式。手指拨弦的编号系统源于西班牙语：p（Pulgar）= 拇指，负责6、5、4弦（向下拨弦）；i（Indice）= 食指，负责3弦（向上勾弦）；m（Medio）= 中指，负责2弦；a（Anular）= 无名指，负责1弦。小指（c）很少使用。两种基本的拨弦方式：靠弦法（Rest Stroke）——拨弦后手指停靠在相邻弦上，音色饱满浑厚，适合弹旋律线；离弦法（Free Stroke）——拨弦后手指不靠弦，悬空，适合快速演奏和分解和弦。初学者建议先练习 P i m a 的交替：在1弦上做 i m i m 交替，在3弦上做 i m a m 交替，让每根手指独立有力。如果使用拨片，用拇指和食指轻轻夹住拨片，露出约1厘米的尖端。不是死夹，而是刚好不会脱手的力度。手腕发力扫弦/拨弦，前臂不动。扫弦（Strumming）时，下扫（Down）用拨片的尖端，从6弦扫向1弦；上扫（Up）用拨片的侧面，从1弦扫向6弦。无论手指还是拨片，初期都要慢练，让右手形成肌肉记忆后再提速。"}]}, {"id": "ch2", "title": "第二章：认识音符", "emoji": "🎵", "sections": [{"heading": "十二平均律", "content": "十二平均律是西方音乐的基础规则。它把一个八度（比如从C到下一个C）平均分成12个相等的部分，每个部分就是一个半音。这12个音依次是：C、C#/Db、D、D#/Eb、E、F、F#/Gb、G、G#/Ab、A、A#/Bb、B，然后回到更高八度的C。为什么要分12个？因为这12个音经过数学计算，互相之间的频率比例最和谐，能构成各种和弦和旋律。注意E和F之间、B和C之间本来就是半音关系（没有#/b），所以不存在E#或Fb这种说法（虽然在极少数理论情况下会用到）。升降号（#和b）是同一个音的不同名称，称为等音（Enharmonic），比如C#和Db是同一个音，但在不同的调性中写法不同。在吉他上，每根弦上的每一品对应一个半音，第12品比空弦高一个八度——这是因为吉他12品的品格位置正好把弦长一分为二。这个规律非常有用：你只要记住一根弦上的音符排列，其他弦的规律是一样的，只是起始音不同。"}, {"heading": "全音与半音的关系", "content": "半音（Semitone）是音乐中最小的音程单位，在吉他指板上等于1品。全音（Whole Tone）等于2个半音，也就是2品。记住最核心的规律：在C D E F G A B这七个自然音名中，只有E到F和B到C是半音关系（相邻，中间没有黑键），其他相邻音名之间都是全音关系（C到D、D到E、F到G、G到A、A到B）。在吉他上，这个规律可以直接看到：比如6弦空弦是E，1品是F（E到F是半音），3品是G（F到G是全音=2品）。这个规律在所有弦上都是一样的。理解全音半音是理解音阶构成的基石：大调音阶的排列规律是「全全半全全全半」，比如C大调就是C（全）D（全）E（半）F（全）G（全）A（全）B（半）C；小调音阶的规律是「全半全全半全全」。看懂了全音半音，你就看懂了所有音阶的构成。"}, {"heading": "指板上的音符位置", "content": "记住指板上的音符需要花一些时间，但这是从初学者走向中级最关键的一步。不需要一下子记住所有位置，先记住6弦和5弦上每个品的音名就够了，因为大部分和弦的根音都在这两根弦上。6弦（最粗的E弦）的音符：空弦E、1品F、3品G、5品A、7品B、8品C、10品D、12品E（回到E高八度）。5弦（A弦）的音符：空弦A、2品B、3品C、5品D、7品E、8品F、10品G、12品A。利用指板上的品记标记帮助记忆：常见品记在3品、5品、7品、9品、12品（双点）。比如看到6弦第3品的品记，就知道那是G音。第5品品记处，6弦是A、5弦是D。第7品品记处，6弦是B、5弦是E。第12品双点处，6弦是高八度的E、5弦是高八度的A。每天花5分钟复习指板：随机说一个品的位置，说出它是哪个音；或者随机说一个音名，说出它在6弦和5弦上的位置。一个月下来，你就基本熟悉指板了。其他4根弦的音符可以用同样的规律去推算，或者通过调弦关系来记忆。"}]}, {"id": "ch3", "title": "第三章：基础和弦", "emoji": "🔗", "sections": [{"heading": "什么是和弦", "content": "和弦（Chord）是指同时弹奏三个或以上不同的音。最基本的三和弦由三个音构成：根音（Root，基础和声的基石）、三音（Third，决定和弦是大调还是小调）、五音（Fifth，支撑和弦的骨架）。大三和弦（Major Chord）由根音 + 大三度（4个半音）+ 纯五度（7个半音）组成，听起来明亮、积极。常用大和弦有：C、D、E、F、G、A、B。小三和弦（Minor Chord）由根音 + 小三度（3个半音）+ 纯五度组成，听起来柔和、忧伤。常用小和弦有：Am、Dm、Em、Bm、Fm、Gm。以C和弦为例：C和弦的根音是C，三音是E（C到E是大三度=4品），五音是G（C到G是纯五度=7品）。所以C和弦的组成音是C、E、G。Am和弦的根音是A，三音是C（A到C是小三度=3品），五音是E（A到E是纯五度=7品）。所以Am和弦的组成音是A、C、E。和弦图怎么看：竖线代表6根弦（最左边是6弦最粗，最右边是1弦最细），横线代表品丝，从上到下的格子依次是第1品、第2品等。实心圆点表示你需要按弦的位置，圆点内的数字表示推荐用的手指（1=食指、2=中指、3=无名指、4=小指）。和弦图顶部的X表示这根弦不要弹响，O表示空弦可以直接弹。"}, {"heading": "大三和弦与小三和弦的区别", "content": "大三和弦和小三和弦的核心区别在于三音：大三和弦的三音比小三和弦的三音高一个半音。具体来说，大三度是4个半音（例如C到E），小三度是3个半音（例如C到Eb）。所以如果取同一个根音，C大三和弦（C E G）听起来明亮，C小三和弦（C Eb G）听起来忧伤——唯一的变化就是把中间的E降了半音变成Eb。用耳朵去感受这个区别：弹一下C和弦（C E G），再弹一下Cm和弦（C Eb G），注意听中间那个音的变化。这就是大调和小调在感觉上的核心差异。练习方法：先弹C和弦，然后只移动中指从4弦2品（E音）下移到4弦1品（Eb音）——你就把C变成了Cm。同样的道理适用于其他和弦：E和弦（E G# B）变Em和弦（E G B），就是降了半音。一首歌的情绪很大程度上取决于大和弦和小和弦的使用比例：大和弦多听起来欢快，小和弦多听起来深情或忧伤。"}, {"heading": "8个核心和弦指法详解", "content": "以下是初学者必须掌握的8个核心开放和弦的详细指法。每个和弦都要练到不用看手指就能按准。\nC和弦：食指按2弦1品，中指按4弦2品，无名指按5弦3品。1弦和3弦空弦弹响。6弦不弹（X）。从5弦开始扫弦。\nAm和弦：食指按2弦1品，中指按4弦2品，无名指按3弦2品。1弦和5弦空弦弹响。6弦不弹。这是最简单的常用和弦之一。\nEm和弦：中指按5弦2品，无名指按4弦2品。其他弦全空弦弹响。6根弦都能弹，这是最简单的和弦。\nDm和弦：食指按1弦1品，中指按3弦2品，无名指按2弦3品。4弦空弦弹响。5、6弦不弹。\nG和弦：中指按5弦2品，无名指按6弦3品，小指按1弦3品。2、3、4弦空弦弹响。六根弦全弹。\nD和弦：食指按3弦2品，中指按1弦2品，无名指按2弦3品。4弦空弦弹响。5、6弦不弹。\nE和弦：食指按3弦1品，中指按5弦2品，无名指按4弦2品。六根弦全弹。\nF和弦（小横按版）：食指横按1弦和2弦的第1品，中指按3弦2品，无名指按4弦3品。4、5、6弦不弹。这是F和弦的简化版，等手指有力了再学大横按版。\n和弦转换技巧：按好一个和弦后，手掌整体离开指板，然后整体按到下一个位置。不要先移一个手指再逐个调整。放慢速度——准确比快重要。"}]}, {"id": "ch4", "title": "第四章：节奏与扫弦", "emoji": "🥁", "sections": [{"heading": "基础节奏概念", "content": "节奏是音乐的时间骨架。4/4拍是最常见的拍号，意思是一小节有4拍，以四分音符为一拍。弹吉他时通常用脚踩拍子：踩下去是第1拍和第3拍（重拍），抬起来是第2拍和第4拍（弱拍）。扫弦的基本动作：下扫（Down Stroke，标记D）——用拨片或指甲背从6弦往1弦方向扫过，通常落在重拍上。上扫（Up Stroke，标记U）——从1弦往6弦方向回扫，通常落在弱拍和弱位上。扫弦不是用整个手臂摆动，而是手腕灵活地转动——想象你在轻轻甩掉手上的水。右手手腕要放松，前臂靠在琴体上保持稳定。节拍器是你最好的朋友：初学扫弦一定要开节拍器，从60BPM开始，稳定了再逐渐提速到80、100、120。没有节拍器也可以用手机下载一个（推荐Pro Metronome或Soundbrenner）。"}, {"heading": "从简单到进阶的扫弦节奏型", "content": "入门级节奏型（4/4拍）：每拍一个下扫。D D D D。这个节奏让你习惯下扫的均匀感和手腕的稳定。\n初级节奏型：D D U D U（下 下上 下上）。这是最简单的上下扫结合，注意上扫的力度要比下扫轻。\n中级节奏型（民谣最常用）：D D U U D U（下 下上 上下上）。分解为：第一拍D、第二拍D+U、第三拍U+D、第四拍U。这个节奏型出现在大量流行歌曲中，练好了就能弹唱大部分民谣歌曲。\n进阶节奏型：D D U U D U U D U（下 下上 上下上 下上下上）。每拍变成两个8分音符，扫弦更加密集。\n练习方法：先不按和弦，只扫空弦。打开节拍器设到60BPM。每个节奏型重复4小节（16拍）。右手形成肌肉记忆后再加上左手和弦。注意：扫弦时不是每根弦都要扫到——根据和弦的X标记来调整扫弦的幅度。例如C和弦的6弦是X，扫弦幅度就从5弦开始。"}, {"heading": "切音技巧与节奏变化", "content": "切音（Mute/Palm Mute）是让扫弦更有动感的关键技巧。右手切音：扫弦后右手手掌侧面立刻轻轻贴住琴弦（靠近琴桥处），立刻停止琴弦的振动，产生短促有力的嚓声。这个动作要快——扫下去的同时手掌就贴上去。左手切音：左手按下和弦的手指稍微松开但仍轻触琴弦，这样扫弦时弦不会完全振动，发出闷响。常见的切音节奏型：D(切) U D(切) U（下切 上 下切 上）。听上去像：嚓 沙 嚓 沙。另一种常见：D(切) D U U D U（把每小节的第1拍和第3拍切掉）。切音在流行、摇滚、Funk中大量使用，让节奏更有冲击力。练习建议：先只练下扫切音，再练上扫切音。用开放和弦Am或E练习效果最好，因为这两个和弦六根弦都能弹。每天练5分钟切音，一周后你的扫弦就会更有层次感。"}]}, {"id": "ch5", "title": "第五章：读谱入门", "emoji": "📖", "sections": [{"heading": "六线谱（TAB）怎么看", "content": "六线谱（Tablature，简称TAB）是吉他最常用的记谱方式。六线谱有6条横线，从上到下分别代表吉他的1弦（最细的高音e）到6弦（最粗的低音E）。线上的数字表示你要按的品数：0表示弹空弦（不按弦），1表示按第1品，2表示按第2品，依此类推。数字写在同一垂直线上表示同时弹奏这些音（就是和弦），数字依次水平写开表示依次弹奏（旋律或分解和弦）。很多六线谱上方还标注了和弦名称（如C、Am），方便你快速识别。TAB谱通常不直接标注节奏，需要配合简谱或五线谱来知道每个音的时值和节奏。现在网上找吉他谱非常方便，推荐几个靠谱网站：吉他社（www.jitashe.net）、Ultimate Guitar（www.ultimate-guitar.com）。搜索歌曲名加吉他谱就能找到大多数流行歌曲的六线谱。一个小窍门：初学者找谱的时候，优先选带有和弦标注的简约谱，不要一上来就挑战带复杂SOLO的指弹谱。"}, {"heading": "和弦图完全解读", "content": "和弦图（Chord Diagram）是和弦的视觉化表示。图上6根竖线代表吉他的6根弦（最右边是1弦、最左边是6弦），和实际抱琴时的方向一致。横线代表品丝，从上到下依次是第1品、第2品、第3品等。格子里的实心圆点表示你需要按弦的位置，圆点内的数字1-4表示推荐用的手指：1=食指、2=中指、3=无名指、4=小指。图上方的X表示这根弦不要弹响（手指按不到或者按了音不好听），O表示空弦（可以弹响但不用按弦）。有些和弦图左侧会标注起始品数——比如写了一个5表示这个图是从第5品开始的。有时候也会用黑色圆点表示根音位置（和弦中最主要的那个音）。读懂和弦图后，任何一个和弦你都能在指板上找到按法。推荐手机APP Guitar Toolkit 或网站 Oolimo.com，输入和弦名称就能看到对应指法图。"}, {"heading": "简谱与常用节奏标记", "content": "简谱用数字1到7表示音阶中的七个音：1=Do、2=Re、3=Mi、4=Fa、5=Sol、6=La、7=Si。数字上方或下方加点是表示高八度或低八度。数字的时值标记：数字下加一条横线是八分音符（半拍），加两条横线是十六分音符（四分之一拍），数字后面加一条短横线表示延长一拍。休止符用0表示。节拍标记写在曲谱开始处，如4/4表示每小节4拍、以四分音符为一拍。和弦标记写在简谱上方，告诉你该小节应该弹什么和弦。对于弹唱来说，最常见的就是简谱+和弦标记的组合——上面是和弦名，下面是旋律数字。一个实用技巧：新手先忽略简谱中的复杂节奏标记，专注于在正确的拍子上换和弦。先把和弦转换练熟，再加节奏和旋律。"}]}, {"id": "ch6", "title": "第六章：练习方法与建议", "emoji": "💪", "sections": [{"heading": "每日练习计划（30分钟版）", "content": "每天30分钟坚持练习，效果远好于每周一次练3小时。以下是一个推荐的日常练习安排：\n0-5分钟：手指热身。爬格子练习：在6弦上做1234（食指按1品、中指2品、无名指3品、小指4品），然后换5弦同样1234，一直爬到1弦。再反过来4321从1弦到6弦。这个练习激活所有手指，增加手指独立性和力量。\n5-10分钟：和弦转换。选2-3组你最不熟练的和弦转换（比如C到G、Am到F、Dm到G7）。用节拍器设到60BPM，每拍换一次和弦。换和弦时注意手指一起离开一起落下。\n10-15分钟：扫弦节奏。选一个节奏型（如D DU UDU），用Am和弦重复弹4小节，再用Em重复4小节。稳定后再换别的和弦。\n15-25分钟：歌曲练习。选一首你正在学的歌，反复练习主歌和副歌部分。先不唱，专注和弦转换和节奏。\n25-30分钟：自由弹奏或新曲目。弹你喜欢的歌、尝试新学的技巧，让自己保持对吉他的热情。\n周末可以延长到45分钟至1小时，加入音阶练习（C大调上下行）和乐理复习。"}, {"heading": "初学者十大常见问题与解决方法", "content": "1. 手指按不响或有杂音——原因：手指离品丝太远、指尖立得不够。解决方法：按在品丝正上方，指尖垂直于指板。\n2. 手指关节内凹（折指）——原因：手指力量不够，关节塌陷。解决方法：保持手指弧形，拇指放在琴颈背后借力。\n3. 和弦转换太慢——原因：手指逐个移动不是整体移动。解决方法：和弦之间手指同时离开、同时按到新位置。\n4. F和弦总按不响——完全正常。F是横按和弦，初学需要1-2个月才能掌握。先用小横按版（只按1-2弦），逐步增加按弦数量。\n5. 扫弦声音不均匀——原因：手腕太僵硬。解决方法：放松手腕，从慢扫开始，感受手腕的自然摆动。\n6. 节奏不稳忽快忽慢——解决方法：用节拍器。每练必开节拍器，从60BPM开始绝不妥协。\n7. 弹唱无法同时进行——这是正常的，需要大量的练习才能协调。先弹熟和弦和节奏（闭着眼都能弹），再加唱歌的旋律。\n8. 大横按手指力量不够——练习方法：食指单独横按在6根弦上（不用其他手指），做按-松-按-松练习。\n9. 弹久了手指疼——初期手指疼是正常的，手指会起茧后就不疼了。每天练完后不要用热水泡手，会软化茧。\n10. 觉得自己没有进步——建议：每周录一次自己弹的歌，回听对比。你会在录音中体会到自己的进步，哪怕是很微小的变化。"}, {"heading": "如何度过瓶颈期", "content": "每个吉他手都会遇到瓶颈期——感觉练了好几天还是在同一个水平上不去了。这很正常，也是你即将突破的信号。以下是度过瓶颈期的方法：\n方法一：换个曲风。如果你一直在练弹唱，试试指弹；如果你一直在扫和弦，试试音阶练习。跨界训练能让你的大脑从新的角度理解吉他。\n方法二：分解难点。如果某个和弦或技巧卡住了，把它拆开练。比如练F横按，先只练食指横按不发声（手型练习），再单独练其他手指的按法，最后组合。\n方法三：降低标准。给自己一个更简单的目标，比如今天的目标不是学会F和弦，而是食指能在6根弦上按响3次。小目标的完成感会让你重获信心。\n方法四：找一首新歌。学新歌的兴奋感能帮你突破练习的枯燥感。找一首简单但好听的新歌，哪怕只用两个和弦。\n方法五：停一天。有时候休息一天比苦练三天更有效。让手指和大脑放松一下，第二天你会发现有些之前怎么也搞不定的动作突然就顺了。\n最后记住：每个吉他大师都经历过初学者阶段。Jimmy Page、Eric Clapton、Slash——他们都曾在F和弦面前崩溃过。坚持下来的人，就是现在你听到的那些吉他声。"}]}]};
-
       var container = document.getElementById('theory-container');
 
-      // --- Build theory lessons ---
-      function buildTheory() {
-        var lessons = theoryData.lessons;
-        if (!lessons || lessons.length === 0) {
-          container.innerHTML = '<div class="theory-empty"><span class="empty-emoji">📚</span><p>暂无乐理内容，敬请期待</p></div>';
+      // --- Load theory data ---
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'data/theory.json', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            var lessons = data.lessons || [];
+            buildTheory(lessons);
+          } catch (e) {
+            container.innerHTML = '<div class="status-message">数据加载失败</div>';
+          }
+        } else if (xhr.readyState === 4) {
+          container.innerHTML = '<div class="status-message">加载失败，请稍后重试</div>';
+        }
+      };
+      xhr.send();
+
+      function buildTheory(lessons) {
+        container.innerHTML = '';
+
+        if (!lessons || !lessons.length) {
+          container.innerHTML = '<div class="status-message">暂无乐理内容</div>';
           return;
         }
-
-        container.innerHTML = '';
 
         lessons.forEach(function (lesson) {
           var card = document.createElement('div');
           card.className = 'lesson-card';
           card.dataset.lessonId = lesson.id;
 
-          // --- Header ---
+          // Header
           var header = document.createElement('div');
           header.className = 'lesson-header';
 
-          var title = document.createElement('div');
-          title.className = 'lesson-title';
-          title.innerHTML = '<span class="emoji">' + lesson.emoji + '</span> ' + lesson.title;
+          var titleArea = document.createElement('div');
+          titleArea.className = 'lesson-title-area';
+          titleArea.innerHTML = '<span class="emoji">' + (lesson.emoji || '📖') + '</span> ' + escapeHtml(lesson.title);
 
           var toggle = document.createElement('span');
           toggle.className = 'toggle-icon';
           toggle.textContent = '▼';
 
-          header.appendChild(title);
+          header.appendChild(titleArea);
           header.appendChild(toggle);
 
-          // --- Body ---
+          // Body
           var body = document.createElement('div');
           body.className = 'lesson-body';
 
           var inner = document.createElement('div');
           inner.className = 'lesson-body-inner';
 
-          lesson.sections.forEach(function (section) {
-            var item = document.createElement('div');
-            item.className = 'section-item';
+          if (lesson.sections) {
+            lesson.sections.forEach(function (section, sIdx) {
+              var item = document.createElement('div');
+              item.className = 'section-item';
 
-            var heading = document.createElement('div');
-            heading.className = 'section-heading';
-            heading.textContent = section.heading;
+              var heading = document.createElement('div');
+              heading.className = 'section-heading';
+              heading.textContent = section.heading;
+              item.appendChild(heading);
 
-            var content = document.createElement('div');
-            content.className = 'section-content';
-            content.textContent = section.content;
+              var content = document.createElement('div');
+              content.className = 'section-content';
+              content.textContent = section.content;
+              item.appendChild(content);
 
-            item.appendChild(heading);
-            item.appendChild(content);
-            inner.appendChild(item);
-          });
+              // Render fretboard
+              if (section.fretboard && window.renderFretboard) {
+                var fbId = 'fb-theory-' + lesson.id + '-' + sIdx;
+                var fbContainer = document.createElement('div');
+                fbContainer.className = 'section-fretboard';
+                fbContainer.id = fbId;
+                item.appendChild(fbContainer);
+
+                if (section.fretboard.description) {
+                  var desc = document.createElement('div');
+                  desc.className = 'fb-description';
+                  desc.textContent = section.fretboard.description;
+                  item.appendChild(desc);
+                }
+
+                // Defer render
+                setTimeout((function (id, data) {
+                  return function () {
+                    renderFretboardForSection(id, data);
+                  };
+                })(fbId, section.fretboard), 50);
+              }
+
+              inner.appendChild(item);
+            });
+          }
 
           body.appendChild(inner);
           card.appendChild(header);
           card.appendChild(body);
           container.appendChild(card);
 
-          // --- Click to toggle accordion ---
+          // Accordion toggle
           header.addEventListener('click', function () {
             var isOpen = card.classList.contains('open');
-
-            // Close all cards
-            document.querySelectorAll('.lesson-card.open').forEach(function (openCard) {
-              openCard.classList.remove('open');
+            document.querySelectorAll('.lesson-card.open').forEach(function (c) {
+              c.classList.remove('open');
             });
-
-            // Toggle clicked one
             if (!isOpen) {
               card.classList.add('open');
             }
@@ -333,7 +360,46 @@
         });
       }
 
-      buildTheory();
+      function renderFretboardForSection(containerId, fbData) {
+        var el = document.getElementById(containerId);
+        if (!el || !fbData) return;
+
+        if (fbData.type === 'full' && fbData.notes) {
+          window.renderFretboard(el, {
+            numFrets: fbData.numFrets || 12,
+            startFret: fbData.startFret || 0,
+            showLabels: true,
+            notes: fbData.notes || [],
+            width: 680,
+            height: 220
+          });
+        } else if (fbData.type === 'full' && !fbData.notes) {
+          // Full fretboard with no custom notes — just grid
+          window.renderFretboard(el, {
+            numFrets: fbData.numFrets || 12,
+            startFret: fbData.startFret || 0,
+            showLabels: true,
+            width: 680,
+            height: 220
+          });
+        } else if (fbData.type === 'caged') {
+          window.renderFretboard(el, {
+            numFrets: fbData.numFrets || 5,
+            startFret: fbData.startFret || 0,
+            cagedShape: fbData.cagedShape || 'C',
+            rootNote: fbData.rootNote || 'C',
+            showLabels: true,
+            width: 600,
+            height: 200
+          });
+        }
+      }
+
+      function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.appendChild(document.createTextNode(str));
+        return d.innerHTML;
+      }
 
     })();
   </script>
