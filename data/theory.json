@@ -36,18 +36,78 @@
             "numFrets": 13,
             "description": "指板上的12个音 — 每品=一个半音，12品=一个八度",
             "notes": [
-              {"string": 0, "fret": 0, "label": "E", "color": "#e63946"},
-              {"string": 0, "fret": 12, "label": "E", "color": "#e63946"},
-              {"string": 1, "fret": 0, "label": "A", "color": "#2ec4b6"},
-              {"string": 1, "fret": 12, "label": "A", "color": "#2ec4b6"},
-              {"string": 2, "fret": 0, "label": "D", "color": "#ff9f1c"},
-              {"string": 2, "fret": 12, "label": "D", "color": "#ff9f1c"},
-              {"string": 3, "fret": 0, "label": "G", "color": "#7b2cbf"},
-              {"string": 3, "fret": 12, "label": "G", "color": "#7b2cbf"},
-              {"string": 4, "fret": 0, "label": "B", "color": "#457b9d"},
-              {"string": 4, "fret": 12, "label": "B", "color": "#457b9d"},
-              {"string": 5, "fret": 0, "label": "E", "color": "#e63946"},
-              {"string": 5, "fret": 12, "label": "E", "color": "#e63946"}
+              {
+                "string": 0,
+                "fret": 0,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 0,
+                "fret": 12,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 1,
+                "fret": 0,
+                "label": "A",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 1,
+                "fret": 12,
+                "label": "A",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "D",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 2,
+                "fret": 12,
+                "label": "D",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 3,
+                "fret": 0,
+                "label": "G",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 3,
+                "fret": 12,
+                "label": "G",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 4,
+                "fret": 0,
+                "label": "B",
+                "color": "#457b9d"
+              },
+              {
+                "string": 4,
+                "fret": 12,
+                "label": "B",
+                "color": "#457b9d"
+              },
+              {
+                "string": 5,
+                "fret": 0,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 5,
+                "fret": 12,
+                "label": "E",
+                "color": "#e63946"
+              }
             ]
           }
         },
@@ -60,14 +120,54 @@
             "numFrets": 12,
             "description": "6弦(E弦)上的全音半音关系 — 红线标注半音",
             "notes": [
-              {"string": 0, "fret": 0, "label": "E", "color": "#e63946"},
-              {"string": 0, "fret": 1, "label": "F", "color": "#e63946"},
-              {"string": 0, "fret": 3, "label": "G", "color": "#457b9d"},
-              {"string": 0, "fret": 5, "label": "A", "color": "#457b9d"},
-              {"string": 0, "fret": 7, "label": "B", "color": "#457b9d"},
-              {"string": 0, "fret": 8, "label": "C", "color": "#e63946"},
-              {"string": 0, "fret": 10, "label": "D", "color": "#457b9d"},
-              {"string": 0, "fret": 12, "label": "E", "color": "#e63946"}
+              {
+                "string": 0,
+                "fret": 0,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 0,
+                "fret": 1,
+                "label": "F",
+                "color": "#e63946"
+              },
+              {
+                "string": 0,
+                "fret": 3,
+                "label": "G",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 5,
+                "label": "A",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 7,
+                "label": "B",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 8,
+                "label": "C",
+                "color": "#e63946"
+              },
+              {
+                "string": 0,
+                "fret": 10,
+                "label": "D",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 12,
+                "label": "E",
+                "color": "#e63946"
+              }
             ]
           }
         }
@@ -87,22 +187,102 @@
             "numFrets": 12,
             "description": "6弦(E弦)和5弦(A弦)上的所有音符 — 别忘了利用品记定位",
             "notes": [
-              {"string": 0, "fret": 0, "label": "E", "color": "#e63946"},
-              {"string": 0, "fret": 1, "label": "F", "color": "#457b9d"},
-              {"string": 0, "fret": 3, "label": "G", "color": "#457b9d"},
-              {"string": 0, "fret": 5, "label": "A", "color": "#457b9d"},
-              {"string": 0, "fret": 7, "label": "B", "color": "#457b9d"},
-              {"string": 0, "fret": 8, "label": "C", "color": "#457b9d"},
-              {"string": 0, "fret": 10, "label": "D", "color": "#457b9d"},
-              {"string": 0, "fret": 12, "label": "E", "color": "#e63946"},
-              {"string": 1, "fret": 0, "label": "A", "color": "#2ec4b6"},
-              {"string": 1, "fret": 2, "label": "B", "color": "#457b9d"},
-              {"string": 1, "fret": 3, "label": "C", "color": "#457b9d"},
-              {"string": 1, "fret": 5, "label": "D", "color": "#457b9d"},
-              {"string": 1, "fret": 7, "label": "E", "color": "#457b9d"},
-              {"string": 1, "fret": 8, "label": "F", "color": "#457b9d"},
-              {"string": 1, "fret": 10, "label": "G", "color": "#457b9d"},
-              {"string": 1, "fret": 12, "label": "A", "color": "#2ec4b6"}
+              {
+                "string": 0,
+                "fret": 0,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 0,
+                "fret": 1,
+                "label": "F",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 3,
+                "label": "G",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 5,
+                "label": "A",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 7,
+                "label": "B",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 8,
+                "label": "C",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 10,
+                "label": "D",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 12,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 1,
+                "fret": 0,
+                "label": "A",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 1,
+                "fret": 2,
+                "label": "B",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 3,
+                "label": "C",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 5,
+                "label": "D",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 7,
+                "label": "E",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 8,
+                "label": "F",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 10,
+                "label": "G",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 12,
+                "label": "A",
+                "color": "#2ec4b6"
+              }
             ]
           }
         },
@@ -127,11 +307,36 @@
             "numFrets": 5,
             "description": "C和弦(C-E-G)在开放把位 — 红=根音, 蓝=3音, 绿=5音",
             "notes": [
-              {"string": 1, "fret": 3, "label": "R", "color": "#e63946"},
-              {"string": 4, "fret": 2, "label": "3", "color": "#457b9d"},
-              {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
-              {"string": 3, "fret": 1, "label": "R", "color": "#e63946"},
-              {"string": 5, "fret": 0, "label": "3", "color": "#457b9d"}
+              {
+                "string": 1,
+                "fret": 3,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 4,
+                "fret": 2,
+                "label": "3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "5",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 3,
+                "fret": 1,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 5,
+                "fret": 0,
+                "label": "3",
+                "color": "#457b9d"
+              }
             ]
           }
         },
@@ -144,12 +349,42 @@
             "numFrets": 4,
             "description": "G和弦(G-B-D)在开放把位 — 红=根音, 蓝=3音, 绿=5音",
             "notes": [
-              {"string": 0, "fret": 3, "label": "R", "color": "#e63946"},
-              {"string": 1, "fret": 2, "label": "3", "color": "#457b9d"},
-              {"string": 2, "fret": 0, "label": "5", "color": "#2ec4b6"},
-              {"string": 3, "fret": 0, "label": "R", "color": "#e63946"},
-              {"string": 4, "fret": 0, "label": "3", "color": "#457b9d"},
-              {"string": 5, "fret": 3, "label": "R", "color": "#e63946"}
+              {
+                "string": 0,
+                "fret": 3,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 1,
+                "fret": 2,
+                "label": "3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "5",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 3,
+                "fret": 0,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 4,
+                "fret": 0,
+                "label": "3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 5,
+                "fret": 3,
+                "label": "R",
+                "color": "#e63946"
+              }
             ]
           }
         },
@@ -162,11 +397,36 @@
             "numFrets": 5,
             "description": "C和弦(C-E-G)在指板上的分布 — 红=根音(C) 蓝=三音(E) 绿=五音(G)",
             "notes": [
-              {"string": 1, "fret": 3, "label": "C", "color": "#e63946"},
-              {"string": 4, "fret": 2, "label": "E", "color": "#457b9d"},
-              {"string": 2, "fret": 0, "label": "G", "color": "#2ec4b6"},
-              {"string": 3, "fret": 1, "label": "C", "color": "#e63946"},
-              {"string": 5, "fret": 0, "label": "E", "color": "#457b9d"}
+              {
+                "string": 1,
+                "fret": 3,
+                "label": "C",
+                "color": "#e63946"
+              },
+              {
+                "string": 4,
+                "fret": 2,
+                "label": "E",
+                "color": "#457b9d"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "G",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 3,
+                "fret": 1,
+                "label": "C",
+                "color": "#e63946"
+              },
+              {
+                "string": 5,
+                "fret": 0,
+                "label": "E",
+                "color": "#457b9d"
+              }
             ]
           }
         }
@@ -191,17 +451,72 @@
             "numFrets": 4,
             "description": "C大调音阶第一把位 — 1(红)2(橙)3(黄)4(绿)5(青)6(蓝)7(紫)",
             "notes": [
-              {"string": 1, "fret": 3, "label": "1", "color": "#e63946"},
-              {"string": 2, "fret": 0, "label": "2", "color": "#ff9f1c"},
-              {"string": 4, "fret": 2, "label": "3", "color": "#f0db4f"},
-              {"string": 4, "fret": 3, "label": "4", "color": "#2ec4b6"},
-              {"string": 3, "fret": 0, "label": "5", "color": "#457b9d"},
-              {"string": 3, "fret": 2, "label": "6", "color": "#457b9d"},
-              {"string": 4, "fret": 1, "label": "7", "color": "#7b2cbf"},
-              {"string": 4, "fret": 3, "label": "1", "color": "#e63946"},
-              {"string": 5, "fret": 0, "label": "3", "color": "#f0db4f"},
-              {"string": 5, "fret": 1, "label": "4", "color": "#2ec4b6"},
-              {"string": 5, "fret": 3, "label": "5", "color": "#457b9d"}
+              {
+                "string": 1,
+                "fret": 3,
+                "label": "1",
+                "color": "#e63946"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "2",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 4,
+                "fret": 2,
+                "label": "3",
+                "color": "#f0db4f"
+              },
+              {
+                "string": 4,
+                "fret": 3,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 3,
+                "fret": 0,
+                "label": "5",
+                "color": "#457b9d"
+              },
+              {
+                "string": 3,
+                "fret": 2,
+                "label": "6",
+                "color": "#457b9d"
+              },
+              {
+                "string": 4,
+                "fret": 1,
+                "label": "7",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 4,
+                "fret": 3,
+                "label": "1",
+                "color": "#e63946"
+              },
+              {
+                "string": 5,
+                "fret": 0,
+                "label": "3",
+                "color": "#f0db4f"
+              },
+              {
+                "string": 5,
+                "fret": 1,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 5,
+                "fret": 3,
+                "label": "5",
+                "color": "#457b9d"
+              }
             ]
           }
         },
@@ -226,13 +541,48 @@
             "numFrets": 4,
             "description": "C大调音阶的7个音在指板第一把位 — 红I=C, 橙ii=Dm, 黄iii=Em, 绿IV=F, 青V=G, 蓝vi=Am, 紫vii°=Bdim",
             "notes": [
-              {"string": 1, "fret": 3, "label": "I", "color": "#e63946"},
-              {"string": 2, "fret": 0, "label": "ii", "color": "#ff9f1c"},
-              {"string": 4, "fret": 2, "label": "iii", "color": "#f0db4f"},
-              {"string": 4, "fret": 3, "label": "IV", "color": "#2ec4b6"},
-              {"string": 3, "fret": 0, "label": "V", "color": "#457b9d"},
-              {"string": 3, "fret": 2, "label": "vi", "color": "#457b9d"},
-              {"string": 4, "fret": 1, "label": "vii", "color": "#7b2cbf"}
+              {
+                "string": 1,
+                "fret": 3,
+                "label": "I",
+                "color": "#e63946"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "ii",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 4,
+                "fret": 2,
+                "label": "iii",
+                "color": "#f0db4f"
+              },
+              {
+                "string": 4,
+                "fret": 3,
+                "label": "IV",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 3,
+                "fret": 0,
+                "label": "V",
+                "color": "#457b9d"
+              },
+              {
+                "string": 3,
+                "fret": 2,
+                "label": "vi",
+                "color": "#457b9d"
+              },
+              {
+                "string": 4,
+                "fret": 1,
+                "label": "vii",
+                "color": "#7b2cbf"
+              }
             ]
           }
         },
@@ -305,6 +655,23 @@
         {
           "heading": "十大常见问题与解决",
           "content": "1. 按不响/有杂音 → 按在品丝正上方，指尖垂直指板\n2. 手指关节内凹 → 保持弧形，拇指放琴颈背后借力\n3. 和弦转换慢 → 手指整体离开→整体落下，不要逐个移动\n4. F和弦按不响 → 完全正常！先用小横按版，逐步来\n5. 扫弦不均匀 → 手腕放松，手腕转动不是手臂摆动\n6. 节奏不稳 → 每练必开节拍器，60BPM不妥协\n7. 弹唱无法同步 → 先弹熟到闭着眼也能弹，再加唱的旋律\n8. 大横按没力气 → 食指单独横按6根弦做按-松-按-松\n9. 手指疼 → 初期正常，起茧就好了。练完不要用热水泡手\n10. 感觉没进步 → 每周录一次自己弹的歌回听对比，你会发现的",
+          "fretboard": null
+        }
+      ]
+    },
+    {
+      "id": "ch-tools",
+      "title": "第十章：交互工具 — 和弦构建器",
+      "emoji": "🧰",
+      "sections": [
+        {
+          "heading": "和弦构建器",
+          "content": "选择根音和和弦类型，在指板上查看该和弦的构成音位置。这个工具帮助你理解：任何一个和弦都可以通过在指板上找到根音→三音→五音来构建。\n\n使用方法：\n1. 选择一个根音（C D E F G A B）\n2. 选择和弦类型（大三/小三/属七/大七）\n3. 指板图上会显示该和弦的根音(R)、三音(3)、五音(5)、七音(7)",
+          "fretboard": null
+        },
+        {
+          "heading": "指板音符速查",
+          "content": "任何时候你想知道吉他指板上某个位置是什么音，记住这个规律：\n\n6弦(E弦)：0品=E 1品=F 3品=G 5品=A 7品=B 8品=C 10品=D 12品=E\n5弦(A弦)：0品=A 2品=B 3品=C 5品=D 7品=E 8品=F 10品=G 12品=A\n\n其他弦上的音符可以通过同品关系推算。\n\n🎯 小练习：每天随机选一个音名（如D），在6弦和5弦上找出它所在的位置。坚持一个月，你就熟悉指板了。",
           "fretboard": null
         }
       ]

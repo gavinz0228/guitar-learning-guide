@@ -246,6 +246,17 @@
       'use strict';
 
       var container = document.getElementById('theory-container');
+      var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+      var NOTE_LABELS = { 'C#': 'C♯', 'D#': 'D♯', 'F#': 'F♯', 'G#': 'G♯', 'A#': 'A♯' };
+      var STANDARD_TUNING = ['E', 'A', 'D', 'G', 'B', 'E'];
+
+      // Chord type definitions (intervals from root)
+      var CHORD_TYPES = {
+        'major': { name: '大三和弦', intervals: [0, 4, 7], labels: ['R', '3', '5'], color: ['#ffffff', '#457b9d', '#2ec4b6'] },
+        'minor': { name: '小三和弦', intervals: [0, 3, 7], labels: ['R', 'b3', '5'], color: ['#ffffff', '#457b9d', '#2ec4b6'] },
+        'dom7': { name: '属七和弦', intervals: [0, 4, 7, 10], labels: ['R', '3', '5', 'b7'], color: ['#ffffff', '#457b9d', '#2ec4b6', '#7b2cbf'] },
+        'maj7': { name: '大七和弦', intervals: [0, 4, 7, 11], labels: ['R', '3', '5', '7'], color: ['#ffffff', '#457b9d', '#2ec4b6', '#7b2cbf'] }
+      };
 
       // --- Load theory data ---
       var xhr = new XMLHttpRequest();
@@ -400,6 +411,174 @@
         d.appendChild(document.createTextNode(str));
         return d.innerHTML;
       }
+
+      // --- Build Interactive Chord Builder ---
+      function buildChordBuilder() {
+        var section = document.createElement('section');
+        section.className = 'theory-section';
+        section.id = 'chord-builder';
+        section.innerHTML = '<h2 style="font-size:1.6rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">🧰 和弦构建器</h2>' +
+          '<p style="color:var(--text-secondary);margin-bottom:16px;">选择根音和类型，在指板上查看和弦构成音的位置</p>';
+
+        // Root selector
+        var rootDiv = document.createElement('div');
+        rootDiv.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;justify-content:center;';
+        var rootLabel = document.createElement('div');
+        rootLabel.style.cssText = 'width:100%;text-align:center;font-size:0.85rem;color:var(--text-secondary);margin-bottom:4px;';
+        rootLabel.textContent = '根音：';
+        rootDiv.appendChild(rootLabel);
+
+        var currentBuilderRoot = 'C';
+        var currentBuilderType = 'major';
+        var builderRootBtns = {};
+
+        ALL_NOTES.forEach(function(note) {
+          var btn = document.createElement('button');
+          btn.className = 'root-btn';
+          btn.textContent = NOTE_LABELS[note] || note;
+          btn.style.cssText = 'width:40px;height:40px;border-radius:50%;border:2px solid var(--card-border);background:var(--card-bg);color:var(--text-primary);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;';
+          if (note === currentBuilderRoot) {
+            btn.style.borderColor = 'var(--accent)';
+            btn.style.background = 'var(--accent)';
+            btn.style.color = '#fff';
+          }
+          btn.addEventListener('click', function() {
+            currentBuilderRoot = note;
+            Object.keys(builderRootBtns).forEach(function(k) {
+              var b = builderRootBtns[k];
+              b.style.borderColor = 'var(--card-border)';
+              b.style.background = 'var(--card-bg)';
+              b.style.color = 'var(--text-primary)';
+            });
+            btn.style.borderColor = 'var(--accent)';
+            btn.style.background = 'var(--accent)';
+            btn.style.color = '#fff';
+            renderBuilderFretboard(currentBuilderRoot, currentBuilderType);
+          });
+          rootDiv.appendChild(btn);
+          builderRootBtns[note] = btn;
+        });
+        section.appendChild(rootDiv);
+
+        // Type selector
+        var typeDiv = document.createElement('div');
+        typeDiv.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;justify-content:center;';
+        var typeLabel = document.createElement('div');
+        typeLabel.style.cssText = 'width:100%;text-align:center;font-size:0.85rem;color:var(--text-secondary);margin-bottom:4px;';
+        typeLabel.textContent = '和弦类型：';
+        typeDiv.appendChild(typeLabel);
+
+        var builderTypeBtns = {};
+        Object.keys(CHORD_TYPES).forEach(function(type) {
+          var btn = document.createElement('button');
+          btn.className = 'filter-btn';
+          btn.textContent = CHORD_TYPES[type].name;
+          btn.style.cssText = 'padding:8px 20px;border-radius:20px;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:inherit;border:1px solid var(--card-border);background:var(--card-bg);color:var(--text-secondary);transition:all 0.2s;';
+          if (type === currentBuilderType) {
+            btn.style.background = 'var(--accent)';
+            btn.style.color = '#fff';
+            btn.style.borderColor = 'var(--accent)';
+          }
+          btn.addEventListener('click', function() {
+            currentBuilderType = type;
+            Object.keys(builderTypeBtns).forEach(function(k) {
+              var b = builderTypeBtns[k];
+              b.style.borderColor = 'var(--card-border)';
+              b.style.background = 'var(--card-bg)';
+              b.style.color = 'var(--text-secondary)';
+            });
+            btn.style.background = 'var(--accent)';
+            btn.style.color = '#fff';
+            btn.style.borderColor = 'var(--accent)';
+            renderBuilderFretboard(currentBuilderRoot, currentBuilderType);
+          });
+          typeDiv.appendChild(btn);
+          builderTypeBtns[type] = btn;
+        });
+        section.appendChild(typeDiv);
+
+        // Fretboard
+        var fbWrap = document.createElement('div');
+        fbWrap.id = 'builder-fretboard';
+        fbWrap.style.cssText = 'background:#0d0d0d;border-radius:8px;padding:6px;overflow-x:auto;';
+        section.appendChild(fbWrap);
+
+        // Info
+        var infoDiv = document.createElement('div');
+        infoDiv.id = 'builder-info';
+        infoDiv.style.cssText = 'text-align:center;margin-top:10px;font-size:0.9rem;color:var(--text-secondary);';
+        section.appendChild(infoDiv);
+
+        container.parentNode.appendChild(section);
+
+        // Initial render
+        renderBuilderFretboard(currentBuilderRoot, currentBuilderType);
+      }
+
+      function renderBuilderFretboard(root, type) {
+        var fbEl = document.getElementById('builder-fretboard');
+        var infoEl = document.getElementById('builder-info');
+        if (!fbEl || !infoEl) return;
+
+        var typeDef = CHORD_TYPES[type];
+        var notes = [];
+
+        // Find root on low E string (string 0)
+        var rootIdx = ALL_NOTES.indexOf(root);
+        var openIdx = ALL_NOTES.indexOf('E');
+        var rootFret = (rootIdx - openIdx + 12) % 12;
+
+        // Add root note
+        notes.push({string: 0, fret: rootFret, label: 'R', color: '#ffffff'});
+
+        // Add interval notes on various strings
+        // Use E string (0) for b3/3, A string (1) for 5/b5, etc.
+        typeDef.intervals.forEach(function(interval, i) {
+          if (interval === 0) return; // already added root
+          var label = typeDef.labels[i];
+          var color = typeDef.color[i];
+
+          // Find good string/fret positions for each interval
+          // Try to distribute across different strings
+          var targetStrings = [1, 2, 3, 4, 5];
+          var strIdx = targetStrings[(i - 1) % targetStrings.length];
+          var openNote = STANDARD_TUNING[strIdx];
+          var openIdx2 = ALL_NOTES.indexOf(openNote);
+          var targetNoteIdx = (rootIdx + interval) % 12;
+          var fret = (targetNoteIdx - openIdx2 + 12) % 12;
+
+          if (fret <= 12) {
+            notes.push({string: strIdx, fret: fret, label: label, color: color});
+          }
+        });
+
+        // Render
+        if (window.renderFretboard) {
+          window.renderFretboard(fbEl, {
+            numFrets: 12,
+            startFret: 0,
+            showLabels: true,
+            notes: notes,
+            width: 680,
+            height: 200
+          });
+        }
+
+        // Info
+        var typeName = typeDef.name;
+        var intervalLabels = typeDef.labels.join(' - ');
+        var noteNames = typeDef.intervals.map(function(interval) {
+          var idx = (rootIdx + interval) % 12;
+          return ALL_NOTES[idx];
+        }).join(' ');
+        infoEl.innerHTML = '<strong style="color:var(--text-primary);">' + root + ' ' + typeName + '</strong> — ' +
+          '<span style="color:var(--text-secondary);">构成音: ' + noteNames + ' (' + intervalLabels + ')</span>';
+      }
+
+      buildTheory();
+
+      // --- Build Interactive Chord Builder (after theory content) ---
+      buildChordBuilder();
 
     })();
   </script>
