@@ -200,6 +200,184 @@
       color: var(--text-primary);
     }
 
+    /* --- Practice Mode --- */
+    .practice-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 32px;
+      overflow: hidden;
+      transition: box-shadow var(--transition);
+    }
+
+    .practice-section:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .practice-header {
+      padding: 20px 26px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .practice-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .practice-body {
+      padding: 20px 26px;
+    }
+
+    .practice-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .bpm-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 10px 16px;
+    }
+
+    .bpm-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .bpm-display {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 60px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bpm-slider {
+      width: 120px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .practice-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .practice-btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-metronome {
+      background: #2d6a4f;
+      color: #fff;
+    }
+
+    .btn-metronome.active {
+      background: #e63946;
+      box-shadow: 0 0 12px rgba(230,57,70,0.4);
+    }
+
+    .btn-metronome:hover {
+      opacity: 0.9;
+    }
+
+    .btn-backing {
+      background: #457b9d;
+      color: #fff;
+    }
+
+    .btn-backing.active {
+      background: #7b2cbf;
+      box-shadow: 0 0 12px rgba(123,44,191,0.4);
+    }
+
+    .btn-backing:hover {
+      opacity: 0.9;
+    }
+
+    .beat-indicator {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .beat-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      transition: background 0.08s;
+    }
+
+    .beat-dot.active-strong {
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(230,57,70,0.5);
+    }
+
+    .beat-dot.active-weak {
+      background: #2ec4b6;
+      box-shadow: 0 0 6px rgba(46,196,182,0.4);
+    }
+
+    /* --- Practice Fretboard --- */
+    .practice-fretboard-section {
+      margin-top: 16px;
+    }
+
+    .practice-fretboard-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin: 0 0 10px 0;
+    }
+
+    .practice-fretboard {
+      margin: 0;
+      background: #0d0d0d;
+      border-radius: 8px;
+      padding: 8px;
+      overflow-x: auto;
+    }
+
+    .practice-fretboard svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .practice-fretboard-desc {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+      text-align: center;
+      font-style: italic;
+    }
+
     @media (max-width: 767px) {
       .solo-section { padding: 0 12px 40px; }
       .phase-header { padding: 14px 16px; }
@@ -207,6 +385,9 @@
       .section-heading { font-size: 0.95rem; }
       .section-content { font-size: 0.9rem; }
       .phase-title { font-size: 1.05rem; }
+      .practice-controls { flex-direction: column; align-items: stretch; }
+      .bpm-group { flex-wrap: wrap; }
+      .bpm-slider { width: 100%; }
     }
   </style>
 </head>
@@ -240,6 +421,46 @@
 
     <div class="solo-section" id="solo-lessons">
       <div class="status-message">加载中...</div>
+    </div>
+  </div>
+
+  <!-- ============ 🎯 练习模式 ============ -->
+  <div class="solo-section">
+    <div class="practice-section">
+      <div class="practice-header">
+        <h2>🎯 练习模式</h2>
+      </div>
+      <div class="practice-body">
+        <!-- Controls -->
+        <div class="practice-controls">
+          <div class="bpm-group">
+            <span class="bpm-label">BPM</span>
+            <input type="range" class="bpm-slider" id="practice-bpm-slider"
+                   min="40" max="160" step="1" value="70"
+                   aria-label="BPM调节">
+            <span class="bpm-display" id="practice-bpm-display">70</span>
+          </div>
+          <div class="btn-group">
+            <button class="practice-btn btn-metronome" id="practice-btn-metronome">🎵 节拍器</button>
+            <button class="practice-btn btn-backing" id="practice-btn-backing">🎸 背景音</button>
+          </div>
+        </div>
+
+        <!-- Beat indicator dots -->
+        <div class="beat-indicator" id="practice-beat-indicator">
+          <div class="beat-dot" data-beat="1"></div>
+          <div class="beat-dot" data-beat="2"></div>
+          <div class="beat-dot" data-beat="3"></div>
+          <div class="beat-dot" data-beat="4"></div>
+        </div>
+
+        <!-- Practice Fretboard -->
+        <div class="practice-fretboard-section">
+          <h3>🎸 E小调五声音阶 — Pattern 1 指板图</h3>
+          <div class="practice-fretboard" id="practice-fretboard"></div>
+          <div class="practice-fretboard-desc">E小调五声音阶第一把位（根音 E），圆点为可演奏的音符</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -403,6 +624,232 @@
         var d = document.createElement('div');
         d.appendChild(document.createTextNode(str));
         return d.innerHTML;
+      }
+
+    })();
+
+    // ============ 🎯 Practice Mode ============
+    (function () {
+      'use strict';
+
+      // --- DOM refs ---
+      var bpmSlider = document.getElementById('practice-bpm-slider');
+      var bpmDisplay = document.getElementById('practice-bpm-display');
+      var btnMetronome = document.getElementById('practice-btn-metronome');
+      var btnBacking = document.getElementById('practice-btn-backing');
+      var beatDots = document.querySelectorAll('#practice-beat-indicator .beat-dot');
+
+      // --- State ---
+      var bpm = 70;
+      var metronomeRunning = false;
+      var backingRunning = false;
+      var metronomeTimer = null;
+      var currentBeat = 0; // 0-3
+
+      // --- Audio ---
+      var audioCtx = null;
+
+      function getAudioCtx() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        return audioCtx;
+      }
+
+      // --- Metronome click ---
+      function playClick(beat) {
+        try {
+          var ctx = getAudioCtx();
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          var freq = (beat === 0) ? 800 : 500; // 强拍800Hz, 弱拍500Hz
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+          osc.type = 'sine';
+
+          gain.gain.setValueAtTime(0.3, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.08);
+        } catch (e) {
+          // Silently fail
+        }
+      }
+
+      // --- Beat indicator ---
+      function updateBeatIndicator(beat) {
+        beatDots.forEach(function (dot, i) {
+          dot.className = 'beat-dot';
+          if (i === beat) {
+            dot.classList.add((i === 0) ? 'active-strong' : 'active-weak');
+          }
+        });
+      }
+
+      function clearBeatIndicator() {
+        beatDots.forEach(function (dot) {
+          dot.className = 'beat-dot';
+        });
+      }
+
+      // --- Metronome loop ---
+      function startMetronome() {
+        if (metronomeTimer) return;
+        bpm = parseInt(bpmSlider.value, 10) || 70;
+        currentBeat = 0;
+        var intervalMs = Math.round(60000 / bpm);
+
+        // Play first beat immediately
+        playClick(0);
+        updateBeatIndicator(0);
+
+        metronomeTimer = setInterval(function () {
+          currentBeat = (currentBeat + 1) % 4;
+          playClick(currentBeat);
+          updateBeatIndicator(currentBeat);
+        }, intervalMs);
+
+        metronomeRunning = true;
+        btnMetronome.textContent = '⏹ 停止节拍器';
+        btnMetronome.classList.add('active');
+      }
+
+      function stopMetronome() {
+        if (metronomeTimer) {
+          clearInterval(metronomeTimer);
+          metronomeTimer = null;
+        }
+        metronomeRunning = false;
+        clearBeatIndicator();
+        btnMetronome.textContent = '🎵 节拍器';
+        btnMetronome.classList.remove('active');
+      }
+
+      function toggleMetronome() {
+        if (metronomeRunning) {
+          stopMetronome();
+        } else {
+          startMetronome();
+        }
+      }
+
+      // --- BPM slider ---
+      bpmSlider.addEventListener('input', function () {
+        bpm = parseInt(this.value, 10) || 70;
+        bpmDisplay.textContent = bpm;
+        if (metronomeRunning) {
+          // Restart metronome with new BPM
+          stopMetronome();
+          startMetronome();
+        }
+      });
+
+      // --- Metronome button ---
+      btnMetronome.addEventListener('click', toggleMetronome);
+
+      // --- Backing track (简单背景音) ---
+      var backingOscillators = [];
+      var backingGain = null;
+
+      function startBacking() {
+        try {
+          var ctx = getAudioCtx();
+
+          // Create a gentle drone/chord backing using multiple oscillators
+          var baseFreq = 82.41; // Low E (E2)
+          var chordFreqs = [
+            baseFreq,          // E (root)
+            baseFreq * 6/5,    // G (♭3) — minor third
+            baseFreq * 3/2,    // B (5th)
+            baseFreq * 2       // E (octave)
+          ];
+
+          backingGain = ctx.createGain();
+          backingGain.gain.setValueAtTime(0.08, ctx.currentTime);
+          backingGain.connect(ctx.destination);
+
+          chordFreqs.forEach(function (freq) {
+            var osc = ctx.createOscillator();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            var oscGain = ctx.createGain();
+            // Slight volume variation for warmth
+            oscGain.gain.setValueAtTime(0.6 + Math.random() * 0.2, ctx.currentTime);
+            osc.connect(oscGain);
+            oscGain.connect(backingGain);
+            osc.start();
+            backingOscillators.push(osc);
+          });
+
+          backingRunning = true;
+          btnBacking.textContent = '⏹ 停止背景音';
+          btnBacking.classList.add('active');
+        } catch (e) {
+          console.warn('Backing track error:', e);
+        }
+      }
+
+      function stopBacking() {
+        backingOscillators.forEach(function (osc) {
+          try { osc.stop(); } catch (e) {}
+        });
+        backingOscillators = [];
+        backingRunning = false;
+        btnBacking.textContent = '🎸 背景音';
+        btnBacking.classList.remove('active');
+      }
+
+      function toggleBacking() {
+        if (backingRunning) {
+          stopBacking();
+        } else {
+          startBacking();
+        }
+      }
+
+      btnBacking.addEventListener('click', toggleBacking);
+
+      // --- Render practice fretboard (E minor pentatonic pattern 1) ---
+      function renderPracticeFretboard() {
+        var el = document.getElementById('practice-fretboard');
+        if (!el || !window.renderFretboard) return;
+
+        // E minor pentatonic notes: E, G, A, B, D
+        // Pattern 1 (open position, starting from fret 0)
+        var eminPentNotes = [
+          { string: 0, fret: 0,  label: 'R', color: '#e63946', stroke: '#ff6b7a' },
+          { string: 0, fret: 3,  label: '♭3', color: '#3a3a3a', stroke: '#666' },
+          { string: 1, fret: 0,  label: '4', color: '#3a3a3a', stroke: '#666' },
+          { string: 1, fret: 2,  label: '5', color: '#3a3a3a', stroke: '#666' },
+          { string: 2, fret: 0,  label: '♭7', color: '#3a3a3a', stroke: '#666' },
+          { string: 2, fret: 2,  label: 'R', color: '#e63946', stroke: '#ff6b7a' },
+          { string: 3, fret: 0,  label: '♭3', color: '#3a3a3a', stroke: '#666' },
+          { string: 3, fret: 2,  label: '4', color: '#3a3a3a', stroke: '#666' },
+          { string: 4, fret: 1,  label: '5', color: '#3a3a3a', stroke: '#666' },
+          { string: 4, fret: 3,  label: '♭7', color: '#3a3a3a', stroke: '#666' },
+          { string: 5, fret: 0,  label: 'R', color: '#e63946', stroke: '#ff6b7a' },
+          { string: 5, fret: 3,  label: '♭3', color: '#3a3a3a', stroke: '#666' }
+        ];
+
+        window.renderFretboard(el, {
+          numFrets: 4,
+          startFret: 0,
+          showLabels: true,
+          notes: eminPentNotes,
+          width: 600,
+          height: 200
+        });
+      }
+
+      // --- Init ---
+      // Render practice fretboard after DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderPracticeFretboard);
+      } else {
+        renderPracticeFretboard();
       }
 
     })();
