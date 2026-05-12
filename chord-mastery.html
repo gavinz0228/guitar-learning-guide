@@ -710,9 +710,8 @@
     }
   </style>
 
-/* --- Shell Voicing Styles --- */
 <style>
-    /* --- Shell Voicing Page Styles --- */
+    
     .sv-section {
       max-width: var(--max-width);
       margin: 0 auto;
@@ -941,6 +940,7 @@
     }
   </style>
 
+<style>
 /* --- Side Navigation --- */
 .side-nav {
   position: fixed;
@@ -985,6 +985,7 @@
 </head>
 <body>
 
+<div class="side-nav" id="sideNav">
 <div class="nav-section">📖 导航</div>
   <a href="#bp-overview" class="active">概述</a>
   <a href="#bp-prereqs" class="nav-sub">学前必备</a>
@@ -1793,8 +1794,303 @@
   <!-- ===== Scripts ===== -->
   <script src="js/nav.js?v=2"></script>
   <script src="js/fretboard-renderer.js"></script>
-
   <script>
+    (function () {
+      'use strict';
+
+      var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+      var NOTE_LABELS = { 'C#': 'C♯', 'D#': 'D♯', 'F#': 'F♯', 'G#': 'G♯', 'A#': 'A♯' };
+
+      var currentRoot = 'C';
+      var currentShape = 'E';
+
+      var colorMap = {
+        C: { main: '#e63946', active: '#ff5a67' },
+        A: { main: '#2ec4b6', active: '#50ddd0' },
+        G: { main: '#ff9f1c', active: '#ffb84d' },
+        E: { main: '#7b2cbf', active: '#9a4fe0' },
+        D: { main: '#457b9d', active: '#5a9fc4' }
+      };
+
+      // --- Build root note selector ---
+      function buildRootSelector(containerId, onChange) {
+        var container = document.getElementById(containerId);
+        container.innerHTML = '';
+        ALL_NOTES.forEach(function(note) {
+          var btn = document.createElement('button');
+          btn.className = 'root-btn';
+          btn.textContent = NOTE_LABELS[note] || note;
+          if (note === currentRoot) btn.classList.add('active');
+          btn.addEventListener('click', function() {
+            currentRoot = note;
+            container.querySelectorAll('.root-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            if (onChange) onChange(note);
+          });
+          container.appendChild(btn);
+        });
+      }
+
+      // --- Build shape selector ---
+      function buildShapeSelector(containerId, onChange) {
+        var container = document.getElementById(containerId);
+        container.innerHTML = '';
+        var shapes = ['C', 'A', 'G', 'E', 'D'];
+        shapes.forEach(function(shape) {
+          var btn = document.createElement('button');
+          btn.className = 'shape-btn';
+          var c = colorMap[shape];
+          btn.style.color = c.main;
+          btn.style.borderColor = c.main;
+          btn.innerHTML = shape + '<span class="shape-sub">型</span>';
+          if (shape === currentShape) btn.classList.add('active');
+          var oldOnChange = onChange;
+          btn.addEventListener('click', function() {
+            currentShape = shape;
+            container.querySelectorAll('.shape-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            if (oldOnChange) oldOnChange(shape);
+          });
+          container.appendChild(btn);
+        });
+      }
+
+      // --- Render interactive fretboard ---
+      function renderInteractive() {
+        var fbEl = document.getElementById('interactiveFretboard');
+        fbEl.innerHTML = '';
+
+        // Show the single shape in detail from a better starting fret
+        // Calculate where the shape sits
+        var shapeDef = window.CAGED_SHAPES[currentShape];
+        var rootStr = shapeDef.rootStrings[0];
+        var openNote = ['E', 'A', 'D', 'G', 'B', 'E'][rootStr];
+        var rootIdx = ALL_NOTES.indexOf(currentRoot);
+        var openIdx = ALL_NOTES.indexOf(openNote);
+        var rootFret = (rootIdx - openIdx + 12) % 12;
+        var startFret = rootFret === 0 ? 1 : rootFret;
+
+        window.renderFretboard(fbEl, {
+          numFrets: 12,
+          startFret: startFret,
+          cagedShape: currentShape,
+          rootNote: currentRoot,
+          width: 700,
+          height: 220,
+          showLabels: true
+        });
+      }
+
+      // --- Render all CAGED positions overview ---
+      function renderOverview(rootNote) {
+        var c = document.getElementById('cagedOverviewContainer');
+        c.innerHTML = '';
+        window.renderAllCAGEDPositions('cagedOverviewContainer', rootNote, 8);
+      }
+
+      // --- Initialize ---
+      function init() {
+        // Root selectors
+        buildRootSelector('rootSelector', function(note) {
+          document.getElementById('overviewRootSelector').querySelectorAll('.root-btn').forEach(function(b) {
+            b.classList.remove('active');
+            if (ALL_NOTES[Array.from(document.getElementById('overviewRootSelector').children).indexOf(b)] === note) {
+              b.classList.add('active');
+            }
+          });
+          renderInteractive();
+          renderOverview(note);
+        });
+
+        buildRootSelector('overviewRootSelector', function(note) {
+          document.getElementById('rootSelector').querySelectorAll('.root-btn').forEach(function(b) {
+            b.classList.remove('active');
+            if (ALL_NOTES[Array.from(document.getElementById('rootSelector').children).indexOf(b)] === note) {
+              b.classList.add('active');
+            }
+          });
+          currentRoot = note;
+          renderInteractive();
+          renderOverview(note);
+        });
+
+        // Shape selector
+        buildShapeSelector('shapeSelector', function() {
+          renderInteractive();
+        });
+
+        // Sync root selectors
+        var allRootBtns = document.querySelectorAll('.root-btn');
+        allRootBtns.forEach(function(btn, i) {
+          if (ALL_NOTES[i] === currentRoot) {
+            btn.classList.add('active');
+          }
+        });
+
+        // Initial render
+        renderInteractive();
+        renderOverview('C');
+      }
+
+      if (window.CAGED_SHAPES) {
+        init();
+      } else {
+        console.error('Fretboard renderer not loaded');
+      }
+
+    })();
+
+    (function () {
+      'use strict';
+
+      var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+      var SHELL_NOTES_COLOR = '#e63946';
+      var ROOT_NOTE_COLOR  = '#ffffff';
+      var THIRD_NOTE_COLOR = '#2ec4b6';
+      var SEVENTH_NOTE_COLOR = '#ff9f1c';
+
+      // --- String group definitions ---
+      // Each group: which strings play which role
+      var STRING_GROUPS = {
+        '6532': {
+          name: '6-5-3-2 弦组',
+          description: '低音厚重，适合左手伴奏',
+          notes: [
+            // {string, fret, label, color, stroke}
+            { string: 0, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
+            { string: 1, fret: 7,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
+            { string: 3, fret: 9,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
+            { string: 4, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
+          ],
+          numFrets: 7,
+          startFret: 5
+        },
+        '6543': {
+          name: '6-5-4-3 弦组',
+          description: '中间区域，均衡明亮',
+          notes: [
+            { string: 0, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
+            { string: 1, fret: 7,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
+            { string: 2, fret: 8,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
+            { string: 3, fret: 7,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
+          ],
+          numFrets: 7,
+          startFret: 5
+        },
+        '5432': {
+          name: '5-4-3-2 弦组',
+          description: '高音区域，适合弹唱',
+          notes: [
+            { string: 1, fret: 3,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
+            { string: 2, fret: 2,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
+            { string: 3, fret: 3,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
+            { string: 4, fret: 2,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
+          ],
+          numFrets: 7,
+          startFret: 1
+        }
+      };
+
+      // --- Render a string group ---
+      function renderStringGroup(groupId) {
+        var group = STRING_GROUPS[groupId];
+        var containerId = 'fb-group-' + groupId;
+        var container = document.getElementById(containerId);
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        // Add a title
+        var title = document.createElement('div');
+        title.style.cssText = 'text-align:center;margin-bottom:12px;color:var(--text-secondary);font-size:0.85rem;';
+        title.textContent = '以 C7 为例的 ' + group.name + ' Shell Voicing 指位';
+        container.appendChild(title);
+
+        // Build notes with larger dots for root
+        var customNotes = group.notes.map(function(n) {
+          return {
+            string: n.string,
+            fret: n.fret,
+            label: n.label,
+            color: n.color,
+            stroke: n.stroke,
+            r: n.root ? 10 : 7
+          };
+        });
+
+        // Legend
+        var legend = document.createElement('div');
+        legend.style.cssText = 'display:flex;gap:16px;justify-content:center;margin-bottom:12px;flex-wrap:wrap;';
+        legend.innerHTML =
+          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + ROOT_NOTE_COLOR + ';border:2px solid ' + SHELL_NOTES_COLOR + ';"></span> 根音(R)</span>' +
+          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + THIRD_NOTE_COLOR + ';"></span> 三音(3)</span>' +
+          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + SEVENTH_NOTE_COLOR + ';"></span> 七音(7)</span>';
+        container.appendChild(legend);
+
+        // Render fretboard
+        window.renderFretboard(container, {
+          numFrets: group.numFrets,
+          startFret: group.startFret,
+          notes: customNotes,
+          rootNote: 'C',
+          width: 500,
+          height: 200,
+          showLabels: true,
+          highlightRoots: false
+        });
+
+        // Add note description below
+        var desc = document.createElement('div');
+        desc.style.cssText = 'text-align:center;margin-top:12px;font-size:0.9rem;color:var(--text-secondary);line-height:1.6;';
+
+        var noteLabels = group.notes.map(function(n) {
+          return '<span class="note-highlight">' + n.label + '</span>';
+        }).join(' → ');
+        desc.innerHTML = '声部走向：' + noteLabels;
+        container.appendChild(desc);
+      }
+
+      // --- String group selector ---
+      function initStringGroupSelector() {
+        var btns = document.querySelectorAll('.voicing-type-btn');
+        btns.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            btns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            var group = btn.dataset.group;
+            document.querySelectorAll('.voicing-detail').forEach(function(d) {
+              d.style.display = d.dataset.group === group ? 'block' : 'none';
+            });
+          });
+        });
+      }
+
+      // --- Initialize ---
+      function init() {
+        if (!window.renderFretboard) {
+          console.error('Fretboard renderer not loaded');
+          return;
+        }
+
+        initStringGroupSelector();
+
+        // Render all three string groups
+        renderStringGroup('6532');
+        renderStringGroup('6543');
+        renderStringGroup('5432');
+      }
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        init();
+      } else {
+        document.addEventListener('DOMContentLoaded', init);
+      }
+
+    })();
+
+
     // Side nav scroll spy
     (function() {
       var sideNav = document.getElementById('sideNav');
