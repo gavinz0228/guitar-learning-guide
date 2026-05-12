@@ -56,7 +56,7 @@
             "type": "caged",
             "cagedShape": "E",
             "rootNote": "E",
-            "startFret": 0,
+            "startFret": 1,
             "numFrets": 5,
             "showLabels": true,
             "description": "E小调五声音阶 Pattern 1 — 指板第1把位"
