@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shell Voicing | 学吉他</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* --- Shell Voicing Page Styles --- */
+    .sv-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+
+    .sv-section h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 32px 0 16px;
+      color: var(--text-primary);
+    }
+
+    .sv-section p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .sv-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .sv-card .sv-card-header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .sv-card .sv-card-header .sv-icon {
+      flex: 0 0 48px;
+      height: 48px;
+      line-height: 48px;
+      text-align: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.3rem;
+    }
+
+    .sv-card .sv-card-header h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .sv-card .sv-card-header h3 small {
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .sv-card ul {
+      margin: 12px 0;
+      padding: 0;
+    }
+
+    .sv-card ul li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .sv-card ul li::before {
+      content: '•';
+      position: absolute;
+      left: 6px;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .sv-card ul li strong {
+      color: var(--text-primary);
+    }
+
+    /* Formula display */
+    .formula-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 16px 0;
+    }
+
+    .formula-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 18px;
+      text-align: center;
+    }
+
+    .formula-item .formula-degree {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .formula-item .formula-name {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Fretboard container */
+    .sv-fretboard-wrapper {
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    .sv-fretboard-wrapper svg {
+      background: #141414;
+      border-radius: 8px;
+      border: 1px solid #2a2a2a;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Comparison table */
+    .sv-table-wrap {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    .sv-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .sv-table th {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .sv-table th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+
+    .sv-table th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+
+    .sv-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-secondary);
+    }
+
+    .sv-table td:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .sv-table tr:hover td {
+      background: rgba(255,255,255,0.03);
+    }
+
+    /* Voicing type selector */
+    .voicing-type-selector {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .voicing-type-btn {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: 2px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .voicing-type-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .voicing-type-btn.active {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* String group badge */
+    .string-group-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 10px;
+      background: rgba(230,57,70,0.12);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    @media (min-width: 768px) {
+      .sv-card .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+    }
+
+    .note-highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">🎸 学吉他</a>
+      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
+      <button class="hamburger" aria-label="菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="chords.html">和弦库</a>
+        <a href="caged.html">CAGED系统</a>
+        <a href="chords.html">和弦库</a>
+        <a href="caged.html">CAGED系统</a>
+        <a href="shell-voicing.html">Shell Voicing</a>
+        <a href="scales.html">音阶</a>
+        <a href="theory.html">乐理</a>
+        <a href="songs.html">练习曲</a>
+        <a href="roadmap.html">学习路线</a>
+        <a href="solo.html">Solo教程</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Page Content ===== -->
+  <div class="page-content">
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>🎼 Shell Voicing</h1>
+      <p>省略和弦的艺术 — 用最少的音，做出最干净的声音</p>
+    </header>
+
+    <!-- Intro -->
+    <section class="sv-section">
+      <div class="sv-card">
+        <div class="sv-card-header">
+          <div class="sv-icon">🎯</div>
+          <h3>什么是 Shell Voicing？<small>省略音和弦 — 只弹最重要的音</small></h3>
+        </div>
+        <p>
+          <strong>Shell Voicing（壳型和弦）</strong> 在理论和实践中都不包含完整的和弦音，而是只保留核心的 <strong>R（根音）- 3（三音）- 7（七音）</strong>。
+          五音被省略，因为它对和弦性质的识别作用最小。
+        </p>
+        <p>
+          例如：<strong>C7</strong> 的完整构成是 <strong>C - E - G - Bb</strong>，但 Shell Voicing 只弹 <strong>C - E - Bb</strong>（省略 G）。
+          在吉他上这意味着你只需要按 3 个音，手指更轻松，声音更清晰，而且给其他乐手（贝斯、钢琴）留出了空间。
+        </p>
+        <div style="margin-top:16px;">
+          <div class="formula-box">
+            <div class="formula-item">
+              <div class="formula-degree">R</div>
+              <div class="formula-name">根音</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-degree">3</div>
+              <div class="formula-name">三音 (大小)</div>
+            </div>
+            <div class="formula-item" style="opacity:0.4;">
+              <div class="formula-degree" style="color:var(--text-secondary);">5</div>
+              <div class="formula-name">省略</div>
+            </div>
+            <div class="formula-item">
+              <div class="formula-degree">7</div>
+              <div class="formula-name">七音</div>
+            </div>
+          </div>
+          <p style="text-align:center;font-size:0.85rem;color:var(--text-secondary);margin-top:8px;">
+            Shell Voicing = <span class="note-highlight">R + 3 + 7</span>（五音被省略）
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Shell Voicing -->
+    <section class="sv-section">
+      <h2>🤔 为什么学 Shell Voicing？</h2>
+      <div style="display:grid;grid-template-columns:1fr;gap:16px;">
+        <div class="sv-card">
+          <div class="sv-card-header">
+            <div class="sv-icon" style="background:#2ec4b6;">1</div>
+            <h3>减少手指负担</h3>
+          </div>
+          <p>大多数 shell voicing 只需要按 2-3 根弦，不用大跨度横按。特别适合快速换和弦的爵士标准曲。</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-card-header">
+            <div class="sv-icon" style="background:#ff9f1c;">2</div>
+            <h3>声音更干净</h3>
+          </div>
+          <p>省略五音后，和弦的声部更紧凑，不会和贝斯手冲突。在乐队合奏中，shell voicing 是最专业的伴奏选择。</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-card-header">
+            <div class="sv-icon" style="background:#7b2cbf;">3</div>
+            <h3>为爵士伴奏铺路</h3>
+          </div>
+          <p>所有爵士吉他手都从 shell voicing 开始。学会 R-3-7 后，你可以往上叠加 tensions（9、11、13）变成 extended chords。</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-card-header">
+            <div class="sv-icon" style="background:#457b9d;">4</div>
+            <h3>和弦变体一目了然</h3>
+          </div>
+          <p>只需移动 3 音或 7 音半音，就能在 Major / Dominant / Minor / Dim 之间切换。一个手型三种和弦。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Three String Groups -->
+    <section class="sv-section">
+      <h2>🎸 三种弦组模式</h2>
+      <p>
+        Shell voicing 在吉他上通常在三个不同的弦组上弹奏。每种弦组有不同的音色和把位。选择哪种取决于你的伴奏需要和便利性。
+      </p>
+
+      <div class="voicing-type-selector" id="stringGroupSelector">
+        <button class="voicing-type-btn active" data-group="6532">6-5-3-2 弦组</button>
+        <button class="voicing-type-btn" data-group="6543">6-5-4-3 弦组</button>
+        <button class="voicing-type-btn" data-group="5432">5-4-3-2 弦组</button>
+      </div>
+
+      <div id="stringGroupContent">
+
+        <!-- 6-5-3-2 -->
+        <div class="voicing-detail" data-group="6532">
+          <div class="sv-card">
+            <div class="sv-card-header">
+              <div class="sv-icon" style="background:#e63946;">A</div>
+              <h3>6-5-3-2 弦组 <small>低音厚重，适合左手伴奏</small></h3>
+            </div>
+            <p>
+              使用 <strong>6弦（低E）</strong> 弹根音，<strong>5弦</strong> 弹三音，<strong>3弦</strong> 弹七音，<strong>2弦</strong> 重复根音。
+              这是最常用的 shell voicing 弦组，声音饱满厚重。
+            </p>
+            <div class="sv-fretboard-wrapper" id="fb-group-6532"></div>
+          </div>
+        </div>
+
+        <!-- 6-5-4-3 -->
+        <div class="voicing-detail" data-group="6543" style="display:none;">
+          <div class="sv-card">
+            <div class="sv-card-header">
+              <div class="sv-icon" style="background:#2ec4b6;">B</div>
+              <h3>6-5-4-3 弦组 <small>中间区域，均衡明亮</small></h3>
+            </div>
+            <p>
+              使用 <strong>6弦</strong> 弹根音，<strong>5弦</strong> 弹三音，<strong>4弦</strong> 弹七音，<strong>3弦</strong> 重复根音。
+              音色更亮，手指排列更自然。
+            </p>
+            <div class="sv-fretboard-wrapper" id="fb-group-6543"></div>
+          </div>
+        </div>
+
+        <!-- 5-4-3-2 -->
+        <div class="voicing-detail" data-group="5432" style="display:none;">
+          <div class="sv-card">
+            <div class="sv-card-header">
+              <div class="sv-icon" style="background:#ff9f1c;">C</div>
+              <h3>5-4-3-2 弦组 <small>高音区域，适合弹唱和独奏</small></h3>
+            </div>
+            <p>
+              使用 <strong>5弦（A）</strong> 弹根音，<strong>4弦</strong> 弹三音，<strong>3弦</strong> 弹七音，<strong>2弦</strong> 重复根音或五音。
+              省略了 6 弦的最低音，声音更紧致，适合 Solo 或和声密集的段落。
+            </p>
+            <div class="sv-fretboard-wrapper" id="fb-group-5432"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Chord Type Variations -->
+    <section class="sv-section">
+      <h2>🔁 四种和弦类型的 Shell Voicing</h2>
+      <p>只需微调 3 音和 7 音，同一个指板位置就能弹出不同性质的和弦。</p>
+
+      <div class="sv-table-wrap">
+        <table class="sv-table">
+          <thead>
+            <tr>
+              <th>类型</th>
+              <th>构成</th>
+              <th>3 音</th>
+              <th>7 音</th>
+              <th>特点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Maj7 (大七)</td>
+              <td>R - 3 - 7</td>
+              <td>大三度</td>
+              <td>大七度</td>
+              <td>温暖、梦幻</td>
+            </tr>
+            <tr>
+              <td>7 (属七)</td>
+              <td>R - 3 - b7</td>
+              <td>大三度</td>
+              <td>小七度</td>
+              <td>张力、蓝调感</td>
+            </tr>
+            <tr>
+              <td>m7 (小七)</td>
+              <td>R - b3 - b7</td>
+              <td>小三度</td>
+              <td>小七度</td>
+              <td>柔和、忧郁</td>
+            </tr>
+            <tr>
+              <td>m7b5 (半减七)</td>
+              <td>R - b3 - b7</td>
+              <td>小三度</td>
+              <td>小七度 + b5</td>
+              <td>不稳定、需要解决</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:12px;color:var(--text-secondary);font-size:0.9rem;text-align:center;">
+        💡 在指板上，<strong>Maj7 → 7</strong> 只需将七音降半音。<strong>7 → m7</strong> 只需将三音降半音。<br>
+        掌握了规律，一个指型就能弹出三种不同色彩的和弦！
+      </div>
+    </section>
+
+    <!-- Fretboard Positions -->
+    <section class="sv-section">
+      <h2>📊 常用 Shell Voicing 指位表</h2>
+      <p>以下是在 6-5-3-2 弦组上，从 C 到 B 的 12 个属七和弦 Shell Voicing 指位。</p>
+
+      <div class="sv-table-wrap">
+        <table class="sv-table">
+          <thead>
+            <tr>
+              <th>和弦</th>
+              <th>6弦（根音）</th>
+              <th>5弦（3音）</th>
+              <th>3弦（7音）</th>
+              <th>2弦（根音）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>C7</td><td>8 品</td><td>7 品</td><td>9 品</td><td>8 品</td></tr>
+            <tr><td>D7</td><td>10 品</td><td>9 品</td><td>11 品</td><td>10 品</td></tr>
+            <tr><td>E7</td><td>12 品</td><td>11 品</td><td>13 品</td><td>12 品</td></tr>
+            <tr><td>F7</td><td>1 品</td><td>2 品</td><td>1 品</td><td>1 品</td></tr>
+            <tr><td>G7</td><td>3 品</td><td>4 品</td><td>3 品</td><td>3 品</td></tr>
+            <tr><td>A7</td><td>5 品</td><td>6 品</td><td>5 品</td><td>5 品</td></tr>
+            <tr><td>B7</td><td>7 品</td><td>8 品</td><td>7 品</td><td>7 品</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:12px;color:var(--text-secondary);font-size:0.9rem;">
+        注意规律：属七 Shell Voicing 在 6-5-3-2 弦组上，3 音和 7 音各差一根弦，
+        形成 <strong>R → 3 → 7 → R</strong> 的声部排列。
+      </p>
+    </section>
+
+    <!-- Practice Section -->
+    <section class="sv-section">
+      <h2>🏋️ 练习计划</h2>
+      <div style="display:grid;grid-template-columns:1fr;gap:16px;">
+        <div class="sv-card">
+          <div class="sv-card-header">
+            <div class="sv-icon" style="background:#e63946;">1</div>
+            <h3>掌握一种弦组</h3>
+          </div>
+          <p>先选择 6-5-3-2 弦组，在指板上找到 12 个属七和弦的 shell voicing。每天沿着指板弹 C7→B7 循环。</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-card-header">
+            <div class="sv-icon" style="background:#2ec4b6;">2</div>
+            <h3>四种和弦类型转换</h3>
+          </div>
+          <p>在同一个根音上练习：<strong>Maj7 → 7 → m7 → m7b5</strong> 的转换。感受三音和七音半音变化的音响效果。</p>
+        </div>
+        <div class="sv-card">
+          <div class="sv-card-header">
+            <div class="sv-icon" style="background:#ff9f1c;">3</div>
+            <h3>实战：II-V-I 进行</h3>
+          </div>
+          <p>爵士中最经典的进行。用 Shell Voicing 弹奏所有调式的 <strong>II-7 → V7 → Imaj7</strong>。例如 Dm7 → G7 → Cmaj7。</p>
+        </div>
+      </div>
+
+      <div class="sv-card" style="margin-top:20px;">
+        <div class="sv-card-header">
+          <div class="sv-icon" style="background:#7b2cbf;">🎯</div>
+          <h3>进阶技巧 Drop 2 & Drop 3</h3>
+        </div>
+        <p>
+          Shell Voicing 之后的下一个进阶是 <strong>Drop 2</strong> 和 <strong>Drop 3</strong> voicing。
+          它们是爵士吉他伴奏的"第二门课"——在 Shell 的基础上把某个音符"下放"一个八度，
+          创造出更开放、更具吉他特点的和弦排列。建议在熟练掌握 Shell Voicing 后再学习。
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+  </footer>
+
+  <!-- ===== Scripts ===== -->
+  <script src="js/nav.js?v=2"></script>
+  <script src="js/fretboard-renderer.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+      var SHELL_NOTES_COLOR = '#e63946';
+      var ROOT_NOTE_COLOR  = '#ffffff';
+      var THIRD_NOTE_COLOR = '#2ec4b6';
+      var SEVENTH_NOTE_COLOR = '#ff9f1c';
+
+      // --- String group definitions ---
+      // Each group: which strings play which role
+      var STRING_GROUPS = {
+        '6532': {
+          name: '6-5-3-2 弦组',
+          description: '低音厚重，适合左手伴奏',
+          notes: [
+            // {string, fret, label, color, stroke}
+            { string: 0, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
+            { string: 1, fret: 7,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
+            { string: 3, fret: 9,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
+            { string: 4, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
+          ],
+          numFrets: 7,
+          startFret: 5
+        },
+        '6543': {
+          name: '6-5-4-3 弦组',
+          description: '中间区域，均衡明亮',
+          notes: [
+            { string: 0, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
+            { string: 1, fret: 7,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
+            { string: 2, fret: 8,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
+            { string: 3, fret: 7,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
+          ],
+          numFrets: 7,
+          startFret: 5
+        },
+        '5432': {
+          name: '5-4-3-2 弦组',
+          description: '高音区域，适合弹唱',
+          notes: [
+            { string: 1, fret: 3,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
+            { string: 2, fret: 2,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
+            { string: 3, fret: 3,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
+            { string: 4, fret: 2,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
+          ],
+          numFrets: 7,
+          startFret: 1
+        }
+      };
+
+      // --- Render a string group ---
+      function renderStringGroup(groupId) {
+        var group = STRING_GROUPS[groupId];
+        var containerId = 'fb-group-' + groupId;
+        var container = document.getElementById(containerId);
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        // Add a title
+        var title = document.createElement('div');
+        title.style.cssText = 'text-align:center;margin-bottom:12px;color:var(--text-secondary);font-size:0.85rem;';
+        title.textContent = '以 C7 为例的 ' + group.name + ' Shell Voicing 指位';
+        container.appendChild(title);
+
+        // Build notes with larger dots for root
+        var customNotes = group.notes.map(function(n) {
+          return {
+            string: n.string,
+            fret: n.fret,
+            label: n.label,
+            color: n.color,
+            stroke: n.stroke,
+            r: n.root ? 10 : 7
+          };
+        });
+
+        // Legend
+        var legend = document.createElement('div');
+        legend.style.cssText = 'display:flex;gap:16px;justify-content:center;margin-bottom:12px;flex-wrap:wrap;';
+        legend.innerHTML =
+          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + ROOT_NOTE_COLOR + ';border:2px solid ' + SHELL_NOTES_COLOR + ';"></span> 根音(R)</span>' +
+          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + THIRD_NOTE_COLOR + ';"></span> 三音(3)</span>' +
+          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + SEVENTH_NOTE_COLOR + ';"></span> 七音(7)</span>';
+        container.appendChild(legend);
+
+        // Render fretboard
+        window.renderFretboard(container, {
+          numFrets: group.numFrets,
+          startFret: group.startFret,
+          notes: customNotes,
+          rootNote: 'C',
+          width: 500,
+          height: 200,
+          showLabels: true,
+          highlightRoots: false
+        });
+
+        // Add note description below
+        var desc = document.createElement('div');
+        desc.style.cssText = 'text-align:center;margin-top:12px;font-size:0.9rem;color:var(--text-secondary);line-height:1.6;';
+
+        var noteLabels = group.notes.map(function(n) {
+          return '<span class="note-highlight">' + n.label + '</span>';
+        }).join(' → ');
+        desc.innerHTML = '声部走向：' + noteLabels;
+        container.appendChild(desc);
+      }
+
+      // --- String group selector ---
+      function initStringGroupSelector() {
+        var btns = document.querySelectorAll('.voicing-type-btn');
+        btns.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            btns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            var group = btn.dataset.group;
+            document.querySelectorAll('.voicing-detail').forEach(function(d) {
+              d.style.display = d.dataset.group === group ? 'block' : 'none';
+            });
+          });
+        });
+      }
+
+      // --- Initialize ---
+      function init() {
+        if (!window.renderFretboard) {
+          console.error('Fretboard renderer not loaded');
+          return;
+        }
+
+        initStringGroupSelector();
+
+        // Render all three string groups
+        renderStringGroup('6532');
+        renderStringGroup('6543');
+        renderStringGroup('5432');
+      }
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        init();
+      } else {
+        document.addEventListener('DOMContentLoaded', init);
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
