@@ -31,7 +31,7 @@
     </div>
   </nav>
 
-  <!-- ===== Hero Section ===== -->
+    <!-- ===== Hero Section ===== -->
   <section class="hero">
     <div class="hero-content">
       <h1 class="hero-title">🎸 学吉他</h1>
@@ -43,7 +43,141 @@
     </div>
   </section>
 
-  <!-- ===== Feature Cards ===== -->
+  <style>
+    /* --- Learning Path Guide --- */
+    .path-guide {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 40px 20px 20px;
+    }
+
+    .path-guide-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .path-steps {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .path-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+    }
+
+    .path-step:last-child {
+      border-bottom: none;
+    }
+
+    .ps-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ps-content {
+      flex: 1;
+    }
+
+    .ps-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .ps-name a {
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .ps-name a:hover {
+      color: var(--accent);
+    }
+
+    .ps-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .ps-arrow {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+  </style>
+
+    <!-- ===== Learning Path Quick Guide ===== -->
+    <div class="path-guide">
+      <h2 class="path-guide-title">🗺️ 推荐学习顺序</h2>
+      <div class="path-steps">
+        <div class="path-step">
+          <div class="ps-num">1</div>
+          <div class="ps-content">
+            <div class="ps-name"><a href="theory.html">乐理基础</a></div>
+            <div class="ps-desc">认识吉他、音符、指板</div>
+          </div>
+          <div class="ps-arrow">→</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">2</div>
+          <div class="ps-content">
+            <div class="ps-name"><a href="chords.html">和弦库</a></div>
+            <div class="ps-desc">掌握 24 个常用和弦</div>
+          </div>
+          <div class="ps-arrow">→</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">3</div>
+          <div class="ps-content">
+            <div class="ps-name"><a href="scales.html">音阶练习</a></div>
+            <div class="ps-desc">C大调 + 五声音阶</div>
+          </div>
+          <div class="ps-arrow">→</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">4</div>
+          <div class="ps-content">
+            <div class="ps-name"><a href="songs.html">练习曲目</a></div>
+            <div class="ps-desc">在歌曲中实战应用</div>
+          </div>
+          <div class="ps-arrow">→</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">5</div>
+          <div class="ps-content">
+            <div class="ps-name"><a href="chord-mastery.html">突破前三品</a></div>
+            <div class="ps-desc">CAGED + Shell Voicing</div>
+          </div>
+          <div class="ps-arrow">→</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">6</div>
+          <div class="ps-content">
+            <div class="ps-name"><a href="solo.html">Solo教程</a></div>
+            <div class="ps-desc">分阶段学弹独奏</div>
+          </div>
+          <div class="ps-step-end"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Feature Cards ===== -->
   <div class="cards-grid">
     <a href="roadmap.html" class="card card-link">
       <span class="card-icon">📋</span>
