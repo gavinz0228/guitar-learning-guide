@@ -9,18 +9,25 @@
   --bg-secondary: #1a1a1a;
   --text-primary: #f0e6d0;
   --text-secondary: #a0907a;
+  --text-dim: #6b5d4e;
   --accent: #e63946;
   --accent-hover: #ff5a67;
+  --accent-secondary: #457b9d;
   --card-bg: #1e1e1e;
   --card-border: #2a2a2a;
-  --nav-bg: rgba(13, 13, 13, 0.85);
+  --card-border-hover: #444;
+  --nav-bg: rgba(13, 13, 13, 0.9);
   --footer-bg: #111111;
   --hero-overlay: rgba(0, 0, 0, 0.6);
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-hover: 0 8px 32px rgba(230, 57, 70, 0.15);
+  --shadow-hover: 0 8px 32px rgba(230, 57, 70, 0.18);
+  --shadow-glow: 0 0 40px rgba(230, 57, 70, 0.06);
   --radius: 12px;
+  --radius-sm: 8px;
   --transition: 0.3s ease;
+  --transition-fast: 0.15s ease;
   --max-width: 1200px;
+  --font-mono: 'Courier New', Courier, 'Noto Sans Mono', monospace;
 }
 
 /* --- Light Theme Variables --- */
@@ -29,15 +36,19 @@
   --bg-secondary: #f0ebe3;
   --text-primary: #2c2418;
   --text-secondary: #6b5d4e;
+  --text-dim: #8a7a6a;
   --accent: #d62839;
   --accent-hover: #b71c2e;
+  --accent-secondary: #2a6f97;
   --card-bg: #ffffff;
   --card-border: #e0d8cc;
-  --nav-bg: rgba(250, 246, 240, 0.9);
+  --card-border-hover: #c0b8a8;
+  --nav-bg: rgba(250, 246, 240, 0.95);
   --footer-bg: #e8e0d6;
   --hero-overlay: rgba(0, 0, 0, 0.45);
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   --shadow-hover: 0 8px 32px rgba(214, 40, 57, 0.12);
+  --shadow-glow: 0 0 40px rgba(214, 40, 57, 0.04);
 }
 
 /* --- Global Reset --- */
@@ -318,8 +329,26 @@ button {
   border-radius: var(--radius);
   padding: 32px 28px;
   box-shadow: var(--shadow);
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
   cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.card:hover::before {
+  opacity: 0.6;
 }
 
 .card-link {
@@ -492,3 +521,48 @@ button {
     padding: 24px 20px;
   }
 }
+
+/* --- Custom Scrollbar (Dark) --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* --- Select / Input Styling --- */
+select, input[type="text"], input[type="search"] {
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+select:focus, input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+}
+[data-theme="light"] select:focus,
+[data-theme="light"] input:focus {
+  box-shadow: 0 0 0 3px rgba(214, 40, 57, 0.1);
+}
+
+/* --- Selection highlight --- */
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* --- Text utility --- */
+.text-dim { color: var(--text-dim); }
+.text-secondary { color: var(--text-secondary); }
+.text-accent { color: var(--accent); }
+
+/* --- Mono font utility --- */
+.font-mono { font-family: var(--font-mono); }
