@@ -245,6 +245,65 @@
       color: var(--text-primary);
     }
 
+    /* --- Sub-navigation (CAGED / Shell Voicing) --- */
+    .bp-subnav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px 8px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .subnav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all var(--transition);
+      flex: 0 1 auto;
+      min-width: 200px;
+    }
+
+    .subnav-link:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+
+    .subnav-badge {
+      flex: 0 0 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .subnav-text {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .subnav-arrow {
+      font-size: 1.1rem;
+      color: var(--accent);
+      transition: transform var(--transition);
+    }
+
+    .subnav-link:hover .subnav-arrow {
+      transform: translateX(4px);
+    }
+
     @media (min-width: 768px) {
       .module-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -294,6 +353,20 @@
       <h1>🚀 突破前三品</h1>
       <p>走出新手村，用 CAGED 和 Shell Voicing 解锁整个指板</p>
     </header>
+
+    <!-- Sub-navigation for CAGED / Shell Voicing -->
+    <div class="bp-subnav">
+      <a href="caged.html" class="subnav-link">
+        <span class="subnav-badge" style="background:linear-gradient(135deg,#e63946,#ff6b7a);">C</span>
+        <span class="subnav-text">CAGED 系统</span>
+        <span class="subnav-arrow">→</span>
+      </a>
+      <a href="shell-voicing.html" class="subnav-link">
+        <span class="subnav-badge" style="background:linear-gradient(135deg,#457b9d,#6a9fc4);">S</span>
+        <span class="subnav-text">Shell Voicing</span>
+        <span class="subnav-arrow">→</span>
+      </a>
+    </div>
 
     <!-- Intro Section -->
     <section class="bp-section">
