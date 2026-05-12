@@ -100,6 +100,11 @@
           <span><span class="dot" style="background:#9b59b6;"></span> 6</span>
           <span><span class="dot" style="background:#8e44ad;"></span> 7</span>
         </div>
+        <!-- Play button -->
+        <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--card-border);">
+          <button id="playScaleBtn" style="padding:10px 28px;border-radius:20px;font-size:0.95rem;font-weight:600;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:opacity 0.2s;">▶ 播放音阶</button>
+          <div style="font-size:0.8rem;color:var(--text-dim);margin-top:6px;">按顺序播放当前指型的每个音符</div>
+        </div>
       </div>
     </div>
   </div>
@@ -356,6 +361,72 @@
   document.querySelector('.controls-row').after(tabsDiv);
 
   refresh();
+
+  // --- Scale Playback ---
+  var playBtn = document.getElementById('playScaleBtn');
+  var audioCtx = null;
+  var playbackTimer = null;
+  var isPlaying = false;
+
+  function getNoteFreq(stringIdx, fret) {
+    var STANDARD_TUNING = ['E', 'A', 'D', 'G', 'B', 'E'];
+    var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    var open = STANDARD_TUNING[stringIdx];
+    var idx = ALL_NOTES.indexOf(open);
+    var noteIdx = (idx + fret) % 12;
+    var octave = Math.floor((idx + fret) / 12);
+    var midiNote = 12 + noteIdx + octave * 12;
+    if (stringIdx <= 1) midiNote -= 12;
+    return 440 * Math.pow(2, (midiNote - 69) / 12);
+  }
+
+  playBtn.addEventListener('click', function() {
+    if (isPlaying) {
+      if (playbackTimer) { clearTimeout(playbackTimer); playbackTimer = null; }
+      if (audioCtx) { audioCtx.close(); audioCtx = null; }
+      isPlaying = false;
+      playBtn.textContent = '▶ 播放音阶';
+      return;
+    }
+
+    var scaleIdx = +selectEl.value;
+    var posIdx = +posSelect.value;
+    var scale = SCALES[scaleIdx];
+    if (!scale || !scale.pos[posIdx]) return;
+
+    var positions = scale.pos[posIdx];
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    isPlaying = true;
+    playBtn.textContent = '⏹ 停止';
+
+    var bpm = 80;
+    var noteDuration = 60000 / bpm;
+
+    positions.forEach(function(p, idx) {
+      playbackTimer = setTimeout(function() {
+        var freq = getNoteFreq(p.s, p.f);
+        try {
+          var osc = audioCtx.createOscillator();
+          var gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.3);
+        } catch(e) {}
+      }, idx * noteDuration);
+    });
+
+    setTimeout(function() {
+      if (audioCtx) { audioCtx.close(); audioCtx = null; }
+      isPlaying = false;
+      playBtn.textContent = '▶ 播放音阶';
+    }, positions.length * noteDuration + 200);
+  });
+
 })();
   </script>
 </body>
