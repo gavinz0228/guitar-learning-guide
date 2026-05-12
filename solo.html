@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo教程 | 学吉他</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* --- Solo Page Styles --- */
+    .solo-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+
+    .page-content {
+      padding-top: 64px;
+      min-height: 100vh;
+    }
+
+    /* --- Lesson Card --- */
+    .lesson-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+      overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .lesson-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    /* Unique border-left per lesson */
+    .lesson-card.lesson-1 { border-left: 5px solid #2d6a4f; }
+    .lesson-card.lesson-2 { border-left: 5px solid #457b9d; }
+    .lesson-card.lesson-3 { border-left: 5px solid #c8960a; }
+    .lesson-card.lesson-4 { border-left: 5px solid #e63946; }
+    .lesson-card.lesson-5 { border-left: 5px solid #7b2d8b; }
+    .lesson-card.lesson-6 { border-left: 5px solid #0ea5a9; }
+
+    /* --- Lesson Header --- */
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 26px;
+      gap: 12px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+    }
+
+    .lesson-title-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .lesson-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .lesson-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .lesson-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .lesson-1 .lesson-number { background: #2d6a4f; }
+    .lesson-2 .lesson-number { background: #457b9d; }
+    .lesson-3 .lesson-number { background: #c8960a; }
+    .lesson-4 .lesson-number { background: #e63946; }
+    .lesson-5 .lesson-number { background: #7b2d8b; }
+    .lesson-6 .lesson-number { background: #0ea5a9; }
+
+    /* --- Lesson Body --- */
+    .lesson-body {
+      padding: 20px 26px 10px;
+    }
+
+    .subsection {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    [data-theme="light"] .subsection {
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .subsection:last-child {
+      border-bottom: none;
+    }
+
+    .subsection-heading {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .subsection-content {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      padding-left: 0;
+    }
+
+    /* --- Error / Loading --- */
+    .status-message {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 767px) {
+      .solo-section {
+        padding: 0 12px 40px;
+      }
+
+      .lesson-header {
+        padding: 16px 18px;
+      }
+
+      .lesson-title {
+        font-size: 1.2rem;
+      }
+
+      .lesson-body {
+        padding: 16px 18px 6px;
+      }
+
+      .subsection {
+        padding: 10px 0;
+      }
+
+      .subsection-heading {
+        font-size: 0.95rem;
+      }
+
+      .subsection-content {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">🎸 学吉他</a>
+            <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
+      <button class="hamburger" aria-label="菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="chords.html">和弦库</a>
+        <a href="scales.html">音阶</a>
+        <a href="theory.html">乐理</a>
+        <a href="songs.html">练习曲</a>
+        <a href="roadmap.html">学习路线</a>
+        <a href="solo.html">Solo教程</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Page Content ===== -->
+  <div class="page-content">
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>🎸 Solo教程</h1>
+      <p>从零开始学弹Solo</p>
+    </header>
+
+    <!-- Solo Lessons Container -->
+    <div class="solo-section" id="solo-lessons">
+      <div class="status-message">加载中...</div>
+    </div>
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+  </footer>
+
+  <!-- ===== Scripts ===== -->
+  <script src="js/nav.js?v=2"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var container = document.getElementById('solo-lessons');
+
+      // --- Load solo data ---
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'data/solo.json', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            var lessons = data.soloLessons || [];
+            renderLessons(lessons);
+          } catch (e) {
+            container.innerHTML = '<div class="status-message">加载Solo数据失败：数据格式错误</div>';
+          }
+        } else if (xhr.readyState === 4) {
+          container.innerHTML = '<div class="status-message">加载Solo数据失败，请稍后重试</div>';
+        }
+      };
+      xhr.send();
+
+      // --- Render all lesson cards ---
+      function renderLessons(lessons) {
+        container.innerHTML = '';
+
+        lessons.forEach(function (lesson, index) {
+          var lessonNum = index + 1;
+          var card = document.createElement('div');
+          card.className = 'lesson-card lesson-' + lessonNum;
+
+          // Header
+          var header = document.createElement('div');
+          header.className = 'lesson-header';
+
+          var titleArea = document.createElement('div');
+          titleArea.className = 'lesson-title-area';
+
+          var iconSpan = document.createElement('span');
+          iconSpan.className = 'lesson-icon';
+          iconSpan.textContent = lesson.emoji || '🎸';
+          titleArea.appendChild(iconSpan);
+
+          var titleSpan = document.createElement('span');
+          titleSpan.className = 'lesson-title';
+          titleSpan.textContent = lesson.title;
+          titleArea.appendChild(titleSpan);
+
+          header.appendChild(titleArea);
+
+          var numBadge = document.createElement('span');
+          numBadge.className = 'lesson-number';
+          numBadge.textContent = lessonNum;
+          header.appendChild(numBadge);
+
+          card.appendChild(header);
+
+          // Body
+          var body = document.createElement('div');
+          body.className = 'lesson-body';
+
+          if (lesson.sections && lesson.sections.length > 0) {
+            lesson.sections.forEach(function (section) {
+              var sub = document.createElement('div');
+              sub.className = 'subsection';
+
+              var heading = document.createElement('div');
+              heading.className = 'subsection-heading';
+              heading.textContent = section.heading;
+              sub.appendChild(heading);
+
+              var content = document.createElement('div');
+              content.className = 'subsection-content';
+              content.textContent = section.content;
+              sub.appendChild(content);
+
+              body.appendChild(sub);
+            });
+          }
+
+          card.appendChild(body);
+          container.appendChild(card);
+        });
+      }
+
+    })();
+  </script>
+
+</body>
+</html>

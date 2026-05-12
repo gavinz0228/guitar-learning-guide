@@ -1,0 +1,766 @@
+{
+  "scales": [
+    {
+      "name": "C大调",
+      "nameEn": "C Major",
+      "type": "major",
+      "category": "大调音阶",
+      "description": "C大调是最基础的大调音阶，没有升降号。由C、D、E、F、G、A、B七个音组成。全部在白键上，是学习音阶的起点。在吉他上从第5弦第3品（C音）开始练习，上下行反复练习，用节拍器从60BPM开始。",
+      "positions": [
+        {
+          "string": 5,
+          "fret": 3,
+          "note": "C",
+          "role": "root"
+        },
+        {
+          "string": 5,
+          "fret": 5,
+          "note": "D",
+          "role": "2nd"
+        },
+        {
+          "string": 4,
+          "fret": 2,
+          "note": "E",
+          "role": "3rd"
+        },
+        {
+          "string": 4,
+          "fret": 3,
+          "note": "F",
+          "role": "4th"
+        },
+        {
+          "string": 4,
+          "fret": 5,
+          "note": "G",
+          "role": "5th"
+        },
+        {
+          "string": 3,
+          "fret": 4,
+          "note": "A",
+          "role": "6th"
+        },
+        {
+          "string": 2,
+          "fret": 3,
+          "note": "B",
+          "role": "7th"
+        },
+        {
+          "string": 1,
+          "fret": 3,
+          "note": "C",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "G大调",
+      "nameEn": "G Major",
+      "type": "major",
+      "category": "大调音阶",
+      "description": "G大调包含一个升号（F#），是吉他上最常用的调式之一。从6弦第3品（G音）开始弹奏。F#音出现在2弦第2品。G大调的相对小调是E小调——两者共用同一个调号。",
+      "positions": [
+        {
+          "string": 0,
+          "fret": 3,
+          "note": "G",
+          "role": "root"
+        },
+        {
+          "string": 0,
+          "fret": 5,
+          "note": "A",
+          "role": "2nd"
+        },
+        {
+          "string": 1,
+          "fret": 2,
+          "note": "B",
+          "role": "3rd"
+        },
+        {
+          "string": 1,
+          "fret": 3,
+          "note": "C",
+          "role": "4th"
+        },
+        {
+          "string": 1,
+          "fret": 5,
+          "note": "D",
+          "role": "5th"
+        },
+        {
+          "string": 0,
+          "fret": 10,
+          "note": "E",
+          "role": "6th"
+        },
+        {
+          "string": 2,
+          "fret": 4,
+          "note": "F#",
+          "role": "7th"
+        },
+        {
+          "string": 3,
+          "fret": 4,
+          "note": "G",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "D大调",
+      "nameEn": "D Major",
+      "type": "major",
+      "category": "大调音阶",
+      "description": "D大调包含两个升号（F#和C#）。D大调的根音在第5弦第5品。在民谣和流行歌曲中非常常见。D大调的相对小调是B小调。练习时注意C#音（2弦第2品）的按法。",
+      "positions": [
+        {
+          "string": 2,
+          "fret": 0,
+          "note": "D",
+          "role": "root"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "2nd"
+        },
+        {
+          "string": 2,
+          "fret": 4,
+          "note": "F#",
+          "role": "3rd"
+        },
+        {
+          "string": 3,
+          "fret": 0,
+          "note": "G",
+          "role": "4th"
+        },
+        {
+          "string": 3,
+          "fret": 2,
+          "note": "A",
+          "role": "5th"
+        },
+        {
+          "string": 3,
+          "fret": 4,
+          "note": "B",
+          "role": "6th"
+        },
+        {
+          "string": 4,
+          "fret": 1,
+          "note": "C#",
+          "role": "7th"
+        },
+        {
+          "string": 4,
+          "fret": 3,
+          "note": "D",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "A大调",
+      "nameEn": "A Major",
+      "type": "major",
+      "category": "大调音阶",
+      "description": "A大调包含三个升号（F#、C#、G#）。A大调的根音在第5弦空弦。是吉他上手感非常好的调式，大量开放和弦可用的调性。A大调的相对小调是F#小调。",
+      "positions": [
+        {
+          "string": 1,
+          "fret": 0,
+          "note": "A",
+          "role": "root"
+        },
+        {
+          "string": 1,
+          "fret": 2,
+          "note": "B",
+          "role": "2nd"
+        },
+        {
+          "string": 1,
+          "fret": 4,
+          "note": "C#",
+          "role": "3rd"
+        },
+        {
+          "string": 2,
+          "fret": 0,
+          "note": "D",
+          "role": "4th"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "5th"
+        },
+        {
+          "string": 2,
+          "fret": 4,
+          "note": "F#",
+          "role": "6th"
+        },
+        {
+          "string": 3,
+          "fret": 1,
+          "note": "G#",
+          "role": "7th"
+        },
+        {
+          "string": 3,
+          "fret": 2,
+          "note": "A",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "E大调",
+      "nameEn": "E Major",
+      "type": "major",
+      "category": "大调音阶",
+      "description": "E大调包含四个升号（F#、C#、G#、D#）。E是6弦空弦音，所以E大调在吉他上非常自然。几乎所有摇滚歌曲都有E大调的身影。E大调的相对小调是C#小调。",
+      "positions": [
+        {
+          "string": 0,
+          "fret": 0,
+          "note": "E",
+          "role": "root"
+        },
+        {
+          "string": 0,
+          "fret": 2,
+          "note": "F#",
+          "role": "2nd"
+        },
+        {
+          "string": 0,
+          "fret": 4,
+          "note": "G#",
+          "role": "3rd"
+        },
+        {
+          "string": 1,
+          "fret": 0,
+          "note": "A",
+          "role": "4th"
+        },
+        {
+          "string": 1,
+          "fret": 2,
+          "note": "B",
+          "role": "5th"
+        },
+        {
+          "string": 2,
+          "fret": 1,
+          "note": "C#",
+          "role": "6th"
+        },
+        {
+          "string": 2,
+          "fret": 3,
+          "note": "D#",
+          "role": "7th"
+        },
+        {
+          "string": 2,
+          "fret": 4,
+          "note": "E",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "F大调",
+      "nameEn": "F Major",
+      "type": "major",
+      "category": "大调音阶",
+      "description": "F大调包含一个降号（Bb）。F大调的根音在6弦第1品（F横按位置）。这是需要掌握大横按的调式，练习横按对提升手指力量非常有帮助。F大调的相对小调是D小调。",
+      "positions": [
+        {
+          "string": 0,
+          "fret": 1,
+          "note": "F",
+          "role": "root"
+        },
+        {
+          "string": 0,
+          "fret": 3,
+          "note": "G",
+          "role": "2nd"
+        },
+        {
+          "string": 0,
+          "fret": 5,
+          "note": "A",
+          "role": "3rd"
+        },
+        {
+          "string": 1,
+          "fret": 3,
+          "note": "Bb",
+          "role": "4th"
+        },
+        {
+          "string": 1,
+          "fret": 5,
+          "note": "C",
+          "role": "5th"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "D",
+          "role": "6th"
+        },
+        {
+          "string": 2,
+          "fret": 4,
+          "note": "E",
+          "role": "7th"
+        },
+        {
+          "string": 3,
+          "fret": 3,
+          "note": "F",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "A小调",
+      "nameEn": "A Minor",
+      "type": "minor",
+      "category": "小调音阶",
+      "description": "A小调是C大调的关系小调（无升降号）。A小调是吉他初学者最先接触的小调，Am和弦是最简单的和弦之一。A小调五声音阶（A C D E G）是Solo入门第一指型。",
+      "positions": [
+        {
+          "string": 1,
+          "fret": 0,
+          "note": "A",
+          "role": "root"
+        },
+        {
+          "string": 1,
+          "fret": 2,
+          "note": "B",
+          "role": "2nd"
+        },
+        {
+          "string": 1,
+          "fret": 3,
+          "note": "C",
+          "role": "3rd"
+        },
+        {
+          "string": 2,
+          "fret": 0,
+          "note": "D",
+          "role": "4th"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "5th"
+        },
+        {
+          "string": 2,
+          "fret": 4,
+          "note": "F",
+          "role": "6th"
+        },
+        {
+          "string": 3,
+          "fret": 2,
+          "note": "G",
+          "role": "7th"
+        },
+        {
+          "string": 3,
+          "fret": 4,
+          "note": "A",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "E小调",
+      "nameEn": "E Minor",
+      "type": "minor",
+      "category": "小调音阶",
+      "description": "E小调是G大调的关系小调（一个升号：F#）。6弦空弦E是小调主音。E小调是摇滚和蓝调中使用最频繁的小调。E小调五声音阶（E G A B D）是所有吉他手必须掌握的第一个指型。",
+      "positions": [
+        {
+          "string": 0,
+          "fret": 0,
+          "note": "E",
+          "role": "root"
+        },
+        {
+          "string": 0,
+          "fret": 2,
+          "note": "F#",
+          "role": "2nd"
+        },
+        {
+          "string": 0,
+          "fret": 3,
+          "note": "G",
+          "role": "3rd"
+        },
+        {
+          "string": 1,
+          "fret": 0,
+          "note": "A",
+          "role": "4th"
+        },
+        {
+          "string": 1,
+          "fret": 2,
+          "note": "B",
+          "role": "5th"
+        },
+        {
+          "string": 1,
+          "fret": 3,
+          "note": "C",
+          "role": "6th"
+        },
+        {
+          "string": 2,
+          "fret": 0,
+          "note": "D",
+          "role": "7th"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "D小调",
+      "nameEn": "D Minor",
+      "type": "minor",
+      "category": "小调音阶",
+      "description": "D小调是F大调的关系小调（一个降号：Bb）。Dm和弦是初学者必须掌握的核心和弦之一。D小调在古典音乐和流行音乐中都很常见，有一种深沉忧郁的气质。",
+      "positions": [
+        {
+          "string": 2,
+          "fret": 0,
+          "note": "D",
+          "role": "root"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "2nd"
+        },
+        {
+          "string": 2,
+          "fret": 3,
+          "note": "F",
+          "role": "3rd"
+        },
+        {
+          "string": 3,
+          "fret": 0,
+          "note": "G",
+          "role": "4th"
+        },
+        {
+          "string": 3,
+          "fret": 2,
+          "note": "A",
+          "role": "5th"
+        },
+        {
+          "string": 3,
+          "fret": 3,
+          "note": "Bb",
+          "role": "6th"
+        },
+        {
+          "string": 4,
+          "fret": 1,
+          "note": "C",
+          "role": "7th"
+        },
+        {
+          "string": 4,
+          "fret": 3,
+          "note": "D",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "G大调五声音阶",
+      "nameEn": "G Major Pentatonic",
+      "type": "pentatonic",
+      "category": "五声音阶",
+      "description": "G大调五声音阶由G、A、B、D、E五个音组成（去掉C和F#）。五声音阶是最适合即兴演奏的音阶，因为任意两个音的组合都很和谐。大调五声音阶听起来欢快明亮。从6弦第3品（G音）开始练习。",
+      "positions": [
+        {
+          "string": 0,
+          "fret": 3,
+          "note": "G",
+          "role": "root"
+        },
+        {
+          "string": 0,
+          "fret": 5,
+          "note": "A",
+          "role": "2nd"
+        },
+        {
+          "string": 1,
+          "fret": 2,
+          "note": "B",
+          "role": "3rd"
+        },
+        {
+          "string": 1,
+          "fret": 5,
+          "note": "D",
+          "role": "5th"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "6th"
+        },
+        {
+          "string": 2,
+          "fret": 4,
+          "note": "G",
+          "role": "root"
+        },
+        {
+          "string": 3,
+          "fret": 4,
+          "note": "A",
+          "role": "2nd"
+        },
+        {
+          "string": 4,
+          "fret": 2,
+          "note": "B",
+          "role": "3rd"
+        },
+        {
+          "string": 4,
+          "fret": 5,
+          "note": "D",
+          "role": "5th"
+        },
+        {
+          "string": 5,
+          "fret": 3,
+          "note": "E",
+          "role": "6th"
+        },
+        {
+          "string": 5,
+          "fret": 5,
+          "note": "G",
+          "role": "root"
+        }
+      ]
+    },
+    {
+      "name": "E小调五声音阶",
+      "nameEn": "E Minor Pentatonic",
+      "type": "pentatonic",
+      "category": "五声音阶",
+      "description": "E小调五声音阶由E、G、A、B、D五个音组成。这是所有吉他手学习的第一个Solo指型，也是Blues和Rock中最常用的音阶。Pattern 1从6弦空弦开始，覆盖第1把位，上下行练习并加入即兴。90%的摇滚吉他Solo都基于这个音阶。",
+      "positions": [
+        {
+          "string": 0,
+          "fret": 0,
+          "note": "E",
+          "role": "root"
+        },
+        {
+          "string": 0,
+          "fret": 3,
+          "note": "G",
+          "role": "3rd"
+        },
+        {
+          "string": 0,
+          "fret": 5,
+          "note": "A",
+          "role": "4th"
+        },
+        {
+          "string": 1,
+          "fret": 2,
+          "note": "B",
+          "role": "5th"
+        },
+        {
+          "string": 1,
+          "fret": 5,
+          "note": "D",
+          "role": "7th"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "root"
+        },
+        {
+          "string": 2,
+          "fret": 5,
+          "note": "G",
+          "role": "3rd"
+        },
+        {
+          "string": 3,
+          "fret": 2,
+          "note": "A",
+          "role": "4th"
+        },
+        {
+          "string": 3,
+          "fret": 4,
+          "note": "B",
+          "role": "5th"
+        },
+        {
+          "string": 4,
+          "fret": 3,
+          "note": "D",
+          "role": "7th"
+        },
+        {
+          "string": 5,
+          "fret": 0,
+          "note": "E",
+          "role": "root"
+        },
+        {
+          "string": 5,
+          "fret": 3,
+          "note": "G",
+          "role": "3rd"
+        },
+        {
+          "string": 5,
+          "fret": 5,
+          "note": "A",
+          "role": "4th"
+        }
+      ]
+    },
+    {
+      "name": "A布鲁斯音阶",
+      "nameEn": "A Blues Scale",
+      "type": "blues",
+      "category": "布鲁斯音阶",
+      "description": "A布鲁斯音阶是在A小调五声音阶（A C D E G）的基础上增加了一个降5级音（b5=Eb）而成的。这个增加的音称为蓝调音（Blue Note），给音阶带来独特的蓝调味道。A布鲁斯音阶从第5弦空弦A开始或在第5品把位弹奏。是蓝调即兴的核心音阶。",
+      "positions": [
+        {
+          "string": 1,
+          "fret": 0,
+          "note": "A",
+          "role": "root"
+        },
+        {
+          "string": 1,
+          "fret": 3,
+          "note": "C",
+          "role": "3rd"
+        },
+        {
+          "string": 1,
+          "fret": 5,
+          "note": "D",
+          "role": "4th"
+        },
+        {
+          "string": 0,
+          "fret": 6,
+          "note": "Eb",
+          "role": "5th"
+        },
+        {
+          "string": 2,
+          "fret": 2,
+          "note": "E",
+          "role": "5th"
+        },
+        {
+          "string": 2,
+          "fret": 5,
+          "note": "G",
+          "role": "7th"
+        },
+        {
+          "string": 3,
+          "fret": 2,
+          "note": "A",
+          "role": "root"
+        },
+        {
+          "string": 3,
+          "fret": 5,
+          "note": "C",
+          "role": "3rd"
+        },
+        {
+          "string": 4,
+          "fret": 3,
+          "note": "D",
+          "role": "4th"
+        },
+        {
+          "string": 4,
+          "fret": 4,
+          "note": "Eb",
+          "role": "5th"
+        },
+        {
+          "string": 5,
+          "fret": 0,
+          "note": "E",
+          "role": "5th"
+        },
+        {
+          "string": 5,
+          "fret": 3,
+          "note": "G",
+          "role": "7th"
+        },
+        {
+          "string": 5,
+          "fret": 5,
+          "note": "A",
+          "role": "root"
+        }
+      ]
+    }
+  ]
+}

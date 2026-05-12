@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音阶 | 学吉他</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .scales-section { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 48px; }
+    .page-content { padding-top: 64px; min-height: 100vh; }
+    .controls-row { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+    .controls-row .field { flex: 1; min-width: 180px; }
+    .controls-row label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
+    .controls-row select { width: 100%; padding: 10px 14px; font-size: 0.95rem; background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-border); border-radius: 8px; cursor: pointer; outline: none; transition: border-color var(--transition); appearance: auto; }
+    .controls-row select:hover, .controls-row select:focus { border-color: var(--accent); }
+    .position-tabs { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .position-tab { padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); cursor: pointer; transition: all var(--transition); }
+    .position-tab:hover { border-color: var(--accent); color: var(--text-primary); }
+    .position-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .fretboard-wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 20px; display: flex; justify-content: center; }
+    .fretboard-wrap svg { width: 100%; max-width: 700px; height: auto; border-radius: var(--radius); background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--shadow); display: block; }
+    .degree-bar { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .degree-pill { display: flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-primary); }
+    .degree-pill .deg-note { display: inline-block; width: 22px; height: 22px; border-radius: 50%; text-align: center; line-height: 22px; font-size: 0.75rem; color: #fff; }
+    .scale-info { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 48px; }
+    .scale-info .info-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px 28px; box-shadow: var(--shadow); }
+    .scale-info .info-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .scale-info .info-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; }
+    .legend-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--card-border); }
+    .legend-row span { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-secondary); }
+    .legend-row .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+    @media (max-width: 767px) { 
+      .scales-section { padding: 0 12px 36px; }
+      .controls-row { padding: 0 12px 16px; }
+      .position-tabs { padding: 0 12px 12px; gap: 6px; }
+      .position-tab { padding: 6px 12px; font-size: 0.8rem; }
+      .fretboard-wrap { padding: 0 12px 12px; }
+      .fretboard-wrap svg { max-width: 100%; }
+      .scale-info { padding: 0 12px 36px; }
+      .scale-info .info-card { padding: 16px 18px; }
+      .degree-bar { padding: 0 12px 8px; gap: 4px; }
+      .degree-pill { font-size: 0.7rem; padding: 3px 8px; }
+      .degree-pill .deg-note { width: 18px; height: 18px; line-height: 18px; font-size: 0.65rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">🎸 学吉他</a>
+      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
+      <button class="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="chords.html">和弦库</a>
+        <a href="scales.html">音阶</a>
+        <a href="theory.html">乐理</a>
+        <a href="songs.html">练习曲</a>
+        <a href="roadmap.html">学习路线</a>
+        <a href="solo.html">Solo教程</a>
+      </div>
+    </div>
+  </nav>
+  <div class="page-content">
+    <header class="page-header">
+      <h1>🎼 音阶指型</h1>
+      <p>选择音阶和指型，查看指板上的音符位置与音级</p>
+    </header>
+    <div class="controls-row">
+      <div class="field">
+        <label for="scaleSelect">音阶</label>
+        <select id="scaleSelect"></select>
+      </div>
+      <div class="field">
+        <label for="positionSelect">指型</label>
+        <select id="positionSelect">
+          <option value="0">指型1（E型）</option>
+          <option value="1">指型2（D型）</option>
+          <option value="2">指型3（C型）</option>
+          <option value="3">指型4（A型）</option>
+          <option value="4">指型5（G型）</option>
+        </select>
+      </div>
+    </div>
+    <div class="degree-bar" id="degreeBar"></div>
+    <div class="fretboard-wrap">
+      <svg id="fretboardSvg" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="scale-info" id="scaleInfo">
+      <div class="info-card">
+        <h3><span id="infoName"></span></h3>
+        <p id="infoDescription"></p>
+        <div class="legend-row">
+          <span><span class="dot" style="background:#e63946;"></span> 根音 1</span>
+          <span><span class="dot" style="background:#e67e22;"></span> 2</span>
+          <span><span class="dot" style="background:#f1c40f;"></span> 3</span>
+          <span><span class="dot" style="background:#2ecc71;"></span> 4</span>
+          <span><span class="dot" style="background:#457b9d;"></span> 5</span>
+          <span><span class="dot" style="background:#9b59b6;"></span> 6</span>
+          <span><span class="dot" style="background:#8e44ad;"></span> 7</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+  </footer>
+  <script src="js/nav.js?v=2"></script>
+  <script>
+(function() {
+  'use strict';
+
+  // =============================================
+  //  CAGED Major Scale Positions (string, fret, degree)
+  //  string: 0=6弦E 1=5弦A 2=4弦D 3=3弦G 4=2弦B 5=1弦e
+  //  degree: 1=根音 2=二音 ... 7=七音
+  //  Generated from verified C major positions
+  // =============================================
+      var SCALES = [];
+  SCALES.push({ name: 'C大调 (C Major)', desc: 'C大调是最基础的大调音阶，没有升降号。全白键音阶，是学习音阶的起点。从指型1（根音6弦8品）开始练习，用节拍器60BPM上下行。', pos: [
+    [{s:0,f:8,d:1},{s:0,f:10,d:2},{s:1,f:7,d:3},{s:1,f:8,d:4},{s:1,f:10,d:5},{s:2,f:7,d:6},{s:2,f:9,d:7},{s:2,f:10,d:1}],
+    [{s:1,f:3,d:1},{s:1,f:5,d:2},{s:2,f:2,d:3},{s:2,f:3,d:4},{s:2,f:5,d:5},{s:3,f:2,d:6},{s:3,f:4,d:7},{s:3,f:5,d:1}],
+    [{s:2,f:10,d:1},{s:2,f:12,d:2},{s:3,f:9,d:3},{s:3,f:10,d:4},{s:3,f:12,d:5},{s:4,f:10,d:6},{s:4,f:12,d:7},{s:5,f:8,d:1}],
+    [{s:1,f:3,d:1},{s:1,f:5,d:2},{s:2,f:2,d:3},{s:2,f:3,d:4},{s:2,f:5,d:5},{s:3,f:2,d:6},{s:3,f:4,d:7},{s:3,f:5,d:1}],
+    [{s:0,f:8,d:1},{s:0,f:10,d:2},{s:1,f:7,d:3},{s:1,f:8,d:4},{s:1,f:10,d:5},{s:2,f:7,d:6},{s:2,f:9,d:7},{s:2,f:10,d:1}],
+  ]});
+  SCALES.push({ name: 'G大调 (G Major)', desc: 'G大调包含一个升号(F#)，是吉他上最常用的调式。G和弦是最基础的开放和弦。从指型1开始练习。G大调的相对小调是E小调。', pos: [
+    [{s:0,f:3,d:1},{s:0,f:5,d:2},{s:1,f:2,d:3},{s:1,f:3,d:4},{s:1,f:5,d:5},{s:2,f:2,d:6},{s:2,f:4,d:7},{s:2,f:5,d:1}],
+    [{s:1,f:10,d:1},{s:1,f:12,d:2},{s:2,f:9,d:3},{s:2,f:10,d:4},{s:2,f:12,d:5},{s:3,f:9,d:6},{s:3,f:11,d:7},{s:3,f:12,d:1}],
+    [{s:2,f:5,d:1},{s:2,f:7,d:2},{s:3,f:4,d:3},{s:3,f:5,d:4},{s:3,f:7,d:5},{s:4,f:5,d:6},{s:4,f:7,d:7},{s:5,f:3,d:1}],
+    [{s:1,f:10,d:1},{s:1,f:12,d:2},{s:2,f:9,d:3},{s:2,f:10,d:4},{s:2,f:12,d:5},{s:3,f:9,d:6},{s:3,f:11,d:7},{s:3,f:12,d:1}],
+    [{s:0,f:3,d:1},{s:0,f:5,d:2},{s:1,f:2,d:3},{s:1,f:3,d:4},{s:1,f:5,d:5},{s:2,f:2,d:6},{s:2,f:4,d:7},{s:2,f:5,d:1}],
+  ]});
+  SCALES.push({ name: 'D大调 (D Major)', desc: 'D大调包含两个升号(F#和C#)。D和弦是吉他开放和弦之一。D大调在民谣和流行音乐中非常常见。D大调的相对小调是B小调。', pos: [
+    [{s:0,f:10,d:1},{s:0,f:12,d:2},{s:1,f:9,d:3},{s:1,f:10,d:4},{s:1,f:12,d:5},{s:2,f:9,d:6},{s:2,f:11,d:7},{s:2,f:12,d:1}],
+    [{s:1,f:5,d:1},{s:1,f:7,d:2},{s:2,f:4,d:3},{s:2,f:5,d:4},{s:2,f:7,d:5},{s:3,f:4,d:6},{s:3,f:6,d:7},{s:3,f:7,d:1}],
+    [{s:2,f:0,d:1},{s:2,f:2,d:2},{s:3,f:0,d:4},{s:3,f:2,d:5},{s:4,f:0,d:6},{s:4,f:2,d:7}],
+    [{s:1,f:5,d:1},{s:1,f:7,d:2},{s:2,f:4,d:3},{s:2,f:5,d:4},{s:2,f:7,d:5},{s:3,f:4,d:6},{s:3,f:6,d:7},{s:3,f:7,d:1}],
+    [{s:0,f:10,d:1},{s:0,f:12,d:2},{s:1,f:9,d:3},{s:1,f:10,d:4},{s:1,f:12,d:5},{s:2,f:9,d:6},{s:2,f:11,d:7},{s:2,f:12,d:1}],
+  ]});
+  SCALES.push({ name: 'A大调 (A Major)', desc: 'A大调包含三个升号(F#、C#、G#)。A和弦是最常用的开放和弦之一。A大调的相对小调是F#小调。注意G#在3弦1品。', pos: [
+    [{s:0,f:5,d:1},{s:0,f:7,d:2},{s:1,f:4,d:3},{s:1,f:5,d:4},{s:1,f:7,d:5},{s:2,f:4,d:6},{s:2,f:6,d:7},{s:2,f:7,d:1}],
+    [{s:1,f:0,d:1},{s:1,f:2,d:2},{s:2,f:0,d:4},{s:2,f:2,d:5},{s:3,f:1,d:7},{s:3,f:2,d:1}],
+    [{s:2,f:7,d:1},{s:2,f:9,d:2},{s:3,f:6,d:3},{s:3,f:7,d:4},{s:3,f:9,d:5},{s:4,f:7,d:6},{s:4,f:9,d:7},{s:5,f:5,d:1}],
+    [{s:1,f:0,d:1},{s:1,f:2,d:2},{s:2,f:0,d:4},{s:2,f:2,d:5},{s:3,f:1,d:7},{s:3,f:2,d:1}],
+    [{s:0,f:5,d:1},{s:0,f:7,d:2},{s:1,f:4,d:3},{s:1,f:5,d:4},{s:1,f:7,d:5},{s:2,f:4,d:6},{s:2,f:6,d:7},{s:2,f:7,d:1}],
+  ]});
+  SCALES.push({ name: 'E大调 (E Major)', desc: 'E大调包含四个升号(F#、C#、G#、D#)。E是6弦空弦音，E大调在吉他上非常自然。几乎所有摇滚歌曲都有E大调的身影。E大调的相对小调是C#小调。', pos: [
+    [{s:0,f:0,d:1},{s:0,f:2,d:2},{s:1,f:0,d:4},{s:1,f:2,d:5},{s:2,f:1,d:7},{s:2,f:2,d:1}],
+    [{s:1,f:7,d:1},{s:1,f:9,d:2},{s:2,f:6,d:3},{s:2,f:7,d:4},{s:2,f:9,d:5},{s:3,f:6,d:6},{s:3,f:8,d:7},{s:3,f:9,d:1}],
+    [{s:2,f:2,d:1},{s:2,f:4,d:2},{s:3,f:1,d:3},{s:3,f:2,d:4},{s:3,f:4,d:5},{s:4,f:2,d:6},{s:4,f:4,d:7},{s:5,f:0,d:1}],
+    [{s:1,f:7,d:1},{s:1,f:9,d:2},{s:2,f:6,d:3},{s:2,f:7,d:4},{s:2,f:9,d:5},{s:3,f:6,d:6},{s:3,f:8,d:7},{s:3,f:9,d:1}],
+    [{s:0,f:0,d:1},{s:0,f:2,d:2},{s:1,f:0,d:4},{s:1,f:2,d:5},{s:2,f:1,d:7},{s:2,f:2,d:1}],
+  ]});
+  SCALES.push({ name: 'F大调 (F Major)', desc: 'F大调包含一个降号(Bb)。F和弦需要大横按，练习它对提升手指力量非常有帮助。F大调的相对小调是D小调。', pos: [
+    [{s:0,f:1,d:1},{s:0,f:3,d:2},{s:1,f:0,d:3},{s:1,f:1,d:4},{s:1,f:3,d:5},{s:2,f:0,d:6},{s:2,f:2,d:7},{s:2,f:3,d:1}],
+    [{s:1,f:8,d:1},{s:1,f:10,d:2},{s:2,f:7,d:3},{s:2,f:8,d:4},{s:2,f:10,d:5},{s:3,f:7,d:6},{s:3,f:9,d:7},{s:3,f:10,d:1}],
+    [{s:2,f:3,d:1},{s:2,f:5,d:2},{s:3,f:2,d:3},{s:3,f:3,d:4},{s:3,f:5,d:5},{s:4,f:3,d:6},{s:4,f:5,d:7},{s:5,f:1,d:1}],
+    [{s:1,f:8,d:1},{s:1,f:10,d:2},{s:2,f:7,d:3},{s:2,f:8,d:4},{s:2,f:10,d:5},{s:3,f:7,d:6},{s:3,f:9,d:7},{s:3,f:10,d:1}],
+    [{s:0,f:1,d:1},{s:0,f:3,d:2},{s:1,f:0,d:3},{s:1,f:1,d:4},{s:1,f:3,d:5},{s:2,f:0,d:6},{s:2,f:2,d:7},{s:2,f:3,d:1}],
+  ]});
+
+  // ======================== CODE// ======================== CODE// ======================== CODE// ======================== CODE ========================
+  var selectEl = document.getElementById('scaleSelect');
+  var posSelect = document.getElementById('positionSelect');
+  var svgEl = document.getElementById('fretboardSvg');
+  var infoName = document.getElementById('infoName');
+  var infoDesc = document.getElementById('infoDescription');
+  var degreeBar = document.getElementById('degreeBar');
+
+  var DEG_COLORS = ['#e63946','#e67e22','#f1c40f','#2ecc71','#457b9d','#9b59b6','#8e44ad'];
+  var DEG_NAMES = ['1','2','3','4','5','6','7'];
+
+  // Populate select
+  SCALES.forEach(function(s, i) {
+    var opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = s.name;
+    selectEl.appendChild(opt);
+  });
+
+  function render(scaleIdx, posIdx) {
+    var scale = SCALES[scaleIdx];
+    if (!scale) return;
+    var positions = scale.pos[posIdx];
+    if (!positions || positions.length === 0) { svgEl.innerHTML = ''; return; }
+
+    infoName.textContent = scale.name;
+    infoDesc.textContent = scale.desc;
+
+    // Degree bar
+    degreeBar.innerHTML = '';
+    var shownDegs = {};
+    positions.forEach(function(p) {
+      if (shownDegs[p.d]) return;
+      shownDegs[p.d] = true;
+      var pill = document.createElement('span');
+      pill.className = 'degree-pill';
+      var dot = document.createElement('span');
+      dot.className = 'deg-note';
+      var di = (p.d - 1) % 7;
+      dot.style.background = DEG_COLORS[di];
+      dot.textContent = DEG_NAMES[di];
+      pill.appendChild(dot);
+      var label = document.createElement('span');
+      label.textContent = p.d;
+      pill.appendChild(label);
+      degreeBar.appendChild(pill);
+    });
+
+    // SVG
+    var W = 720, H = 280;
+    var ml = 40, mr = 20, mt = 24, mb = 24;
+    var numFrets = 12;
+    var fw = W - ml - mr;
+    var fs = fw / numFrets;
+
+    svgEl.innerHTML = '';
+    svgEl.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    // Find min fret and adjust view
+    var minFret = 0, maxFret = 12;
+    positions.forEach(function(p) {
+      if (p.f < minFret) minFret = p.f;
+      if (p.f > maxFret) maxFret = p.f;
+    });
+
+    var bg = docElem('rect');
+    bg.setAttribute('x','0'); bg.setAttribute('y','0');
+    bg.setAttribute('width',W); bg.setAttribute('height',H);
+    bg.setAttribute('fill','#1a1a1a'); bg.setAttribute('rx','8');
+    svgEl.appendChild(bg);
+
+    for (var f = 0; f <= numFrets; f++) {
+      var x = ml + f * fs;
+      var line = docElem('line');
+      line.setAttribute('x1',x); line.setAttribute('y1',mt);
+      line.setAttribute('x2',x); line.setAttribute('y2',H-mb);
+      line.setAttribute('stroke', f===0 ? '#666' : '#333');
+      line.setAttribute('stroke-width', f===0 ? 4 : 1.5);
+      svgEl.appendChild(line);
+    }
+
+    for (var fn = 1; fn <= numFrets; fn++) {
+      var fx = ml + (fn - 0.5) * fs;
+      var t = docElem('text');
+      t.setAttribute('x',fx); t.setAttribute('y',H-mb+16);
+      t.setAttribute('text-anchor','middle');
+      t.setAttribute('fill','#666'); t.setAttribute('font-size','10');
+      t.setAttribute('font-family','system-ui, sans-serif');
+      t.textContent = fn;
+      svgEl.appendChild(t);
+    }
+
+    var sc = 6;
+    var ss = (H - mt - mb) / (sc - 1);
+    var sNames = ['E','A','D','G','B','e'];
+    for (var si = 0; si < sc; si++) {
+      var y = mt + (sc - 1 - si) * ss;
+      var sl = docElem('line');
+      sl.setAttribute('x1',ml); sl.setAttribute('y1',y);
+      sl.setAttribute('x2',ml+numFrets*fs); sl.setAttribute('y2',y);
+      sl.setAttribute('stroke','#555');
+      sl.setAttribute('stroke-width', 1 + (sc - si) * 0.4);
+      svgEl.appendChild(sl);
+
+      var lb = docElem('text');
+      lb.setAttribute('x',ml-14); lb.setAttribute('y',y+4);
+      lb.setAttribute('text-anchor','end');
+      lb.setAttribute('fill','#aaa'); lb.setAttribute('font-size','13');
+      lb.setAttribute('font-weight','600');
+      lb.setAttribute('font-family','system-ui, sans-serif');
+      lb.textContent = sNames[si];
+      svgEl.appendChild(lb);
+    }
+
+    // Note dots
+    var R = 12;
+    positions.forEach(function(p) {
+      var strIdx = p.s;
+      var fret = p.f;
+      var deg = ((p.d - 1) % 7);
+      var col = DEG_COLORS[deg];
+
+      var yPos = mt + (sc - 1 - strIdx) * ss;
+      var xPos;
+      if (fret === 0) {
+        xPos = ml + fs * 0.15;
+      } else {
+        // Find which display fret column
+        var displayFret = fret;
+        if (displayFret > numFrets) displayFret = numFrets;
+        xPos = ml + (displayFret - 0.5) * fs;
+      }
+
+      var glow = docElem('circle');
+      glow.setAttribute('cx',xPos); glow.setAttribute('cy',yPos);
+      glow.setAttribute('r', R+2);
+      glow.setAttribute('fill','none');
+      glow.setAttribute('stroke',col); glow.setAttribute('stroke-width',1.5);
+      glow.setAttribute('opacity',0.3);
+      svgEl.appendChild(glow);
+
+      var c = docElem('circle');
+      c.setAttribute('cx',xPos); c.setAttribute('cy',yPos);
+      c.setAttribute('r', R);
+      c.setAttribute('fill',col); c.setAttribute('opacity','0.9');
+      c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','0.5');
+      svgEl.appendChild(c);
+
+      var dt = docElem('text');
+      dt.setAttribute('x',xPos); dt.setAttribute('y',yPos+4);
+      dt.setAttribute('text-anchor','middle');
+      dt.setAttribute('fill','#fff'); dt.setAttribute('font-size','11');
+      dt.setAttribute('font-weight','700');
+      dt.setAttribute('font-family','system-ui, sans-serif');
+      dt.textContent = p.d;
+      svgEl.appendChild(dt);
+    });
+  }
+
+  function docElem(name) {
+    return document.createElementNS('http://www.w3.org/2000/svg', name);
+  }
+
+  function refresh() {
+    var si = parseInt(selectEl.value, 10);
+    var pi = parseInt(posSelect.value, 10);
+    var tabs = document.querySelectorAll('.position-tab');
+    tabs.forEach(function(t, i) { t.classList.toggle('active', i === pi); });
+    render(si, pi);
+  }
+
+  selectEl.addEventListener('change', refresh);
+  posSelect.addEventListener('change', refresh);
+  selectEl.value = '0';
+  posSelect.value = '0';
+
+  // Position tabs
+  var tabsDiv = document.createElement('div');
+  tabsDiv.className = 'position-tabs';
+  tabsDiv.id = 'posTabs';
+  for (var i = 0; i < 5; i++) {
+    var tab = document.createElement('span');
+    tab.className = 'position-tab' + (i === 0 ? ' active' : '');
+    var patternNames = ['指型1（E型）','指型2（D型）','指型3（C型）','指型4（A型）','指型5（G型）'];
+    tab.textContent = patternNames[i];
+    tab.dataset.pos = i;
+    tab.addEventListener('click', function() {
+      posSelect.value = this.dataset.pos;
+      refresh();
+    });
+    tabsDiv.appendChild(tab);
+  }
+  document.querySelector('.controls-row').after(tabsDiv);
+
+  refresh();
+})();
+  </script>
+</body>
+</html>
