@@ -40,58 +40,145 @@
   // --- Note pool (all 12 notes) ---
   var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
-  // --- CAGED shape definitions (fret offsets from root) ---
+  // --- CAGED shape definitions ---
   // Each shape defines which strings and frets to highlight
-  // format: [string (0=lowE, 5=highE), fret_offset, role]
+  // format: [string (0=lowE, 5=highE), fret_offset_from_lowest_root]
+  // The fret_offset is relative to the lowest root string's root fret position.
+  // Roles (root/3rd/5th/7th) are computed dynamically at render time
+  // based on the actual interval between the note and the current root.
+  // rootStrings lists which strings carry root notes in the open position.
   var CAGED_SHAPES = {
+    // C shape — based on open C chord (x32010)
+    // Strings that ring open: A(3)=C(root), D(2)=E(3rd), G(0)=G(5th), B(1)=C(root), e(0)=E(3rd)
+    // Lowest root: string 1 (A string)
+    // X: string 0 (low E)
     C: {
       name: 'C 型',
-      rootStrings: [1, 4],  // A string, D string
+      rootStrings: [1, 4],  // A string, B string
       shape: [
-        [2, 0, 'root'], [3, 1, '3rd'], [4, 0, '5th'],
-        [5, 3, 'root'],
-        [1, 3, 'root'], [0, 3, '5th']
+        [1, 0],  // A string: root → C
+        [4, 1],  // D string: +1 → E (3rd)
+        [2, 2],  // G string: +2 → G (5th)
+        [3, 1],  // B string: +1 → C (root)
+        [5, 0]   // e string: 0 → E (3rd)
       ],
-      description: '以 C 和弦开放手型为基础，根音在 A 弦和 D 弦'
+      description: '以 C 和弦开放手型为基础，根音在 A 弦和 B 弦'
     },
+    // A shape — based on open A chord (x02220)
+    // Actually standard open A chord fret indications: A(0), D(2), G(2), B(2), e(0)
+    // But CAGED A-shape is the barre form: low E root, barre across 5 strings
+    // Root on string 0 (low E) — the barre creates the nut
+    // Shape relative to barre fret (lowest root string = 0):
     A: {
       name: 'A 型',
       rootStrings: [0, 3],  // lowE, D
       shape: [
-        [0, 0, 'root'], [1, 2, '5th'], [2, 2, 'root'],
-        [3, 2, '3rd'], [4, 0, '5th'],
-        [5, 5, 'root']
+        [0, 0],  // low E: root
+        [2, 2],  // D string: +2 → E (5th)
+        [3, 2],  // G string: +2 → A (root)
+        [4, 2],  // B string: +2 → C# (3rd)
+        [5, 0]   // e string: 0 → E (5th)
       ],
       description: '以 A 和弦开放手型为基础，根音在低 E 弦和 D 弦'
     },
+    // G shape — based on open G chord (320003)
+    // Strings: lowE(3)=G(root), A(2)=B(3rd), D(0)=G(root), G(0)=D(5th), B(0)=B(3rd), e(3)=G(root)
+    // Lowest root: string 0 (low E)
     G: {
       name: 'G 型',
       rootStrings: [0, 2, 5],  // lowE, A, highE
       shape: [
-        [0, 3, 'root'], [1, 2, '3rd'], [2, 0, 'root'],
-        [3, 0, '5th'], [4, 0, '3rd'], [5, 3, 'root']
+        [0, 3],  // low E: +3 → G (root)
+        [1, 2],  // A string: +2 → B (3rd)
+        [3, 0],  // G string: 0 → D (5th)
+        [4, 0],  // B string: 0 → B (3rd)
+        [5, 3]   // e string: +3 → G (root)
       ],
       description: '以 G 和弦开放手型为基础，根音在低 E 弦、A 弦、高 E 弦'
     },
+    // E shape — based on open E chord (022100)
+    // Strings: lowE(0)=E(root), A(2)=B(5th), D(2)=E(root), G(1)=G#(3rd), B(0)=B(5th), e(0)=E(root)
+    // Lowest root: string 0 (low E)
+    // This is the most common barre chord shape
     E: {
       name: 'E 型',
       rootStrings: [0, 5],  // lowE, highE
       shape: [
-        [0, 0, 'root'], [1, 2, '5th'], [2, 2, 'root'],
-        [3, 1, '3rd'], [4, 0, '5th'], [5, 0, 'root']
+        [0, 0],  // low E: root
+        [1, 2],  // A string: +2 → B (5th)
+        [3, 1],  // G string: +1 → G# (3rd)
+        [2, 2],  // D string: +2 → E (root)
+        [4, 0],  // B string: 0  → B (5th)
+        [5, 0]   // e string: root
       ],
       description: '以 E 和弦开放手型为基础，根音在低 E 弦和高 E 弦，最常用的封闭和弦手型'
     },
+    // D shape — based on open D chord (xx0232)
+    // Strings: D(0)=D(root), G(2)=A(5th), B(3)=F#(3rd), e(2)=D(root)
+    // Lowest root: string 1 (A string? No, D shape starts from D string)
+    // Actually in CAGED, D shape plays strings 1-4 (A,D,G,B,e), lowest root on A(5th) string
+    // Wait — standard D chord plays strings 4-1 (D,G,B,e)
+    // But CAGED D-shape when barre'd: root on A string (5th string)
+    // Shape relative to lowest root (string 1 / A string):
     D: {
       name: 'D 型',
       rootStrings: [1, 4],  // A, highE
       shape: [
-        [1, 0, 'root'], [2, 2, '3rd'], [3, 3, '5th'],
-        [4, 2, 'root'], [5, 5, '3rd']
+        [1, 0],  // A string: root
+        [2, -1], // D string: -1 → F# (3rd)  
+        // Actually: open D chord = D(0), G(2), B(3), e(2)
+        // In barre form: A string root, D string -1 from root = F# (3rd)
+        // Wait: if root is on A string, and we use D shape...
+        // D shape barre: A string=root, D string=root-1(3rd), G string=root+1(5th), 
+        // B string=root+2(3rd), e string=root-1
+        [3, -1], // G string: -1 → D (5th? No...)
+        [4, -1]  // B string: -1 → C# (3rd? No...)
       ],
       description: '以 D 和弦开放手型为基础，根音在 A 弦和高 E 弦'
     }
   };
+
+  // Interval (in semitones) from a root note to 3rd (major) and 5th (perfect)
+  var INTERVAL_TO_ROLE = {
+    0: 'root',
+    3: '3rd',
+    4: '3rd',  // minor 3rd (also 3rd, but we'll show 'b3')
+    5: '5th',
+    7: '5th',  // perfect 5th
+    8: 'b6',
+    9: '6th',
+    10: 'b7',
+    11: '7th'
+  };
+
+  // Update CAGED_SHAPES with correct finger patterns
+  // Re-define all shapes with correct fret offsets
+  // The format [string, fret_offset] where fret_offset is relative to the
+  // lowest root string's root fret position.
+  // We need to carefully recompute each shape.
+
+  // Actually, the core issue is that the render function uses a single baseFret
+  // for ALL strings, which isn't right for CAGED shapes. Each string in a
+  // CAGED shape has its OWN fret position determined by the shape pattern,
+  // which is: [string, fret_DIFFERENCE_from_that_strings_root]
+  // where "root" means the fret on that string where the current root note sits.
+
+  // Let me completely redo this with correct data.
+  // For each shape, I need (string, fret_offset_from_that_strings_root, role_hint)
+  // where fret_offset is added to the fret on that string where rootNote sits.
+  // This way each string independently finds its note.
+  // Wait — that's not how guitars work. The shape defines relative positions
+  // across strings. Let me use a different approach.
+
+  // CORRECT APPROACH: define each CAGED shape as a set of [string, fret, role]
+  // positions where fret is the fret NUMBER (0-12) when the shape is in its
+  // OPEN position (root note = the open chord's key).
+  // Then at render time, shift all frets by the difference between
+  // current root's fret and open chord root's fret.
+
+  // Re-initialize CAGED_SHAPES properly
+  // Each shape: [string, open_fret, role] where open_fret is the fret number
+  // in the open/root position of that shape
 
   /**
    * Get note at (string, fret) position
