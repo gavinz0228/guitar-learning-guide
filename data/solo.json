@@ -105,6 +105,30 @@
           "heading": "第四周：连接 Pattern 1 和 Pattern 2",
           "content": "▶ 练习目标：在指板上自由移动\n▶ 节拍器速度：80 BPM\n▶ 每天练习时间：15 分钟\n\nPattern 2（也叫做 D 型指型）是 Pattern 1 往高把位移动 3 品的版本。它的音符位置（以 C 大调为例）：\n6弦：3品=G • 5品=A\n5弦：2品=B • 5品=D\n... 但最好的学习方法不是死记硬背——**把 Pattern 1 的形状在指板上往高把位移 3 品，你自然就进入了 Pattern 2**。\n\n在 6 弦上试着从 Pattern 1 的 3 品 G 滑到 Pattern 2 的 5 品 A——这个滑音在两个 Pattern 之间建立了桥梁。\n\n练习：在 Pattern 1 弹 6 弦 3 品 G → 滑到 5 品 A（进入 Pattern 2）→ 在 Pattern 2 里弹 1-2 个音 → 滑回 Pattern 1。来回重复。",
           "fretboard": null
+        },
+        {
+          "heading": "🎯 补充：换成小调五声音阶（A 小调）",
+          "content": "同一套指型，换上小调的根音就是小调五声音阶。\n\n**A 小调五声音阶的 5 个音：A（根音）C（♭3）D（4）E（5）G（♭7）**\n\n对比 C 大调五声音阶的 5 个音：C（根音）D（2）E（3）G（5）A（6）\n\n→ 音一模一样，就是 C 大调从 C 开始数，A 小调从 A 开始数。\n\n怎么换成 A 小调？把 Pattern 1 往上移 5 品：\n- 6弦空弦 E → 6弦5品 A\n- 6弦3品 G → 6弦8品 C\n- 5弦空弦 A → 5弦5品 D\n- 5弦2品 B → 5弦7品 E\n- 4弦空弦 D → 4弦5品 G\n- 4弦2品 E → 4弦7品 A\n- 整个指型往上平移 5 品即可\n\n🎯 练习：在 YouTube 搜「A Minor Blues Backing Track 70 BPM」，用 A 小调五声音阶即兴。你弹出来的感觉会明显不同——C 大调明亮欢快，A 小调忧伤深情。同一种指法，换根音就换情绪。这就是五声音阶的魅力。",
+          "fretboard": {
+            "type": "full",
+            "startFret": 5,
+            "numFrets": 4,
+            "description": "A 小调五声音阶 Pattern 1（上移 5 品）— 红=根音 A",
+            "notes": [
+              {"string": 0, "fret": 5, "label": "R", "color": "#e63946"},
+              {"string": 0, "fret": 8, "label": "b3", "color": "#457b9d"},
+              {"string": 1, "fret": 5, "label": "4", "color": "#2ec4b6"},
+              {"string": 1, "fret": 7, "label": "5", "color": "#ff9f1c"},
+              {"string": 2, "fret": 5, "label": "b7", "color": "#7b2cbf"},
+              {"string": 2, "fret": 7, "label": "R", "color": "#e63946"},
+              {"string": 3, "fret": 4, "label": "b3", "color": "#457b9d"},
+              {"string": 3, "fret": 7, "label": "4", "color": "#2ec4b6"},
+              {"string": 4, "fret": 6, "label": "5", "color": "#ff9f1c"},
+              {"string": 4, "fret": 8, "label": "b7", "color": "#7b2cbf"},
+              {"string": 5, "fret": 5, "label": "R", "color": "#e63946"},
+              {"string": 5, "fret": 8, "label": "b3", "color": "#457b9d"}
+            ]
+          }
         }
       ]
     },
