@@ -54,22 +54,17 @@
           "content": "五声音阶（Pentatonic Scale）是 Solo 的基础——90% 的摇滚、蓝调、流行 Solo 都使用它。它只有 5 个音（全音阶有 7 个），去掉了 4 级和 7 级这两个「不稳定」的音。好处是：这 5 个音里任意组合都很好听，不会出现不和谐的「错音」。\n\n我们从 C 大调五声音阶开始。它的 5 个音是：\nC（根音/Do）、D（Re）、E（Mi）、G（Sol）、A（La）\n\n选择 C 大调的理由：大调音阶明亮开朗，大部分初学歌曲都是大调，C 大调没有升降号最容易理解。\n\n⭐ 关键：大调和小调五声音阶是同一个指型，区别只是根音不同。下面这个指型——根音放 C 上就是 C 大调（明亮），根音放 A 上就是 A 小调（忧伤）。学会一个等于学会两个。",
           "fretboard": {
             "type": "full",
-            "startFret": 0,
+            "startFret": 3,
             "numFrets": 4,
-            "description": "C 大调五声音阶 Pattern 1 — 5个音: C(根音) D(2) E(3) G(5) A(6)",
+            "description": "C 大调五声音阶 Pattern 1（从第 3 品开始）— C D E G A",
             "notes": [
-              {"string": 0, "fret": 0, "label": "E", "color": "#f1c40f"},
-              {"string": 0, "fret": 3, "label": "G", "color": "#457b9d"},
-              {"string": 1, "fret": 0, "label": "A", "color": "#9b59b6"},
-              {"string": 1, "fret": 2, "label": "B", "color": "#8e44ad"},
+              {"string": 1, "fret": 3, "label": "C", "color": "#e63946"},
               {"string": 2, "fret": 0, "label": "D", "color": "#e67e22"},
-              {"string": 2, "fret": 2, "label": "E", "color": "#f1c40f"},
+              {"string": 4, "fret": 2, "label": "E", "color": "#f1c40f"},
               {"string": 3, "fret": 0, "label": "G", "color": "#457b9d"},
               {"string": 3, "fret": 2, "label": "A", "color": "#9b59b6"},
               {"string": 4, "fret": 1, "label": "B", "color": "#8e44ad"},
-              {"string": 4, "fret": 3, "label": "D", "color": "#e67e22"},
-              {"string": 5, "fret": 0, "label": "E", "color": "#f1c40f"},
-              {"string": 5, "fret": 3, "label": "G", "color": "#457b9d"}
+              {"string": 4, "fret": 3, "label": "C", "color": "#e63946"}
             ]
           }
         },
