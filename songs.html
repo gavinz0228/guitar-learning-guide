@@ -659,7 +659,7 @@
           details.appendChild(keyInfo);
         }
 
-        // --- Chord/Lyrics (和弦谱) ---
+        // --- Chord/Lyrics (和弦谱, table对齐) ---
         if (song.chordLyrics && song.chordLyrics.length > 0) {
           var csLabel = document.createElement('div');
           csLabel.className = 'detail-label';
@@ -667,56 +667,36 @@
           details.appendChild(csLabel);
 
           var csContainer = document.createElement('div');
-          csContainer.style.cssText = 'background:#0d0d0d;border-radius:8px;padding:16px 18px;margin-bottom:14px;overflow-x:auto;font-family:var(--font-mono,"Courier New",monospace);';
+          csContainer.style.cssText = 'background:#0d0d0d;border-radius:8px;padding:14px 16px;margin-bottom:14px;overflow-x:auto;';
 
-          var csHtml = '';
+          var csHtml = '<table style="border-collapse:collapse;">';
           song.chordLyrics.forEach(function(item) {
             var line = item.line;
-            // Parse [Chord] syntax
-            var chordRegex = /\[([^\]]+)\]/g;
-            var match;
-            var segments = [];
-            var lastIdx = 0;
-            while ((match = chordRegex.exec(line)) !== null) {
-              if (match.index > lastIdx) {
-                segments.push({type: 'text', content: line.substring(lastIdx, match.index)});
-              }
-              segments.push({type: 'chord', content: match[1]});
-              lastIdx = match.index + match[0].length;
-            }
-            if (lastIdx < line.length) {
-              segments.push({type: 'text', content: line.substring(lastIdx)});
-            }
+            // Split by [Chord] markers
+            var parts = line.split(/(\[[^\]]+\])/);
+            // parts = ["text", "[C]", "text", "[G]", ...]
+            var hasChord = parts.length > 1;
 
-            if (segments.length === 0) {
-              csHtml += '<div style="color:var(--text-secondary);line-height:1.8;">' + escapeHtml(line) + '</div>';
+            if (!hasChord) {
+              csHtml += '<tr><td style="padding:0;color:var(--text-secondary);font-size:0.93rem;line-height:1.7;">' + escapeHtml(line) + '</td></tr>';
             } else {
-              var chordLine = '';
-              var lyricLine = '';
-              var chordLen = 0;
-              segments.forEach(function(seg) {
-                if (seg.type === 'chord') {
-                  chordLine += '<span style="color:var(--accent);font-weight:700;">' + escapeHtml(seg.content) + '</span>';
-                  chordLen += seg.content.length;
+              var chordCells = '';
+              var lyricCells = '';
+              parts.forEach(function(part) {
+                if (!part) return;
+                if (part.startsWith('[') && part.endsWith(']')) {
+                  var chord = part.slice(1, -1);
+                  chordCells += '<td style="padding:0 8px 0 0;color:var(--accent);font-weight:700;font-size:0.9rem;line-height:1.5;white-space:nowrap;">' + escapeHtml(chord) + '</td>';
+                  lyricCells += '<td style="padding:0 8px 0 0;font-size:0;line-height:0;"></td>';
                 } else {
-                  var text = seg.content;
-                  lyricLine += escapeHtml(text);
-                  while (chordLine.length < chordLen + text.length) {
-                    chordLine += ' ';
-                    chordLen++;
-                  }
+                  chordCells += '<td style="padding:0 2px 0 0;color:var(--text-dim);font-size:0.7rem;line-height:1.2;white-space:nowrap;">&nbsp;</td>';
+                  lyricCells += '<td style="padding:0 2px 0 0;color:var(--text-primary);font-size:0.93rem;line-height:1.7;white-space:nowrap;">' + escapeHtml(part) + '</td>';
                 }
               });
-              // Fill remaining space
-              if (chordLine.length > lyricLine.length) {
-                while (lyricLine.length < chordLine.length) lyricLine += ' ';
-              } else {
-                while (chordLine.length < lyricLine.length) chordLine += ' ';
-              }
-              csHtml += '<div style="color:var(--accent);font-weight:700;line-height:1.5;white-space:pre-wrap;">' + chordLine + '</div>';
-              csHtml += '<div style="color:var(--text-primary);line-height:1.7;white-space:pre-wrap;margin-bottom:4px;">' + lyricLine + '</div>';
+              csHtml += '<tr>' + chordCells + '</tr><tr>' + lyricCells + '</tr>';
             }
           });
+          csHtml += '</table>';
 
           csContainer.innerHTML = csHtml;
           details.appendChild(csContainer);
