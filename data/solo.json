@@ -51,32 +51,31 @@
       "sections": [
         {
           "heading": "什么是五声音阶",
-          "content": "五声音阶（Pentatonic Scale）是 Solo 的基础——90% 的摇滚、蓝调、流行 Solo 都使用它。它只有 5 个音（全音阶有 7 个），去掉了 4 级和 7 级这两个「不稳定」的音。好处是：这 5 个音里任意组合都很好听，不会出现不和谐的「错音」。\n\n我们从 C 大调五声音阶开始。它的 5 个音是：\nC（根音/Do）、D（Re）、E（Mi）、G（Sol）、A（La）\n\n选择 C 大调的理由：大调音阶明亮开朗，大部分初学歌曲都是大调，C 大调没有升降号最容易理解。\n\n⭐ 关键：大调和小调五声音阶是同一个指型，区别只是根音不同。下面这个指型——根音放 C 上就是 C 大调（明亮），根音放 A 上就是 A 小调（忧伤）。学会一个等于学会两个。",
+          "content": "五声音阶（Pentatonic Scale）是 Solo 的基础——90% 的摇滚、蓝调、流行 Solo 都使用它。它只有 5 个音（全音阶有 7 个），去掉了 4 级和 7 级这两个「不稳定」的音。好处是：这 5 个音里任意组合都很好听，不会出现不和谐的「错音」。\n\n我们从 A 小调五声音阶开始。它的 5 个音是：\nA（根音/La）、C（♭3/Do）、D（4/Re）、E（5/Mi）、G（♭7/Sol）\n\n选 A 小调的原因：它的 5 个音在第一把位的 0-4 品内全部出现，没有根音在指板外的情况，一眼就能看清指型分布。\n\n⭐ 关键：大调和小调五声音阶是同一个指型，区别只是根音不同。下面这个指型——根音放 A 上就是 A 小调（忧伤），根音放 C 上就是 C 大调（明亮）。学会一个等于学会两个。",
           "fretboard": {
             "type": "full",
             "startFret": 0,
             "numFrets": 4,
-            "description": "C 大调五声音阶 Pattern 1 — 5个音: C(红) D(橙) E(黄) G(蓝) A(紫) 根音C在A弦3品",
+            "description": "A 小调五声音阶 Pattern 1 — A(红) C(蓝) D(绿) E(黄) G(紫) 全部在0-4品内",
             "notes": [
-              {"string": 1, "fret": 3, "label": "C", "color": "#e63946"},
-              {"string": 2, "fret": 0, "label": "D", "color": "#e67e22"},
-              {"string": 2, "fret": 2, "label": "E", "color": "#f1c40f"},
-              {"string": 3, "fret": 0, "label": "G", "color": "#457b9d"},
-              {"string": 3, "fret": 2, "label": "A", "color": "#9b59b6"},
               {"string": 0, "fret": 0, "label": "E", "color": "#f1c40f"},
-              {"string": 0, "fret": 3, "label": "G", "color": "#457b9d"},
-              {"string": 1, "fret": 0, "label": "A", "color": "#9b59b6"},
+              {"string": 0, "fret": 3, "label": "G", "color": "#9b59b6"},
+              {"string": 1, "fret": 0, "label": "A", "color": "#e63946"},
               {"string": 1, "fret": 2, "label": "B", "color": "#8e44ad"},
+              {"string": 2, "fret": 0, "label": "D", "color": "#2ec4b6"},
+              {"string": 2, "fret": 2, "label": "E", "color": "#f1c40f"},
+              {"string": 3, "fret": 0, "label": "G", "color": "#9b59b6"},
+              {"string": 3, "fret": 2, "label": "A", "color": "#e63946"},
               {"string": 4, "fret": 1, "label": "B", "color": "#8e44ad"},
-              {"string": 4, "fret": 3, "label": "D", "color": "#e67e22"},
+              {"string": 4, "fret": 3, "label": "D", "color": "#2ec4b6"},
               {"string": 5, "fret": 0, "label": "E", "color": "#f1c40f"},
-              {"string": 5, "fret": 3, "label": "G", "color": "#457b9d"}
+              {"string": 5, "fret": 3, "label": "G", "color": "#9b59b6"}
             ]
           }
         },
         {
           "heading": "Pattern 1：五声音阶指型（大调和小调共用）",
-          "content": "这是最重要的一个指型，学好它你就学会了 Solo 的基础。\n\n⭐ 核心理解：大调五声音阶和小调五声音阶用的是同一个指型，区别只是根音：\n- 根音在 C → C 大调五声音阶（明亮开朗，适合流行）\n- 根音在 A → A 小调五声音阶（忧伤深情，适合蓝调/摇滚）\n\nC 大调五声音阶 = C D E G A\nA 小调五声音阶 = A C D E G\n——看，5 个音一模一样，只是从不同的音开始数。这叫「关系大小调」。\n\n现在看指板上的 Pattern 1（以 C 大调为例，根音在 C）：\n\n6弦(E弦)：0品=E（3音/Mi）• 3品=G（5音/Sol）\n5弦(A弦)：0品=A（6音/La）• 2品=B（7音/Si）\n4弦(D弦)：0品=D（2音/Re）• 2品=E（3音/Mi）\n3弦(G弦)：0品=G（5音/Sol）• 2品=A（6音/La）\n2弦(B弦)：1品=B（7音/Si）• 3品=D（2音/Re）\n1弦(e弦)：0品=E（3音/Mi）• 3品=G（5音/Sol）\n\n📌 记忆口诀：「除了 2 弦从 1 品开始，其他弦都是空弦 + 隔 2 品」\n\n💡 注意：指板上没有 C 音（根音）！因为 C 在 A 弦 3 品（不在这个指型的前 4 品内）。所以你弹的这个音阶虽然叫 C 大调五声音阶，但它的最低音是 E（3 音）。要让 C 作为根音出现，需要用更高的把位——但初学者先用这个指型练手指位置，之后再学其他把位。",
+          "content": "这是最重要的一个指型，学好它你就学会了 Solo 的基础。\n\n⭐ 核心理解：大调五声音阶和小调五声音阶用的是同一个指型，区别只是根音：\n- 根音在 A → A 小调五声音阶（忧伤深情，适合蓝调/摇滚）\n- 根音在 C → C 大调五声音阶（明亮开朗，适合流行）\n\nA 小调五声音阶 = A C D E G\nC 大调五声音阶 = C D E G A\n——看，5 个音一模一样，只是从不同的音开始数。这叫「关系大小调」。\n\n现在看指板上的 Pattern 1（以 A 小调为例，根音在 5 弦 0 品 A）：\n\n6弦(E弦)：0品=E（5音/Mi）• 3品=G（♭7音/Sol）\n5弦(A弦)：0品=A（根音/La）• 2品=B（2音/Si）\n4弦(D弦)：0品=D（4音/Re）• 2品=E（5音/Mi）\n3弦(G弦)：0品=G（♭7音/Sol）• 2品=A（根音/La）\n2弦(B弦)：1品=B（2音/Si）• 3品=D（4音/Re）\n1弦(e弦)：0品=E（5音/Mi）• 3品=G（♭7音/Sol）\n\n📌 记忆口诀：「除了 2 弦从 1 品开始，其他弦都是空弦 + 隔 2 品」\n\n💡 换成 C 大调：把根音从 A（5弦0品）换成 C（5弦3品），整个指型往高把位移 3 品，弹出来的就是 C 大调五声音阶。",
           "fretboard": {
             "type": "full",
             "startFret": 0,
