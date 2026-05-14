@@ -460,6 +460,18 @@
           <div class="practice-fretboard" id="practice-fretboard"></div>
           <div class="practice-fretboard-desc">E小调五声音阶第一把位（根音 E），圆点为可演奏的音符</div>
         </div>
+
+        <!-- Example Licks Player -->
+        <div class="practice-fretboard-section" style="margin-top:20px;">
+          <h3>🎵 五声音阶乐句示例</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+            <button class="practice-btn btn-backing" data-lick="1" style="flex:1;min-width:120px;">乐句 1 上行</button>
+            <button class="practice-btn btn-backing" data-lick="2" style="flex:1;min-width:120px;">乐句 2 下行</button>
+            <button class="practice-btn btn-backing" data-lick="3" style="flex:1;min-width:120px;">乐句 3 跳跃</button>
+            <button class="practice-btn btn-backing" data-lick="4" style="flex:1;min-width:120px;">乐句 4 锤勾</button>
+          </div>
+          <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:8px;background:rgba(255,255,255,0.03);border-radius:8px;padding:10px 14px;font-family:var(--font-mono,'Courier New',monospace);font-size:13px;line-height:1.5;white-space:pre-wrap;" id="lick-display">点击上方按钮播放乐句</div>
+        </div>
       </div>
     </div>
   </div>
@@ -851,6 +863,77 @@
       } else {
         renderPracticeFretboard();
       }
+
+      // --- Lick Player ---
+      var LICKS = {
+        1: { name: '上行音阶', notes: [[0,0],[0,3],[1,0],[1,2],[2,0],[2,2],[3,0],[3,2],[4,1],[4,3],[5,0],[5,3]] },
+        2: { name: '下行音阶', notes: [[5,3],[5,0],[4,3],[4,1],[3,2],[3,0],[2,2],[2,0],[1,2],[1,0],[0,3],[0,0]] },
+        3: { name: '跳跃音符', notes: [[0,0],[2,2],[1,0],[3,2],[0,3],[4,1],[1,2],[5,0]] },
+        4: { name: '锤勾弦组合', notes: [[0,0],[0,3],[0,0],[1,0],[1,2],[1,0],[2,0],[2,2],[2,0],[3,0],[3,2],[3,0]] }
+      };
+
+      var LICK_DISPLAY = {
+        1: '6弦0品E → 6弦3品G → 5弦0品A → 5弦2品B → 4弦0品D → 4弦2品E → 3弦0品G → 3弦2品A → 2弦1品B → 2弦3品D → 1弦0品E → 1弦3品G',
+        2: '1弦3品G → 1弦0品E → 2弦3品D → 2弦1品B → 3弦2品A → 3弦0品G → 4弦2品E → 4弦0品D → 5弦2品B → 5弦0品A → 6弦3品G → 6弦0品E',
+        3: '6弦0品E → 4弦2品E → 5弦0品A → 3弦2品A → 6弦3品G → 2弦1品B → 5弦2品B → 1弦0品E',
+        4: 'E锤G勾E → A锤B勾A → D锤E勾D → G锤A勾G'
+      };
+
+      var lickAudioCtx = null;
+      var lickTimer = null;
+      var lickPlaying = false;
+
+      function getFreq(stringIdx, fret) {
+        var tuning = ['E', 'A', 'D', 'G', 'B', 'E'];
+        var allNotes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+        var open = tuning[stringIdx];
+        var idx = allNotes.indexOf(open);
+        var noteIdx = (idx + fret) % 12;
+        var octave = Math.floor((idx + fret) / 12);
+        var midi = 12 + noteIdx + octave * 12;
+        if (stringIdx <= 1) midi -= 12;
+        return 440 * Math.pow(2, (midi - 69) / 12);
+      }
+
+      document.querySelectorAll('[data-lick]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var lickId = this.dataset.lick;
+          var lick = LICKS[lickId];
+          if (!lick) return;
+
+          // Stop previous
+          if (lickTimer) { clearTimeout(lickTimer); lickTimer = null; }
+          if (lickAudioCtx) { lickAudioCtx.close(); lickAudioCtx = null; }
+          lickPlaying = false;
+
+          var display = document.getElementById('lick-display');
+          display.textContent = '▶ 播放: ' + lick.name + '\n' + (LICK_DISPLAY[lickId] || '');
+
+          lickAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          lickPlaying = true;
+
+          var bpm = 90;
+          var dur = 60000 / bpm;
+
+          lick.notes.forEach(function(n, idx) {
+            lickTimer = setTimeout(function() {
+              try {
+                var osc = lickAudioCtx.createOscillator();
+                var gain = lickAudioCtx.createGain();
+                if (lickAudioCtx.state === 'suspended') lickAudioCtx.resume();
+                osc.type = 'triangle';
+                osc.frequency.value = getFreq(n[0], n[1]);
+                gain.gain.setValueAtTime(0.25, lickAudioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, lickAudioCtx.currentTime + 0.25);
+                osc.connect(gain);
+                gain.connect(lickAudioCtx.destination);
+                osc.start();
+                osc.stop(lickAudioCtx.currentTime + 0.25);
+              } catch(e) {}
+            }, idx * dur);
+          });
+        });
+      });
 
     })();
   </script>
