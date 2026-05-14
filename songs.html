@@ -659,6 +659,69 @@
           details.appendChild(keyInfo);
         }
 
+        // --- Chord/Lyrics (和弦谱) ---
+        if (song.chordLyrics && song.chordLyrics.length > 0) {
+          var csLabel = document.createElement('div');
+          csLabel.className = 'detail-label';
+          csLabel.textContent = '\uD83C\uDFB5 和弦谱';
+          details.appendChild(csLabel);
+
+          var csContainer = document.createElement('div');
+          csContainer.style.cssText = 'background:#0d0d0d;border-radius:8px;padding:16px 18px;margin-bottom:14px;overflow-x:auto;font-family:var(--font-mono,"Courier New",monospace);';
+
+          var csHtml = '';
+          song.chordLyrics.forEach(function(item) {
+            var line = item.line;
+            // Parse [Chord] syntax
+            var chordRegex = /\[([^\]]+)\]/g;
+            var match;
+            var segments = [];
+            var lastIdx = 0;
+            while ((match = chordRegex.exec(line)) !== null) {
+              if (match.index > lastIdx) {
+                segments.push({type: 'text', content: line.substring(lastIdx, match.index)});
+              }
+              segments.push({type: 'chord', content: match[1]});
+              lastIdx = match.index + match[0].length;
+            }
+            if (lastIdx < line.length) {
+              segments.push({type: 'text', content: line.substring(lastIdx)});
+            }
+
+            if (segments.length === 0) {
+              csHtml += '<div style="color:var(--text-secondary);line-height:1.8;">' + escapeHtml(line) + '</div>';
+            } else {
+              var chordLine = '';
+              var lyricLine = '';
+              var chordLen = 0;
+              segments.forEach(function(seg) {
+                if (seg.type === 'chord') {
+                  chordLine += '<span style="color:var(--accent);font-weight:700;">' + escapeHtml(seg.content) + '</span>';
+                  chordLen += seg.content.length;
+                } else {
+                  var text = seg.content;
+                  lyricLine += escapeHtml(text);
+                  while (chordLine.length < chordLen + text.length) {
+                    chordLine += ' ';
+                    chordLen++;
+                  }
+                }
+              });
+              // Fill remaining space
+              if (chordLine.length > lyricLine.length) {
+                while (lyricLine.length < chordLine.length) lyricLine += ' ';
+              } else {
+                while (chordLine.length < lyricLine.length) chordLine += ' ';
+              }
+              csHtml += '<div style="color:var(--accent);font-weight:700;line-height:1.5;white-space:pre-wrap;">' + chordLine + '</div>';
+              csHtml += '<div style="color:var(--text-primary);line-height:1.7;white-space:pre-wrap;margin-bottom:4px;">' + lyricLine + '</div>';
+            }
+          });
+
+          csContainer.innerHTML = csHtml;
+          details.appendChild(csContainer);
+        }
+
         // --- Tips ---
         var tipsLabel = document.createElement('div');
         tipsLabel.className = 'detail-label';

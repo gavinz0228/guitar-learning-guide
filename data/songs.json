@@ -12,7 +12,13 @@
       "bpm": 100,
       "capo": 0,
       "tips": "最简单的入门曲目，只用三个和弦。练习重点是和弦转换的流畅性。",
-      "lyrics_snippet": "一闪一闪亮晶晶，满天都是小星星"
+      "lyrics_snippet": "一闪一闪亮晶晶，满天都是小星星",
+      "chordLyrics": [
+        {"line": "[C]一闪一闪亮[G]晶晶"},
+        {"line": "[C]满天都是小[G]星星"},
+        {"line": "[C]挂在天上放[F]光明"},
+        {"line": "[C]好像千万小[G]眼睛[C]"}
+      ]
     },
     {
       "id": "two-tigers",
@@ -26,7 +32,13 @@
       "bpm": 110,
       "capo": 0,
       "tips": "只用两个和弦的经典儿歌。掌握G7和弦的按法是关键。",
-      "lyrics_snippet": "两只老虎，两只老虎，跑得快，跑得快"
+      "lyrics_snippet": "两只老虎，两只老虎，跑得快，跑得快",
+      "chordLyrics": [
+        {"line": "[C]两只老虎 两只[G7]老虎"},
+        {"line": "[C]跑得快 跑得[G7]快"},
+        {"line": "[C]一只没有眼睛 [G7]一只没有尾巴"},
+        {"line": "[C]真奇怪 真奇[G7]怪[C]"}
+      ]
     },
     {
       "id": "happy-birthday",
@@ -40,7 +52,13 @@
       "bpm": 90,
       "capo": 0,
       "tips": "生日必弹曲目。练习简单的扫弦节奏，注意F和弦的简化按法。",
-      "lyrics_snippet": "祝你生日快乐，祝你生日快乐"
+      "lyrics_snippet": "祝你生日快乐，祝你生日快乐",
+      "chordLyrics": [
+        {"line": "[C]祝你生日快[G]乐"},
+        {"line": "[C]祝你生日快[F]乐[C]"},
+        {"line": "[C]祝你生日快[G]乐"},
+        {"line": "[C]祝你生日快[F]乐[C]"}
+      ]
     },
     {
       "id": "tongzhuo",
@@ -54,7 +72,13 @@
       "bpm": 80,
       "capo": 0,
       "tips": "经典民谣，练习扫弦节奏的好曲子。注意Dm到G7的转换。",
-      "lyrics_snippet": "明天你是否会想起，昨天你写的日记"
+      "lyrics_snippet": "明天你是否会想起，昨天你写的日记",
+      "chordLyrics": [
+        {"line": "[C]明天你是否会[Am]想起"},
+        {"line": "[Dm]昨天你写的日[G7]记"},
+        {"line": "[C]明天你是否还[Am]惦记"},
+        {"line": "[Dm]曾经最爱哭的[G7]你[C]"}
+      ]
     },
     {
       "id": "childhood",
@@ -68,7 +92,13 @@
       "bpm": 95,
       "capo": 0,
       "tips": "节奏明快的校园民谣。和弦进行C-G-Am-Em-F-C-Dm-G7是经典流行走向。",
-      "lyrics_snippet": "池塘边的榕树上，知了在声声叫着夏天"
+      "lyrics_snippet": "池塘边的榕树上，知了在声声叫着夏天",
+      "chordLyrics": [
+        {"line": "[C]池塘边的榕树[Am]上"},
+        {"line": "[Dm]知了在声声叫[G7]着夏天"},
+        {"line": "[C]操场边的秋千[Em]上"},
+        {"line": "[F]只有蝴蝶停在[C]上面[G7]"}
+      ]
     },
     {
       "id": "grandmother",
@@ -82,7 +112,13 @@
       "bpm": 85,
       "capo": 0,
       "tips": "优美的民谣旋律。练习F和弦的转换和连贯的扫弦。",
-      "lyrics_snippet": "晚风轻拂澎湖湾，白浪逐沙滩"
+      "lyrics_snippet": "晚风轻拂澎湖湾，白浪逐沙滩",
+      "chordLyrics": [
+        {"line": "[C]晚风轻拂澎湖[Am]湾"},
+        {"line": "[Dm]白浪逐沙[G7]滩"},
+        {"line": "[C]没有椰林缀斜[Am]阳"},
+        {"line": "[F]只是一片海蓝[G7]蓝[C]"}
+      ]
     },
     {
       "id": "wonderful",
@@ -96,7 +132,13 @@
       "bpm": 78,
       "capo": 0,
       "tips": "指法简单但意境丰富。练习Am到Em的和弦转换。",
-      "lyrics_snippet": "我看过沙漠下暴雨，看过大海亲吻鲨鱼"
+      "lyrics_snippet": "我看过沙漠下暴雨，看过大海亲吻鲨鱼",
+      "chordLyrics": [
+        {"line": "[C]我看过沙漠下暴[G]雨"},
+        {"line": "[Am]看过大海亲吻鲨[Em]鱼"},
+        {"line": "[F]看过黄昏追逐黎[C]明"},
+        {"line": "[F]没看过[G]你"}
+      ]
     },
     {
       "id": "gentle",
@@ -110,7 +152,13 @@
       "bpm": 72,
       "capo": 0,
       "tips": "经典慢歌，练习情感表达和分解和弦。注意Dm7的加入。",
-      "lyrics_snippet": "某年某月的某一天，就像一张破碎的脸"
+      "lyrics_snippet": "某年某月的某一天，就像一张破碎的脸",
+      "chordLyrics": [
+        {"line": "[C]某年某月的某[G]一天"},
+        {"line": "[Am]就像一张破碎的[Em]脸"},
+        {"line": "[F]难以开口道再[C]见[Dm7]"},
+        {"line": "[F]就让一切走[G]远[C]"}
+      ]
     },
     {
       "id": "romance",
@@ -124,7 +172,11 @@
       "bpm": 70,
       "capo": 0,
       "tips": "经典指弹曲目。练习右手分解和弦的力度控制。主题A用Am，主题B转E大调。",
-      "lyrics_snippet": "(经典指弹曲目，无歌词)"
+      "lyrics_snippet": "(经典指弹曲目，无歌词)",
+      "chordLyrics": [
+        {"line": "[Am]经典指弹曲目[E]无歌词"},
+        {"line": "[Am]右手分解和弦[Dm]练习"}
+      ]
     },
     {
       "id": "moon",
@@ -138,7 +190,13 @@
       "bpm": 76,
       "capo": 0,
       "tips": "永恒的经典情歌。练习多个和弦间的流畅转换。",
-      "lyrics_snippet": "你问我爱你有多深，我爱你有几分"
+      "lyrics_snippet": "你问我爱你有多深，我爱你有几分",
+      "chordLyrics": [
+        {"line": "[C]你问我爱你有多[G]深"},
+        {"line": "[Am]我爱你有几[Em]分"},
+        {"line": "[F]我的情也[C]真 [Dm7]我的爱也[G7]真"},
+        {"line": "[C]月亮代表的[G7]我的[C]心"}
+      ]
     },
     {
       "id": "sunny",
@@ -152,7 +210,13 @@
       "bpm": 88,
       "capo": 0,
       "tips": "周杰伦经典。前奏钢琴编曲适合指弹改编，练习Bm7小横按。",
-      "lyrics_snippet": "故事的小黄花，从出生那年就飘着"
+      "lyrics_snippet": "故事的小黄花，从出生那年就飘着",
+      "chordLyrics": [
+        {"line": "[C]故事的小黄[G]花"},
+        {"line": "[Am]从出生那年就飘[Em]着"},
+        {"line": "[F]童年的荡秋[C]千 [Dm7]随记忆一直晃到现[G7]在"},
+        {"line": "[F]吹着前奏望着天[C]空 [Dm7]我想起花瓣试着掉[G7]落[C]"}
+      ]
     },
     {
       "id": "brightest-star",
@@ -166,7 +230,15 @@
       "bpm": 86,
       "capo": 0,
       "tips": "摇滚风格，练习强力和弦和扫弦力度。注意C9和Gsus4的按法。",
-      "lyrics_snippet": "夜空中最亮的星，能否听清"
+      "lyrics_snippet": "夜空中最亮的星，能否听清",
+      "chordLyrics": [
+        {"line": "[C]夜空中最亮的[G]星"},
+        {"line": "[Am]能否听[Em]清"},
+        {"line": "[F]那仰望的[C]人 [Dm7]心底的孤独和叹[G7]息"},
+        {"line": "[C]夜空中最亮的[G]星"},
+        {"line": "[Am]能否记[Em]起"},
+        {"line": "[F]曾与我同[C]行 [Dm7]消失在风里的身[G7]影[C]"}
+      ]
     },
     {
       "id": "chengdu",
@@ -180,7 +252,15 @@
       "bpm": 75,
       "capo": 0,
       "tips": "民谣叙事风格。练习分解和弦与扫弦的切换，注意E7和弦的使用。",
-      "lyrics_snippet": "让我掉下眼泪的，不止昨夜的酒"
+      "lyrics_snippet": "让我掉下眼泪的，不止昨夜的酒",
+      "chordLyrics": [
+        {"line": "[C]让我掉下眼泪[G]的"},
+        {"line": "[Am]不止昨夜的[Em]酒"},
+        {"line": "[F]让我依依不舍[C]的[Dm7]"},
+        {"line": "[F]不止你的温[G7]柔[C]"},
+        {"line": "[Am]余路还要走多[G]久"},
+        {"line": "[F]你攥着我的手[G]"}
+      ]
     },
     {
       "id": "hotel-california",
@@ -194,7 +274,17 @@
       "bpm": 74,
       "capo": 0,
       "tips": "殿堂级摇滚经典。练习大横按Bm和节奏感。双吉他编曲是灵魂。",
-      "lyrics_snippet": "On a dark desert highway, cool wind in my hair"
+      "lyrics_snippet": "On a dark desert highway, cool wind in my hair",
+      "chordLyrics": [
+        {"line": "[Bm]On a dark desert high[F#]way"},
+        {"line": "[A]Cool wind in my[E] hair"},
+        {"line": "[G]Warm smell of coli[D]tas"},
+        {"line": "[Em]Rising up through the[F#] air"},
+        {"line": "[Bm]Up ahead in the dis[F#]tance"},
+        {"line": "[A]I saw a shimmering[E] light"},
+        {"line": "[G]My head grew heavy and my[D] sight grew dim"},
+        {"line": "[Em]I had to stop for the[F#] night"}
+      ]
     },
     {
       "id": "tears-in-heaven",
@@ -208,7 +298,16 @@
       "bpm": 68,
       "capo": 0,
       "tips": "感人至深的经典。练习慢速分解和弦和情感表达。注意滑音技巧。",
-      "lyrics_snippet": "Would you know my name, if I saw you in heaven"
+      "lyrics_snippet": "Would you know my name, if I saw you in heaven",
+      "chordLyrics": [
+        {"line": "[A]Would you know my[E] name"},
+        {"line": "[F#m]If I saw you in hea[D]ven"},
+        {"line": "[A]Would you feel the[E] same"},
+        {"line": "[F#m]If I saw you in hea[D]ven[E]"},
+        {"line": "[A]I must be strong and car[E]ry on"},
+        {"line": "[F#m]\'Cause I know I don\'t be[D]long"},
+        {"line": "[A]Here in hea[E]ven"}
+      ]
     }
   ]
 }
