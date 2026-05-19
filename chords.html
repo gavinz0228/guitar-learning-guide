@@ -255,10 +255,10 @@
         var filtered = currentFilter === 'all' 
           ? chordsData 
           : chordsData.filter(function(c) {
-              if (currentFilter === 'major') return c.type === 'major';
-              if (currentFilter === 'minor') return c.type === 'minor';
-              if (currentFilter === 'dom7') return c.type === 'dom7';
-              if (currentFilter === 'maj7') return c.type === 'maj7';
+              if (currentFilter === 'major') return c.category === 'major';
+              if (currentFilter === 'minor') return c.category === 'minor';
+              if (currentFilter === 'dom7') return c.category === 'dom7';
+              if (currentFilter === 'maj7') return c.category === 'maj7';
               return true;
             });
 
@@ -280,12 +280,18 @@
         card.dataset.index = index;
 
         var difficultyStars = '★'.repeat(chord.difficulty || 1) + '☆'.repeat(5 - (chord.difficulty || 1));
+        var categoryName = {
+          'major': '大三和弦',
+          'minor': '小三和弦', 
+          'dom7': '属七和弦',
+          'maj7': '大七和弦'
+        }[chord.category] || chord.category;
 
         card.innerHTML = 
           '<div class="chord-header">' +
             '<div class="chord-title">' +
               '<span class="chord-name">' + escapeHtml(chord.name) + '</span>' +
-              '<span class="chord-badge">' + escapeHtml(chord.typeName || chord.type) + '</span>' +
+              '<span class="chord-badge">' + escapeHtml(categoryName) + '</span>' +
             '</div>' +
             '<div style="color: var(--accent-tertiary); font-size: 0.9rem;">' + difficultyStars + '</div>' +
           '</div>' +
