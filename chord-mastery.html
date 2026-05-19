@@ -387,6 +387,22 @@
             </div>
           </div>
           
+          <!-- CAGED Root Note Selection -->
+          <div class="shell-controls" style="margin-top: 1.5rem;">
+            <div class="control-group">
+              <span class="control-label">选择根音 (和弦名)</span>
+              <div class="control-options" id="cagedRootSelector">
+                <button class="option-btn active" data-root="C">C</button>
+                <button class="option-btn" data-root="D">D</button>
+                <button class="option-btn" data-root="E">E</button>
+                <button class="option-btn" data-root="F">F</button>
+                <button class="option-btn" data-root="G">G</button>
+                <button class="option-btn" data-root="A">A</button>
+                <button class="option-btn" data-root="B">B</button>
+              </div>
+            </div>
+          </div>
+          
           <div class="fretboard-section">
             <div class="fretboard-title" id="cagedTitle">C Shape - C Major (根音在3品)</div>
             <div class="fretboard-container" id="cagedFretboard"></div>
@@ -638,100 +654,128 @@
       // ==================== CAGED SYSTEM ====================
       
       var currentCAGEDShape = 'C';
+      var currentCAGEDRoot = 'C';
       
-      // CAGED shape data
+      // CAGED shape data - pattern is relative to the barre/root position
       var CAGED_SHAPES = {
         'C': {
           name: 'C形状',
-          rootString: 5,
+          rootString: 5,  // Root on 5th string
+          baseFret: 0,    // Open position reference
           pattern: [
-            {s: 1, offset: -2, label: '1'},
-            {s: 2, offset: 0, label: '3'},
-            {s: 3, offset: 0, label: '5'},
-            {s: 4, offset: -2, label: '1'},
-            {s: 5, offset: -3, label: '3'},
-            {s: 6, offset: -2, label: '5'}
-          ],
-          description: 'C形状基于开放C和弦，是最紧凑的和弦形状之一。'
+            {s: 1, fret: 0, label: '1'},
+            {s: 2, fret: 1, label: '3'},
+            {s: 3, fret: 0, label: '5'},
+            {s: 4, fret: 2, label: '1'},
+            {s: 5, fret: 3, label: 'R'},
+            {s: 6, fret: 3, label: '5'}
+          ]
         },
         'A': {
           name: 'A形状',
           rootString: 5,
+          baseFret: 0,
           pattern: [
-            {s: 1, offset: 0, label: '5'},
-            {s: 2, offset: 2, label: '1'},
-            {s: 3, offset: 2, label: '5'},
-            {s: 4, offset: 2, label: '1'},
-            {s: 5, offset: 0, label: 'R'},
-            {s: 6, offset: 0, label: '5'}
-          ],
-          description: 'A形状基于开放A和弦，是CAGED中最常用的形状之一。'
+            {s: 1, fret: 0, label: '5'},
+            {s: 2, fret: 2, label: '1'},
+            {s: 3, fret: 2, label: '5'},
+            {s: 4, fret: 2, label: '1'},
+            {s: 5, fret: 0, label: 'R'},
+            {s: 6, fret: 0, label: '5'}
+          ]
         },
         'G': {
           name: 'G形状',
-          rootString: 6,
+          rootString: 6,  // Root on 6th string
+          baseFret: 0,
           pattern: [
-            {s: 1, offset: 2, label: '1'},
-            {s: 2, offset: 3, label: '5'},
-            {s: 3, offset: 2, label: '1'},
-            {s: 4, offset: 0, label: '3'},
-            {s: 5, offset: 0, label: '5'},
-            {s: 6, offset: 0, label: 'R'}
-          ],
-          description: 'G形状跨度较大，需要手指有较好的伸展能力。'
+            {s: 1, fret: 3, label: '1'},
+            {s: 2, fret: 3, label: '5'},
+            {s: 3, fret: 0, label: '1'},
+            {s: 4, fret: 0, label: '3'},
+            {s: 5, fret: 2, label: '5'},
+            {s: 6, fret: 3, label: 'R'}
+          ]
         },
         'E': {
           name: 'E形状',
           rootString: 6,
+          baseFret: 0,
           pattern: [
-            {s: 1, offset: 0, label: '3'},
-            {s: 2, offset: 0, label: '5'},
-            {s: 3, offset: 1, label: '1'},
-            {s: 4, offset: 2, label: '5'},
-            {s: 5, offset: 2, label: '1'},
-            {s: 6, offset: 0, label: 'R'}
-          ],
-          description: 'E形状是最常见的横按形状，大横按F和弦就是基于此形状。'
+            {s: 1, fret: 0, label: '3'},
+            {s: 2, fret: 0, label: '5'},
+            {s: 3, fret: 1, label: '1'},
+            {s: 4, fret: 2, label: '5'},
+            {s: 5, fret: 2, label: '1'},
+            {s: 6, fret: 0, label: 'R'}
+          ]
         },
         'D': {
           name: 'D形状',
-          rootString: 4,
+          rootString: 4,  // Root on 4th string
+          baseFret: 0,
           pattern: [
-            {s: 1, offset: 2, label: '1'},
-            {s: 2, offset: 3, label: '5'},
-            {s: 3, offset: 2, label: '1'},
-            {s: 4, offset: 0, label: 'R'},
-            {s: 5, offset: -2, label: '5'},
-            {s: 6, offset: -2, label: '1'}
-          ],
-          description: 'D形状基于开放D和弦，是高音区常用的和弦形状。'
+            {s: 1, fret: 2, label: '1'},
+            {s: 2, fret: 3, label: '5'},
+            {s: 3, fret: 2, label: '1'},
+            {s: 4, fret: 0, label: 'R'},
+            {s: 5, fret: 0, label: '5'},
+            {s: 6, fret: 2, label: '1'}
+          ]
         }
       };
       
-      // Render CAGED shape
-      function renderCAGEDShape(shape) {
+      // Get fret position for note on string
+      function getFretForNoteCAGED(stringIndex, targetNote) {
+        var tunings = ['E', 'B', 'G', 'D', 'A', 'E'];
+        var notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        var openNote = tunings[stringIndex];
+        var openIndex = notes.indexOf(openNote);
+        var targetIndex = notes.indexOf(targetNote);
+        if (targetIndex === -1) return -1;
+        
+        return (targetIndex - openIndex + 12) % 12;
+      }
+      
+      // Find root fret position
+      function findRootFretPosition(root, shape) {
         var shapeData = CAGED_SHAPES[shape];
+        var rootStringIndex = shape === 'C' ? 4 : shape === 'A' ? 4 : shape === 'G' ? 5 : shape === 'E' ? 5 : 3;
+        return getFretForNoteCAGED(rootStringIndex, root);
+      }
+      
+      // Render CAGED shape with selected root
+      function renderCAGED() {
+        var shapeData = CAGED_SHAPES[currentCAGEDShape];
         if (!shapeData) return;
         
-        // Calculate root fret for C (for display)
-        var rootFret = shape === 'C' ? 3 : shape === 'A' ? 0 : shape === 'G' ? 3 : shape === 'E' ? 0 : 0;
+        // Calculate root fret for the selected root note
+        var rootStringIndex = shapeData.rootString === 6 ? 5 : shapeData.rootString === 5 ? 4 : 3;
+        var rootFret = getFretForNoteCAGED(rootStringIndex, currentCAGEDRoot);
+        
+        // For display, use lower position if fret is too high
+        if (rootFret > 12) rootFret -= 12;
         
         document.getElementById('cagedTitle').textContent = 
-          shape + '形状 - ' + shapeData.name + ' (根音示例：C)';
+          currentCAGEDShape + '形状 - ' + currentCAGEDRoot + ' Major (' + 
+          currentCAGEDRoot + ' ' + shapeData.rootString + '弦 ' + (rootFret === 0 ? '空弦' : rootFret + '品') + ')';
         
-        // Generate fretboard notes
+        // Generate fretboard notes by transposing pattern
         var notes = shapeData.pattern.map(function(p) {
-          var fret = rootFret + p.offset;
-          if (fret < 0) fret += 12;
+          var fret = rootFret + p.fret;
+          // Handle edge cases
+          while (fret > 16) fret -= 12;
+          while (fret < 0) fret += 12;
+          
           return {
-            string: 5 - p.s,  // Convert to 0-indexed
+            string: 5 - p.s,  // Convert to 0-indexed (0=high E, 5=low E)
             fret: fret,
             label: p.label,
             color: p.label === 'R' ? '#e63946' : (p.label === '3' ? '#457b9d' : '#ff9f1c')
           };
         }).filter(function(n) { return n.fret >= 0 && n.fret <= 16; });
         
-        // Render - show 16 frets to see transposition patterns
+        // Render - show 16 frets
         var container = document.getElementById('cagedFretboard');
         if (window.renderFretboard) {
           window.renderFretboard(container, {
@@ -744,7 +788,15 @@
           });
         }
         
-        document.getElementById('cagedInfo').textContent = shapeData.description;
+        // Update description
+        var descriptions = {
+          'C': 'C形状基于开放C和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
+          'A': 'A形状基于开放A和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
+          'G': 'G形状基于开放G和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
+          'E': 'E形状基于开放E和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
+          'D': 'D形状基于开放D和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。'
+        };
+        document.getElementById('cagedInfo').textContent = descriptions[currentCAGEDShape];
       }
       
       // CAGED shape click handlers
@@ -755,12 +807,24 @@
           });
           this.classList.add('active');
           currentCAGEDShape = this.dataset.shape;
-          renderCAGEDShape(currentCAGEDShape);
+          renderCAGED();
+        });
+      });
+      
+      // CAGED root note selector
+      document.querySelectorAll('#cagedRootSelector .option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#cagedRootSelector .option-btn').forEach(function(b) {
+            b.classList.remove('active');
+          });
+          this.classList.add('active');
+          currentCAGEDRoot = this.dataset.root;
+          renderCAGED();
         });
       });
       
       // Initial render
-      renderCAGEDShape('C');
+      renderCAGED();
     })();
   </script>
 </body>
