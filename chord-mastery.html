@@ -454,34 +454,40 @@
         return fret;
       }
       
-      // Calculate shell voicing notes
+      // Calculate shell voicing notes - fixed string sets
       function calculateShellVoicing(root, type, rootString) {
         var formula = SHELL_FORMULAS[type];
         var notes = [];
         var rootIndex = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'].indexOf(root);
         
-        // Calculate each chord tone
+        // Define which strings to use based on root string
+        // If root on 6th string, use strings 4,3,2 (D,G,B strings)
+        // If root on 5th string, use strings 3,2,1 (G,B,E strings)
+        var stringSets = {
+          6: [3, 2, 1],  // 4=D, 3=G, 2=B strings
+          5: [2, 1, 0]   // 3=G, 2=B, 1=E strings
+        };
+        var strings = stringSets[rootString];
+        
+        // Find root position on the root string
+        var rootFret = getFretForNote(rootString === 6 ? 5 : 4, root);
+        
+        // For each chord tone, find position on corresponding string
         formula.intervals.forEach(function(interval, i) {
           var toneIndex = (rootIndex + interval) % 12;
           var toneNote = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'][toneIndex];
+          var targetString = strings[i];
           
-          // Find this note on available strings
-          for (var s = 0; s < 6; s++) {
-            var fret = getFretForNote(s, toneNote);
-            if (fret >= 0 && fret <= 12) {
-              // Check if we already have this string
-              var existing = notes.find(function(n) { return n.string === s; });
-              if (!existing) {
-                notes.push({
-                  string: s,
-                  fret: fret,
-                  note: toneNote,
-                  label: formula.labels[i],
-                  interval: interval
-                });
-                break;
-              }
-            }
+          // Find fret for this note on target string
+          var fret = getFretForNote(targetString, toneNote);
+          if (fret >= 0 && fret <= 12) {
+            notes.push({
+              string: targetString,
+              fret: fret,
+              note: toneNote,
+              label: formula.labels[i],
+              interval: interval
+            });
           }
         });
         
@@ -489,6 +495,7 @@
           root: root,
           type: type,
           rootString: rootString,
+          rootFret: rootFret,
           notes: notes,
           formula: formula
         };
@@ -516,10 +523,8 @@
         // Update info
         document.getElementById('chordName').textContent = currentRoot + ' ' + formula.name;
         
-        // Calculate root fret
-        var rootFret = getFretForNote(currentString === 6 ? 5 : 4, currentRoot);
-        if (rootFret > 8) rootFret -= 12;
-        if (rootFret < 0) rootFret += 12;
+        // Use the calculated root fret
+        var rootFret = voicing.rootFret;
         document.getElementById('rootPosition').textContent = 
           (currentString === 6 ? '6弦' : '5弦') + ' ' + (rootFret === 0 ? '空弦' : rootFret + '品');
         
