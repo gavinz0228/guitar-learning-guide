@@ -402,8 +402,8 @@
           <div class="voicing-grid">
             <!-- Major 7 Shell -->
             <div class="voicing-card">
-              <div class="voicing-title">Cmaj7 Shell Voicing</div>
-              <div class="voicing-desc">大七和弦精简版 - 根音+3音+7音</div>
+              <div class="voicing-title">Cmaj7 Shell Voicing - 展示平移</div>
+              <div class="voicing-desc">大七和弦精简版 (R-7-3)，指板图展示两个位置以看清平移规律</div>
               <div class="chord-formula">
                 <span class="formula-note root">C (根)</span>
                 <span class="formula-note">E (3)</span>
@@ -414,8 +414,8 @@
             
             <!-- Dominant 7 Shell -->
             <div class="voicing-card">
-              <div class="voicing-title">C7 Shell Voicing</div>
-              <div class="voicing-desc">属七和弦精简版 - 根音+3音+b7音</div>
+              <div class="voicing-title">C7 Shell Voicing - 展示平移</div>
+              <div class="voicing-desc">属七和弦精简版 (R-♭7-3)，指板图展示两个位置以看清平移规律</div>
               <div class="chord-formula">
                 <span class="formula-note root">C (根)</span>
                 <span class="formula-note">E (3)</span>
@@ -426,8 +426,8 @@
             
             <!-- Minor 7 Shell -->
             <div class="voicing-card">
-              <div class="voicing-title">Cm7 Shell Voicing</div>
-              <div class="voicing-desc">小七和弦精简版 - 根音+b3音+b7音</div>
+              <div class="voicing-title">Cm7 Shell Voicing - 展示平移</div>
+              <div class="voicing-desc">小七和弦精简版 (R-♭7-♭3)，指板图展示两个位置以看清平移规律</div>
               <div class="chord-formula">
                 <span class="formula-note root">C (根)</span>
                 <span class="formula-note">Eb (♭3)</span>
@@ -438,8 +438,8 @@
             
             <!-- Minor 7b5 Shell -->
             <div class="voicing-card">
-              <div class="voicing-title">Cm7b5 Shell Voicing</div>
-              <div class="voicing-desc">半减七和弦 - 根音+b3音+b5音+b7音</div>
+              <div class="voicing-title">Cm7b5 Shell Voicing - 展示平移</div>
+              <div class="voicing-desc">半减七和弦 (R-♭3-♭5-♭7)，指板图展示两个位置以看清平移规律</div>
               <div class="chord-formula">
                 <span class="formula-note root">C (根)</span>
                 <span class="formula-note">Eb (♭3)</span>
@@ -566,14 +566,14 @@
         return positions.sort(function(a, b) { return a.fret - b.fret; });
       }
       
-      // Render full fretboard
+      // Render full fretboard with extended range
       function renderFullFretboard() {
         var container = document.getElementById('fullFretboard');
         if (!container || !window.renderFretboard) return;
         
         var notes = generateChordNotes(currentRoot, 'major');
         
-        document.getElementById('fullBoardTitle').textContent = currentRoot + ' Major - 完整指板图';
+        document.getElementById('fullBoardTitle').textContent = currentRoot + ' Major - 完整指板图 (0-12品)';
         
         window.renderFretboard(container, {
           numFrets: 13,
@@ -581,7 +581,7 @@
           showLabels: true,
           notes: notes,
           width: container.offsetWidth,
-          height: 240
+          height: 260
         });
         
         // Render CAGED position cards
@@ -620,7 +620,7 @@
         });
       }
       
-      // Render specific shape fretboard
+      // Render specific shape fretboard with extended range
       function renderShapeFretboard(shape) {
         var positions = getCAGEDPositions(currentRoot);
         var pos = positions.find(function(p) { return p.shape === shape; });
@@ -629,21 +629,23 @@
         // Get CAGED shape pattern for this root
         var shapeData = getCAGEDShapeData(shape, currentRoot, pos.fret);
         
-        document.getElementById('cagedTitle').textContent = pos.desc;
+        document.getElementById('cagedTitle').textContent = pos.desc + ' - 展示更多品格以看清手势规律';
         document.getElementById('cagedInfo').textContent = 
           shape + '形状是CAGED系统的重要组成部分。根音位于' + 
           (pos.string === 6 ? '6弦' : pos.string === 5 ? '5弦' : '4弦') + 
-          '的第' + pos.fret + '品，形成' + currentRoot + '和弦。';
+          '的第' + pos.fret + '品，形成' + currentRoot + '和弦。观察下方指板图看到手势在指板上的平移规律。';
         
         var container = document.getElementById('cagedFretboard');
         if (window.renderFretboard && shapeData) {
+          // Show more frets (8 frets) to see the pattern
+          var startFret = Math.max(0, pos.fret - 2);
           window.renderFretboard(container, {
-            numFrets: 5,
-            startFret: Math.max(0, pos.fret - 1),
+            numFrets: 8,
+            startFret: startFret,
             showLabels: true,
             notes: shapeData,
             width: container.offsetWidth,
-            height: 200
+            height: 220
           });
         }
         
@@ -736,60 +738,84 @@
         });
       });
 
-      // Shell Voicing data
+      // Shell Voicing data - Extended to show transposition patterns
       var SHELL_DATA = {
         'shellMaj7': {
-          notes: [
+          baseNotes: [
             {string: 4, fret: 3, label: 'R', color: '#e63946'},
             {string: 3, fret: 2, label: '7', color: '#7b2cbf'},
             {string: 2, fret: 0, label: '3', color: '#457b9d'}
           ],
-          startFret: 0,
-          numFrets: 5
+          intervals: [0, 4, 7, 11] // Root, 3rd, 5th, 7th
         },
         'shellDom7': {
-          notes: [
+          baseNotes: [
             {string: 4, fret: 3, label: 'R', color: '#e63946'},
             {string: 3, fret: 1, label: '♭7', color: '#7b2cbf'},
             {string: 2, fret: 0, label: '3', color: '#457b9d'}
           ],
-          startFret: 0,
-          numFrets: 5
+          intervals: [0, 4, 7, 10] // Root, 3rd, 5th, b7th
         },
         'shellMin7': {
-          notes: [
+          baseNotes: [
             {string: 4, fret: 3, label: 'R', color: '#e63946'},
             {string: 3, fret: 1, label: '♭7', color: '#7b2cbf'},
             {string: 2, fret: 0, label: '♭3', color: '#457b9d'}
           ],
-          startFret: 0,
-          numFrets: 5
+          intervals: [0, 3, 7, 10] // Root, b3rd, 5th, b7th
         },
         'shellMin7b5': {
-          notes: [
+          baseNotes: [
             {string: 4, fret: 3, label: 'R', color: '#e63946'},
             {string: 3, fret: 1, label: '♭7', color: '#7b2cbf'},
             {string: 2, fret: 0, label: '♭3', color: '#457b9d'},
             {string: 1, fret: 3, label: '♭5', color: '#2ec4b6'}
           ],
-          startFret: 0,
-          numFrets: 5
+          intervals: [0, 3, 6, 10] // Root, b3rd, b5th, b7th
         }
       };
+      
+      // Generate extended shell voicing notes (show 2 positions)
+      function generateShellNotes(baseNotes, semitones) {
+        var notes = [];
+        baseNotes.forEach(function(note) {
+          notes.push(note);
+          // Add transposed position (+5 semitones = next string set)
+          if (note.fret + semitones <= 12) {
+            notes.push({
+              string: note.string,
+              fret: note.fret + semitones,
+              label: note.label,
+              color: note.color,
+              opacity: 0.6
+            });
+          }
+        });
+        return notes;
+      }
 
-      // Render Shell Voicings
+      // Render Shell Voicings with extended range
       function renderShellVoicings() {
-        Object.keys(SHELL_DATA).forEach(function(id) {
-          var container = document.getElementById(id);
+        var shellConfigs = [
+          {id: 'shellMaj7', semitones: 5, title: 'Cmaj7 Shell (R-7-3) - 展示两个位置'},
+          {id: 'shellDom7', semitones: 5, title: 'C7 Shell (R-♭7-3) - 展示两个位置'},
+          {id: 'shellMin7', semitones: 5, title: 'Cm7 Shell (R-♭7-♭3) - 展示两个位置'},
+          {id: 'shellMin7b5', semitones: 5, title: 'Cm7b5 Shell - 展示两个位置'}
+        ];
+        
+        shellConfigs.forEach(function(config) {
+          var container = document.getElementById(config.id);
           if (container && window.renderFretboard) {
-            var data = SHELL_DATA[id];
+            var data = SHELL_DATA[config.id];
+            var notes = generateShellNotes(data.baseNotes, config.semitones);
+            
             window.renderFretboard(container, {
-              numFrets: data.numFrets,
-              startFret: data.startFret,
+              numFrets: 10,
+              startFret: 0,
               showLabels: true,
-              notes: data.notes,
+              notes: notes,
               width: container.offsetWidth,
-              height: 180
+              height: 200
             });
           }
         });

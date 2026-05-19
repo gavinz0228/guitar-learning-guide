@@ -519,6 +519,14 @@
       });
 
       btnMetronome.addEventListener('click', function() {
+        // Ensure audio context is created on user gesture
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        
         if (metronomeRunning) {
           stopMetronome();
         } else {
@@ -586,6 +594,14 @@
 
       document.querySelectorAll('.lick-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
+          // Ensure audio context is created on user gesture
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          
           var lickId = this.dataset.lick;
           var lick = LICKS[lickId];
           if (!lick) return;
