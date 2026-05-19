@@ -268,6 +268,77 @@
     </div>
 
     <div class="mastery-container">
+      <!-- Theory Section -->
+      <div class="method-card">
+        <div class="method-header">
+          <h2 class="method-title">📖 原理教程</h2>
+          <p class="method-subtitle">理解 Shell Voicing 和 CAGED 系统的核心概念</p>
+        </div>
+        <div class="method-content">
+          <!-- Shell Voicing Theory -->
+          <div style="margin-bottom: 2.5rem;">
+            <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent-secondary);">🧠 什么是 Shell Voicing？</h3>
+            <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1rem;">
+              <p style="line-height: 1.8; margin-bottom: 1rem;">
+                <strong>Shell Voicing（贝壳和弦）</strong>是一种精简的和弦按法，只使用和弦中最关键的3个音：<strong>根音（Root）、3音、7音</strong>。它省略了5音，但保留了和弦的核心色彩和功能。
+              </p>
+              <p style="line-height: 1.8; margin-bottom: 1rem;">
+                例如 Cmaj7 和弦的音是 C-E-G-B（根-三-五-七），Shell Voicing 只按 C-E-B（根-三-七），省略了五音 G。这样的好处是：
+              </p>
+              <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li>指法简单，容易快速切换和弦</li>
+                <li>给其他乐器或声部留出空间</li>
+                <li>在伴奏中常用，特别是爵士乐</li>
+                <li>可以在指板上快速平移到不同把位</li>
+              </ul>
+            </div>
+            
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-secondary);">和弦类型与组成</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+              <div style="background: var(--glass-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+                <strong style="color: var(--accent-primary);">Maj7 (大七)</strong><br>
+                <span style="font-size: 0.9rem; color: var(--text-muted);">根 + 3音 + 7音<br>例：C-E-B</span>
+              </div>
+              <div style="background: var(--glass-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+                <strong style="color: var(--accent-primary);">7 (属七)</strong><br>
+                <span style="font-size: 0.9rem; color: var(--text-muted);">根 + 3音 + ♭7音<br>例：C-E-Bb</span>
+              </div>
+              <div style="background: var(--glass-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+                <strong style="color: var(--accent-primary);">m7 (小七)</strong><br>
+                <span style="font-size: 0.9rem; color: var(--text-muted);">根 + ♭3音 + ♭7音<br>例：C-Eb-Bb</span>
+              </div>
+              <div style="background: var(--glass-bg); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+                <strong style="color: var(--accent-primary);">m7b5 (半减)</strong><br>
+                <span style="font-size: 0.9rem; color: var(--text-muted);">根 + ♭3音 + ♭5音 + ♭7音<br>例：C-Eb-Gb-Bb</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- CAGED Theory -->
+          <div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent-secondary);">💎 什么是 CAGED 系统？</h3>
+            <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1rem;">
+              <p style="line-height: 1.8; margin-bottom: 1rem;">
+                <strong>CAGED 系统</strong>是吉他手必须掌握的核心概念。它利用五个开放和弦形状（C、A、G、E、D），将指板划分为五个区域，让你在任何位置都能按出同一个和弦。
+              </p>
+              <p style="line-height: 1.8; margin-bottom: 1rem;">
+                五个形状的特点：
+              </p>
+              <ul style="margin-left: 1.5rem; line-height: 1.8; margin-bottom: 1rem;">
+                <li><strong>C形状</strong>：根音在5弦，手指排列成C形</li>
+                <li><strong>A形状</strong>：根音在5弦，需要横按，手指排列成A形</li>
+                <li><strong>G形状</strong>：根音在6弦，跨度较大的按法</li>
+                <li><strong>E形状</strong>：根音在6弦，需要横按，最常用的形状</li>
+                <li><strong>D形状</strong>：根音在4弦，高音区形状</li>
+              </ul>
+              <p style="line-height: 1.8;">
+                <strong>使用方法</strong>：选择一个和弦名（如 G），然后查找这个音在各个形状中的位置。例如 G 和弦可以用 E形状（根音在6弦3品）、A形状（根音在5弦10品）等按出。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Shell Voicing Interactive Section -->
       <div class="method-card">
         <div class="method-header">
@@ -656,92 +727,87 @@
       var currentCAGEDShape = 'C';
       var currentCAGEDRoot = 'C';
       
-      // CAGED shape data - pattern is relative to the barre/root position
+      // CAGED shape data - absolute fret positions for C root
+      // These are the actual finger positions for each shape when playing C major
       var CAGED_SHAPES = {
         'C': {
           name: 'C形状',
-          rootString: 5,  // Root on 5th string
-          baseFret: 0,    // Open position reference
+          rootString: 5,  // Root on 5th string at fret 3 (C note)
+          rootFret: 3,    // C is on 5th string, 3rd fret
           pattern: [
-            {s: 1, fret: 0, label: '1'},
-            {s: 2, fret: 1, label: '3'},
-            {s: 3, fret: 0, label: '5'},
-            {s: 4, fret: 2, label: '1'},
-            {s: 5, fret: 3, label: 'R'},
-            {s: 6, fret: 3, label: '5'}
-          ]
+            {string: 0, fret: 0, label: '1'},   // 1st string (high E) - open E
+            {string: 1, fret: 1, label: '3'},   // 2nd string (B) - 1st fret C
+            {string: 2, fret: 0, label: '5'},   // 3rd string (G) - open G
+            {string: 3, fret: 2, label: '1'},   // 4th string (D) - 2nd fret E
+            {string: 4, fret: 3, label: 'R'},   // 5th string (A) - 3rd fret C (ROOT)
+            {string: 5, fret: 3, label: '5'}    // 6th string (low E) - 3rd fret G
+          ],
+          description: 'C形状：根音在5弦3品。形状紧凑，适合高把位。'
         },
         'A': {
           name: 'A形状',
-          rootString: 5,
-          baseFret: 0,
+          rootString: 5,  // Root on 5th string at fret 3 (C note) - barred
+          rootFret: 3,
           pattern: [
-            {s: 1, fret: 0, label: '5'},
-            {s: 2, fret: 2, label: '1'},
-            {s: 3, fret: 2, label: '5'},
-            {s: 4, fret: 2, label: '1'},
-            {s: 5, fret: 0, label: 'R'},
-            {s: 6, fret: 0, label: '5'}
-          ]
+            {string: 0, fret: 3, label: '5'},   // 1st string - 3rd fret G
+            {string: 1, fret: 5, label: '1'},   // 2nd string - 5th fret C
+            {string: 2, fret: 5, label: '5'},   // 3rd string - 5th fret G
+            {string: 3, fret: 5, label: '1'},   // 4th string - 5th fret C
+            {string: 4, fret: 3, label: 'R'},   // 5th string - 3rd fret C (ROOT)
+            {string: 5, fret: 3, label: '5'}    // 6th string - 3rd fret G
+          ],
+          description: 'A形状：根音在5弦3品（横按）。手指排列成A形状。'
         },
         'G': {
           name: 'G形状',
-          rootString: 6,  // Root on 6th string
-          baseFret: 0,
+          rootString: 6,  // Root on 6th string at fret 8 (C note)
+          rootFret: 8,
           pattern: [
-            {s: 1, fret: 3, label: '1'},
-            {s: 2, fret: 3, label: '5'},
-            {s: 3, fret: 0, label: '1'},
-            {s: 4, fret: 0, label: '3'},
-            {s: 5, fret: 2, label: '5'},
-            {s: 6, fret: 3, label: 'R'}
-          ]
+            {string: 0, fret: 8, label: '1'},   // 1st string - 8th fret C
+            {string: 1, fret: 8, label: '5'},   // 2nd string - 8th fret G
+            {string: 2, fret: 9, label: '1'},   // 3rd string - 9th fret E
+            {string: 3, fret: 10, label: '3'},  // 4th string - 10th fret D
+            {string: 4, fret: 10, label: '5'},  // 5th string - 10th fret A
+            {string: 5, fret: 8, label: 'R'}    // 6th string - 8th fret C (ROOT)
+          ],
+          description: 'G形状：根音在6弦8品。跨度较大，需要手指伸展。'
         },
         'E': {
           name: 'E形状',
-          rootString: 6,
-          baseFret: 0,
+          rootString: 6,  // Root on 6th string at fret 8 (C note) - barred
+          rootFret: 8,
           pattern: [
-            {s: 1, fret: 0, label: '3'},
-            {s: 2, fret: 0, label: '5'},
-            {s: 3, fret: 1, label: '1'},
-            {s: 4, fret: 2, label: '5'},
-            {s: 5, fret: 2, label: '1'},
-            {s: 6, fret: 0, label: 'R'}
-          ]
+            {string: 0, fret: 8, label: '3'},   // 1st string - 8th fret C
+            {string: 1, fret: 8, label: '5'},   // 2nd string - 8th fret G
+            {string: 2, fret: 9, label: '1'},   // 3rd string - 9th fret E
+            {string: 3, fret: 10, label: '5'},  // 4th string - 10th fret A
+            {string: 4, fret: 10, label: '1'},  // 5th string - 10th fret C
+            {string: 5, fret: 8, label: 'R'}    // 6th string - 8th fret C (ROOT)
+          ],
+          description: 'E形状：根音在6弦8品（横按）。最常见的横按形状。'
         },
         'D': {
           name: 'D形状',
-          rootString: 4,  // Root on 4th string
-          baseFret: 0,
+          rootString: 4,  // Root on 4th string at fret 10 (C note)
+          rootFret: 10,
           pattern: [
-            {s: 1, fret: 2, label: '1'},
-            {s: 2, fret: 3, label: '5'},
-            {s: 3, fret: 2, label: '1'},
-            {s: 4, fret: 0, label: 'R'},
-            {s: 5, fret: 0, label: '5'},
-            {s: 6, fret: 2, label: '1'}
-          ]
+            {string: 0, fret: 8, label: '1'},   // 1st string - 8th fret C
+            {string: 1, fret: 8, label: '5'},   // 2nd string - 8th fret G
+            {string: 2, fret: 9, label: '1'},   // 3rd string - 9th fret E
+            {string: 3, fret: 10, label: 'R'},  // 4th string - 10th fret C (ROOT)
+            {string: 4, fret: 10, label: '5'},  // 5th string - 10th fret A
+            {string: 5, fret: 8, label: '1'}    // 6th string - 8th fret C
+          ],
+          description: 'D形状：根音在4弦10品。高音区形状。'
         }
       };
       
-      // Get fret position for note on string
-      function getFretForNoteCAGED(stringIndex, targetNote) {
-        var tunings = ['E', 'B', 'G', 'D', 'A', 'E'];
+      // Calculate semitone offset between notes
+      function getSemitoneOffset(fromNote, toNote) {
         var notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-        var openNote = tunings[stringIndex];
-        var openIndex = notes.indexOf(openNote);
-        var targetIndex = notes.indexOf(targetNote);
-        if (targetIndex === -1) return -1;
-        
-        return (targetIndex - openIndex + 12) % 12;
-      }
-      
-      // Find root fret position
-      function findRootFretPosition(root, shape) {
-        var shapeData = CAGED_SHAPES[shape];
-        var rootStringIndex = shape === 'C' ? 4 : shape === 'A' ? 4 : shape === 'G' ? 5 : shape === 'E' ? 5 : 3;
-        return getFretForNoteCAGED(rootStringIndex, root);
+        var fromIdx = notes.indexOf(fromNote);
+        var toIdx = notes.indexOf(toNote);
+        return (toIdx - fromIdx + 12) % 12;
       }
       
       // Render CAGED shape with selected root
@@ -749,26 +815,28 @@
         var shapeData = CAGED_SHAPES[currentCAGEDShape];
         if (!shapeData) return;
         
-        // Calculate root fret for the selected root note
-        var rootStringIndex = shapeData.rootString === 6 ? 5 : shapeData.rootString === 5 ? 4 : 3;
-        var rootFret = getFretForNoteCAGED(rootStringIndex, currentCAGEDRoot);
+        // Calculate how many semitones to transpose from C to target root
+        // CAGED patterns are stored for C major, so we need to shift by the interval from C to target
+        var transpose = getSemitoneOffset('C', currentCAGEDRoot);
         
-        // For display, use lower position if fret is too high
-        if (rootFret > 12) rootFret -= 12;
+        // Calculate new root fret
+        var newRootFret = shapeData.rootFret + transpose;
+        // Keep it in reasonable range (0-12)
+        while (newRootFret > 12) newRootFret -= 12;
         
         document.getElementById('cagedTitle').textContent = 
           currentCAGEDShape + '形状 - ' + currentCAGEDRoot + ' Major (' + 
-          currentCAGEDRoot + ' ' + shapeData.rootString + '弦 ' + (rootFret === 0 ? '空弦' : rootFret + '品') + ')';
+          currentCAGEDRoot + ' ' + shapeData.rootString + '弦 ' + (newRootFret === 0 ? '空弦' : newRootFret + '品') + ')';
         
-        // Generate fretboard notes by transposing pattern
+        // Transpose pattern to new root
         var notes = shapeData.pattern.map(function(p) {
-          var fret = rootFret + p.fret;
-          // Handle edge cases
+          var fret = p.fret + transpose;
+          // Keep in displayable range
           while (fret > 16) fret -= 12;
           while (fret < 0) fret += 12;
           
           return {
-            string: 5 - p.s,  // Convert to 0-indexed (0=high E, 5=low E)
+            string: p.string,
             fret: fret,
             label: p.label,
             color: p.label === 'R' ? '#e63946' : (p.label === '3' ? '#457b9d' : '#ff9f1c')
@@ -790,11 +858,11 @@
         
         // Update description
         var descriptions = {
-          'C': 'C形状基于开放C和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
-          'A': 'A形状基于开放A和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
-          'G': 'G形状基于开放G和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
-          'E': 'E形状基于开放E和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。',
-          'D': 'D形状基于开放D和弦。当根音在' + shapeData.rootString + '弦时，形成' + currentCAGEDRoot + '大三和弦。'
+          'C': 'C形状基于开放C和弦。当根音在5弦' + newRootFret + '品时，形成' + currentCAGEDRoot + '大三和弦。',
+          'A': 'A形状基于开放A和弦。当根音在5弦' + newRootFret + '品时，形成' + currentCAGEDRoot + '大三和弦。',
+          'G': 'G形状基于开放G和弦。当根音在6弦' + newRootFret + '品时，形成' + currentCAGEDRoot + '大三和弦。',
+          'E': 'E形状基于开放E和弦。当根音在6弦' + newRootFret + '品时，形成' + currentCAGEDRoot + '大三和弦。',
+          'D': 'D形状基于开放D和弦。当根音在4弦' + newRootFret + '品时，形成' + currentCAGEDRoot + '大三和弦。'
         };
         document.getElementById('cagedInfo').textContent = descriptions[currentCAGEDShape];
       }
