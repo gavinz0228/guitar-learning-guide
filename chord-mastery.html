@@ -480,7 +480,17 @@
           
           // Find fret for this note on target string
           var fret = getFretForNote(targetString, toneNote);
-          if (fret >= 0 && fret <= 12) {
+          
+          // If fret is beyond 16, try lower octave (subtract 12)
+          if (fret > 16) {
+            fret -= 12;
+          }
+          // If still negative or beyond range, try higher octave
+          if (fret < 0) {
+            fret += 12;
+          }
+          
+          if (fret >= 0 && fret <= 16) {
             notes.push({
               string: targetString,
               fret: fret,
@@ -557,16 +567,19 @@
         var minFret = Math.min.apply(null, fretboardNotes.map(function(n) { return n.fret; }));
         var startFret = Math.max(0, minFret - 1);
         
-        // Render fretboard - show 12 frets to see full pattern
+        // Filter out notes beyond fret 16
+        fretboardNotes = fretboardNotes.filter(function(n) { return n.fret <= 16; });
+        
+        // Render fretboard - show 16 frets (0-16)
         var container = document.getElementById('shellFretboard');
         if (window.renderFretboard) {
           window.renderFretboard(container, {
-            numFrets: 13,
+            numFrets: 17,
             startFret: 0,
             showLabels: true,
             notes: fretboardNotes,
             width: container.offsetWidth,
-            height: 280
+            height: 320
           });
         }
         
@@ -716,18 +729,18 @@
             label: p.label,
             color: p.label === 'R' ? '#e63946' : (p.label === '3' ? '#457b9d' : '#ff9f1c')
           };
-        }).filter(function(n) { return n.fret >= 0 && n.fret <= 12; });
+        }).filter(function(n) { return n.fret >= 0 && n.fret <= 16; });
         
-        // Render - show 12 frets to see transposition patterns
+        // Render - show 16 frets to see transposition patterns
         var container = document.getElementById('cagedFretboard');
         if (window.renderFretboard) {
           window.renderFretboard(container, {
-            numFrets: 13,
+            numFrets: 17,
             startFret: 0,
             showLabels: true,
             notes: notes,
             width: container.offsetWidth,
-            height: 280
+            height: 320
           });
         }
         
