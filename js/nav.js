@@ -17,8 +17,16 @@
   ];
 
   function createNav() {
-    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    if (!currentPage || currentPage === '') currentPage = 'index.html';
+    var path = window.location.pathname;
+    var currentPage = path.split('/').pop() || 'index.html';
+    
+    // Handle cases like '/chords' -> 'chords.html' or '/chords.html' -> 'chords.html'
+    if (!currentPage || currentPage === '') {
+      currentPage = 'index.html';
+    } else if (!currentPage.includes('.html')) {
+      // Convert '/chords' to 'chords.html' for comparison
+      currentPage = currentPage + '.html';
+    }
 
     var nav = document.createElement('nav');
     nav.className = 'main-nav';
@@ -43,9 +51,10 @@
       a.textContent = item.label;
       a.className = 'nav-link';
 
+      // More flexible matching
       if (currentPage === item.href || 
-          (currentPage === '' && item.href === 'index.html') ||
-          (currentPage === '/' && item.href === 'index.html')) {
+          currentPage.replace('.html', '') === item.href.replace('.html', '') ||
+          (currentPage === 'index.html' && (path === '/' || path === ''))) {
         a.classList.add('active');
       }
 
