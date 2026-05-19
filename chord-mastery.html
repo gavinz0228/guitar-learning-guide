@@ -727,78 +727,74 @@
       var currentCAGEDShape = 'C';
       var currentCAGEDRoot = 'C';
       
-      // CAGED shape data - absolute fret positions for C root
-      // These are the actual finger positions for each shape when playing C major
+      // CAGED shape data - based on open chord patterns transposed to C Major
+      // Standard tuning: 6=E, 5=A, 4=D, 3=G, 2=B, 1=E (high)
+      // C Major = C E G (Root, Major 3rd, Perfect 5th)
       var CAGED_SHAPES = {
         'C': {
           name: 'C形状',
-          rootString: 5,  // Root on 5th string at fret 3 (C note)
-          rootFret: 3,    // C is on 5th string, 3rd fret
+          rootString: 5,
+          rootFret: 3,  // C on 5th string
           pattern: [
-            {string: 0, fret: 0, label: '1'},   // 1st string (high E) - open E
-            {string: 1, fret: 1, label: '3'},   // 2nd string (B) - 1st fret C
-            {string: 2, fret: 0, label: '5'},   // 3rd string (G) - open G
-            {string: 3, fret: 2, label: '1'},   // 4th string (D) - 2nd fret E
-            {string: 4, fret: 3, label: 'R'},   // 5th string (A) - 3rd fret C (ROOT)
-            {string: 5, fret: 3, label: '5'}    // 6th string (low E) - 3rd fret G
-          ],
-          description: 'C形状：根音在5弦3品。形状紧凑，适合高把位。'
+            {string: 0, fret: 0, note: 'E', label: '3'},   // 1弦0品 = E (大三度)
+            {string: 1, fret: 1, note: 'C', label: 'R'},   // 2弦1品 = C (根音)
+            {string: 2, fret: 0, note: 'G', label: '5'},   // 3弦0品 = G (纯五度)
+            {string: 3, fret: 2, note: 'E', label: '3'},   // 4弦2品 = E (大三度)
+            {string: 4, fret: 3, note: 'C', label: 'R'},   // 5弦3品 = C (根音)
+            {string: 5, fret: 3, note: 'G', label: '5'}    // 6弦3品 = G (纯五度)
+          ]
         },
         'A': {
           name: 'A形状',
-          rootString: 5,  // Root on 5th string at fret 3 (C note) - barred
-          rootFret: 3,
+          rootString: 5,
+          rootFret: 3,  // C on 5th string (barre at fret 3)
           pattern: [
-            {string: 0, fret: 3, label: '5'},   // 1st string - 3rd fret G
-            {string: 1, fret: 5, label: '1'},   // 2nd string - 5th fret C
-            {string: 2, fret: 5, label: '5'},   // 3rd string - 5th fret G
-            {string: 3, fret: 5, label: '1'},   // 4th string - 5th fret C
-            {string: 4, fret: 3, label: 'R'},   // 5th string - 3rd fret C (ROOT)
-            {string: 5, fret: 3, label: '5'}    // 6th string - 3rd fret G
-          ],
-          description: 'A形状：根音在5弦3品（横按）。手指排列成A形状。'
+            {string: 0, fret: 3, note: 'G', label: '5'},   // 1弦3品 = G (纯五度)
+            {string: 1, fret: 5, note: 'E', label: '3'},   // 2弦5品 = E (大三度)
+            {string: 2, fret: 5, note: 'C', label: 'R'},   // 3弦5品 = C (根音)
+            {string: 3, fret: 5, note: 'G', label: '5'},   // 4弦5品 = G (纯五度)
+            {string: 4, fret: 3, note: 'C', label: 'R'},   // 5弦3品 = C (根音)
+            {string: 5, fret: 3, note: 'G', label: '5'}    // 6弦3品 = G (纯五度)
+          ]
         },
         'G': {
           name: 'G形状',
-          rootString: 6,  // Root on 6th string at fret 8 (C note)
-          rootFret: 8,
+          rootString: 6,
+          rootFret: 8,  // C on 6th string
           pattern: [
-            {string: 0, fret: 8, label: '1'},   // 1st string - 8th fret C
-            {string: 1, fret: 8, label: '5'},   // 2nd string - 8th fret G
-            {string: 2, fret: 9, label: '1'},   // 3rd string - 9th fret E
-            {string: 3, fret: 10, label: '3'},  // 4th string - 10th fret D
-            {string: 4, fret: 10, label: '5'},  // 5th string - 10th fret A
-            {string: 5, fret: 8, label: 'R'}    // 6th string - 8th fret C (ROOT)
-          ],
-          description: 'G形状：根音在6弦8品。跨度较大，需要手指伸展。'
+            {string: 0, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
+            {string: 1, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
+            {string: 2, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
+            {string: 3, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
+            {string: 4, fret: 10, note: 'G', label: '5'},  // 5弦10品 = G (纯五度)
+            {string: 5, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
+          ]
         },
         'E': {
           name: 'E形状',
-          rootString: 6,  // Root on 6th string at fret 8 (C note) - barred
-          rootFret: 8,
+          rootString: 6,
+          rootFret: 8,  // C on 6th string (barre at fret 8)
           pattern: [
-            {string: 0, fret: 8, label: '3'},   // 1st string - 8th fret C
-            {string: 1, fret: 8, label: '5'},   // 2nd string - 8th fret G
-            {string: 2, fret: 9, label: '1'},   // 3rd string - 9th fret E
-            {string: 3, fret: 10, label: '5'},  // 4th string - 10th fret A
-            {string: 4, fret: 10, label: '1'},  // 5th string - 10th fret C
-            {string: 5, fret: 8, label: 'R'}    // 6th string - 8th fret C (ROOT)
-          ],
-          description: 'E形状：根音在6弦8品（横按）。最常见的横按形状。'
+            {string: 0, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
+            {string: 1, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
+            {string: 2, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
+            {string: 3, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
+            {string: 4, fret: 10, note: 'G', label: '5'},  // 5弦10品 = G (纯五度)
+            {string: 5, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
+          ]
         },
         'D': {
           name: 'D形状',
-          rootString: 4,  // Root on 4th string at fret 10 (C note)
-          rootFret: 10,
+          rootString: 4,
+          rootFret: 10,  // C on 4th string
           pattern: [
-            {string: 0, fret: 8, label: '1'},   // 1st string - 8th fret C
-            {string: 1, fret: 8, label: '5'},   // 2nd string - 8th fret G
-            {string: 2, fret: 9, label: '1'},   // 3rd string - 9th fret E
-            {string: 3, fret: 10, label: 'R'},  // 4th string - 10th fret C (ROOT)
-            {string: 4, fret: 10, label: '5'},  // 5th string - 10th fret A
-            {string: 5, fret: 8, label: '1'}    // 6th string - 8th fret C
-          ],
-          description: 'D形状：根音在4弦10品。高音区形状。'
+            {string: 0, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
+            {string: 1, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
+            {string: 2, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
+            {string: 3, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
+            {string: 4, fret: 10, note: 'G', label: '5'},  // 5弦10品 = G (纯五度)
+            {string: 5, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
+          ]
         }
       };
       
