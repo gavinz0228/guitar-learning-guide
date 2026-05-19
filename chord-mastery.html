@@ -552,16 +552,16 @@
         var minFret = Math.min.apply(null, fretboardNotes.map(function(n) { return n.fret; }));
         var startFret = Math.max(0, minFret - 1);
         
-        // Render fretboard
+        // Render fretboard - show 12 frets to see full pattern
         var container = document.getElementById('shellFretboard');
         if (window.renderFretboard) {
           window.renderFretboard(container, {
-            numFrets: 6,
-            startFret: startFret,
+            numFrets: 13,
+            startFret: 0,
             showLabels: true,
             notes: fretboardNotes,
             width: container.offsetWidth,
-            height: 200
+            height: 280
           });
         }
         
@@ -713,16 +713,16 @@
           };
         }).filter(function(n) { return n.fret >= 0 && n.fret <= 12; });
         
-        // Render
+        // Render - show 12 frets to see transposition patterns
         var container = document.getElementById('cagedFretboard');
         if (window.renderFretboard) {
           window.renderFretboard(container, {
-            numFrets: 6,
-            startFret: Math.max(0, rootFret - 1),
+            numFrets: 13,
+            startFret: 0,
             showLabels: true,
             notes: notes,
             width: container.offsetWidth,
-            height: 200
+            height: 280
           });
         }
         
