@@ -343,12 +343,8 @@
           '</div>';
 
         card.addEventListener('click', function(e) {
-          if (expandedCard && expandedCard !== card) {
-            expandedCard.classList.remove('expanded');
-          }
-          
+          // Toggle current card independently (don't close others)
           card.classList.toggle('expanded');
-          expandedCard = card.classList.contains('expanded') ? card : null;
 
           if (card.classList.contains('expanded')) {
             renderChordSheet(song, 'chordsheet-' + index);
