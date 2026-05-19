@@ -5,16 +5,194 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>吉他学习指南 - 从零开始学吉他</title>
   <meta name="description" content="系统化吉他学习教程，涵盖和弦、音阶、乐理、Solo等全方位内容">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=7">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Enhanced Hero Styles */
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(ellipse at 30% 50%, rgba(255, 107, 53, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 30%, rgba(247, 147, 30, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(255, 204, 0, 0.08) 0%, transparent 50%);
+      animation: auroraMove 15s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes auroraMove {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, 2%) rotate(5deg); }
+      66% { transform: translate(-2%, 1%) rotate(-5deg); }
+    }
+    
+    .hero-title {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-title span {
+      background: linear-gradient(90deg, #ff6b35, #f7931e, #ffcc00, #ff6b35);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientText 4s ease infinite;
+    }
+    
+    @keyframes gradientText {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Enhanced Feature Cards */
+    .feature-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(255, 107, 53, 0.08) 60deg,
+        rgba(247, 147, 30, 0.08) 120deg,
+        transparent 180deg,
+        transparent 360deg
+      );
+      animation: holoRotate 6s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(255, 107, 53, 0.4);
+      box-shadow: 
+        0 30px 60px rgba(0,0,0,0.4),
+        0 0 40px rgba(255,107,53,0.15);
+    }
+    
+    @keyframes holoRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .feature-icon {
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    /* Enhanced Buttons */
+    .btn-primary, .btn-secondary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .btn-primary::before, .btn-secondary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .btn-primary:hover::before, .btn-secondary:hover::before {
+      width: 300%;
+      height: 300%;
+    }
+    
+    .btn-primary:hover, .btn-secondary:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+    }
+    
+    /* Particle container */
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .floating-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 107, 53, 0.3);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+      animation: floatUp 25s infinite linear;
+    }
+    
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+      5% {
+        opacity: 1;
+        transform: translateY(95vh) translateX(10px) scale(1);
+      }
+      95% {
+        opacity: 0.5;
+        transform: translateY(5vh) translateX(-10px) scale(1);
+      }
+      100% {
+        transform: translateY(-5vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Floating Particles Background -->
+  <div class="particles-container" id="particles"></div>
+
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-badge">
-      <span>🎯</span> 适合新手的系统化教程
+      <span class="wave">🎯</span> 适合新手的系统化教程
     </div>
     <h1 class="hero-title">
       开始你的<br>
@@ -193,5 +371,33 @@
   </footer>
 
   <script src="js/nav.js?v=5"></script>
+  <script>
+    // Generate floating particles
+    (function() {
+      var container = document.getElementById('particles');
+      if (!container) return;
+      
+      var particleCount = 30;
+      for (var i = 0; i < particleCount; i++) {
+        var particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 25 + 's';
+        particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+        
+        // Random colors
+        var colors = [
+          'rgba(255, 107, 53, 0.3)',
+          'rgba(247, 147, 30, 0.3)',
+          'rgba(255, 204, 0, 0.25)'
+        ];
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.background = color;
+        particle.style.boxShadow = '0 0 10px ' + color.replace('0.3', '0.5').replace('0.25', '0.4');
+        
+        container.appendChild(particle);
+      }
+    })();
+  </script>
 </body>
 </html>
