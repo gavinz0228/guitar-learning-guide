@@ -17,6 +17,7 @@
       padding: 0 2rem;
       max-width: 1600px;
       margin: 0 auto;
+      align-items: start; /* 关键：每个卡片保持自己的高度，不延伸填充整个行 */
     }
     
     .song-card {
@@ -27,6 +28,7 @@
       transition: var(--transition-normal);
       backdrop-filter: blur(20px);
       cursor: pointer;
+      align-self: start; /* 关键：卡片不延伸填充行高度 */
     }
     
     .song-card:hover {
