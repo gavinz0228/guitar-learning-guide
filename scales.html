@@ -5,11 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>音阶图 | 吉他学习指南</title>
   <meta name="description" content="五声、自然、和声小调等常用音阶，配合音频播放功能，可视化指板图">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    .filter-tabs {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      padding: 0 1.5rem;
+    }
+    
+    .filter-tab {
+      padding: 0.75rem 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .filter-tab:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+    }
+    
+    .filter-tab.active {
+      background: var(--gradient-primary);
+      border-color: transparent;
+      color: white;
+    }
+    
     .scales-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
@@ -164,6 +196,10 @@
         grid-template-columns: 1fr;
         padding: 0 1rem;
       }
+      
+      .filter-tabs {
+        padding: 0 1rem;
+      }
     }
   </style>
 </head>
@@ -175,8 +211,18 @@
       <span class="section-tag">基础内容</span>
       <h1 class="page-title">音阶<span>图</span></h1>
       <p class="section-desc">
-        常用吉他音阶的指板图和音颙播放，帮助你理解音阶的结构
+        常用吉他音阶的指板图和音频播放，按类型分类浏览
       </p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-filter="all">全部</button>
+      <button class="filter-tab" data-filter="pentatonic">五声音阶</button>
+      <button class="filter-tab" data-filter="major">大调音阶</button>
+      <button class="filter-tab" data-filter="minor">小调音阶</button>
+      <button class="filter-tab" data-filter="blues">蓝调音阶</button>
+      <button class="filter-tab" data-filter="other">其他音阶</button>
     </div>
 
     <!-- Scales Grid -->
@@ -195,15 +241,19 @@
   <script>
     (function() {
       var grid = document.getElementById('scalesGrid');
+      var filterTabs = document.getElementById('filterTabs');
+      var currentFilter = 'all';
       var audioCtx = null;
 
-      // Scale data
+      // Scale data - organized by type
       var scalesData = [
+        // 五声音阶
         {
           id: 'pentatonic-minor',
           name: 'A 小调五声音阶',
           enName: 'A Minor Pentatonic',
-          type: '五声音阶',
+          type: 'pentatonic',
+          typeName: '五声音阶',
           notes: ['A', 'C', 'D', 'E', 'G'],
           intervals: ['1', '♭3', '4', '5', '♭7'],
           pattern: [
@@ -225,7 +275,8 @@
           id: 'pentatonic-major',
           name: 'C 大调五声音阶',
           enName: 'C Major Pentatonic',
-          type: '五声音阶',
+          type: 'pentatonic',
+          typeName: '五声音阶',
           notes: ['C', 'D', 'E', 'G', 'A'],
           intervals: ['1', '2', '3', '5', '6'],
           pattern: [
@@ -241,46 +292,276 @@
           ]
         },
         {
+          id: 'pentatonic-e-minor',
+          name: 'E 小调五声音阶',
+          enName: 'E Minor Pentatonic',
+          type: 'pentatonic',
+          typeName: '五声音阶',
+          notes: ['E', 'G', 'A', 'B', 'D'],
+          intervals: ['1', '♭3', '4', '5', '♭7'],
+          pattern: [
+            {string: 0, fret: 0, label: '1', color: '#e63946'},
+            {string: 0, fret: 3, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 0, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 2, label: '5', color: '#ff9f1c'},
+            {string: 2, fret: 0, label: '♭7', color: '#7b2cbf'},
+            {string: 2, fret: 2, label: '1', color: '#e63946'},
+            {string: 3, fret: 0, label: '4', color: '#2ec4b6'},
+            {string: 3, fret: 2, label: '5', color: '#ff9f1c'},
+            {string: 4, fret: 0, label: '♭7', color: '#7b2cbf'},
+            {string: 4, fret: 3, label: '1', color: '#e63946'},
+            {string: 5, fret: 0, label: '4', color: '#2ec4b6'},
+            {string: 5, fret: 3, label: '5', color: '#ff9f1c'}
+          ]
+        },
+        // 大调音阶
+        {
+          id: 'major',
+          name: 'C 大调音阶',
+          enName: 'C Major Scale',
+          type: 'major',
+          typeName: '大调音阶',
+          notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+          intervals: ['1', '2', '3', '4', '5', '6', '7'],
+          pattern: [
+            {string: 0, fret: 8, label: '1', color: '#e63946'},
+            {string: 0, fret: 10, label: '2', color: '#457b9d'},
+            {string: 0, fret: 12, label: '3', color: '#2ec4b6'},
+            {string: 1, fret: 8, label: '4', color: '#ff9f1c'},
+            {string: 1, fret: 10, label: '5', color: '#e63946'},
+            {string: 2, fret: 9, label: '6', color: '#7b2cbf'},
+            {string: 2, fret: 10, label: '7', color: '#2ec4b6'},
+            {string: 2, fret: 12, label: '1', color: '#e63946'},
+            {string: 3, fret: 10, label: '2', color: '#457b9d'},
+            {string: 3, fret: 12, label: '3', color: '#2ec4b6'},
+            {string: 4, fret: 10, label: '4', color: '#ff9f1c'},
+            {string: 4, fret: 12, label: '5', color: '#e63946'},
+            {string: 4, fret: 13, label: '6', color: '#7b2cbf'},
+            {string: 5, fret: 12, label: '1', color: '#e63946'}
+          ]
+        },
+        {
+          id: 'lydian',
+          name: 'C Lydian 音阶',
+          enName: 'C Lydian Mode',
+          type: 'major',
+          typeName: '大调音阶',
+          notes: ['C', 'D', 'E', 'F#', 'G', 'A', 'B'],
+          intervals: ['1', '2', '3', '#4', '5', '6', '7'],
+          pattern: [
+            {string: 0, fret: 8, label: '1', color: '#e63946'},
+            {string: 0, fret: 10, label: '2', color: '#457b9d'},
+            {string: 0, fret: 12, label: '3', color: '#2ec4b6'},
+            {string: 1, fret: 9, label: '#4', color: '#ff9f1c'},
+            {string: 1, fret: 10, label: '5', color: '#e63946'},
+            {string: 2, fret: 9, label: '6', color: '#7b2cbf'},
+            {string: 2, fret: 12, label: '7', color: '#2ec4b6'},
+            {string: 3, fret: 10, label: '1', color: '#e63946'},
+            {string: 3, fret: 12, label: '2', color: '#457b9d'}
+          ]
+        },
+        {
+          id: 'mixolydian',
+          name: 'G Mixolydian 音阶',
+          enName: 'G Mixolydian Mode',
+          type: 'major',
+          typeName: '大调音阶',
+          notes: ['G', 'A', 'B', 'C', 'D', 'E', 'F'],
+          intervals: ['1', '2', '3', '4', '5', '6', '♭7'],
+          pattern: [
+            {string: 0, fret: 3, label: '1', color: '#e63946'},
+            {string: 0, fret: 5, label: '2', color: '#457b9d'},
+            {string: 0, fret: 7, label: '3', color: '#2ec4b6'},
+            {string: 1, fret: 3, label: '4', color: '#ff9f1c'},
+            {string: 1, fret: 5, label: '5', color: '#e63946'},
+            {string: 2, fret: 4, label: '6', color: '#7b2cbf'},
+            {string: 2, fret: 5, label: '♭7', color: '#9b59b6'},
+            {string: 2, fret: 7, label: '1', color: '#e63946'}
+          ]
+        },
+        // 小调音阶
+        {
           id: 'natural-minor',
           name: 'A 自然小调音阶',
           enName: 'A Natural Minor',
-          type: '自然音阶',
+          type: 'minor',
+          typeName: '小调音阶',
           notes: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
           intervals: ['1', '2', '♭3', '4', '5', '♭6', '♭7'],
-          pattern: []
+          pattern: [
+            {string: 0, fret: 5, label: '1', color: '#e63946'},
+            {string: 0, fret: 7, label: '2', color: '#457b9d'},
+            {string: 0, fret: 8, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 5, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 7, label: '5', color: '#e63946'},
+            {string: 2, fret: 5, label: '♭6', color: '#9b59b6'},
+            {string: 2, fret: 7, label: '♭7', color: '#7b2cbf'},
+            {string: 2, fret: 8, label: '1', color: '#e63946'}
+          ]
         },
         {
           id: 'harmonic-minor',
           name: 'A 和声小调音阶',
           enName: 'A Harmonic Minor',
-          type: '和声小调',
+          type: 'minor',
+          typeName: '小调音阶',
           notes: ['A', 'B', 'C', 'D', 'E', 'F', 'G#'],
           intervals: ['1', '2', '♭3', '4', '5', '♭6', '7'],
-          pattern: []
+          pattern: [
+            {string: 0, fret: 5, label: '1', color: '#e63946'},
+            {string: 0, fret: 7, label: '2', color: '#457b9d'},
+            {string: 0, fret: 8, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 5, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 7, label: '5', color: '#e63946'},
+            {string: 2, fret: 5, label: '♭6', color: '#9b59b6'},
+            {string: 2, fret: 8, label: '7', color: '#2ec4b6'},
+            {string: 2, fret: 9, label: '1', color: '#e63946'}
+          ]
         },
         {
-          id: 'major',
-          name: 'C 大调音阶',
-          enName: 'C Major Scale',
-          type: '大调音阶',
-          notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
-          intervals: ['1', '2', '3', '4', '5', '6', '7'],
-          pattern: []
+          id: 'melodic-minor',
+          name: 'A 旋律小调音阶',
+          enName: 'A Melodic Minor',
+          type: 'minor',
+          typeName: '小调音阶',
+          notes: ['A', 'B', 'C', 'D', 'E', 'F#', 'G#'],
+          intervals: ['1', '2', '♭3', '4', '5', '6', '7'],
+          pattern: [
+            {string: 0, fret: 5, label: '1', color: '#e63946'},
+            {string: 0, fret: 7, label: '2', color: '#457b9d'},
+            {string: 0, fret: 8, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 5, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 7, label: '5', color: '#e63946'},
+            {string: 2, fret: 6, label: '6', color: '#7b2cbf'},
+            {string: 2, fret: 8, label: '7', color: '#2ec4b6'},
+            {string: 2, fret: 9, label: '1', color: '#e63946'}
+          ]
         },
+        {
+          id: 'dorian',
+          name: 'D Dorian 音阶',
+          enName: 'D Dorian Mode',
+          type: 'minor',
+          typeName: '小调音阶',
+          notes: ['D', 'E', 'F', 'G', 'A', 'B', 'C'],
+          intervals: ['1', '2', '♭3', '4', '5', '6', '♭7'],
+          pattern: [
+            {string: 0, fret: 10, label: '1', color: '#e63946'},
+            {string: 0, fret: 12, label: '2', color: '#457b9d'},
+            {string: 0, fret: 13, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 10, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 12, label: '5', color: '#e63946'},
+            {string: 2, fret: 10, label: '6', color: '#7b2cbf'},
+            {string: 2, fret: 12, label: '♭7', color: '#9b59b6'},
+            {string: 3, fret: 10, label: '1', color: '#e63946'}
+          ]
+        },
+        // 蓝调音阶
         {
           id: 'blues',
           name: 'A 蓝调音阶',
           enName: 'A Blues Scale',
-          type: '蓝调音阶',
+          type: 'blues',
+          typeName: '蓝调音阶',
           notes: ['A', 'C', 'D', 'D#', 'E', 'G'],
           intervals: ['1', '♭3', '4', '#4', '5', '♭7'],
-          pattern: []
+          pattern: [
+            {string: 0, fret: 5, label: '1', color: '#e63946'},
+            {string: 0, fret: 8, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 5, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 6, label: '#4', color: '#ff9f1c'},
+            {string: 1, fret: 7, label: '5', color: '#ff9f1c'},
+            {string: 2, fret: 5, label: '♭7', color: '#7b2cbf'},
+            {string: 2, fret: 8, label: '1', color: '#e63946'}
+          ]
+        },
+        {
+          id: 'major-blues',
+          name: 'C 大调蓝调音阶',
+          enName: 'C Major Blues Scale',
+          type: 'blues',
+          typeName: '蓝调音阶',
+          notes: ['C', 'D', 'Eb', 'E', 'G', 'A'],
+          intervals: ['1', '2', '♭3', '3', '5', '6'],
+          pattern: [
+            {string: 0, fret: 8, label: '1', color: '#e63946'},
+            {string: 0, fret: 10, label: '2', color: '#457b9d'},
+            {string: 0, fret: 11, label: '♭3', color: '#457b9d'},
+            {string: 0, fret: 12, label: '3', color: '#2ec4b6'},
+            {string: 1, fret: 10, label: '5', color: '#ff9f1c'},
+            {string: 2, fret: 9, label: '6', color: '#7b2cbf'}
+          ]
+        },
+        // 其他音阶
+        {
+          id: 'chromatic',
+          name: '半音阶',
+          enName: 'Chromatic Scale',
+          type: 'other',
+          typeName: '其他音阶',
+          notes: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+          intervals: ['1', '♯1', '2', '♯2', '3', '4', '♯4', '5', '♯5', '6', '♯6', '7'],
+          pattern: [
+            {string: 0, fret: 8, label: 'C', color: '#e63946'},
+            {string: 0, fret: 9, label: 'C#', color: '#457b9d'},
+            {string: 0, fret: 10, label: 'D', color: '#457b9d'},
+            {string: 0, fret: 11, label: 'D#', color: '#457b9d'},
+            {string: 0, fret: 12, label: 'E', color: '#2ec4b6'},
+            {string: 1, fret: 8, label: 'F', color: '#ff9f1c'},
+            {string: 1, fret: 9, label: 'F#', color: '#ff9f1c'}
+          ]
+        },
+        {
+          id: 'whole-tone',
+          name: '全音阶',
+          enName: 'Whole Tone Scale',
+          type: 'other',
+          typeName: '其他音阶',
+          notes: ['C', 'D', 'E', 'F#', 'G#', 'A#'],
+          intervals: ['1', '2', '3', '#4', '#5', '♭7'],
+          pattern: [
+            {string: 0, fret: 8, label: '1', color: '#e63946'},
+            {string: 0, fret: 10, label: '2', color: '#457b9d'},
+            {string: 0, fret: 12, label: '3', color: '#2ec4b6'},
+            {string: 1, fret: 9, label: '#4', color: '#ff9f1c'},
+            {string: 1, fret: 11, label: '#5', color: '#e63946'},
+            {string: 2, fret: 10, label: '♭7', color: '#7b2cbf'}
+          ]
+        },
+        {
+          id: 'diminished',
+          name: '减音阶',
+          enName: 'Diminished Scale',
+          type: 'other',
+          typeName: '其他音阶',
+          notes: ['C', 'D', 'Eb', 'F', 'Gb', 'Ab', 'A', 'B'],
+          intervals: ['1', '2', '♭3', '4', '♭5', '♭6', '6', '7'],
+          pattern: [
+            {string: 0, fret: 8, label: '1', color: '#e63946'},
+            {string: 0, fret: 10, label: '2', color: '#457b9d'},
+            {string: 0, fret: 11, label: '♭3', color: '#457b9d'},
+            {string: 0, fret: 13, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 9, label: '♭5', color: '#ff9f1c'},
+            {string: 1, fret: 11, label: '♭6', color: '#7b2cbf'}
+          ]
         }
       ];
 
       function renderScales() {
         grid.innerHTML = '';
-        scalesData.forEach(function(scale, index) {
+        
+        var filtered = currentFilter === 'all' 
+          ? scalesData 
+          : scalesData.filter(function(s) {
+              return s.type === currentFilter;
+            });
+        
+        if (filtered.length === 0) {
+          grid.innerHTML = '<div class="status-message">暂无数据</div>';
+          return;
+        }
+        
+        filtered.forEach(function(scale, index) {
           var card = createScaleCard(scale, index);
           grid.appendChild(card);
         });
@@ -309,7 +590,7 @@
                 '<span>' + escapeHtml(scale.enName) + '</span>' +
               '</div>' +
             '</div>' +
-            '<span class="scale-type">' + escapeHtml(scale.type) + '</span>' +
+            '<span class="scale-type">' + escapeHtml(scale.typeName) + '</span>' +
           '</div>' +
           '<div class="scale-body">' +
             '<div class="scale-notes">' + notesHtml + '</div>' +
@@ -326,7 +607,7 @@
             var container = document.getElementById('fretboard-' + index);
             if (container && window.renderFretboard) {
               window.renderFretboard(container, {
-                numFrets: 5,
+                numFrets: 6,
                 startFret: 3,
                 showLabels: true,
                 notes: scale.pattern,
@@ -345,6 +626,18 @@
 
         return card;
       }
+
+      // Filter tabs
+      filterTabs.addEventListener('click', function(e) {
+        if (e.target.classList.contains('filter-tab')) {
+          document.querySelectorAll('.filter-tab').forEach(function(tab) {
+            tab.classList.remove('active');
+          });
+          e.target.classList.add('active');
+          currentFilter = e.target.dataset.filter;
+          renderScales();
+        }
+      });
 
       function playScale(scale) {
         if (!audioCtx) {
