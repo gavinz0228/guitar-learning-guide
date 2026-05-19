@@ -640,10 +640,10 @@
         });
         document.getElementById('chordFormula').innerHTML = formulaHtml;
         
-        // Generate fretboard notes
+        // Generate fretboard notes - convert string index to match renderer
         var fretboardNotes = voicing.notes.map(function(n) {
           return {
-            string: n.string,
+            string: 5 - n.string,  // Convert: getFretForNote index -> renderer index
             fret: n.fret,
             label: n.label,
             color: getIntervalColor(n.label)
