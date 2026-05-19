@@ -48,9 +48,9 @@
     
     .concept-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
-      margin-top: 1.5rem;
+      margin: 1.5rem 0;
     }
     
     .concept-card {
@@ -58,6 +58,19 @@
       border-radius: var(--radius-md);
       padding: 1.5rem;
       text-align: center;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border: 2px solid transparent;
+    }
+    
+    .concept-card:hover,
+    .concept-card.active {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+    
+    .concept-card.active {
+      background: rgba(255, 107, 53, 0.1);
     }
     
     .concept-letter {
@@ -81,39 +94,81 @@
     
     .concept-desc {
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
     
-    .fretboard-demo {
+    .fretboard-section {
       background: var(--bg-secondary);
       border-radius: var(--radius-md);
       padding: 1.5rem;
       margin: 1.5rem 0;
-      overflow-x: auto;
     }
     
-    .shape-nav {
+    .fretboard-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--accent-secondary);
+    }
+    
+    .fretboard-container {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    
+    .shape-info {
+      background: rgba(255, 107, 53, 0.1);
+      border-left: 3px solid var(--accent-primary);
+      padding: 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    .voicing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .voicing-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    
+    .voicing-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--accent-secondary);
+    }
+    
+    .voicing-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .chord-formula {
       display: flex;
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      margin: 1rem 0;
       flex-wrap: wrap;
     }
     
-    .shape-btn {
-      padding: 0.5rem 1rem;
+    .formula-note {
+      padding: 0.3rem 0.8rem;
       background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: var(--transition-fast);
+      border-radius: var(--radius-sm);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
     }
     
-    .shape-btn:hover,
-    .shape-btn.active {
-      background: var(--gradient-primary);
-      border-color: transparent;
-      color: white;
+    .formula-note.root {
+      background: rgba(255, 107, 53, 0.2);
+      color: var(--accent-secondary);
     }
     
     @media (max-width: 768px) {
@@ -156,42 +211,40 @@
           </p>
           
           <div class="concept-grid">
-            <div class="concept-card">
+            <div class="concept-card active" data-shape="C">
               <div class="concept-letter">C</div>
               <div class="concept-name">C形状</div>
-              <div class="concept-desc">基于C和弦的形状，根音在5弦或6弦</div>
+              <div class="concept-desc">根音在5弦</div>
             </div>
-            <div class="concept-card">
+            <div class="concept-card" data-shape="A">
               <div class="concept-letter">A</div>
               <div class="concept-name">A形状</div>
-              <div class="concept-desc">基于A和弦的形状，根音在6弦</div>
+              <div class="concept-desc">根音在5弦</div>
             </div>
-            <div class="concept-card">
+            <div class="concept-card" data-shape="G">
               <div class="concept-letter">G</div>
               <div class="concept-name">G形状</div>
-              <div class="concept-desc">基于G和弦的形状，根音在6弦或5弦</div>
+              <div class="concept-desc">根音在6弦</div>
             </div>
-            <div class="concept-card">
+            <div class="concept-card" data-shape="E">
               <div class="concept-letter">E</div>
               <div class="concept-name">E形状</div>
-              <div class="concept-desc">基于E和弦的形状，根音在6弦</div>
+              <div class="concept-desc">根音在6弦</div>
             </div>
-            <div class="concept-card">
+            <div class="concept-card" data-shape="D">
               <div class="concept-letter">D</div>
               <div class="concept-name">D形状</div>
-              <div class="concept-desc">基于D和弦的形状，根音在4弦或3弦</div>
+              <div class="concept-desc">根音在4弦</div>
             </div>
           </div>
           
-          <div class="fretboard-demo">
-            <div class="shape-nav">
-              <button class="shape-btn active">C形</button>
-              <button class="shape-btn">A形</button>
-              <button class="shape-btn">G形</button>
-              <button class="shape-btn">E形</button>
-              <button class="shape-btn">D形</button>
+          <div class="fretboard-section">
+            <div class="fretboard-title" id="cagedTitle">C Shape - C Major (根音在3品A音)</div>
+            <div class="fretboard-container" id="cagedFretboard"></div>
+            <div class="shape-info" id="cagedInfo">
+              C形状基于开放C和弦，移动到第3品时形成C和弦（根音在5弦3品A音，实际音高为C）。
+              这是CAGED系统中最高位置的形状，常用于连接A形状。
             </div>
-            <div id="cagedFretboard"></div>
           </div>
         </div>
       </div>
@@ -200,28 +253,61 @@
       <div class="method-card">
         <div class="method-header">
           <h2 class="method-title">🧠 Shell Voicing</h2>
-          <p class="method-subtitle">精简和弦的高效按法</p>
+          <p class="method-subtitle">精简和弦的高效按法 - 只用3个音构建完整和弦</p>
         </div>
         <div class="method-content">
           <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
-            Shell Voicing是用最少的音构成最完整的和弦意图。它通常只使用3-4个音，让你在紧凑的把位中快速切换和弦。
+            Shell Voicing是用最少的音构成最完整的和弦意图。它通常只使用根音、3音和7音，让你在紧凑的把位中快速切换和弦。这是爵士乐和伴奏中最常用的技巧。
           </p>
           
-          <div class="concept-grid">
-            <div class="concept-card">
-              <div class="concept-letter">R</div>
-              <div class="concept-name">根音</div>
-              <div class="concept-desc">和弦的基础，决定和弦名称</div>
+          <div class="voicing-grid">
+            <!-- Major 7 Shell -->
+            <div class="voicing-card">
+              <div class="voicing-title">Cmaj7 Shell Voicing</div>
+              <div class="voicing-desc">大七和弦精简版 - 根音+3音+7音</div>
+              <div class="chord-formula">
+                <span class="formula-note root">C (根)</span>
+                <span class="formula-note">E (3)</span>
+                <span class="formula-note">B (7)</span>
+              </div>
+              <div class="fretboard-container" id="shellMaj7"></div>
             </div>
-            <div class="concept-card">
-              <div class="concept-letter">3</div>
-              <div class="concept-name">3音</div>
-              <div class="concept-desc">决定和弦性质是大还是小</div>
+            
+            <!-- Dominant 7 Shell -->
+            <div class="voicing-card">
+              <div class="voicing-title">C7 Shell Voicing</div>
+              <div class="voicing-desc">属七和弦精简版 - 根音+3音+b7音</div>
+              <div class="chord-formula">
+                <span class="formula-note root">C (根)</span>
+                <span class="formula-note">E (3)</span>
+                <span class="formula-note">Bb (♭7)</span>
+              </div>
+              <div class="fretboard-container" id="shellDom7"></div>
             </div>
-            <div class="concept-card">
-              <div class="concept-letter">7</div>
-              <div class="concept-name">7音</div>
-              <div class="concept-desc">延伸和弦的层次感</div>
+            
+            <!-- Minor 7 Shell -->
+            <div class="voicing-card">
+              <div class="voicing-title">Cm7 Shell Voicing</div>
+              <div class="voicing-desc">小七和弦精简版 - 根音+b3音+b7音</div>
+              <div class="chord-formula">
+                <span class="formula-note root">C (根)</span>
+                <span class="formula-note">Eb (♭3)</span>
+                <span class="formula-note">Bb (♭7)</span>
+              </div>
+              <div class="fretboard-container" id="shellMin7"></div>
+            </div>
+            
+            <!-- Minor 7b5 Shell -->
+            <div class="voicing-card">
+              <div class="voicing-title">Cm7b5 Shell Voicing</div>
+              <div class="voicing-desc">半减七和弦 - 根音+b3音+b5音+b7音</div>
+              <div class="chord-formula">
+                <span class="formula-note root">C (根)</span>
+                <span class="formula-note">Eb (♭3)</span>
+                <span class="formula-note">Gb (♭5)</span>
+                <span class="formula-note">Bb (♭7)</span>
+              </div>
+              <div class="fretboard-container" id="shellMin7b5"></div>
             </div>
           </div>
         </div>
@@ -238,14 +324,178 @@
   <script src="js/fretboard-renderer.js"></script>
   <script>
     (function() {
+      // CAGED shape data - showing C major chord in each shape
+      var CAGED_DATA = {
+        'C': {
+          title: 'C Shape - C Major (根音在3品)',
+          info: 'C形状基于开放C和弦，移动到第3品时形成C和弦（根音在5弦3品C音）。这是CAGED系统中最高位置的形状，常用于连接A形状。',
+          notes: [
+            {string: 2, fret: 1, label: '1', color: '#e63946'},
+            {string: 3, fret: 0, label: '3', color: '#457b9d'},
+            {string: 4, fret: 2, label: '5', color: '#ff9f1c'},
+            {string: 5, fret: 3, label: 'R', color: '#e63946'},
+            {string: 1, fret: 0, label: '3', color: '#457b9d'}
+          ],
+          startFret: 0,
+          numFrets: 5
+        },
+        'A': {
+          title: 'A Shape - C Major (根音在3品)',
+          info: 'A形状基于开放A和弦，横按第3品形成C和弦（根音在5弦3品C音）。这是最常用的CAGED形状之一，常用于solo伴奏。',
+          notes: [
+            {string: 0, fret: 3, label: '3', color: '#457b9d'},
+            {string: 1, fret: 5, label: 'R', color: '#e63946'},
+            {string: 2, fret: 5, label: '5', color: '#ff9f1c'},
+            {string: 3, fret: 5, label: '1', color: '#e63946'},
+            {string: 4, fret: 3, label: '5', color: '#ff9f1c'},
+            {string: 5, fret: 3, label: 'R', color: '#e63946'}
+          ],
+          startFret: 3,
+          numFrets: 5
+        },
+        'G': {
+          title: 'G Shape - C Major (根音在8品)',
+          info: 'G形状基于开放G和弦，移动到第8品形成C和弦（根音在6弦8品C音）。这个形状跨度较大，但可以提供独特的音色。',
+          notes: [
+            {string: 0, fret: 8, label: '1', color: '#e63946'},
+            {string: 1, fret: 8, label: 'R', color: '#e63946'},
+            {string: 2, fret: 9, label: '5', color: '#ff9f1c'},
+            {string: 3, fret: 9, label: '3', color: '#457b9d'},
+            {string: 4, fret: 10, label: '1', color: '#e63946'},
+            {string: 5, fret: 8, label: 'R', color: '#e63946'}
+          ],
+          startFret: 8,
+          numFrets: 5
+        },
+        'E': {
+          title: 'E Shape - C Major (根音在8品)',
+          info: 'E形状基于开放E和弦，横按第8品形成C和弦（根音在6弦8品C音）。这是摇滚和布鲁斯中最常用的把位，强力和弦也基于此形状。',
+          notes: [
+            {string: 0, fret: 8, label: '1', color: '#e63946'},
+            {string: 1, fret: 8, label: '5', color: '#ff9f1c'},
+            {string: 2, fret: 9, label: 'R', color: '#e63946'},
+            {string: 3, fret: 10, label: '5', color: '#ff9f1c'},
+            {string: 4, fret: 10, label: '3', color: '#457b9d'},
+            {string: 5, fret: 8, label: 'R', color: '#e63946'}
+          ],
+          startFret: 8,
+          numFrets: 5
+        },
+        'D': {
+          title: 'D Shape - C Major (根音在10品)',
+          info: 'D形状基于开放D和弦，移动到第10品形成C和弦（根音在4弦10品C音）。这是CAGED系统中最高音区的形状，常用于高音旋律。',
+          notes: [
+            {string: 0, fret: 8, label: 'R', color: '#e63946'},
+            {string: 1, fret: 10, label: '5', color: '#ff9f1c'},
+            {string: 2, fret: 10, label: '1', color: '#e63946'},
+            {string: 3, fret: 9, label: '3', color: '#457b9d'},
+            {string: 4, fret: 10, label: 'R', color: '#e63946'}
+          ],
+          startFret: 8,
+          numFrets: 5
+        }
+      };
+
+      // Render CAGED fretboard
+      function renderCAGED(shape) {
+        var data = CAGED_DATA[shape];
+        if (!data) return;
+        
+        document.getElementById('cagedTitle').textContent = data.title;
+        document.getElementById('cagedInfo').textContent = data.info;
+        
+        var container = document.getElementById('cagedFretboard');
+        if (window.renderFretboard) {
+          window.renderFretboard(container, {
+            numFrets: data.numFrets,
+            startFret: data.startFret,
+            showLabels: true,
+            notes: data.notes,
+            width: container.offsetWidth,
+            height: 200
+          });
+        }
+      }
+
       // CAGED shape buttons
-      var shapeBtns = document.querySelectorAll('.shape-btn');
-      shapeBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          shapeBtns.forEach(function(b) { b.classList.remove('active'); });
+      var shapeCards = document.querySelectorAll('.concept-card');
+      shapeCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+          shapeCards.forEach(function(c) { c.classList.remove('active'); });
           this.classList.add('active');
+          renderCAGED(this.dataset.shape);
         });
       });
+
+      // Shell Voicing data
+      var SHELL_DATA = {
+        'shellMaj7': {
+          notes: [
+            {string: 3, fret: 5, label: 'R', color: '#e63946'},
+            {string: 2, fret: 5, label: '3', color: '#457b9d'},
+            {string: 1, fret: 4, label: '7', color: '#7b2cbf'}
+          ],
+          startFret: 3,
+          numFrets: 5
+        },
+        'shellDom7': {
+          notes: [
+            {string: 3, fret: 5, label: 'R', color: '#e63946'},
+            {string: 2, fret: 5, label: '3', color: '#457b9d'},
+            {string: 1, fret: 3, label: '♭7', color: '#7b2cbf'}
+          ],
+          startFret: 3,
+          numFrets: 5
+        },
+        'shellMin7': {
+          notes: [
+            {string: 3, fret: 5, label: 'R', color: '#e63946'},
+            {string: 2, fret: 4, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 3, label: '♭7', color: '#7b2cbf'}
+          ],
+          startFret: 3,
+          numFrets: 5
+        },
+        'shellMin7b5': {
+          notes: [
+            {string: 3, fret: 5, label: 'R', color: '#e63946'},
+            {string: 2, fret: 4, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 3, label: '♭7', color: '#7b2cbf'},
+            {string: 0, fret: 5, label: '♭5', color: '#2ec4b6'}
+          ],
+          startFret: 3,
+          numFrets: 5
+        }
+      };
+
+      // Render Shell Voicings
+      function renderShellVoicings() {
+        Object.keys(SHELL_DATA).forEach(function(id) {
+          var container = document.getElementById(id);
+          if (container && window.renderFretboard) {
+            var data = SHELL_DATA[id];
+            window.renderFretboard(container, {
+              numFrets: data.numFrets,
+              startFret: data.startFret,
+              showLabels: true,
+              notes: data.notes,
+              width: container.offsetWidth,
+              height: 180
+            });
+          }
+        });
+      }
+
+      // Initial render
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          renderCAGED('C');
+          renderShellVoicings();
+        });
+      } else {
+        renderCAGED('C');
+        renderShellVoicings();
+      }
     })();
   </script>
 </body>
