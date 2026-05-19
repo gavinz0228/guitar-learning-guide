@@ -350,7 +350,7 @@ body::before {
 /* ─── Section Headers ─── */
 .section {
   padding: var(--space-xl) var(--space-lg);
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -395,6 +395,8 @@ body::before {
 .page-content {
   padding-top: 80px;
   min-height: 100vh;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .page-header {
@@ -451,9 +453,11 @@ body::before {
 /* ─── Content Cards Grid ─── */
 .content-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: var(--space-md);
   padding: var(--space-md);
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 /* ─── Card Component ─── */
