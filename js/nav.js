@@ -1,76 +1,71 @@
 /**
- * Navigation JS - Guitar Learning Site
- * - Auto-highlights current page nav link
- * - Mobile hamburger menu toggle
- * - Dark/Light theme toggle
+ * Modern Navigation Component
+ * Auto-generates navigation based on current page
  */
-(function () {
+(function() {
   'use strict';
 
-  // --- Get current page filename ---
-  var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  var navItems = [
+    { id: 'index', label: '首页', href: 'index.html' },
+    { id: 'chords', label: '和弦库', href: 'chords.html' },
+    { id: 'chord-mastery', label: '突破前三品', href: 'chord-mastery.html' },
+    { id: 'scales', label: '音阶', href: 'scales.html' },
+    { id: 'theory', label: '乐理', href: 'theory.html' },
+    { id: 'songs', label: '练习曲', href: 'songs.html' },
+    { id: 'solo', label: 'Solo', href: 'solo.html' },
+    { id: 'roadmap', label: '学习路线', href: 'roadmap.html' }
+  ];
 
-  // --- Highlight active nav link ---
-  var navLinks = document.querySelectorAll('.navbar .nav-links a');
-  navLinks.forEach(function (link) {
-    var href = link.getAttribute('href');
-    if (href === currentPage) {
-      link.classList.add('active');
-    }
-  });
+  function createNav() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (!currentPage || currentPage === '') currentPage = 'index.html';
 
-  // --- Hamburger menu toggle ---
-  var hamburger = document.querySelector('.hamburger');
-  var mobileMenu = document.querySelector('.navbar .nav-links');
+    var nav = document.createElement('nav');
+    nav.className = 'main-nav';
 
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', function () {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-    });
+    var container = document.createElement('div');
+    container.className = 'nav-container';
 
-    // Close menu when a nav link is clicked (mobile)
-    mobileMenu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-      });
-    });
+    // Brand
+    var brand = document.createElement('a');
+    brand.href = 'index.html';
+    brand.className = 'nav-brand';
+    brand.textContent = '🎸 Guitar Guide';
 
-    // Close menu when clicking outside
-    document.addEventListener('click', function (e) {
-      var isNavbar = e.target.closest('.navbar');
-      if (!isNavbar && mobileMenu.classList.contains('open')) {
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
+    // Links
+    var linksContainer = document.createElement('ul');
+    linksContainer.className = 'nav-links';
+
+    navItems.forEach(function(item) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = item.href;
+      a.textContent = item.label;
+      a.className = 'nav-link';
+
+      if (currentPage === item.href || 
+          (currentPage === '' && item.href === 'index.html') ||
+          (currentPage === '/' && item.href === 'index.html')) {
+        a.classList.add('active');
       }
+
+      li.appendChild(a);
+      linksContainer.appendChild(li);
     });
+
+    container.appendChild(brand);
+    container.appendChild(linksContainer);
+    nav.appendChild(container);
+
+    // Insert at beginning of body
+    if (document.body) {
+      document.body.insertBefore(nav, document.body.firstChild);
+    }
   }
 
-  // --- Dark/Light theme toggle ---
-  var themeToggle = document.querySelector('.theme-toggle');
-  var htmlEl = document.documentElement;
-
-  // Load saved theme
-  var savedTheme = localStorage.getItem('guitar-theme');
-  if (savedTheme === 'light') {
-    htmlEl.setAttribute('data-theme', 'light');
-    if (themeToggle) themeToggle.textContent = '☀️';
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createNav);
+  } else {
+    createNav();
   }
 })();
-
-// Global function for inline onclick
-window.toggleTheme = function() {
-  var htmlEl = document.documentElement;
-  var btn = document.querySelector('.theme-toggle');
-  var isLight = htmlEl.getAttribute('data-theme') === 'light';
-  if (isLight) {
-    htmlEl.removeAttribute('data-theme');
-    if (btn) btn.textContent = '🌙';
-    localStorage.setItem('guitar-theme', 'dark');
-  } else {
-    htmlEl.setAttribute('data-theme', 'light');
-    if (btn) btn.textContent = '☀️';
-    localStorage.setItem('guitar-theme', 'light');
-  }
-};

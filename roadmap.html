@@ -3,571 +3,523 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学习路线 | 学吉他</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>学习路线 | 吉他学习指南</title>
+  <meta name="description" content="系统化的吉他学习路线图，从新手到高手的完整学习计划">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* --- Roadmap Page Styles --- */
-    .roadmap-section {
-      max-width: var(--max-width);
+    .roadmap-container {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 20px 60px;
+      padding: 0 1.5rem;
     }
-
-    .page-content {
-      padding-top: 64px;
-      min-height: 100vh;
-    }
-
-    /* --- Stage Card --- */
+    
     .stage-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 28px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1.5rem;
       overflow: hidden;
-      transition: box-shadow var(--transition), transform var(--transition);
-    }
-
-    .stage-card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-3px);
-    }
-
-    /* Unique border-left per stage */
-    .stage-card.stage-1 { border-left: 5px solid #2d6a4f; }
-    .stage-card.stage-2 { border-left: 5px solid #457b9d; }
-    .stage-card.stage-3 { border-left: 5px solid #e6a817; }
-    .stage-card.stage-4 { border-left: 5px solid #e63946; }
-    .stage-card.stage-5 { border-left: 5px solid #7b2d8e; }
-
-    /* --- Stage Header --- */
-    .stage-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 22px 26px;
-      gap: 12px;
-      border-bottom: 1px solid var(--card-border);
-      flex-wrap: wrap;
-    }
-
-    .stage-title-area {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .stage-icon {
-      font-size: 2rem;
-      flex-shrink: 0;
-    }
-
-    .stage-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .stage-badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 3px 12px;
-      border-radius: 12px;
-      color: #fff;
-    }
-
-    .stage-1 .stage-badge { background: #2d6a4f; }
-    .stage-2 .stage-badge { background: #457b9d; }
-    .stage-3 .stage-badge { background: #e6a817; }
-    .stage-4 .stage-badge { background: #e63946; }
-    .stage-5 .stage-badge { background: #7b2d8e; }
-
-    .stage-progress {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      white-space: nowrap;
-    }
-
-    /* --- Stage Goal (quote highlight) --- */
-    .stage-goal {
-      margin: 0 26px;
-      padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 8px 8px 0;
-      font-size: 0.98rem;
-      color: var(--text-primary);
-      line-height: 1.6;
-    }
-
-    .stage-goal::before {
-      content: "\201C";
-      color: var(--accent);
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-right: 4px;
-    }
-
-    .stage-goal::after {
-      content: "\201D";
-      color: var(--accent);
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-left: 4px;
-    }
-
-    [data-theme="light"] .stage-goal {
-      background: rgba(0, 0, 0, 0.02);
-    }
-
-    /* --- Stage Content List --- */
-    .stage-content {
-      padding: 20px 26px 10px;
-    }
-
-    .stage-content ol {
-      list-style: none;
-      counter-reset: item;
-    }
-
-    .stage-content ol li {
-      counter-increment: item;
-      padding: 10px 0 10px 36px;
+      transition: var(--transition-normal);
+      backdrop-filter: blur(20px);
       position: relative;
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      line-height: 1.6;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
-
-    [data-theme="light"] .stage-content ol li {
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-    }
-
-    .stage-content ol li:last-child {
-      border-bottom: none;
-    }
-
-    .stage-content ol li::before {
-      content: counter(item);
+    
+    .stage-card::before {
+      content: '';
       position: absolute;
       left: 0;
-      top: 10px;
-      width: 26px;
-      height: 26px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--gradient-primary);
+    }
+    
+    .stage-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 107, 53, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .stage-header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: var(--transition-fast);
+    }
+    
+    .stage-card.open .stage-header {
+      border-bottom-color: var(--glass-border);
+    }
+    
+    .stage-title-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .stage-number {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: white;
+    }
+    
+    .stage-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    
+    .stage-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .stage-duration {
+      padding: 0.5rem 1rem;
+      background: rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      border-radius: var(--radius-xl);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+    }
+    
+    .stage-toggle {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      transition: transform var(--transition-fast);
+    }
+    
+    .stage-card.open .stage-toggle {
+      transform: rotate(180deg);
+    }
+    
+    .stage-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow);
+    }
+    
+    .stage-card.open .stage-body {
+      max-height: 2000px;
+    }
+    
+    .stage-content {
+      padding: 1.5rem;
+    }
+    
+    .milestone {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    
+    .milestone:last-child {
+      border-bottom: none;
+    }
+    
+    .milestone-check {
+      width: 24px;
+      height: 24px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--glass-border);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .milestone-check:hover,
+    .milestone-check.checked {
+      background: var(--gradient-primary);
+      border-color: transparent;
+    }
+    
+    .milestone-check.checked::after {
+      content: '✓';
+      color: white;
       font-size: 0.8rem;
-      font-weight: 700;
-      color: #fff;
-      flex-shrink: 0;
     }
-
-    .stage-1 .stage-content ol li::before { background: #2d6a4f; }
-    .stage-2 .stage-content ol li::before { background: #457b9d; }
-    .stage-3 .stage-content ol li::before { background: #e6a817; }
-    .stage-4 .stage-content ol li::before { background: #e63946; }
-    .stage-5 .stage-content ol li::before { background: #7b2d8e; }
-
-    .stage-content ol li a {
-      color: var(--accent);
-      font-weight: 500;
-      text-decoration: none;
-      transition: color var(--transition);
+    
+    .milestone-content {
+      flex: 1;
     }
-
-    .stage-content ol li a:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
-    }
-
-    /* --- Stage Links (related pages) --- */
-    .stage-links {
-      padding: 10px 26px 22px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-    }
-
-    .stage-links .link-label {
+    
+    .milestone-title {
       font-weight: 600;
-      margin-right: 4px;
+      margin-bottom: 0.25rem;
     }
-
-    .stage-links a {
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 14px;
-      background: rgba(230, 57, 70, 0.08);
-      color: var(--accent);
-      font-weight: 500;
-      font-size: 0.85rem;
-      transition: background var(--transition), color var(--transition);
-    }
-
-    .stage-links a:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* --- Learning Advice Section --- */
-    .advice-section {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-
-    .advice-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 28px 30px;
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .advice-card h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-    }
-
-    .advice-card p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .advice-card .advice-tips {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 20px;
-      text-align: left;
-    }
-
-    .advice-card .advice-tip {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 12px 16px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-    }
-
-    [data-theme="light"] .advice-card .advice-tip {
-      background: rgba(0, 0, 0, 0.02);
-    }
-
-    .advice-card .advice-tip .tip-icon {
-      font-size: 1.3rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .advice-card .advice-tip .tip-text {
+    
+    .milestone-desc {
+      color: var(--text-muted);
       font-size: 0.9rem;
+    }
+    
+    .stage-resources {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .resource-link {
+      padding: 0.5rem 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
       color: var(--text-secondary);
-      line-height: 1.6;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition-fast);
     }
-
-    .advice-card .advice-tip .tip-text strong {
-      color: var(--text-primary);
+    
+    .resource-link:hover {
+      border-color: var(--accent-primary);
+      color: white;
     }
-
-    /* --- Responsive --- */
-    @media (min-width: 768px) {
-      .advice-card .advice-tips {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    
+    .progress-overview {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(20px);
     }
-
-    @media (max-width: 767px) {
-      .roadmap-section {
-        padding: 0 12px 40px;
+    
+    .progress-bar-container {
+      margin-top: 1rem;
+    }
+    
+    .progress-bar-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .roadmap-container {
+        padding: 0 1rem;
       }
-
-      .stage-header {
-        padding: 16px 18px;
-      }
-
+      
       .stage-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
-
-      .stage-goal {
-        margin: 0 18px;
-        padding: 12px 16px;
-        font-size: 0.9rem;
-      }
-
-      .stage-content {
-        padding: 16px 18px 6px;
-      }
-
-      .stage-content ol li {
-        padding: 8px 0 8px 32px;
-        font-size: 0.9rem;
-      }
-
-      .stage-content ol li::before {
-        width: 22px;
-        height: 22px;
-        font-size: 0.75rem;
-      }
-
-      .stage-links {
-        padding: 6px 18px 16px;
-      }
-
-      .advice-section {
-        padding: 0 12px 40px;
-      }
-
-      .advice-card {
-        padding: 22px 18px;
+      
+      .stage-duration {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Page Content -->
+  <div class="page-content">
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="section-tag">完整体系</span>
+      <h1 class="page-title">学习<span>路线</span></h1>
+      <p class="section-desc">
+        从新手到高手的完整学习计划，每一步都有明确的目标
+      </p>
+    </div>
 
-  <!-- ===== Navigation ===== -->
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">🎸 学吉他</a>
-            <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
-      <button class="hamburger" aria-label="菜单">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links">
-        <a href="index.html">首页</a>
-        <a href="chords.html">和弦库</a>
-        <a href="chord-mastery.html">突破前三品</a>
-        <a href="scales.html">音阶</a>
-        <a href="theory.html">乐理</a>
-        <a href="songs.html">练习曲</a>
-        <a href="roadmap.html">学习路线</a>
-        <a href="solo.html">Solo教程</a>
+    <!-- Progress Overview -->
+    <div class="roadmap-container">
+      <div class="progress-overview">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">🎯 总体进度</h3>
+        <div class="progress-bar-label">
+          <span>完成度</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
       </div>
     </div>
-  </nav>
 
-  <!-- ===== Page Content ===== -->
-  <div class="page-content">
-
-    <!-- Page Header -->
-    <header class="page-header">
-      <h1>📋 学习路线</h1>
-      <p>系统化的吉他学习之旅</p>
-    </header>
-
-    <!-- ===== Roadmap Sections ===== -->
-    <div class="roadmap-section">
-
+    <!-- Roadmap Stages -->
+    <div class="roadmap-container" id="roadmapContainer">
       <!-- Stage 1 -->
-      <div class="stage-card stage-1">
+      <div class="stage-card open" data-stage="1">
         <div class="stage-header">
-          <div class="stage-title-area">
-            <span class="stage-icon">🎯</span>
-            <span class="stage-title">吉他入门</span>
-            <span class="stage-badge">新手必看</span>
+          <div class="stage-title-group">
+            <div class="stage-number">1</div>
+            <div>
+              <div class="stage-title">新手入门</div>
+              <div class="stage-subtitle">掌握基础和弦和扫弦</div>
+            </div>
           </div>
-          <span class="stage-progress">第 1-2 周</span>
+          <span class="stage-duration">2-4 周</span>
+          <div class="stage-toggle">▼</div>
         </div>
-        <div class="stage-goal">
-          学会基础和弦和简单扫弦，能弹唱第一首歌
-        </div>
-        <div class="stage-content">
-          <ol>
-            <li>认识吉他各部位（琴头、品丝、指板、共鸣箱等）</li>
-            <li>标准调弦（E A D G B e）</li>
-            <li>正确持琴姿势和拨弦手法</li>
-            <li>学习5个核心和弦：C、Am、Em、Dm、G</li>
-            <li>基础下扫节奏</li>
-            <li>练习歌曲：小星星、生日快乐歌</li>
-          </ol>
-        </div>
-        <div class="stage-links">
-          <span class="link-label">关联页面：</span>
-          <a href="theory.html">乐理（第一章+第三章）</a>
-          <a href="chords.html">和弦库</a>
+        <div class="stage-body">
+          <div class="stage-content">
+            <div class="milestone">
+              <div class="milestone-check" data-id="1-1"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">熟悉吉他各部件名称</div>
+                <div class="milestone-desc">理解吉他的构造，包括琴颈、品丝、琴桥、音孔等</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="1-2"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">掌握正确的持琴姿势</div>
+                <div class="milestone-desc">左手指型、右手扫弦手法、手腕放松</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="1-3"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">学会C、G、Am、F和弦</div>
+                <div class="milestone-desc">掌握这四个最基本的和弦，能流畅转换</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="1-4"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">练习基础扫弦节奏</div>
+                <div class="milestone-desc">下下上上下上等基础节奏型</div>
+              </div>
+            </div>
+            <div class="stage-resources">
+              <a href="chords.html" class="resource-link">和弦库 →</a>
+              <a href="songs.html" class="resource-link">简单练习曲 →</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Stage 2 -->
-      <div class="stage-card stage-2">
+      <div class="stage-card" data-stage="2">
         <div class="stage-header">
-          <div class="stage-title-area">
-            <span class="stage-icon">📚</span>
-            <span class="stage-title">和弦进阶</span>
-            <span class="stage-badge">巩固提升</span>
+          <div class="stage-title-group">
+            <div class="stage-number">2</div>
+            <div>
+              <div class="stage-title">弹唱基础</div>
+              <div class="stage-subtitle">和弦转换与节奏稳定</div>
+            </div>
           </div>
-          <span class="stage-progress">第 3-4 周</span>
+          <span class="stage-duration">4-8 周</span>
+          <div class="stage-toggle">▼</div>
         </div>
-        <div class="stage-goal">
-          掌握更多和弦，熟悉扫弦节奏，能弹唱完整歌曲
-        </div>
-        <div class="stage-content">
-          <ol>
-            <li>学习新和弦：F、Bm、G7、D7、A7</li>
-            <li>和弦转换练习（常用和弦走向：C-G-Am-Em-F-C-Dm-G7）</li>
-            <li>上下扫弦混合节奏（下 下上 上下上）</li>
-            <li>简单分解和弦</li>
-            <li>音阶入门——C大调音阶</li>
-            <li>练习歌曲：同桌的你、童年</li>
-          </ol>
-        </div>
-        <div class="stage-links">
-          <span class="link-label">关联页面：</span>
-          <a href="chords.html">和弦库</a>
-          <a href="scales.html">音阶</a>
+        <div class="stage-body">
+          <div class="stage-content">
+            <div class="milestone">
+              <div class="milestone-check" data-id="2-1"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">扩展和弦库</div>
+                <div class="milestone-desc">学会Em、Dm、E7、A7等更多和弦</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="2-2"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">和弦转换练习</div>
+                <div class="milestone-desc">能流畅转换常用和弦进行</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="2-3"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">弹唱简单歌曲</div>
+                <div class="milestone-desc">能完整弹唱一首简单的歌曲</div>
+              </div>
+            </div>
+            <div class="stage-resources">
+              <a href="songs.html" class="resource-link">练习曲目 →</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Stage 3 -->
-      <div class="stage-card stage-3">
+      <div class="stage-card" data-stage="3">
         <div class="stage-header">
-          <div class="stage-title-area">
-            <span class="stage-icon">🔥</span>
-            <span class="stage-title">技巧提升</span>
-            <span class="stage-badge">进阶挑战</span>
+          <div class="stage-title-group">
+            <div class="stage-number">3</div>
+            <div>
+              <div class="stage-title">技术提升</div>
+              <div class="stage-subtitle">大横按与节奏变化</div>
+            </div>
           </div>
-          <span class="stage-progress">第 1-2 月</span>
+          <span class="stage-duration">8-16 周</span>
+          <div class="stage-toggle">▼</div>
         </div>
-        <div class="stage-goal">
-          掌握大调音阶和五声音阶，学会更丰富的伴奏技巧
-        </div>
-        <div class="stage-content">
-          <ol>
-            <li>大调音阶指型（C、G、D、A）</li>
-            <li>五声音阶入门</li>
-            <li>横按和弦技巧（F、Bm、B）</li>
-            <li>切音和制音技巧</li>
-            <li>常见节奏型变化</li>
-            <li>读谱入门（六线谱、和弦图）</li>
-            <li>练习歌曲：月亮代表我的心、恰似你的温柔</li>
-          </ol>
-        </div>
-        <div class="stage-links">
-          <span class="link-label">关联页面：</span>
-          <a href="scales.html">音阶</a>
-          <a href="theory.html">乐理（第四章+第五章）</a>
+        <div class="stage-body">
+          <div class="stage-content">
+            <div class="milestone">
+              <div class="milestone-check" data-id="3-1"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">掌握大横按和弦</div>
+                <div class="milestone-desc">F和弦大横按法、Bm简化按法</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="3-2"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">学习分解和弦</div>
+                <div class="milestone-desc">丰富扫弦的层次感</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="3-3"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">理解基础乐理</div>
+                <div class="milestone-desc">调性、和弦构成、基本进行</div>
+              </div>
+            </div>
+            <div class="stage-resources">
+              <a href="theory.html" class="resource-link">乐理知识 →</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Stage 4 -->
-      <div class="stage-card stage-4">
+      <div class="stage-card" data-stage="4">
         <div class="stage-header">
-          <div class="stage-title-area">
-            <span class="stage-icon">⭐</span>
-            <span class="stage-title">自由弹唱</span>
-            <span class="stage-badge">高手之路</span>
+          <div class="stage-title-group">
+            <div class="stage-number">4</div>
+            <div>
+              <div class="stage-title">高级技巧</div>
+              <div class="stage-subtitle">CAGED与指板自由移动</div>
+            </div>
           </div>
-          <span class="stage-progress">第 2-3 月</span>
+          <span class="stage-duration">持续学习</span>
+          <div class="stage-toggle">▼</div>
         </div>
-        <div class="stage-goal">
-          掌握小调音阶和布鲁斯音阶，能独立编配伴奏
-        </div>
-        <div class="stage-content">
-          <ol>
-            <li>小调音阶与布鲁斯音阶</li>
-            <li>7和弦与扩展和弦（Cmaj7、Am7、Dm7、G7sus4可用）</li>
-            <li>指弹入门（Travis picking）</li>
-            <li>滑音、击弦、勾弦技巧</li>
-            <li>变调夹的使用</li>
-            <li>即兴伴奏思路</li>
-            <li>练习歌曲：Hotel California、夜空中最亮的星</li>
-          </ol>
-        </div>
-        <div class="stage-links">
-          <span class="link-label">关联页面：</span>
-          <a href="scales.html">音阶</a>
-          <a href="songs.html">练习曲</a>
+        <div class="stage-body">
+          <div class="stage-content">
+            <div class="milestone">
+              <div class="milestone-check" data-id="4-1"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">学习CAGED系统</div>
+                <div class="milestone-desc">在指板上自由移动和弦形状</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="4-2"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">五声音阶入门</div>
+                <div class="milestone-desc">掌握基础的Solo技巧</div>
+              </div>
+            </div>
+            <div class="stage-resources">
+              <a href="chord-mastery.html" class="resource-link">突破前三品 →</a>
+              <a href="solo.html" class="resource-link">Solo教程 →</a>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Stage 5 -->
-      <div class="stage-card stage-5">
+      <div class="stage-card" data-stage="5">
         <div class="stage-header">
-          <div class="stage-title-area">
-            <span class="stage-icon">🎸</span>
-            <span class="stage-title">Solo入门</span>
-            <span class="stage-badge">独奏之路</span>
+          <div class="stage-title-group">
+            <div class="stage-number">5</div>
+            <div>
+              <div class="stage-title">自由演奏</div>
+              <div class="stage-subtitle">即兴与创作</div>
+            </div>
           </div>
-          <span class="stage-progress">第 3-4 月</span>
+          <span class="stage-duration">长期精进</span>
+          <div class="stage-toggle">▼</div>
         </div>
-        <div class="stage-goal">
-          掌握五声音阶即兴技巧，能弹奏经典Solo乐句，开启独奏之路
-        </div>
-        <div class="stage-content">
-          <ol>
-            <li>Solo概念理解——旋律 vs 伴奏，Solo在歌曲中的作用</li>
-            <li>五声音阶指型——E小调/A小调五声音阶，5种CAGED指型</li>
-            <li>锤弦与勾弦（Hammer-on & Pull-off）</li>
-            <li>滑音与推弦技巧（Slide & Bend）</li>
-            <li>Solo实战——乐句呼吸、围绕根音、模仿经典Solo</li>
-            <li>即兴演奏入门——12小节蓝调即兴</li>
-            <li>练习歌曲：Hotel California前奏、Tears in Heaven前奏</li>
-          </ol>
-        </div>
-        <div class="stage-links">
-          <span class="link-label">关联页面：</span>
-          <a href="solo.html">Solo教程</a>
-          <a href="scales.html">音阶</a>
-          <a href="songs.html">练习曲</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ===== Learning Advice Section ===== -->
-    <div class="advice-section">
-      <div class="advice-card">
-        <h2>💡 学习建议</h2>
-        <p>每个人的学习节奏不同，请根据自身情况灵活调整进度。最重要的是保持每天练习的习惯，哪怕只有15分钟。循序渐进，享受音乐带来的快乐！</p>
-        <div class="advice-tips">
-          <div class="advice-tip">
-            <span class="tip-icon">⏰</span>
-            <span class="tip-text"><strong>每日坚持</strong> — 每天练习15-30分钟，比每周一次练2小时效果更好。养成习惯是关键。</span>
-          </div>
-          <div class="advice-tip">
-            <span class="tip-icon">🎯</span>
-            <span class="tip-text"><strong>目标导向</strong> — 每个阶段设定一个小目标（如掌握一个新和弦、弹唱一首新歌），完成后给自己一点奖励。</span>
-          </div>
-          <div class="advice-tip">
-            <span class="tip-icon">🎧</span>
-            <span class="tip-text"><strong>多听多练</strong> — 多听原曲，培养乐感。尝试跟着节拍器练习，这对提升节奏感非常有帮助。</span>
-          </div>
-          <div class="advice-tip">
-            <span class="tip-icon">🔄</span>
-            <span class="tip-text"><strong>温故知新</strong> — 定期回顾之前学过的内容。即使在进阶阶段，基础练习也不能丢。</span>
+        <div class="stage-body">
+          <div class="stage-content">
+            <div class="milestone">
+              <div class="milestone-check" data-id="5-1"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">五声音阶自由即兴</div>
+                <div class="milestone-desc">能在伴奏上自由即兴演奏</div>
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-check" data-id="5-2"></div>
+              <div class="milestone-content">
+                <div class="milestone-title">创作自己的音乐</div>
+                <div class="milestone-desc">写出自己的歌曲和Solo</div>
+              </div>
+            </div>
+            <div class="stage-resources">
+              <a href="solo.html" class="resource-link">进阶Solo →</a>
+              <a href="scales.html" class="resource-link">音阶库 →</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- ===== Footer ===== -->
+  <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+    <p>&copy; 2026 吉他学习指南. All rights reserved. 🎸</p>
   </footer>
 
-  <script src="js/nav.js?v=2"></script>
+  <script src="js/nav.js?v=3"></script>
+  <script>
+    (function() {
+      // Accordion functionality
+      document.querySelectorAll('.stage-header').forEach(function(header) {
+        header.addEventListener('click', function() {
+          var card = this.closest('.stage-card');
+          card.classList.toggle('open');
+        });
+      });
+
+      // Progress tracking
+      var checkboxes = document.querySelectorAll('.milestone-check');
+      var progressFill = document.getElementById('progressFill');
+      var progressPercent = document.getElementById('progressPercent');
+
+      // Load saved progress
+      var saved = localStorage.getItem('roadmap-progress');
+      var checked = saved ? JSON.parse(saved) : {};
+
+      checkboxes.forEach(function(box) {
+        var id = box.dataset.id;
+        if (checked[id]) {
+          box.classList.add('checked');
+        }
+
+        box.addEventListener('click', function() {
+          this.classList.toggle('checked');
+          checked[id] = this.classList.contains('checked');
+          localStorage.setItem('roadmap-progress', JSON.stringify(checked));
+          updateProgress();
+        });
+      });
+
+      function updateProgress() {
+        var total = checkboxes.length;
+        var done = document.querySelectorAll('.milestone-check.checked').length;
+        var percent = Math.round((done / total) * 100);
+        
+        progressFill.style.width = percent + '%';
+        progressPercent.textContent = percent + '%';
+      }
+
+      updateProgress();
+    })();
+  </script>
 </body>
 </html>

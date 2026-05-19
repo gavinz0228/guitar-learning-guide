@@ -3,502 +3,391 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>音阶 | 学吉他</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>音阶图 | 吉他学习指南</title>
+  <meta name="description" content="五声、自然、和声小调等常用音阶，配合音频播放功能，可视化指板图">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    .scales-section { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 48px; }
-    .page-content { padding-top: 64px; min-height: 100vh; }
-    .controls-row { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
-    .controls-row .field { flex: 1; min-width: 180px; }
-    .controls-row label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
-    .controls-row select { width: 100%; padding: 10px 14px; font-size: 0.95rem; background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-border); border-radius: 8px; cursor: pointer; outline: none; transition: border-color var(--transition); appearance: auto; }
-    .controls-row select:hover, .controls-row select:focus { border-color: var(--accent); }
-    .position-tabs { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .position-tab { padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-secondary); cursor: pointer; transition: all var(--transition); }
-    .position-tab:hover { border-color: var(--accent); color: var(--text-primary); }
-    .position-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .fretboard-wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 20px; display: flex; justify-content: center; }
-    .fretboard-wrap svg { width: 100%; max-width: 700px; height: auto; border-radius: var(--radius); background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--shadow); display: block; }
-    .degree-bar { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-    .degree-pill { display: flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-primary); }
-    .degree-pill .deg-note { display: inline-block; width: 22px; height: 22px; border-radius: 50%; text-align: center; line-height: 22px; font-size: 0.75rem; color: #fff; }
-    .scale-info { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 48px; }
-    .scale-info .info-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px 28px; box-shadow: var(--shadow); }
-    .scale-info .info-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
-    .scale-info .info-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; }
-    .legend-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--card-border); }
-    .legend-row span { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-secondary); }
-    .legend-row .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
-    @media (max-width: 767px) { 
-      .scales-section { padding: 0 12px 36px; }
-      .controls-row { padding: 0 12px 16px; }
-      .position-tabs { padding: 0 12px 12px; gap: 6px; }
-      .position-tab { padding: 6px 12px; font-size: 0.8rem; }
-      .fretboard-wrap { padding: 0 12px 12px; }
-      .fretboard-wrap svg { max-width: 100%; }
-      .scale-info { padding: 0 12px 36px; }
-      .scale-info .info-card { padding: 16px 18px; }
-      .degree-bar { padding: 0 12px 8px; gap: 4px; }
-      .degree-pill { font-size: 0.7rem; padding: 3px 8px; }
-      .degree-pill .deg-note { width: 18px; height: 18px; line-height: 18px; font-size: 0.65rem; }
+    .scales-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .scale-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition-normal);
+      backdrop-filter: blur(20px);
+    }
+    
+    .scale-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 107, 53, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .scale-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .scale-title-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .scale-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .scale-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    
+    .scale-name span {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    
+    .scale-type {
+      padding: 0.3rem 0.8rem;
+      background: rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      border-radius: var(--radius-xl);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+    }
+    
+    .scale-body {
+      padding: 1.5rem;
+    }
+    
+    .scale-notes {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    
+    .note-badge {
+      padding: 0.5rem 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      transition: var(--transition-fast);
+    }
+    
+    .note-badge:hover {
+      background: rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      color: var(--accent-secondary);
+    }
+    
+    .note-badge.root {
+      background: rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      color: var(--accent-secondary);
+    }
+    
+    .fretboard-container {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+    }
+    
+    .audio-controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    
+    .play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+    
+    .play-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+    }
+    
+    .play-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .status-message {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+    
+    @media (max-width: 768px) {
+      .scales-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">🎸 学吉他</a>
-      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
-      <button class="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
-      <div class="nav-links">
-        <a href="index.html">首页</a>
-        <a href="chords.html">和弦库</a>
-        <a href="chord-mastery.html">突破前三品</a>
-        <a href="scales.html">音阶</a>
-        <a href="theory.html">乐理</a>
-        <a href="songs.html">练习曲</a>
-        <a href="roadmap.html">学习路线</a>
-        <a href="solo.html">Solo教程</a>
-      </div>
-    </div>
-  </nav>
+  <!-- Page Content -->
   <div class="page-content">
-    <header class="page-header">
-      <h1>🎼 音阶指型</h1>
-      <p>选择音阶和指型，查看指板上的音符位置与音级</p>
-    </header>
-    <div class="controls-row">
-      <div class="field">
-        <label for="scaleSelect">音阶</label>
-        <select id="scaleSelect"></select>
-      </div>
-      <div class="field">
-        <label for="positionSelect">指型</label>
-        <select id="positionSelect">
-          <option value="0">指型1（E型）</option>
-          <option value="1">指型2（D型）</option>
-          <option value="2">指型3（C型）</option>
-          <option value="3">指型4（A型）</option>
-          <option value="4">指型5（G型）</option>
-        </select>
-      </div>
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="section-tag">基础内容</span>
+      <h1 class="page-title">音阶<span>图</span></h1>
+      <p class="section-desc">
+        常用吉他音阶的指板图和音颙播放，帮助你理解音阶的结构
+      </p>
     </div>
-    <div class="degree-bar" id="degreeBar"></div>
-    <div class="fretboard-wrap">
-      <svg id="fretboardSvg" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg"></svg>
-    </div>
-    <div class="scale-info" id="scaleInfo">
-      <div class="info-card">
-        <h3><span id="infoName"></span></h3>
-        <p id="infoDescription"></p>
-        <div class="legend-row">
-          <span><span class="dot" style="background:#e63946;"></span> 根音 1</span>
-          <span><span class="dot" style="background:#e67e22;"></span> 2</span>
-          <span><span class="dot" style="background:#f1c40f;"></span> 3</span>
-          <span><span class="dot" style="background:#2ecc71;"></span> 4</span>
-          <span><span class="dot" style="background:#457b9d;"></span> 5</span>
-          <span><span class="dot" style="background:#9b59b6;"></span> 6</span>
-          <span><span class="dot" style="background:#8e44ad;"></span> 7</span>
-        </div>
-        <!-- Play button -->
-        <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--card-border);">
-          <button id="playScaleBtn" style="padding:10px 28px;border-radius:20px;font-size:0.95rem;font-weight:600;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:inherit;transition:opacity 0.2s;">▶ 播放音阶</button>
-          <div style="font-size:0.8rem;color:var(--text-dim);margin-top:6px;">按顺序播放当前指型的每个音符</div>
-        </div>
-      </div>
+
+    <!-- Scales Grid -->
+    <div class="scales-grid" id="scalesGrid">
+      <div class="status-message">加载中...</div>
     </div>
   </div>
 
-  <!-- ===== E Minor Pentatonic Reference Card ===== -->
-  <section style="max-width:var(--max-width);margin:0 auto;padding:0 20px 48px;">
-    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);">
-      <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:16px;color:var(--text-primary);">🔹 E 小调五声音阶速查</h2>
-      <p style="color:var(--text-secondary);margin-bottom:16px;font-size:0.9rem;line-height:1.6;">
-        E 小调五声音阶（E Minor Pentatonic）由 5 个音构成：<strong style="color:var(--accent);">E - G - A - B - D</strong><br>
-        音程关系：根音 → ♭3（小三度）→ 4（纯四度）→ 5（纯五度）→ ♭7（小七度）<br>
-        这是蓝调、摇滚、流行 Solo 最常用的音阶。Pattern 1（开放把位）指法如下：
-      </p>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">
-        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
-          <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:4px;">6弦 (E弦)</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="background:#e63946;color:#fff;padding:2px 10px;border-radius:6px;font-weight:700;font-size:0.85rem;">0品 E</span>
-            <span style="background:#457b9d;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">3品 G</span>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
-          <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:4px;">5弦 (A弦)</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="background:#2ec4b6;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">0品 A</span>
-            <span style="background:#ff9f1c;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">2品 B</span>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
-          <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:4px;">4弦 (D弦)</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="background:#7b2cbf;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">0品 D</span>
-            <span style="background:#e63946;color:#fff;padding:2px 10px;border-radius:6px;font-weight:700;font-size:0.85rem;">2品 E</span>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
-          <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:4px;">3弦 (G弦)</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="background:#457b9d;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">0品 G</span>
-            <span style="background:#2ec4b6;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">2品 A</span>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
-          <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:4px;">2弦 (B弦)</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="background:#ff9f1c;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">1品 B</span>
-            <span style="background:#7b2cbf;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">3品 D</span>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.03);border-radius:8px;padding:12px 16px;">
-          <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:4px;">1弦 (e弦)</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="background:#e63946;color:#fff;padding:2px 10px;border-radius:6px;font-weight:700;font-size:0.85rem;">0品 E</span>
-            <span style="background:#457b9d;color:#fff;padding:2px 10px;border-radius:6px;font-weight:600;font-size:0.85rem;">3品 G</span>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:16px;padding:12px 16px;background:rgba(230,57,70,0.06);border-radius:8px;border-left:3px solid var(--accent);">
-        <div style="font-size:0.85rem;color:var(--text-primary);line-height:1.6;">
-          📌 颜色说明：<span style="color:#e63946;font-weight:700;">红色</span>=根音 E · 
-          <span style="color:#457b9d;font-weight:700;">蓝色</span>=♭3 G · 
-          <span style="color:#2ec4b6;font-weight:700;">青色</span>=4 A · 
-          <span style="color:#ff9f1c;font-weight:700;">橙色</span>=5 B · 
-          <span style="color:#7b2cbf;font-weight:700;">紫色</span>=♭7 D
-        </div>
-        <div style="font-size:0.8rem;color:var(--text-dim);margin-top:4px;">
-          记忆口诀：「除了 2 弦从 1 品开始，其他弦都是空弦 + 隔 2 品」
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+    <p>&copy; 2026 吉他学习指南. All rights reserved. 🎸</p>
   </footer>
-  <script src="js/nav.js?v=2"></script>
+
+  <script src="js/nav.js?v=3"></script>
+  <script src="js/fretboard-renderer.js"></script>
   <script>
-(function() {
-  'use strict';
+    (function() {
+      var grid = document.getElementById('scalesGrid');
+      var audioCtx = null;
 
-  // =============================================
-  //  CAGED Major Scale Positions (string, fret, degree)
-  //  string: 0=6弦E 1=5弦A 2=4弦D 3=3弦G 4=2弦B 5=1弦e
-  //  degree: 1=根音 2=二音 ... 7=七音
-  //  Generated from verified C major positions
-  // =============================================
-      var SCALES = [];
-  SCALES.push({ name: 'C大调 (C Major)', desc: 'C大调是最基础的大调音阶，没有升降号。全白键音阶，是学习音阶的起点。从指型1（根音6弦8品）开始练习，用节拍器60BPM上下行。', pos: [
-    [{s:0,f:8,d:1},{s:0,f:10,d:2},{s:1,f:7,d:3},{s:1,f:8,d:4},{s:1,f:10,d:5},{s:2,f:7,d:6},{s:2,f:9,d:7},{s:2,f:10,d:1}],
-    [{s:1,f:3,d:1},{s:1,f:5,d:2},{s:2,f:2,d:3},{s:2,f:3,d:4},{s:2,f:5,d:5},{s:3,f:2,d:6},{s:3,f:4,d:7},{s:3,f:5,d:1}],
-    [{s:2,f:10,d:1},{s:2,f:12,d:2},{s:3,f:9,d:3},{s:3,f:10,d:4},{s:3,f:12,d:5},{s:4,f:10,d:6},{s:4,f:12,d:7},{s:5,f:8,d:1}],
-    [{s:1,f:3,d:1},{s:1,f:5,d:2},{s:2,f:2,d:3},{s:2,f:3,d:4},{s:2,f:5,d:5},{s:3,f:2,d:6},{s:3,f:4,d:7},{s:3,f:5,d:1}],
-    [{s:0,f:8,d:1},{s:0,f:10,d:2},{s:1,f:7,d:3},{s:1,f:8,d:4},{s:1,f:10,d:5},{s:2,f:7,d:6},{s:2,f:9,d:7},{s:2,f:10,d:1}],
-  ]});
-  SCALES.push({ name: 'G大调 (G Major)', desc: 'G大调包含一个升号(F#)，是吉他上最常用的调式。G和弦是最基础的开放和弦。从指型1开始练习。G大调的相对小调是E小调。', pos: [
-    [{s:0,f:3,d:1},{s:0,f:5,d:2},{s:1,f:2,d:3},{s:1,f:3,d:4},{s:1,f:5,d:5},{s:2,f:2,d:6},{s:2,f:4,d:7},{s:2,f:5,d:1}],
-    [{s:1,f:10,d:1},{s:1,f:12,d:2},{s:2,f:9,d:3},{s:2,f:10,d:4},{s:2,f:12,d:5},{s:3,f:9,d:6},{s:3,f:11,d:7},{s:3,f:12,d:1}],
-    [{s:2,f:5,d:1},{s:2,f:7,d:2},{s:3,f:4,d:3},{s:3,f:5,d:4},{s:3,f:7,d:5},{s:4,f:5,d:6},{s:4,f:7,d:7},{s:5,f:3,d:1}],
-    [{s:1,f:10,d:1},{s:1,f:12,d:2},{s:2,f:9,d:3},{s:2,f:10,d:4},{s:2,f:12,d:5},{s:3,f:9,d:6},{s:3,f:11,d:7},{s:3,f:12,d:1}],
-    [{s:0,f:3,d:1},{s:0,f:5,d:2},{s:1,f:2,d:3},{s:1,f:3,d:4},{s:1,f:5,d:5},{s:2,f:2,d:6},{s:2,f:4,d:7},{s:2,f:5,d:1}],
-  ]});
-  SCALES.push({ name: 'D大调 (D Major)', desc: 'D大调包含两个升号(F#和C#)。D和弦是吉他开放和弦之一。D大调在民谣和流行音乐中非常常见。D大调的相对小调是B小调。', pos: [
-    [{s:0,f:10,d:1},{s:0,f:12,d:2},{s:1,f:9,d:3},{s:1,f:10,d:4},{s:1,f:12,d:5},{s:2,f:9,d:6},{s:2,f:11,d:7},{s:2,f:12,d:1}],
-    [{s:1,f:5,d:1},{s:1,f:7,d:2},{s:2,f:4,d:3},{s:2,f:5,d:4},{s:2,f:7,d:5},{s:3,f:4,d:6},{s:3,f:6,d:7},{s:3,f:7,d:1}],
-    [{s:2,f:0,d:1},{s:2,f:2,d:2},{s:3,f:0,d:4},{s:3,f:2,d:5},{s:4,f:0,d:6},{s:4,f:2,d:7}],
-    [{s:1,f:5,d:1},{s:1,f:7,d:2},{s:2,f:4,d:3},{s:2,f:5,d:4},{s:2,f:7,d:5},{s:3,f:4,d:6},{s:3,f:6,d:7},{s:3,f:7,d:1}],
-    [{s:0,f:10,d:1},{s:0,f:12,d:2},{s:1,f:9,d:3},{s:1,f:10,d:4},{s:1,f:12,d:5},{s:2,f:9,d:6},{s:2,f:11,d:7},{s:2,f:12,d:1}],
-  ]});
-  SCALES.push({ name: 'A大调 (A Major)', desc: 'A大调包含三个升号(F#、C#、G#)。A和弦是最常用的开放和弦之一。A大调的相对小调是F#小调。注意G#在3弦1品。', pos: [
-    [{s:0,f:5,d:1},{s:0,f:7,d:2},{s:1,f:4,d:3},{s:1,f:5,d:4},{s:1,f:7,d:5},{s:2,f:4,d:6},{s:2,f:6,d:7},{s:2,f:7,d:1}],
-    [{s:1,f:0,d:1},{s:1,f:2,d:2},{s:2,f:0,d:4},{s:2,f:2,d:5},{s:3,f:1,d:7},{s:3,f:2,d:1}],
-    [{s:2,f:7,d:1},{s:2,f:9,d:2},{s:3,f:6,d:3},{s:3,f:7,d:4},{s:3,f:9,d:5},{s:4,f:7,d:6},{s:4,f:9,d:7},{s:5,f:5,d:1}],
-    [{s:1,f:0,d:1},{s:1,f:2,d:2},{s:2,f:0,d:4},{s:2,f:2,d:5},{s:3,f:1,d:7},{s:3,f:2,d:1}],
-    [{s:0,f:5,d:1},{s:0,f:7,d:2},{s:1,f:4,d:3},{s:1,f:5,d:4},{s:1,f:7,d:5},{s:2,f:4,d:6},{s:2,f:6,d:7},{s:2,f:7,d:1}],
-  ]});
-  SCALES.push({ name: 'E大调 (E Major)', desc: 'E大调包含四个升号(F#、C#、G#、D#)。E是6弦空弦音，E大调在吉他上非常自然。几乎所有摇滚歌曲都有E大调的身影。E大调的相对小调是C#小调。', pos: [
-    [{s:0,f:0,d:1},{s:0,f:2,d:2},{s:1,f:0,d:4},{s:1,f:2,d:5},{s:2,f:1,d:7},{s:2,f:2,d:1}],
-    [{s:1,f:7,d:1},{s:1,f:9,d:2},{s:2,f:6,d:3},{s:2,f:7,d:4},{s:2,f:9,d:5},{s:3,f:6,d:6},{s:3,f:8,d:7},{s:3,f:9,d:1}],
-    [{s:2,f:2,d:1},{s:2,f:4,d:2},{s:3,f:1,d:3},{s:3,f:2,d:4},{s:3,f:4,d:5},{s:4,f:2,d:6},{s:4,f:4,d:7},{s:5,f:0,d:1}],
-    [{s:1,f:7,d:1},{s:1,f:9,d:2},{s:2,f:6,d:3},{s:2,f:7,d:4},{s:2,f:9,d:5},{s:3,f:6,d:6},{s:3,f:8,d:7},{s:3,f:9,d:1}],
-    [{s:0,f:0,d:1},{s:0,f:2,d:2},{s:1,f:0,d:4},{s:1,f:2,d:5},{s:2,f:1,d:7},{s:2,f:2,d:1}],
-  ]});
-  SCALES.push({ name: 'F大调 (F Major)', desc: 'F大调包含一个降号(Bb)。F和弦需要大横按，练习它对提升手指力量非常有帮助。F大调的相对小调是D小调。', pos: [
-    [{s:0,f:1,d:1},{s:0,f:3,d:2},{s:1,f:0,d:3},{s:1,f:1,d:4},{s:1,f:3,d:5},{s:2,f:0,d:6},{s:2,f:2,d:7},{s:2,f:3,d:1}],
-    [{s:1,f:8,d:1},{s:1,f:10,d:2},{s:2,f:7,d:3},{s:2,f:8,d:4},{s:2,f:10,d:5},{s:3,f:7,d:6},{s:3,f:9,d:7},{s:3,f:10,d:1}],
-    [{s:2,f:3,d:1},{s:2,f:5,d:2},{s:3,f:2,d:3},{s:3,f:3,d:4},{s:3,f:5,d:5},{s:4,f:3,d:6},{s:4,f:5,d:7},{s:5,f:1,d:1}],
-    [{s:1,f:8,d:1},{s:1,f:10,d:2},{s:2,f:7,d:3},{s:2,f:8,d:4},{s:2,f:10,d:5},{s:3,f:7,d:6},{s:3,f:9,d:7},{s:3,f:10,d:1}],
-    [{s:0,f:1,d:1},{s:0,f:3,d:2},{s:1,f:0,d:3},{s:1,f:1,d:4},{s:1,f:3,d:5},{s:2,f:0,d:6},{s:2,f:2,d:7},{s:2,f:3,d:1}],
-  ]});
+      // Scale data
+      var scalesData = [
+        {
+          id: 'pentatonic-minor',
+          name: 'A 小调五声音阶',
+          enName: 'A Minor Pentatonic',
+          type: '五声音阶',
+          notes: ['A', 'C', 'D', 'E', 'G'],
+          intervals: ['1', '♭3', '4', '5', '♭7'],
+          pattern: [
+            {string: 0, fret: 5, label: 'R', color: '#e63946'},
+            {string: 0, fret: 8, label: '♭3', color: '#457b9d'},
+            {string: 1, fret: 5, label: '4', color: '#2ec4b6'},
+            {string: 1, fret: 7, label: '5', color: '#ff9f1c'},
+            {string: 2, fret: 5, label: '♭7', color: '#7b2cbf'},
+            {string: 2, fret: 7, label: 'R', color: '#e63946'},
+            {string: 3, fret: 5, label: '4', color: '#2ec4b6'},
+            {string: 3, fret: 7, label: '5', color: '#ff9f1c'},
+            {string: 4, fret: 5, label: '♭7', color: '#7b2cbf'},
+            {string: 4, fret: 8, label: 'R', color: '#e63946'},
+            {string: 5, fret: 5, label: '4', color: '#2ec4b6'},
+            {string: 5, fret: 8, label: '5', color: '#ff9f1c'}
+          ]
+        },
+        {
+          id: 'pentatonic-major',
+          name: 'C 大调五声音阶',
+          enName: 'C Major Pentatonic',
+          type: '五声音阶',
+          notes: ['C', 'D', 'E', 'G', 'A'],
+          intervals: ['1', '2', '3', '5', '6'],
+          pattern: [
+            {string: 0, fret: 8, label: '5', color: '#ff9f1c'},
+            {string: 1, fret: 3, label: '1', color: '#e63946'},
+            {string: 1, fret: 5, label: '2', color: '#457b9d'},
+            {string: 1, fret: 7, label: '3', color: '#2ec4b6'},
+            {string: 2, fret: 5, label: '5', color: '#ff9f1c'},
+            {string: 3, fret: 5, label: '6', color: '#7b2cbf'},
+            {string: 4, fret: 5, label: '3', color: '#2ec4b6'},
+            {string: 4, fret: 8, label: '5', color: '#ff9f1c'},
+            {string: 5, fret: 8, label: '6', color: '#7b2cbf'}
+          ]
+        },
+        {
+          id: 'natural-minor',
+          name: 'A 自然小调音阶',
+          enName: 'A Natural Minor',
+          type: '自然音阶',
+          notes: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+          intervals: ['1', '2', '♭3', '4', '5', '♭6', '♭7'],
+          pattern: []
+        },
+        {
+          id: 'harmonic-minor',
+          name: 'A 和声小调音阶',
+          enName: 'A Harmonic Minor',
+          type: '和声小调',
+          notes: ['A', 'B', 'C', 'D', 'E', 'F', 'G#'],
+          intervals: ['1', '2', '♭3', '4', '5', '♭6', '7'],
+          pattern: []
+        },
+        {
+          id: 'major',
+          name: 'C 大调音阶',
+          enName: 'C Major Scale',
+          type: '大调音阶',
+          notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+          intervals: ['1', '2', '3', '4', '5', '6', '7'],
+          pattern: []
+        },
+        {
+          id: 'blues',
+          name: 'A 蓝调音阶',
+          enName: 'A Blues Scale',
+          type: '蓝调音阶',
+          notes: ['A', 'C', 'D', 'D#', 'E', 'G'],
+          intervals: ['1', '♭3', '4', '#4', '5', '♭7'],
+          pattern: []
+        }
+      ];
 
-  // ======================== CODE// ======================== CODE// ======================== CODE// ======================== CODE ========================
-  var selectEl = document.getElementById('scaleSelect');
-  var posSelect = document.getElementById('positionSelect');
-  var svgEl = document.getElementById('fretboardSvg');
-  var infoName = document.getElementById('infoName');
-  var infoDesc = document.getElementById('infoDescription');
-  var degreeBar = document.getElementById('degreeBar');
-
-  var DEG_COLORS = ['#e63946','#e67e22','#f1c40f','#2ecc71','#457b9d','#9b59b6','#8e44ad'];
-  var DEG_NAMES = ['1','2','3','4','5','6','7'];
-
-  // Populate select
-  SCALES.forEach(function(s, i) {
-    var opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = s.name;
-    selectEl.appendChild(opt);
-  });
-
-  function render(scaleIdx, posIdx) {
-    var scale = SCALES[scaleIdx];
-    if (!scale) return;
-    var positions = scale.pos[posIdx];
-    if (!positions || positions.length === 0) { svgEl.innerHTML = ''; return; }
-
-    infoName.textContent = scale.name;
-    infoDesc.textContent = scale.desc;
-
-    // Degree bar
-    degreeBar.innerHTML = '';
-    var shownDegs = {};
-    positions.forEach(function(p) {
-      if (shownDegs[p.d]) return;
-      shownDegs[p.d] = true;
-      var pill = document.createElement('span');
-      pill.className = 'degree-pill';
-      var dot = document.createElement('span');
-      dot.className = 'deg-note';
-      var di = (p.d - 1) % 7;
-      dot.style.background = DEG_COLORS[di];
-      dot.textContent = DEG_NAMES[di];
-      pill.appendChild(dot);
-      var label = document.createElement('span');
-      label.textContent = p.d;
-      pill.appendChild(label);
-      degreeBar.appendChild(pill);
-    });
-
-    // SVG
-    var W = 720, H = 280;
-    var ml = 40, mr = 20, mt = 24, mb = 24;
-    var numFrets = 12;
-    var fw = W - ml - mr;
-    var fs = fw / numFrets;
-
-    svgEl.innerHTML = '';
-    svgEl.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-
-    // Find min fret and adjust view
-    var minFret = 0, maxFret = 12;
-    positions.forEach(function(p) {
-      if (p.f < minFret) minFret = p.f;
-      if (p.f > maxFret) maxFret = p.f;
-    });
-
-    var bg = docElem('rect');
-    bg.setAttribute('x','0'); bg.setAttribute('y','0');
-    bg.setAttribute('width',W); bg.setAttribute('height',H);
-    bg.setAttribute('fill','#1a1a1a'); bg.setAttribute('rx','8');
-    svgEl.appendChild(bg);
-
-    for (var f = 0; f <= numFrets; f++) {
-      var x = ml + f * fs;
-      var line = docElem('line');
-      line.setAttribute('x1',x); line.setAttribute('y1',mt);
-      line.setAttribute('x2',x); line.setAttribute('y2',H-mb);
-      line.setAttribute('stroke', f===0 ? '#666' : '#333');
-      line.setAttribute('stroke-width', f===0 ? 4 : 1.5);
-      svgEl.appendChild(line);
-    }
-
-    for (var fn = 1; fn <= numFrets; fn++) {
-      var fx = ml + (fn - 0.5) * fs;
-      var t = docElem('text');
-      t.setAttribute('x',fx); t.setAttribute('y',H-mb+16);
-      t.setAttribute('text-anchor','middle');
-      t.setAttribute('fill','#666'); t.setAttribute('font-size','10');
-      t.setAttribute('font-family','system-ui, sans-serif');
-      t.textContent = fn;
-      svgEl.appendChild(t);
-    }
-
-    var sc = 6;
-    var ss = (H - mt - mb) / (sc - 1);
-    var sNames = ['E','A','D','G','B','e'];
-    for (var si = 0; si < sc; si++) {
-      var y = mt + (sc - 1 - si) * ss;
-      var sl = docElem('line');
-      sl.setAttribute('x1',ml); sl.setAttribute('y1',y);
-      sl.setAttribute('x2',ml+numFrets*fs); sl.setAttribute('y2',y);
-      sl.setAttribute('stroke','#555');
-      sl.setAttribute('stroke-width', 1 + (sc - si) * 0.4);
-      svgEl.appendChild(sl);
-
-      var lb = docElem('text');
-      lb.setAttribute('x',ml-14); lb.setAttribute('y',y+4);
-      lb.setAttribute('text-anchor','end');
-      lb.setAttribute('fill','#aaa'); lb.setAttribute('font-size','13');
-      lb.setAttribute('font-weight','600');
-      lb.setAttribute('font-family','system-ui, sans-serif');
-      lb.textContent = sNames[si];
-      svgEl.appendChild(lb);
-    }
-
-    // Note dots
-    var R = 12;
-    positions.forEach(function(p) {
-      var strIdx = p.s;
-      var fret = p.f;
-      var deg = ((p.d - 1) % 7);
-      var col = DEG_COLORS[deg];
-
-      var yPos = mt + (sc - 1 - strIdx) * ss;
-      var xPos;
-      if (fret === 0) {
-        xPos = ml + fs * 0.15;
-      } else {
-        // Find which display fret column
-        var displayFret = fret;
-        if (displayFret > numFrets) displayFret = numFrets;
-        xPos = ml + (displayFret - 0.5) * fs;
+      function renderScales() {
+        grid.innerHTML = '';
+        scalesData.forEach(function(scale, index) {
+          var card = createScaleCard(scale, index);
+          grid.appendChild(card);
+        });
       }
 
-      var glow = docElem('circle');
-      glow.setAttribute('cx',xPos); glow.setAttribute('cy',yPos);
-      glow.setAttribute('r', R+2);
-      glow.setAttribute('fill','none');
-      glow.setAttribute('stroke',col); glow.setAttribute('stroke-width',1.5);
-      glow.setAttribute('opacity',0.3);
-      svgEl.appendChild(glow);
+      function createScaleCard(scale, index) {
+        var card = document.createElement('div');
+        card.className = 'scale-card';
 
-      var c = docElem('circle');
-      c.setAttribute('cx',xPos); c.setAttribute('cy',yPos);
-      c.setAttribute('r', R);
-      c.setAttribute('fill',col); c.setAttribute('opacity','0.9');
-      c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','0.5');
-      svgEl.appendChild(c);
+        var notesHtml = scale.notes.map(function(note, i) {
+          return '<span class="note-badge ' + (i === 0 ? 'root' : '') + '">' + 
+                 escapeHtml(note) + ' <small>' + escapeHtml(scale.intervals[i]) + '</small></span>';
+        }).join('');
 
-      var dt = docElem('text');
-      dt.setAttribute('x',xPos); dt.setAttribute('y',yPos+4);
-      dt.setAttribute('text-anchor','middle');
-      dt.setAttribute('fill','#fff'); dt.setAttribute('font-size','11');
-      dt.setAttribute('font-weight','700');
-      dt.setAttribute('font-family','system-ui, sans-serif');
-      dt.textContent = p.d;
-      svgEl.appendChild(dt);
-    });
-  }
+        var fretboardHtml = '';
+        if (scale.pattern && scale.pattern.length > 0) {
+          fretboardHtml = '<div class="fretboard-container" id="fretboard-' + index + '"></div>';
+        }
 
-  function docElem(name) {
-    return document.createElementNS('http://www.w3.org/2000/svg', name);
-  }
+        card.innerHTML = 
+          '<div class="scale-header">' +
+            '<div class="scale-title-group">' +
+              '<div class="scale-icon">🌠</div>' +
+              '<div class="scale-name">' + 
+                escapeHtml(scale.name) + 
+n                '<span>' + escapeHtml(scale.enName) + '</span>' +
+              '</div>' +
+            '</div>' +
+            '<span class="scale-type">' + escapeHtml(scale.type) + '</span>' +
+          '</div>' +
+          '<div class="scale-body">' +
+            '<div class="scale-notes">' + notesHtml + '</div>' +
+            fretboardHtml +
+            '<div class="audio-controls">' +
+              '<button class="play-btn" data-scale="' + index + '">▶</button>' +
+              '<span class="play-label">播放音阶</span>' +
+            '</div>' +
+          '</div>';
 
-  function refresh() {
-    var si = parseInt(selectEl.value, 10);
-    var pi = parseInt(posSelect.value, 10);
-    var tabs = document.querySelectorAll('.position-tab');
-    tabs.forEach(function(t, i) { t.classList.toggle('active', i === pi); });
-    render(si, pi);
-  }
+        // Render fretboard
+        if (scale.pattern && scale.pattern.length > 0) {
+          setTimeout(function() {
+            var container = document.getElementById('fretboard-' + index);
+            if (container && window.renderFretboard) {
+              window.renderFretboard(container, {
+                numFrets: 5,
+                startFret: 3,
+                showLabels: true,
+                notes: scale.pattern,
+                width: container.offsetWidth,
+                height: 160
+              });
+            }
+          }, 0);
+        }
 
-  selectEl.addEventListener('change', refresh);
-  posSelect.addEventListener('change', refresh);
-  selectEl.value = '0';
-  posSelect.value = '0';
+        // Audio playback
+        var playBtn = card.querySelector('.play-btn');
+        playBtn.addEventListener('click', function() {
+          playScale(scale);
+        });
 
-  // Position tabs
-  var tabsDiv = document.createElement('div');
-  tabsDiv.className = 'position-tabs';
-  tabsDiv.id = 'posTabs';
-  for (var i = 0; i < 5; i++) {
-    var tab = document.createElement('span');
-    tab.className = 'position-tab' + (i === 0 ? ' active' : '');
-    var patternNames = ['指型1（E型）','指型2（D型）','指型3（C型）','指型4（A型）','指型5（G型）'];
-    tab.textContent = patternNames[i];
-    tab.dataset.pos = i;
-    tab.addEventListener('click', function() {
-      posSelect.value = this.dataset.pos;
-      refresh();
-    });
-    tabsDiv.appendChild(tab);
-  }
-  document.querySelector('.controls-row').after(tabsDiv);
+        return card;
+      }
 
-  refresh();
+      function playScale(scale) {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
 
-  // --- Scale Playback ---
-  var playBtn = document.getElementById('playScaleBtn');
-  var audioCtx = null;
-  var playbackTimer = null;
-  var isPlaying = false;
+        var baseFreqs = {
+          'C': 261.63, 'C#': 277.18, 'D': 293.66, 'D#': 311.13,
+          'E': 329.63, 'F': 349.23, 'F#': 369.99, 'G': 392.00,
+          'G#': 415.30, 'A': 440.00, 'A#': 466.16, 'B': 493.88
+        };
 
-  function getNoteFreq(stringIdx, fret) {
-    var STANDARD_TUNING = ['E', 'A', 'D', 'G', 'B', 'E'];
-    var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-    var open = STANDARD_TUNING[stringIdx];
-    var idx = ALL_NOTES.indexOf(open);
-    var noteIdx = (idx + fret) % 12;
-    var octave = Math.floor((idx + fret) / 12);
-    var midiNote = 12 + noteIdx + octave * 12;
-    if (stringIdx <= 1) midiNote -= 12;
-    return 440 * Math.pow(2, (midiNote - 69) / 12);
-  }
+        scale.notes.forEach(function(note, i) {
+          setTimeout(function() {
+            var osc = audioCtx.createOscillator();
+            var gain = audioCtx.createGain();
+            
+            osc.type = 'triangle';
+            osc.frequency.value = baseFreqs[note] || 440;
+            
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.4);
+          }, i * 400);
+        });
+      }
 
-  playBtn.addEventListener('click', function() {
-    if (isPlaying) {
-      if (playbackTimer) { clearTimeout(playbackTimer); playbackTimer = null; }
-      if (audioCtx) { audioCtx.close(); audioCtx = null; }
-      isPlaying = false;
-      playBtn.textContent = '▶ 播放音阶';
-      return;
-    }
+      function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
 
-    var scaleIdx = +selectEl.value;
-    var posIdx = +posSelect.value;
-    var scale = SCALES[scaleIdx];
-    if (!scale || !scale.pos[posIdx]) return;
-
-    var positions = scale.pos[posIdx];
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    isPlaying = true;
-    playBtn.textContent = '⏹ 停止';
-
-    var bpm = 80;
-    var noteDuration = 60000 / bpm;
-
-    positions.forEach(function(p, idx) {
-      playbackTimer = setTimeout(function() {
-        var freq = getNoteFreq(p.s, p.f);
-        try {
-          var osc = audioCtx.createOscillator();
-          var gain = audioCtx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.3);
-        } catch(e) {}
-      }, idx * noteDuration);
-    });
-
-    setTimeout(function() {
-      if (audioCtx) { audioCtx.close(); audioCtx = null; }
-      isPlaying = false;
-      playBtn.textContent = '▶ 播放音阶';
-    }, positions.length * noteDuration + 200);
-  });
-
-})();
+      renderScales();
+    })();
   </script>
 </body>
 </html>

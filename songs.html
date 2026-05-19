@@ -3,756 +3,405 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>练习曲 | 学吉他</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>练习曲目 | 吉他学习指南</title>
+  <meta name="description" content="经典流行歌曲的和弦谱，分级练习，满足不同水平需求">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* --- Songs Page Styles --- */
-    .songs-container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 48px;
-    }
-
-    .songs-loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-    }
-
-    /* --- Search & Filter Bar --- */
-    .songs-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 0 16px;
-      transition: border-color var(--transition);
-    }
-
-    .search-box:focus-within {
-      border-color: var(--accent);
-    }
-
-    .search-box .search-icon {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      flex-shrink: 0;
-    }
-
-    .search-box input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      color: var(--text-primary);
-      font-size: 1rem;
-      padding: 14px 0;
-      font-family: inherit;
-    }
-
-    .search-box input::placeholder {
-      color: var(--text-secondary);
-    }
-
-    .filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .filter-btn {
-      padding: 8px 20px;
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      background: var(--card-bg);
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all var(--transition);
-      font-family: inherit;
-    }
-
-    .filter-btn:hover {
-      border-color: var(--accent);
-      color: var(--text-primary);
-    }
-
-    .filter-btn.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    /* --- Songs Grid --- */
     .songs-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-
+    
     .song-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      transition: transform var(--transition), box-shadow var(--transition);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition-normal);
+      backdrop-filter: blur(20px);
       cursor: pointer;
     }
-
+    
     .song-card:hover {
       transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
+      border-color: rgba(255, 107, 53, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
-
-    .song-card-header {
+    
+    .song-card.expanded {
+      grid-column: 1 / -1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .song-header {
+      padding: 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
     }
-
-    .song-card-header .song-title-area {
+    
+    .song-title-group {
       flex: 1;
-      min-width: 0;
     }
-
-    .song-card-header .song-title {
-      font-size: 1.2rem;
+    
+    .song-title {
+      font-size: 1.3rem;
       font-weight: 700;
+      margin-bottom: 0.25rem;
       color: var(--text-primary);
-      margin-bottom: 2px;
     }
-
-    .song-card-header .song-artist {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
+    
+    .song-artist {
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
-
-    .song-card-header .song-difficulty {
-      flex-shrink: 0;
-      margin-left: 12px;
-      text-align: right;
+    
+    .song-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
     }
-
-    .song-card-header .difficulty-stars {
-      font-size: 1rem;
-      color: #f0a030;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-
-    .song-card-header .difficulty-label {
+    
+    .song-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-xl);
       font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
+      font-weight: 600;
     }
-
-    .song-card-meta {
+    
+    .song-badge.key {
+      background: rgba(255, 107, 53, 0.2);
+      color: var(--accent-secondary);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+    
+    .song-badge.difficulty {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+    }
+    
+    .song-chords {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 0.4rem;
+      justify-content: flex-end;
     }
-
-    .song-card-meta .chord-tag {
-      display: inline-block;
-      background: rgba(230, 57, 70, 0.12);
-      color: var(--accent);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 8px;
-    }
-
-    .song-card-meta .meta-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .song-card-meta .meta-item .meta-label {
-      font-weight: 500;
-    }
-
-    /* --- Expandable Details --- */
-    .song-card-details {
-      display: none;
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid var(--card-border);
-    }
-
-    .song-card.expanded .song-card-details {
-      display: block;
-      animation: fadeSlideIn 0.25s ease;
-    }
-
-    @keyframes fadeSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .song-card-details .detail-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    .song-card-details .detail-tips {
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      line-height: 1.7;
-      margin-bottom: 12px;
-      padding: 12px 16px;
-      background: rgba(230, 57, 70, 0.06);
-      border-radius: 8px;
-      border-left: 3px solid var(--accent);
-    }
-
-    .song-card-details .detail-lyrics {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      font-style: italic;
-      line-height: 1.6;
-      padding: 10px 16px;
+    
+    .chord-tag {
+      padding: 0.3rem 0.6rem;
       background: var(--bg-secondary);
-      border-radius: 8px;
-      margin-bottom: 14px;
-    }
-
-    .song-card-details .detail-lyrics::before {
-      content: "\201C";
-      font-size: 1.4rem;
-      color: var(--accent);
-      margin-right: 4px;
-    }
-
-    .song-card-details .detail-lyrics::after {
-      content: "\201D";
-      font-size: 1.4rem;
-      color: var(--accent);
-      margin-left: 4px;
-    }
-
-    /* --- TAB Styles --- */
-    .tab-section {
-      margin-bottom: 14px;
-    }
-
-    .tab-section-title {
+      border-radius: var(--radius-sm);
       font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-secondary);
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
     }
-
-    .tab-container {
-      background: #0d0d0d;
-      border-radius: 8px;
-      padding: 12px 14px;
+    
+    .song-body {
+      padding: 1.5rem;
+    }
+    
+    .strumming-pattern {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .strumming-pattern label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    
+    .strumming-pattern span {
+      font-weight: 600;
+      color: var(--accent-secondary);
+    }
+    
+    .song-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow);
+    }
+    
+    .song-card.expanded .song-details {
+      max-height: 2000px;
+    }
+    
+    .chord-sheet {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-family: 'Fira Code', monospace;
       overflow-x: auto;
     }
-
-    .tab-container pre {
-      margin: 0;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 13px;
-      line-height: 1.4;
-      color: #e0e0e0;
+    
+    .chord-line {
+      color: var(--accent-secondary);
+      font-weight: 700;
       white-space: pre;
-      letter-spacing: 0;
+      line-height: 1.5;
     }
-
-    .tab-toggle-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.82rem;
-      color: var(--accent);
-      font-weight: 600;
-      cursor: pointer;
-      margin-bottom: 8px;
-      padding: 4px 0;
-      user-select: none;
+    
+    .lyric-line {
+      color: var(--text-primary);
+      white-space: pre;
+      margin-bottom: 0.75rem;
     }
-
-    .tab-toggle-label:hover {
-      opacity: 0.8;
+    
+    .tips-box {
+      background: rgba(255, 107, 53, 0.1);
+      border-left: 3px solid var(--accent-primary);
+      padding: 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 1rem;
     }
-
-    .tab-section.collapsed .tab-container {
-      display: none;
+    
+    .tips-box-title {
+      font-weight: 700;
+      color: var(--accent-secondary);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
     }
-
-    .expand-hint {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 0.85rem;
-      color: var(--accent);
-      font-weight: 500;
-      transition: transform var(--transition);
-    }
-
-    .song-card.expanded .expand-hint {
-      display: none;
-    }
-
-    .song-card .expand-hint:hover {
-      transform: translateX(4px);
-    }
-
-    /* --- Empty state --- */
-    .no-results {
+    
+    .status-message {
       text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
+      padding: 4rem 2rem;
+      color: var(--text-muted);
     }
-
-    .no-results .no-results-icon {
-      font-size: 3rem;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .no-results p {
-      font-size: 1.1rem;
-    }
-
-    /* --- Responsive --- */
-    @media (min-width: 600px) {
-      .songs-controls {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .search-box {
-        flex: 0 0 320px;
-      }
-
+    
+    @media (max-width: 768px) {
       .songs-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
       }
-    }
-
-    @media (min-width: 900px) {
-      .songs-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+      
+      .song-header {
+        flex-direction: column;
+        gap: 1rem;
       }
-    }
-
-    @media (max-width: 767px) {
-      .songs-container {
-        padding: 0 12px 36px;
-      }
-
-      .song-card {
-        padding: 16px;
-      }
-
-      .song-card-header .song-title {
-        font-size: 1.05rem;
-      }
-
-      .filter-btn {
-        padding: 6px 14px;
-        font-size: 0.82rem;
-      }
-
-      .tab-container pre {
-        font-size: 11px;
+      
+      .song-chords {
+        justify-content: flex-start;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- ===== Navigation ===== -->
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">🎸 学吉他</a>
-            <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
-      <button class="hamburger" aria-label="菜单">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links">
-        <a href="index.html">首页</a>
-        <a href="chords.html">和弦库</a>
-        <a href="chord-mastery.html">突破前三品</a>
-        <a href="scales.html">音阶</a>
-        <a href="theory.html">乐理</a>
-        <a href="songs.html">练习曲</a>
-        <a href="roadmap.html">学习路线</a>
-        <a href="solo.html">Solo教程</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ===== Page Content ===== -->
+  <!-- Page Content -->
   <div class="page-content">
-
     <!-- Page Header -->
-    <header class="page-header">
-      <h1>🎶 练习曲</h1>
-      <p>边学边弹，在歌曲中进步</p>
-    </header>
-
-    <!-- Songs Section -->
-    <div id="songs-app" class="songs-container">
-      <div class="songs-loading">🎸 加载乐谱中...</div>
+    <div class="page-header">
+      <span class="section-tag">实践应用</span>
+      <h1 class="page-title">练习<span>曲目</span></h1>
+      <p class="section-desc">
+        经典流行歌曲的和弦谱，分级练习，从入门到进阶
+      </p>
     </div>
 
+    <!-- Filter Tabs -->
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-filter="all">全部</button>
+      <button class="filter-tab" data-filter="1">入门</button>
+      <button class="filter-tab" data-filter="2">简单</button>
+      <button class="filter-tab" data-filter="3">中等</button>
+      <button class="filter-tab" data-filter="4">进阶</button>
+      <button class="filter-tab" data-filter="5">挑战</button>
+    </div>
+
+    <!-- Songs Grid -->
+    <div class="songs-grid" id="songsGrid">
+      <div class="status-message">加载中...</div>
+    </div>
   </div>
 
-  <!-- ===== Footer ===== -->
+  <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+    <p>&copy; 2026 吉他学习指南. All rights reserved. 🎸</p>
   </footer>
 
-  <!-- ===== Scripts ===== -->
-  <script src="js/nav.js?v=2"></script>
-
-  <!-- Songs App Logic -->
+  <script src="js/nav.js?v=3"></script>
   <script>
-    (function () {
-      'use strict';
-
-      var appEl = document.getElementById('songs-app');
-      var songs = [];
+    (function() {
+      var grid = document.getElementById('songsGrid');
+      var filterTabs = document.getElementById('filterTabs');
       var currentFilter = 'all';
-      var currentSearch = '';
+      var songsData = [];
+      var expandedCard = null;
 
-      var DIFFICULTY_LABELS = {
-        '1': '入门',
-        '2': '简单',
-        '3': '中等',
-        '4': '进阶',
-        '5': '挑战'
-      };
-
-      var FILTER_BUTTONS = [
-        { key: 'all', label: '全部' },
-        { key: '1', label: '入门' },
-        { key: '2', label: '简单' },
-        { key: '3', label: '中等' },
-        { key: '4', label: '进阶' },
-        { key: '5', label: '挑战' }
-      ];
-
-      // --- Fetch songs data from JSON ---
-      function loadSongs(callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'data/songs.json', true);
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-              try {
-                var data = JSON.parse(xhr.responseText);
-                songs = (data.songs || []).slice();
-                songs.sort(function (a, b) {
-                  return a.difficulty - b.difficulty;
-                });
-                callback();
-              } catch (e) {
-                appEl.innerHTML = '<div class="no-results"><p>乐谱数据加载失败</p></div>';
-              }
-            } else {
-              appEl.innerHTML = '<div class="no-results"><p>无法加载乐谱数据</p></div>';
-            }
-          }
-        };
-        xhr.send();
-      }
-
-      // --- Build UI ---
-      function buildUI() {
-        appEl.innerHTML = '';
-
-        // Controls
-        var controls = document.createElement('div');
-        controls.className = 'songs-controls';
-
-        // Search box
-        var searchBox = document.createElement('div');
-        searchBox.className = 'search-box';
-        searchBox.innerHTML =
-          '<span class="search-icon">&#128269;</span>' +
-          '<input type="text" id="songSearch" placeholder="搜索歌曲名或艺人..." value="' +
-          escapeHtml(currentSearch) + '">';
-        controls.appendChild(searchBox);
-
-        // Filter group
-        var filterGroup = document.createElement('div');
-        filterGroup.className = 'filter-group';
-
-        FILTER_BUTTONS.forEach(function (btn) {
-          var btnEl = document.createElement('button');
-          btnEl.className = 'filter-btn' + (btn.key === currentFilter ? ' active' : '');
-          btnEl.textContent = btn.label;
-          btnEl.dataset.filterKey = btn.key;
-          btnEl.addEventListener('click', function () {
-            currentFilter = btn.key;
+      // Load songs data
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'data/songs.json', true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            songsData = data.songs || [];
             renderSongs();
+          } catch (e) {
+            grid.innerHTML = '<div class="status-message">无法加载歌曲数据</div>';
+          }
+        }
+      };
+      xhr.send();
+
+      // Filter tabs
+      filterTabs.addEventListener('click', function(e) {
+        if (e.target.classList.contains('filter-tab')) {
+          document.querySelectorAll('.filter-tab').forEach(function(tab) {
+            tab.classList.remove('active');
           });
-          filterGroup.appendChild(btnEl);
-        });
-
-        controls.appendChild(filterGroup);
-        appEl.appendChild(controls);
-
-        // Grid
-        var grid = document.createElement('div');
-        grid.id = 'songsGrid';
-        grid.className = 'songs-grid';
-        appEl.appendChild(grid);
-
-        // Search input handler
-        var searchInput = document.getElementById('songSearch');
-        searchInput.addEventListener('input', function () {
-          currentSearch = this.value.trim();
+          e.target.classList.add('active');
+          currentFilter = e.target.dataset.filter;
           renderSongs();
-        });
+        }
+      });
 
-        // Render
-        renderSongs();
-      }
-
-      // --- Render songs based on filter & search ---
       function renderSongs() {
-        var grid = document.getElementById('songsGrid');
-        if (!grid) return;
-
-        // Update active filter button
-        var filterBtns = document.querySelectorAll('.filter-btn');
-        filterBtns.forEach(function (btn) {
-          btn.classList.toggle('active', btn.dataset.filterKey === currentFilter);
-        });
-
-        // Filter
-        var filtered = songs.filter(function (song) {
-          if (currentFilter !== 'all') {
-            if (String(song.difficulty) !== currentFilter) return false;
-          }
-          if (currentSearch) {
-            var q = currentSearch.toLowerCase();
-            var titleMatch = song.title.toLowerCase().indexOf(q) !== -1;
-            var artistMatch = song.artist.toLowerCase().indexOf(q) !== -1;
-            if (!titleMatch && !artistMatch) return false;
-          }
-          return true;
-        });
-
-        grid.innerHTML = '';
+        var filtered = currentFilter === 'all' 
+          ? songsData 
+          : songsData.filter(function(s) {
+              return String(s.difficulty) === currentFilter;
+            });
 
         if (filtered.length === 0) {
-          grid.innerHTML =
-            '<div class="no-results">' +
-            '<span class="no-results-icon">&#127926;</span>' +
-            '<p>没有找到匹配的歌曲</p>' +
-            '</div>';
+          grid.innerHTML = '<div class="status-message">暂无数据</div>';
           return;
         }
 
-        filtered.forEach(function (song) {
-          var card = createSongCard(song);
+        grid.innerHTML = '';
+        filtered.forEach(function(song, index) {
+          var card = createSongCard(song, index);
           grid.appendChild(card);
         });
       }
 
-      // --- Create a song card ---
-      function createSongCard(song) {
+      function createSongCard(song, index) {
         var card = document.createElement('div');
         card.className = 'song-card';
-        card.dataset.songId = song.id;
+        card.dataset.index = index;
 
-        // Stars
-        var stars = '';
-        for (var i = 0; i < song.difficulty; i++) {
-          stars += '\u2605';
-        }
-        for (var j = song.difficulty; j < 5; j++) {
-          stars += '\u2606';
-        }
+        var difficultyColors = {
+          1: '#2ec4b6',
+          2: '#457b9d', 
+          3: '#f7931e',
+          4: '#ff6b35',
+          5: '#e63946'
+        };
+        var difficultyColor = difficultyColors[song.difficulty] || '#666';
 
-        // Header
-        var header = document.createElement('div');
-        header.className = 'song-card-header';
-        header.innerHTML =
-          '<div class="song-title-area">' +
-          '<div class="song-title">' + escapeHtml(song.title) + '</div>' +
-          '<div class="song-artist">' + escapeHtml(song.artist) + '</div>' +
+        card.innerHTML = 
+          '<div class="song-header">' +
+            '<div class="song-title-group">' +
+              '<div class="song-title">' + escapeHtml(song.title) + '</div>' +
+              '<div class="song-artist">' + escapeHtml(song.artist) + '</div>' +
+              '<div class="song-meta">' +
+                '<span class="song-badge key">' + escapeHtml(song.key) + '</span>' +
+                '<span class="song-badge difficulty" style="background: ' + difficultyColor + '20; color: ' + difficultyColor + ';">' + 
+                  escapeHtml(song.difficultyLabel || '难度 ' + song.difficulty) + 
+                '</span>' +
+                '<span class="song-badge difficulty">' + song.bpm + ' BPM</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="song-chords">' +
+              (song.chords || []).slice(0, 4).map(function(chord) {
+                return '<span class="chord-tag">' + escapeHtml(chord) + '</span>';
+              }).join('') +
+              ((song.chords || []).length > 4 ? '<span class="chord-tag">+' + ((song.chords || []).length - 4) + '</span>' : '') +
+            '</div>' +
           '</div>' +
-          '<div class="song-difficulty">' +
-          '<div class="difficulty-stars">' + stars + '</div>' +
-          '<div class="difficulty-label">' + escapeHtml(song.difficultyLabel) + '</div>' +
+          '<div class="song-body">' +
+            '<div class="strumming-pattern">' +
+              '<label>扫弦节奏</label>' +
+              '<span>' + escapeHtml(song.strumming || '下 下上 上下上') + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="song-details">' +
+            '<div style="padding: 0 1.5rem 1.5rem;">' +
+              '<div class="chord-sheet" id="chordsheet-' + index + '"></div>' +
+              '<div class="tips-box">' +
+                '<div class="tips-box-title">练习提示</div>' +
+                escapeHtml(song.tips || '暂无提示') +
+              '</div>' +
+            '</div>' +
           '</div>';
 
-        card.appendChild(header);
+        card.addEventListener('click', function(e) {
+          if (expandedCard && expandedCard !== card) {
+            expandedCard.classList.remove('expanded');
+          }
+          
+          card.classList.toggle('expanded');
+          expandedCard = card.classList.contains('expanded') ? card : null;
 
-        // Meta: chords, strumming, bpm
-        var meta = document.createElement('div');
-        meta.className = 'song-card-meta';
-
-        song.chords.forEach(function (chord) {
-          var tag = document.createElement('span');
-          tag.className = 'chord-tag';
-          tag.textContent = chord;
-          meta.appendChild(tag);
-        });
-
-        var strumItem = document.createElement('span');
-        strumItem.className = 'meta-item';
-        strumItem.innerHTML = '<span class="meta-label">&#9835;</span> ' + escapeHtml(song.strumming);
-        meta.appendChild(strumItem);
-
-        var bpmItem = document.createElement('span');
-        bpmItem.className = 'meta-item';
-        bpmItem.innerHTML = '<span class="meta-label">&#9201;</span> ' + song.bpm + ' BPM';
-        meta.appendChild(bpmItem);
-
-        card.appendChild(meta);
-
-        // Expand hint
-        var hint = document.createElement('div');
-        hint.className = 'expand-hint';
-        hint.textContent = '点击展开乐谱 \u2192';
-        card.appendChild(hint);
-
-        // Expandable details
-        var details = document.createElement('div');
-        details.className = 'song-card-details';
-
-        // --- Key & Capo Info ---
-        if (song.key) {
-          var keyInfo = document.createElement('div');
-          keyInfo.style.cssText = 'display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap;';
-          keyInfo.innerHTML = '<span style="font-size:0.8rem;color:var(--text-dim);background:var(--card-bg);padding:4px 12px;border-radius:6px;border:1px solid var(--card-border);">🎵 调性: ' + escapeHtml(song.key) + '</span>' +
-            (song.capo ? '<span style="font-size:0.8rem;color:var(--text-dim);background:var(--card-bg);padding:4px 12px;border-radius:6px;border:1px solid var(--card-border);">Capo: ' + song.capo + '</span>' : '');
-          details.appendChild(keyInfo);
-        }
-
-        // --- Chord/Lyrics (和弦谱, 等宽字体对齐) ---
-        if (song.chordLyrics && song.chordLyrics.length > 0) {
-          var csLabel = document.createElement('div');
-          csLabel.className = 'detail-label';
-          csLabel.textContent = '\uD83C\uDFB5 和弦谱';
-          details.appendChild(csLabel);
-
-          var csContainer = document.createElement('div');
-          csContainer.style.cssText = 'background:#0d0d0d;border-radius:8px;padding:14px 16px;margin-bottom:14px;overflow-x:auto;font-family:var(--font-mono,"Courier New",monospace);font-size:14px;line-height:1.6;';
-
-          var csHtml = '';
-          song.chordLyrics.forEach(function(item) {
-            var line = item.line;
-            // Replace [Chord] markers with padded chord string above lyrics
-            var chordLine = '';
-            var lyricLine = '';
-            var i = 0;
-            while (i < line.length) {
-              if (line[i] === '[') {
-                var end = line.indexOf(']', i);
-                if (end === -1) break;
-                var chord = line.substring(i + 1, end);
-                // Pad chordLine with spaces to align chord above next lyrics char
-                while (chordLine.length < lyricLine.length) {
-                  chordLine += ' ';
-                }
-                chordLine += chord;
-                i = end + 1;
-              } else {
-                lyricLine += line[i];
-                i++;
-              }
-            }
-            // Fill chordLine to match lyricLine length
-            while (chordLine.length < lyricLine.length) {
-              chordLine += ' ';
-            }
-            csHtml += '<div style="color:var(--accent);font-weight:700;white-space:pre;">' + escapeHtml(chordLine) + '</div>';
-            csHtml += '<div style="color:var(--text-primary);white-space:pre;margin-bottom:4px;">' + escapeHtml(lyricLine) + '</div>';
-          });
-
-          csContainer.innerHTML = csHtml;
-          details.appendChild(csContainer);
-        }
-
-        // --- Tips ---
-        var tipsLabel = document.createElement('div');
-        tipsLabel.className = 'detail-label';
-        tipsLabel.textContent = '\uD83D\uDCA1 练习提示';
-        details.appendChild(tipsLabel);
-
-        var tipsDiv = document.createElement('div');
-        tipsDiv.className = 'detail-tips';
-        tipsDiv.textContent = song.tips;
-        details.appendChild(tipsDiv);
-
-        // --- Lyrics snippet ---
-        if (song.lyrics_snippet) {
-          var lyricsLabel = document.createElement('div');
-          lyricsLabel.className = 'detail-label';
-          lyricsLabel.textContent = '\uD83C\uDFB5 歌词片段';
-          details.appendChild(lyricsLabel);
-
-          var lyricsDiv = document.createElement('div');
-          lyricsDiv.className = 'detail-lyrics';
-          lyricsDiv.textContent = song.lyrics_snippet;
-          details.appendChild(lyricsDiv);
-        }
-
-        card.appendChild(details);
-
-        // Click to toggle
-        card.addEventListener('click', function (e) {
-          if (e.target.tagName === 'INPUT') return;
-          this.classList.toggle('expanded');
+          if (card.classList.contains('expanded')) {
+            renderChordSheet(song, 'chordsheet-' + index);
+          }
         });
 
         return card;
       }
 
-      // --- Simple escape HTML ---
-      function escapeHtml(str) {
-        var div = document.createElement('div');
-        div.appendChild(document.createTextNode(str));
-        return div.innerHTML;
+      function renderChordSheet(song, containerId) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+
+        var html = '';
+        (song.chordLyrics || []).forEach(function(line) {
+          var text = line.line;
+          var chordLine = '';
+          var lyricLine = '';
+          var i = 0;
+          
+          while (i < text.length) {
+            if (text[i] === '[') {
+              var end = text.indexOf(']', i);
+              if (end === -1) break;
+              var chord = text.substring(i + 1, end);
+              while (chordLine.length < lyricLine.length) {
+                chordLine += ' ';
+              }
+              chordLine += chord;
+              i = end + 1;
+            } else {
+              lyricLine += text[i];
+              i++;
+            }
+          }
+          
+          while (chordLine.length < lyricLine.length) {
+            chordLine += ' ';
+          }
+          
+          html += '<div class="chord-line">' + escapeHtml(chordLine) + '</div>';
+          html += '<div class="lyric-line">' + escapeHtml(lyricLine) + '</div>';
+        });
+        
+        container.innerHTML = html || '暂无和弦谱数据';
       }
 
-      // --- Init ---
-      loadSongs(function () {
-        buildUI();
-      });
-
+      function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
     })();
   </script>
-
 </body>
 </html>

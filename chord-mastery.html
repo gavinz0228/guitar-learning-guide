@@ -3,2115 +3,249 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>突破前三品 — CAGED + Shell Voicing | 学吉他</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>突破前三品 | 吉他学习指南</title>
+  <meta name="description" content="CAGED系统和Shell Voicing，让你在指板上自由移动">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* --- Breakthrough Page Styles --- */
-
-    .bp-section {
-      max-width: var(--max-width);
+    .mastery-container {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px 48px;
+      padding: 0 1.5rem;
     }
-
-    .bp-section h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin: 32px 0 16px;
-      color: var(--text-primary);
-      text-align: center;
-    }
-
-    .bp-section p {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 16px;
-    }
-
-    /* Intro highlight */
-    .bp-intro-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 32px;
-      margin-bottom: 24px;
-    }
-
-    .bp-intro-card h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .bp-intro-card .highlight-stat {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 20px 0;
-    }
-
-    .bp-intro-card .stat-item {
-      text-align: center;
-    }
-
-    .bp-intro-card .stat-num {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-
-    .bp-intro-card .stat-label {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    /* Module cards */
-    .module-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      margin: 24px 0;
-    }
-
-    .module-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 28px;
-      transition: transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
-    }
-
-    .module-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .module-card .mc-header {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
-
-    .module-card .mc-badge {
-      flex: 0 0 52px;
-      height: 52px;
-      line-height: 52px;
-      text-align: center;
-      border-radius: 12px;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .module-card .mc-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .module-card .mc-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .module-card .mc-desc {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-
-    .module-card .mc-meta {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .module-card .mc-tag {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 8px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: rgba(255,255,255,0.06);
-      color: var(--text-secondary);
-    }
-
-    .module-card .mc-arrow {
-      display: inline-block;
-      margin-top: 12px;
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: transform var(--transition);
-    }
-
-    .module-card:hover .mc-arrow {
-      transform: translateX(6px);
-    }
-
-    /* Roadmap path */
-    .bp-path {
-      position: relative;
-      margin: 32px 0;
-      padding: 0;
-    }
-
-    .bp-path::before {
-      content: '';
-      position: absolute;
-      left: 24px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--card-border);
-    }
-
-    .bp-step {
-      position: relative;
-      padding-left: 64px;
-      margin-bottom: 28px;
-    }
-
-    .bp-step:last-child {
-      margin-bottom: 0;
-    }
-
-    .bp-step .step-dot {
-      position: absolute;
-      left: 14px;
-      top: 4px;
-      width: 22px;
-      height: 22px;
-      line-height: 22px;
-      text-align: center;
-      border-radius: 50%;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .bp-step .step-title {
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .bp-step .step-desc {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Prerequisite box */
-    .bp-prereq {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .bp-prereq-item {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 8px;
-    }
-
-    .bp-prereq-item .prereq-icon {
-      flex: 0 0 32px;
-      font-size: 1.2rem;
-      text-align: center;
-    }
-
-    .bp-prereq-item .prereq-text {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .bp-prereq-item .prereq-text strong {
-      color: var(--text-primary);
-    }
-
-    /* --- Sub-navigation (CAGED / Shell Voicing) --- */
-    .bp-subnav {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 8px;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .subnav-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 24px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      text-decoration: none;
-      transition: all var(--transition);
-      flex: 0 1 auto;
-      min-width: 200px;
-    }
-
-    .subnav-link:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--accent);
-    }
-
-    .subnav-badge {
-      flex: 0 0 40px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      border-radius: 10px;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .subnav-text {
-      flex: 1;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .subnav-arrow {
-      font-size: 1.1rem;
-      color: var(--accent);
-      transition: transform var(--transition);
-    }
-
-    .subnav-link:hover .subnav-arrow {
-      transform: translateX(4px);
-    }
-
-    @media (min-width: 768px) {
-      .module-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .bp-prereq {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .module-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  
-/* --- CAGED System Styles --- */
-<style>
-    /* --- CAGED System Page Styles --- */
-
-    /* Intro section */
-    .caged-intro {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 40px;
-    }
-
-    .caged-intro h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin: 32px 0 16px;
-      color: var(--text-primary);
-    }
-
-    .caged-intro p {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 16px;
-    }
-
-    .caged-intro .highlight-box {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin: 20px 0;
-    }
-
-    .caged-intro .highlight-box h4 {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      color: var(--accent);
-    }
-
-    .caged-intro .highlight-box p {
-      margin-bottom: 8px;
-      font-size: 0.95rem;
-    }
-
-    /* Shape selector */
-    .shape-selector {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 24px 0;
-    }
-
-    .shape-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 3px solid var(--card-border);
-      background: var(--card-bg);
-      color: var(--text-primary);
-      font-size: 1.4rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .shape-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .shape-btn .shape-sub {
-      font-size: 0.6rem;
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .shape-btn.active {
-      border-color: currentColor;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
-      transform: scale(1.1);
-    }
-
-    /* Root note selector */
-    .root-selector {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 12px 0 20px;
-    }
-
-    .root-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid var(--card-border);
-      background: var(--card-bg);
-      color: var(--text-primary);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .root-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .root-btn.active {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* Fretboard container */
-    .fretboard-display {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 40px;
-    }
-
-    .fretboard-display .fb-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 20px;
-    }
-
-    .fretboard-display .fb-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 16px;
-      color: var(--text-primary);
-    }
-
-    .fretboard-display .fb-card .fb-description {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 16px;
-    }
-
-    .fretboard-display .fb-card svg {
-      background: #141414;
-      border-radius: 8px;
-      border: 1px solid #2a2a2a;
-    }
-
-    /* All positions overview */
-    .caged-overview {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-
-    .caged-overview h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 24px;
-      color: var(--text-primary);
-    }
-
-    .caged-row {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      margin-bottom: 24px;
-    }
-
-    .caged-row-label {
-      flex: 0 0 80px;
-      text-align: center;
-      padding-top: 60px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .caged-row-label .shape-badge {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      border-radius: 50%;
-      color: #fff;
-      font-weight: 800;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-
-    .caged-fretboard {
-      flex: 1;
-    }
-
-    .caged-fretboard svg {
-      background: #141414;
-      border-radius: 8px;
-      border: 1px solid #2a2a2a;
-      width: 100%;
-      height: auto;
-    }
-
-    /* Practice section */
-    .practice-tips {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-
-    .practice-tips h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--text-primary);
-    }
-
-    .practice-tips .tip-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .practice-tips .tip-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .practice-tips .tip-card .tip-num {
-      flex: 0 0 36px;
-      height: 36px;
-      line-height: 36px;
-      text-align: center;
-      background: var(--accent);
-      color: #fff;
-      border-radius: 50%;
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    .practice-tips .tip-card .tip-content h4 {
-      font-size: 1.05rem;
-      margin-bottom: 4px;
-      color: var(--text-primary);
-    }
-
-    .practice-tips .tip-card .tip-content p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    @media (min-width: 768px) {
-      .practice-tips .tip-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Shape legend */
-    .shape-legend {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 16px 0;
-    }
-
-    .shape-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .shape-legend-item .legend-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-    }
-
-    /* Shape detail card */
-    .shape-detail {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 40px;
-    }
-
-    .shape-detail-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 32px;
-      margin-bottom: 20px;
-    }
-
-    .shape-detail-card .shape-header {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .shape-detail-card .shape-badge-lg {
-      width: 56px;
-      height: 56px;
-      line-height: 56px;
-      text-align: center;
-      border-radius: 50%;
-      color: #fff;
-      font-weight: 800;
-      font-size: 1.6rem;
-      flex-shrink: 0;
-    }
-
-    .shape-detail-card .shape-header-text h3 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .shape-detail-card .shape-header-text p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    .shape-detail-card .shape-notes {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .shape-detail-card .shape-notes li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 8px;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .shape-detail-card .shape-notes li strong {
-      color: var(--text-primary);
-    }
-
-    @media (min-width: 768px) {
-      .shape-detail-card .shape-notes {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Transition map */
-    .transition-map {
-      max-width: 800px;
-      margin: 30px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .transition-map .tm-shape {
-      width: 48px;
-      height: 48px;
-      line-height: 48px;
-      text-align: center;
-      border-radius: 50%;
-      color: #fff;
-      font-weight: 800;
-      font-size: 1.1rem;
-    }
-
-    .transition-map .tm-arrow {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-    }
-  </style>
-
-<style>
     
-    .sv-section {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px 48px;
+    .method-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
     }
-
-    .sv-section h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin: 32px 0 16px;
-      color: var(--text-primary);
+    
+    .method-header {
+      padding: 2rem;
+      background: var(--gradient-glow);
+      border-bottom: 1px solid var(--glass-border);
     }
-
-    .sv-section p {
+    
+    .method-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    
+    .method-subtitle {
+      color: var(--text-secondary);
       font-size: 1rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 16px;
     }
-
-    .sv-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 28px;
-      margin-bottom: 20px;
+    
+    .method-content {
+      padding: 2rem;
     }
-
-    .sv-card .sv-card-header {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 16px;
+    
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
     }
-
-    .sv-card .sv-card-header .sv-icon {
-      flex: 0 0 48px;
-      height: 48px;
-      line-height: 48px;
+    
+    .concept-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
       text-align: center;
+    }
+    
+    .concept-letter {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
       border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      font-size: 1.3rem;
-    }
-
-    .sv-card .sv-card-header h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .sv-card .sv-card-header h3 small {
-      font-weight: 400;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      display: block;
-      margin-top: 2px;
-    }
-
-    .sv-card ul {
-      margin: 12px 0;
-      padding: 0;
-    }
-
-    .sv-card ul li {
-      padding: 8px 0 8px 24px;
-      position: relative;
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .sv-card ul li::before {
-      content: '•';
-      position: absolute;
-      left: 6px;
-      color: var(--accent);
-      font-weight: bold;
-    }
-
-    .sv-card ul li strong {
-      color: var(--text-primary);
-    }
-
-    /* Formula display */
-    .formula-box {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      align-items: center;
       justify-content: center;
-      margin: 16px 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 0 auto 1rem;
+      color: white;
     }
-
-    .formula-item {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 12px 18px;
-      text-align: center;
-    }
-
-    .formula-item .formula-degree {
-      font-size: 1.1rem;
+    
+    .concept-name {
       font-weight: 700;
-      color: var(--accent);
+      margin-bottom: 0.5rem;
     }
-
-    .formula-item .formula-name {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
+    
+    .concept-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
-
-    /* Fretboard container */
-    .sv-fretboard-wrapper {
-      margin: 16px 0;
+    
+    .fretboard-demo {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
       overflow-x: auto;
     }
-
-    .sv-fretboard-wrapper svg {
-      background: #141414;
-      border-radius: 8px;
-      border: 1px solid #2a2a2a;
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Comparison table */
-    .sv-table-wrap {
-      overflow-x: auto;
-      margin: 20px 0;
-    }
-
-    .sv-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-
-    .sv-table th {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      padding: 10px 14px;
-      text-align: left;
-    }
-
-    .sv-table th:first-child {
-      border-radius: 8px 0 0 0;
-    }
-
-    .sv-table th:last-child {
-      border-radius: 0 8px 0 0;
-    }
-
-    .sv-table td {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--card-border);
-      color: var(--text-secondary);
-    }
-
-    .sv-table td:first-child {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .sv-table tr:hover td {
-      background: rgba(255,255,255,0.03);
-    }
-
-    /* Voicing type selector */
-    .voicing-type-selector {
+    
+    .shape-nav {
       display: flex;
-      gap: 10px;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
-      justify-content: center;
-      margin: 20px 0;
     }
-
-    .voicing-type-btn {
-      padding: 10px 20px;
-      border-radius: 20px;
-      border: 2px solid var(--card-border);
-      background: var(--card-bg);
-      color: var(--text-primary);
-      font-size: 0.9rem;
-      font-weight: 600;
+    
+    .shape-btn {
+      padding: 0.5rem 1rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: all var(--transition);
+      transition: var(--transition-fast);
     }
-
-    .voicing-type-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    
+    .shape-btn:hover,
+    .shape-btn.active {
+      background: var(--gradient-primary);
+      border-color: transparent;
+      color: white;
     }
-
-    .voicing-type-btn.active {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* String group badge */
-    .string-group-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 10px;
-      background: rgba(230,57,70,0.12);
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    @media (min-width: 768px) {
-      .sv-card .two-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
+    
+    @media (max-width: 768px) {
+      .mastery-container {
+        padding: 0 1rem;
+      }
+      
+      .method-header {
+        padding: 1.5rem;
+      }
+      
+      .method-content {
+        padding: 1.5rem;
       }
     }
-
-    .note-highlight {
-      color: var(--accent);
-      font-weight: 600;
-    }
   </style>
-
-<style>
-/* --- Side Navigation --- */
-.side-nav {
-  position: fixed;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-  background: rgba(15,15,15,0.88);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 10px 0;
-  min-width: 130px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
-  max-height: 80vh;
-  overflow-y: auto;
-}
-.side-nav .nav-section {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-dim);
-  padding: 8px 14px 4px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.6;
-}
-.side-nav a {
-  display: block;
-  padding: 5px 14px;
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: all 0.2s;
-  border-left: 3px solid transparent;
-  line-height: 1.4;
-}
-.side-nav a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
-.side-nav a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(230,57,70,0.06); }
-.side-nav .nav-sub { padding-left: 20px; font-size: 0.75rem; }
-@media (max-width: 1200px) { .side-nav { display: none; } }
-</style>
 </head>
 <body>
-
-<div class="side-nav" id="sideNav">
-<div class="nav-section">📖 导航</div>
-  <a href="#bp-overview" class="active">概述</a>
-  <a href="#bp-prereqs" class="nav-sub">学前必备</a>
-  <a href="#bp-path" class="nav-sub">学习路径</a>
-  <a href="#bp-modules" class="nav-sub">学习模块</a>
-  
-  <div class="nav-section">🎸 CAGED</div>
-  <a href="#caged-intro" class="nav-sub">介绍</a>
-  <a href="#caged-interactive" class="nav-sub">交互指板</a>
-  <a href="#caged-shape-C" class="nav-sub">C 型</a>
-  <a href="#caged-shape-A" class="nav-sub">A 型</a>
-  <a href="#caged-shape-G" class="nav-sub">G 型</a>
-  <a href="#caged-shape-E" class="nav-sub">E 型</a>
-  <a href="#caged-shape-D" class="nav-sub">D 型</a>
-  <a href="#caged-overview" class="nav-sub">指板循环</a>
-  <a href="#caged-practice" class="nav-sub">练习</a>
-  
-  <div class="nav-section">🎼 Shell Voicing</div>
-  <a href="#sv-intro" class="nav-sub">介绍</a>
-  <a href="#sv-principle" class="nav-sub">R-3-7 原理</a>
-  <a href="#sv-stringsets" class="nav-sub">弦组模式</a>
-  <a href="#sv-types" class="nav-sub">四种类型</a>
-  <a href="#sv-251" class="nav-sub">II-V-I 实战</a>
-</div>
-
-
-
-  <!-- ===== Navigation ===== -->
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">🎸 学吉他</a>
-      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
-      <button class="hamburger" aria-label="菜单">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links">
-        <a href="index.html">首页</a>
-        <a href="chords.html">和弦库</a>
-        <a href="chord-mastery.html" class="active">突破前三品</a>
-        <a href="scales.html">音阶</a>
-        <a href="theory.html">乐理</a>
-        <a href="songs.html">练习曲</a>
-        <a href="roadmap.html">学习路线</a>
-        <a href="solo.html">Solo教程</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ===== Page Content ===== -->
+  <!-- Page Content -->
   <div class="page-content">
-
-    <section id="bp-overview">
     <!-- Page Header -->
-    <header class="page-header">
-      <h1>🚀 突破前三品</h1>
-      <p>走出新手村，用 CAGED 和 Shell Voicing 解锁整个指板</p>
-    </header>
-
-    <!-- Sub-navigation for CAGED / Shell Voicing -->
-    <div class="bp-subnav">
-      <a href="#caged-intro" class="subnav-link">
-        <span class="subnav-badge" style="background:linear-gradient(135deg,#e63946,#ff6b7a);">C</span>
-        <span class="subnav-text">CAGED 系统</span>
-        <span class="subnav-arrow">→</span>
-      </a>
-      <a href="#sv-intro" class="subnav-link">
-        <span class="subnav-badge" style="background:linear-gradient(135deg,#457b9d,#6a9fc4);">S</span>
-        <span class="subnav-text">Shell Voicing</span>
-        <span class="subnav-arrow">→</span>
-      </a>
-    </div>
-
-    <!-- Intro Section -->
-    <section class="bp-section">
-      <div class="bp-intro-card">
-        <h3>🎯 为什么叫"突破前三品"？</h3>
-        <p>
-          大多数吉他新手在前三个月都只弹 <strong>前 3 品</strong> 的开放和弦（C、Am、G、Em...）。
-          这完全没问题，但如果你想真正理解指板、能在任何把位弹奏任何和弦，
-          你就需要 <strong>CAGED 系统</strong> 和 <strong>Shell Voicing</strong> 这两把钥匙。
-        </p>
-        <div class="highlight-stat">
-          <div class="stat-item">
-            <div class="stat-num">5</div>
-            <div class="stat-label">种手型覆盖全指板</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">12</div>
-            <div class="stat-label">个调的任意和弦</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">3</div>
-            <div class="stat-label">个音组成一个 Voicing</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">∞</div>
-            <div class="stat-label">不再被把位限制</div>
-          </div>
-        </div>
-        <p>
-          这两套知识学完，你会惊讶地发现：原来指板是有规律的，而且规律就这么简单。
-          我推荐你<strong>先学 CAGED，再学 Shell Voicing</strong>，两者相辅相成。
-        </p>
-      </div>
-    </section>
-    </section>
-
-    <section id="bp-prereqs">
-    <!-- Prerequisites -->
-    <section class="bp-section">
-      <h2>✅ 学前必备</h2>
-      <p>在开始之前，确保你已掌握以下内容：</p>
-      <div class="bp-prereq">
-        <div class="bp-prereq-item">
-          <div class="prereq-icon">🎵</div>
-          <div class="prereq-text">能流畅切换常用的<strong>开放和弦</strong>（C、A、G、E、D、Am、Em 等）</div>
-        </div>
-        <div class="bp-prereq-item">
-          <div class="prereq-icon">👆</div>
-          <div class="prereq-text">掌握基本的<strong>食指横按</strong>技巧（至少能按 F 或 Bb）</div>
-        </div>
-        <div class="bp-prereq-item">
-          <div class="prereq-icon">🎼</div>
-          <div class="prereq-text">理解<strong>音名</strong>（C D E F G A B）和<strong>半音/全音</strong>概念</div>
-        </div>
-        <div class="bp-prereq-item">
-          <div class="prereq-icon">📐</div>
-          <div class="prereq-text">知道<strong>根音</strong>是什么，能在一根弦上找到任意音符</div>
-        </div>
-      </div>
-    </section>
-
-        </section>
-    <section id="bp-path">
-    <!-- Learning Path -->
-    <section class="bp-section">
-      <h2>🗺️ 推荐学习路径</h2>
-      <div class="bp-path">
-        <div class="bp-step">
-          <div class="step-dot" style="background:#e63946;">1</div>
-          <div class="step-title">CAGED 系统 — 5 个形状</div>
-          <div class="step-desc">学习 C、A、G、E、D 五种和弦形状在指板上的分布。做完这一步，你就能在任意把位找到任意和弦。</div>
-        </div>
-        <div class="bp-step">
-          <div class="step-dot" style="background:#ff9f1c;">2</div>
-          <div class="step-title">CAGED — 形状衔接练习</div>
-          <div class="step-desc">在同一个根音上，沿指板循环 C → A → G → E → D 五个形状。这让你真正理解指板的"网格"结构。</div>
-        </div>
-        <div class="bp-step">
-          <div class="step-dot" style="background:#2ec4b6;">3</div>
-          <div class="step-title">Shell Voicing — 和弦的精简哲学</div>
-          <div class="step-desc">学会 R-3-7 的核心三音和弦。你会发现和弦可以如此干净，而 CAGED 形状正好是 Shell Voicing 的基础。</div>
-        </div>
-        <div class="bp-step">
-          <div class="step-dot" style="background:#7b2cbf;">4</div>
-          <div class="step-title">实战结合：II-V-I 进行</div>
-          <div class="step-desc">用 CAGED 理解指板，用 Shell Voicing 弹出干净的和弦。在 12 个调上练习 II-V-I 是现代吉他的基础功。</div>
-        </div>
-      </div>
-    </section>
-
-        </section>
-    <section id="bp-modules">
-    <!-- Module Cards -->
-    <section class="bp-section">
-      <h2>📖 学习模块</h2>
-      <div class="module-grid">
-
-        <a href="caged.html" class="module-card">
-          <div class="mc-header">
-            <div class="mc-badge" style="background:linear-gradient(135deg,#e63946,#ff6b7a);">C</div>
-            <div>
-              <div class="mc-title">CAGED 系统</div>
-              <div class="mc-subtitle">5个形状破解整个指板</div>
-            </div>
-          </div>
-          <div class="mc-desc">
-            用你早已熟悉的 C、A、G、E、D 开放和弦，作为模板在整个指板上移动。
-            交互指板图让你选择根音和形状，实时查看按法。含练习计划和过渡路径。
-          </div>
-          <div class="mc-meta">
-            <span class="mc-tag">🎸 适合中级</span>
-            <span class="mc-tag">📐 12 个调</span>
-            <span class="mc-tag">🖼️ 交互指板</span>
-          </div>
-          <span class="mc-arrow">开始学习 →</span>
-        </a>
-
-        <a href="shell-voicing.html" class="module-card">
-          <div class="mc-header">
-            <div class="mc-badge" style="background:linear-gradient(135deg,#457b9d,#6a9fc4);">S</div>
-            <div>
-              <div class="mc-title">Shell Voicing</div>
-              <div class="mc-subtitle">和弦的精简与升华</div>
-            </div>
-          </div>
-          <div class="mc-desc">
-            学会只用 R-3-7 三个音构建和弦。三种弦组模式（6532/6543/5432），
-            四种和弦类型一键切换。从弹唱到爵士的必经之路。
-          </div>
-          <div class="mc-meta">
-            <span class="mc-tag">🎼 中级进阶</span>
-            <span class="mc-tag">🔢 三种弦组</span>
-            <span class="mc-tag">🎯 实战 II-V-I</span>
-          </div>
-          <span class="mc-arrow">开始学习 →</span>
-        </a>
-
-      </div>
-    </section>
-
-        </section>
-    <section id="bp-tips">
-    <!-- Quick Tips -->
-    <section class="bp-section">
-      <h2>💡 几点建议</h2>
-      <div class="bp-intro-card" style="padding:20px 28px;">
-        <p style="margin-bottom:8px;">• <strong>别贪多</strong> — CAGED 的 5 个形状每天只练一个，一周搞定</p>
-        <p style="margin-bottom:8px;">• <strong>用耳朵</strong> — 同一和弦在不同把位音色不同，C 型温暖，E 型明亮，边弹边听</p>
-        <p style="margin-bottom:8px;">• <strong>Shell Voicing 从属七开始</strong> — 属七的 R-3-b7 最常用，先练熟它</p>
-        <p style="margin-bottom:0;">• <strong>两者不冲突</strong> — CAGED 给你"在哪里"，Shell 给你"怎么按更好听"</p>
-      </div>
-    </section>
-
-  </div>
-
-  
-
-    <!-- ===== 内容分隔线 ===== -->
-    <div style="height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:40px 20px;opacity:0.3;"></div>
-
-
-
-  <!-- ===== Page Content ===== -->
-  <div class="page-content">
-
-    <!-- Page Header -->
-    <header class="page-header">
-      <h1>🎸 CAGED 系统</h1>
-      <p>用 5 个开放和弦形状，解锁整个指板</p>
-    </header>
-
-    <!-- ===== CAGED 系统 ===== -->
-    <section id="caged-intro">
-    <!-- Intro -->
-    <section class="caged-intro">
-      <div class="highlight-box">
-        <h4>💡 什么是 CAGED 系统？</h4>
-        <p><strong>CAGED</strong> 是吉他上最经典的和弦系统。它用 5 个你早已熟悉的开放和弦 —— <strong>C</strong>、<strong>A</strong>、<strong>G</strong>、<strong>E</strong>、<strong>D</strong> —— 作为模板，通过移动它们在指板上找到任意大/小/属七和弦的所有位置。</p>
-        <p>学会 CAGED 之后，你会发现指板不再是迷宫，而是一张清晰的网格。同一个和弦可以在 5 种不同的手型下演奏，每种手型有不同的音色和功能。</p>
-      </div>
-
-      <!-- Shape Legend -->
-      <div class="shape-legend">
-        <div class="shape-legend-item">
-          <div class="legend-dot" style="background:#e63946;border-color:#ff6b7a;"></div>
-          <span>C 型</span>
-        </div>
-        <div class="shape-legend-item">
-          <div class="legend-dot" style="background:#2ec4b6;border-color:#5eddd0;"></div>
-          <span>A 型</span>
-        </div>
-        <div class="shape-legend-item">
-          <div class="legend-dot" style="background:#ff9f1c;border-color:#ffb84d;"></div>
-          <span>G 型</span>
-        </div>
-        <div class="shape-legend-item">
-          <div class="legend-dot" style="background:#7b2cbf;border-color:#a05be0;"></div>
-          <span>E 型</span>
-        </div>
-        <div class="shape-legend-item">
-          <div class="legend-dot" style="background:#457b9d;border-color:#6a9fc4;"></div>
-          <span>D 型</span>
-        </div>
-        <div class="shape-legend-item">
-          <div class="legend-dot" style="background:#fff;border:#e63946;"></div>
-          <span>Root (根音)</span>
-        </div>
-      </div>
-    </section>
-
-        </section>
-    <section id="caged-interactive">
-    <!-- Interactive Shape Viewer -->
-    <section class="fretboard-display">
-      <div class="fb-card">
-        <h3>🎯 交互指板探索</h3>
-        <p class="fb-description">选择一个根音和形状，在指板上查看该形状的按法。根音以白色大圆标注，其他音按形状颜色标记。</p>
-
-        <!-- Root note selector -->
-        <div style="text-align:center;margin-bottom:8px;color:var(--text-secondary);font-size:0.9rem;">选择根音：</div>
-        <div class="root-selector" id="rootSelector">
-        </div>
-
-        <!-- Shape selector -->
-        <div style="text-align:center;margin-bottom:8px;color:var(--text-secondary);font-size:0.9rem;margin-top:12px;">选择形状：</div>
-        <div class="shape-selector" id="shapeSelector">
-        </div>
-
-        <!-- Fretboard -->
-        <div id="interactiveFretboard" style="margin-top:16px;"></div>
-      </div>
-    </section>
-
-        </section>
-    <section id="caged-shapes">
-    <!-- Shape Detail Cards -->
-    <section class="shape-detail" id="shapeDetail">
-      <h2 style="font-size:1.6rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);">📖 五种形状详解</h2>
-
-      <!-- C Shape -->
-      <div class="shape-detail-card" id="caged-shape-C">
-        <div class="shape-header">
-          <div class="shape-badge-lg" style="background:#e63946;">C</div>
-          <div class="shape-header-text">
-            <h3>C 型 <span style="font-size:0.9rem;font-weight:400;color:var(--text-secondary);">— 源于开放 C 和弦</span></h3>
-            <p>根音在 A 弦（5弦）和 D 弦（4弦），跨度最大的形状</p>
-          </div>
-        </div>
-        <ul class="shape-notes">
-          <li><strong>✋ 手型特点：</strong>食指横按 A 弦和 D 弦上的根音位置，中指按 G 弦的第 2 品，无名指和小指做延伸</li>
-          <li><strong>🎵 根音位置：</strong>A 弦（5弦）和 D 弦（4弦）</li>
-          <li><strong>💪 难点：</strong>跨度大，需要手指灵活伸展。初学可省略低音的根音，只按高音部分</li>
-          <li><strong>🎸 应用场景：</strong>适合分解和弦，音色温暖开阔</li>
-          <li><strong>🔄 和弦变体：</strong>Cm (b3)、C7 (b7)、Cmaj7 (7)、Cdim (b3 b5)</li>
-          <li><strong>🔗 前后关系：</strong>在指板上 C 型之后通常衔接 A 型</li>
-        </ul>
-      </div>
-
-      <!-- A Shape -->
-      <div class="shape-detail-card" id="caged-shape-A">
-        <div class="shape-header">
-          <div class="shape-badge-lg" style="background:#2ec4b6;">A</div>
-          <div class="shape-header-text">
-            <h3>A 型 <span style="font-size:0.9rem;font-weight:400;color:var(--text-secondary);">— 源于开放 A 和弦</span></h3>
-            <p>根音在低 E 弦（6弦）和 D 弦（4弦），最常用的小横按形状</p>
-          </div>
-        </div>
-        <ul class="shape-notes">
-          <li><strong>✋ 手型特点：</strong>食指横按 5 根弦，中指/无名指/小指在横按下方形成 A 和弦形状</li>
-          <li><strong>🎵 根音位置：</strong>低 E 弦（6弦）和 D 弦（4弦）</li>
-          <li><strong>💪 难点：</strong>食指横按需要力度，初期容易无名指按不实高 E 弦的第 2 品</li>
-          <li><strong>🎸 应用场景：</strong>流行和摇滚中最常见的封闭和弦（如 F、Bb、B）</li>
-          <li><strong>🔄 和弦变体：</strong>Am (b3)、A7 (b7)、Amaj7 (7)、Adim (b3 b5)</li>
-          <li><strong>🔗 前后关系：</strong>A 型与 G 型相邻，过渡自然</li>
-        </ul>
-      </div>
-
-      <!-- G Shape -->
-      <div class="shape-detail-card" id="caged-shape-G">
-        <div class="shape-header">
-          <div class="shape-badge-lg" style="background:#ff9f1c;">G</div>
-          <div class="shape-header-text">
-            <h3>G 型 <span style="font-size:0.9rem;font-weight:400;color:var(--text-secondary);">— 源于开放 G 和弦</span></h3>
-            <p>根音在低 E 弦（6弦）、A 弦（5弦）、高 E 弦（1弦），完整的 6 弦形状</p>
-          </div>
-        </div>
-        <ul class="shape-notes">
-          <li><strong>✋ 手型特点：</strong>开放 G 和弦的形状移位，食指横按后剩余手指形成 G 手指排列</li>
-          <li><strong>🎵 根音位置：</strong>低 E 弦（6弦）、A 弦（5弦）、高 E 弦（1弦）</li>
-          <li><strong>💪 难点：</strong>手指跨度大，横按范围宽，适合手指长的演奏者</li>
-          <li><strong>🎸 应用场景：</strong>乡村和民谣风格中常见，音色明亮饱满</li>
-          <li><strong>🔄 和弦变体：</strong>Gm (b3)、G7 (b7)、Gmaj7 (7)</li>
-          <li><strong>🔗 前后关系：</strong>G 型之后是 E 型，指板往高把位移动</li>
-        </ul>
-      </div>
-
-      <!-- E Shape -->
-      <div class="shape-detail-card" id="caged-shape-E">
-        <div class="shape-header">
-          <div class="shape-badge-lg" style="background:#7b2cbf;">E</div>
-          <div class="shape-header-text">
-            <h3>E 型 <span style="font-size:0.9rem;font-weight:400;color:var(--text-secondary);">— 源于开放 E 和弦</span></h3>
-            <p>根音在低 E 弦（6弦）和高 E 弦（1弦），最知名的封闭和弦形状</p>
-          </div>
-        </div>
-        <ul class="shape-notes">
-          <li><strong>✋ 手型特点：</strong>所有封闭和弦的入门！食指横按，中指/无名指/小指按 5/4/3 弦</li>
-          <li><strong>🎵 根音位置：</strong>低 E 弦（6弦）和高 E 弦（1弦）</li>
-          <li><strong>💪 难点：</strong>横按初期最难，但也是最先掌握的封闭和弦形状</li>
-          <li><strong>🎸 应用场景：</strong>最最常见的封闭和弦！从 F（1品）到 Bb（6品）到任何你按的</li>
-          <li><strong>🔄 和弦变体：</strong>Em (b3)、E7 (b7)、Emaj7 (7)、Edim (b3 b5)</li>
-          <li><strong>🔗 前后关系：</strong>E 型之后是 D 型</li>
-        </ul>
-      </div>
-
-      <!-- D Shape -->
-      <div class="shape-detail-card" id="caged-shape-D">
-        <div class="shape-header">
-          <div class="shape-badge-lg" style="background:#457b9d;">D</div>
-          <div class="shape-header-text">
-            <h3>D 型 <span style="font-size:0.9rem;font-weight:400;color:var(--text-secondary);">— 源于开放 D 和弦</span></h3>
-            <p>根音在 A 弦（5弦）和高 E 弦（1弦），高音区最常用的形状</p>
-          </div>
-        </div>
-        <ul class="shape-notes">
-          <li><strong>✋ 手型特点：</strong>只按高 4 根弦，通常用食指横按根音 + 中/无名/小指形成 D 形状</li>
-          <li><strong>🎵 根音位置：</strong>A 弦（5弦）和高 E 弦（1弦）</li>
-          <li><strong>💪 难点：</strong>高把位品距窄，手指容易碰到相邻弦</li>
-          <li><strong>🎸 应用场景：</strong>高音区伴奏、爵士 voicing、pop 吉他高音色彩</li>
-          <li><strong>🔄 和弦变体：</strong>Dm (b3)、D7 (b7)、Dmaj7 (7)</li>
-          <li><strong>🔗 前后关系：</strong>D 型之后回到 C 型，完成指板循环</li>
-        </ul>
-      </div>
-    </section>
-
-        </section>
-    <section id="caged-overview">
-    <!-- The CAGED Cycle -->
-    <section class="caged-overview">
-      <h2>🔄 CAGED 指板循环</h2>
-      <p style="color:var(--text-secondary);margin-bottom:24px;font-size:0.95rem;">
-        选择根音后，查看 5 种形状在指板上的位置。它们按照 <strong>C → A → G → E → D</strong> 的顺序循环，依次往高把位移动。
+    <div class="page-header">
+      <span class="section-tag">进阶必看</span>
+      <h1 class="page-title">突破<span>前三品</span></h1>
+      <p class="section-desc">
+        CAGED系统和Shell Voicing，让你在指板上自由移动，不再受限于前三品
       </p>
+    </div>
 
-      <!-- Root selector for overview -->
-      <div style="text-align:center;margin-bottom:24px;">
-        <div style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:8px;">选择根音查看全指板位置：</div>
-        <div class="root-selector" id="overviewRootSelector"></div>
-      </div>
-
-      <div id="cagedOverviewContainer"></div>
-    </section>
-
-        </section>
-    <section id="caged-transition">
-    <!-- Transition Map -->
-    <section class="caged-intro">
-      <h2>🗺️ 形状过渡路径</h2>
-      <p>CAGED 系统最强大的地方在于形状之间的平滑过渡。看懂这张图，你就理解了指板的"路线图"。</p>
-
-      <div class="transition-map">
-        <div class="tm-shape" style="background:#e63946;">C</div>
-        <span class="tm-arrow">→</span>
-        <div class="tm-shape" style="background:#2ec4b6;">A</div>
-        <span class="tm-arrow">→</span>
-        <div class="tm-shape" style="background:#ff9f1c;">G</div>
-        <span class="tm-arrow">→</span>
-        <div class="tm-shape" style="background:#7b2cbf;">E</div>
-        <span class="tm-arrow">→</span>
-        <div class="tm-shape" style="background:#457b9d;">D</div>
-        <span class="tm-arrow">→</span>
-        <div class="tm-shape" style="background:#e63946;opacity:0.7;">C</div>
-      </div>
-
-      <div style="text-align:center;margin-top:20px;color:var(--text-secondary);font-size:0.9rem;line-height:1.8;">
-        从 C 型开始，往高把位移动 2-3 品就进入 A 型 → 再移动进入 G 型 → 再移动进入 E 型 → 再移动进入 D 型<br>
-        → 继续往上就到下一个八度的 C 型，如此循环覆盖整个指板
-      </div>
-
-      <div class="highlight-box" style="margin-top:24px;">
-        <h4>💡 练琴技巧</h4>
-        <p><strong>单弦移动练习：</strong>选一个根音（比如 C），在第六弦上找到 C 音（8品），用 E 型按 C 和弦 → 换到 A 型 → G 型 → 边弹边移动，感受声音变化。</p>
-        <p><strong>循环练习：</strong>在任意根音上依次弹出 C→A→G→E→D 五个形状，每天 5 分钟，一周内你就能"看见"指板上的所有和弦。</p>
-      </div>
-    </section>
-
-        </section>
-    <section id="caged-practice">
-    <!-- Practice Tips -->
-    <section class="practice-tips">
-      <h2>🏋️ 练习计划</h2>
-      <div class="tip-grid">
-        <div class="tip-card">
-          <div class="tip-num">1</div>
-          <div class="tip-content">
-            <h4>第 1 周：认识 5 个形状</h4>
-            <p>每天选一个根音（如 G），在指板上分别用 C/A/G/E/D 五种形状按出 G 和弦。不需要流畅，只需要找到位置。</p>
-          </div>
+    <div class="mastery-container">
+      <!-- CAGED Section -->
+      <div class="method-card">
+        <div class="method-header">
+          <h2 class="method-title">💎 CAGED 系统</h2>
+          <p class="method-subtitle">用五个基础和弦形状覆盖整个指板</p>
         </div>
-        <div class="tip-card">
-          <div class="tip-num">2</div>
-          <div class="tip-content">
-            <h4>第 2 周：形状衔接</h4>
-            <p>同一个根音，在 C→A→G→E→D 之间来回切换。目标是 3 秒内从一个形状切到下一个。</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num">3</div>
-          <div class="tip-content">
-            <h4>第 3 周：换根音</h4>
-            <p>循环根音：C→G→D→A→E。在每个根音上用 CAGED 形状找到对应的和弦。注意不同根音下形状在指板上的相对位置。</p>
-          </div>
-        </div>
-        <div class="tip-card">
-          <div class="tip-num">4</div>
-          <div class="tip-content">
-            <h4>第 4 周：应用曲目</h4>
-            <p>找一首你知道的和弦进行（如 I-V-vi-IV），用 CAGED 系统中不同的形状演奏同一个进行，体会不同把位的音色差异。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  
-    </section>
-
-    <!-- ===== 内容分隔线 ===== -->
-    <div style="height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:40px 20px;opacity:0.3;"></div>
-
-
-
-  <!-- ===== Page Content ===== -->
-  <div class="page-content">
-
-    <!-- Page Header -->
-    <header class="page-header">
-      <h1>🎼 Shell Voicing</h1>
-      <p>省略和弦的艺术 — 用最少的音，做出最干净的声音</p>
-    </header>
-
-    <!-- ===== Shell Voicing ===== -->
-    <hr style="border-color:var(--card-border);margin:48px 0;">
-    <section id="sv-intro">
-    <!-- Intro -->
-    <section class="sv-section">
-      <div class="sv-card">
-        <div class="sv-card-header">
-          <div class="sv-icon">🎯</div>
-          <h3>什么是 Shell Voicing？<small>省略音和弦 — 只弹最重要的音</small></h3>
-        </div>
-        <p>
-          <strong>Shell Voicing（壳型和弦）</strong> 在理论和实践中都不包含完整的和弦音，而是只保留核心的 <strong>R（根音）- 3（三音）- 7（七音）</strong>。
-          五音被省略，因为它对和弦性质的识别作用最小。
-        </p>
-        <p>
-          例如：<strong>C7</strong> 的完整构成是 <strong>C - E - G - Bb</strong>，但 Shell Voicing 只弹 <strong>C - E - Bb</strong>（省略 G）。
-          在吉他上这意味着你只需要按 3 个音，手指更轻松，声音更清晰，而且给其他乐手（贝斯、钢琴）留出了空间。
-        </p>
-        <div style="margin-top:16px;">
-          <div class="formula-box">
-            <div class="formula-item">
-              <div class="formula-degree">R</div>
-              <div class="formula-name">根音</div>
-            </div>
-            <div class="formula-item">
-              <div class="formula-degree">3</div>
-              <div class="formula-name">三音 (大小)</div>
-            </div>
-            <div class="formula-item" style="opacity:0.4;">
-              <div class="formula-degree" style="color:var(--text-secondary);">5</div>
-              <div class="formula-name">省略</div>
-            </div>
-            <div class="formula-item">
-              <div class="formula-degree">7</div>
-              <div class="formula-name">七音</div>
-            </div>
-          </div>
-          <p style="text-align:center;font-size:0.85rem;color:var(--text-secondary);margin-top:8px;">
-            Shell Voicing = <span class="note-highlight">R + 3 + 7</span>（五音被省略）
+        <div class="method-content">
+          <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+            CAGED系统是吉他手必学的核心概念。它将吉他指板划分为五个区域，每个区域对应一种开放和弦形状。掌握这个系统，你就能在指板上任意位置按出任何和弦。
           </p>
-        </div>
-      </div>
-    </section>
-
-        </section>
-    <section id="sv-principle">
-    <!-- Why Shell Voicing -->
-    <section class="sv-section">
-      <h2>🤔 为什么学 Shell Voicing？</h2>
-      <div style="display:grid;grid-template-columns:1fr;gap:16px;">
-        <div class="sv-card">
-          <div class="sv-card-header">
-            <div class="sv-icon" style="background:#2ec4b6;">1</div>
-            <h3>减少手指负担</h3>
-          </div>
-          <p>大多数 shell voicing 只需要按 2-3 根弦，不用大跨度横按。特别适合快速换和弦的爵士标准曲。</p>
-        </div>
-        <div class="sv-card">
-          <div class="sv-card-header">
-            <div class="sv-icon" style="background:#ff9f1c;">2</div>
-            <h3>声音更干净</h3>
-          </div>
-          <p>省略五音后，和弦的声部更紧凑，不会和贝斯手冲突。在乐队合奏中，shell voicing 是最专业的伴奏选择。</p>
-        </div>
-        <div class="sv-card">
-          <div class="sv-card-header">
-            <div class="sv-icon" style="background:#7b2cbf;">3</div>
-            <h3>为爵士伴奏铺路</h3>
-          </div>
-          <p>所有爵士吉他手都从 shell voicing 开始。学会 R-3-7 后，你可以往上叠加 tensions（9、11、13）变成 extended chords。</p>
-        </div>
-        <div class="sv-card">
-          <div class="sv-card-header">
-            <div class="sv-icon" style="background:#457b9d;">4</div>
-            <h3>和弦变体一目了然</h3>
-          </div>
-          <p>只需移动 3 音或 7 音半音，就能在 Major / Dominant / Minor / Dim 之间切换。一个手型三种和弦。</p>
-        </div>
-      </div>
-    </section>
-
-        </section>
-    <section id="sv-stringsets">
-    <!-- Three String Groups -->
-    <section class="sv-section">
-      <h2>🎸 三种弦组模式</h2>
-      <p>
-        Shell voicing 在吉他上通常在三个不同的弦组上弹奏。每种弦组有不同的音色和把位。选择哪种取决于你的伴奏需要和便利性。
-      </p>
-
-      <div class="voicing-type-selector" id="stringGroupSelector">
-        <button class="voicing-type-btn active" data-group="6532">6-5-3-2 弦组</button>
-        <button class="voicing-type-btn" data-group="6543">6-5-4-3 弦组</button>
-        <button class="voicing-type-btn" data-group="5432">5-4-3-2 弦组</button>
-      </div>
-
-      <div id="stringGroupContent">
-
-        <!-- 6-5-3-2 -->
-        <div class="voicing-detail" data-group="6532">
-          <div class="sv-card">
-            <div class="sv-card-header">
-              <div class="sv-icon" style="background:#e63946;">A</div>
-              <h3>6-5-3-2 弦组 <small>低音厚重，适合左手伴奏</small></h3>
+          
+          <div class="concept-grid">
+            <div class="concept-card">
+              <div class="concept-letter">C</div>
+              <div class="concept-name">C形状</div>
+              <div class="concept-desc">基于C和弦的形状，根音在5弦或6弦</div>
             </div>
-            <p>
-              使用 <strong>6弦（低E）</strong> 弹根音，<strong>5弦</strong> 弹三音，<strong>3弦</strong> 弹七音，<strong>2弦</strong> 重复根音。
-              这是最常用的 shell voicing 弦组，声音饱满厚重。
-            </p>
-            <div class="sv-fretboard-wrapper" id="fb-group-6532"></div>
-          </div>
-        </div>
-
-        <!-- 6-5-4-3 -->
-        <div class="voicing-detail" data-group="6543" style="display:none;">
-          <div class="sv-card">
-            <div class="sv-card-header">
-              <div class="sv-icon" style="background:#2ec4b6;">B</div>
-              <h3>6-5-4-3 弦组 <small>中间区域，均衡明亮</small></h3>
+            <div class="concept-card">
+              <div class="concept-letter">A</div>
+              <div class="concept-name">A形状</div>
+              <div class="concept-desc">基于A和弦的形状，根音在6弦</div>
             </div>
-            <p>
-              使用 <strong>6弦</strong> 弹根音，<strong>5弦</strong> 弹三音，<strong>4弦</strong> 弹七音，<strong>3弦</strong> 重复根音。
-              音色更亮，手指排列更自然。
-            </p>
-            <div class="sv-fretboard-wrapper" id="fb-group-6543"></div>
-          </div>
-        </div>
-
-        <!-- 5-4-3-2 -->
-        <div class="voicing-detail" data-group="5432" style="display:none;">
-          <div class="sv-card">
-            <div class="sv-card-header">
-              <div class="sv-icon" style="background:#ff9f1c;">C</div>
-              <h3>5-4-3-2 弦组 <small>高音区域，适合弹唱和独奏</small></h3>
+            <div class="concept-card">
+              <div class="concept-letter">G</div>
+              <div class="concept-name">G形状</div>
+              <div class="concept-desc">基于G和弦的形状，根音在6弦或5弦</div>
             </div>
-            <p>
-              使用 <strong>5弦（A）</strong> 弹根音，<strong>4弦</strong> 弹三音，<strong>3弦</strong> 弹七音，<strong>2弦</strong> 重复根音或五音。
-              省略了 6 弦的最低音，声音更紧致，适合 Solo 或和声密集的段落。
-            </p>
-            <div class="sv-fretboard-wrapper" id="fb-group-5432"></div>
+            <div class="concept-card">
+              <div class="concept-letter">E</div>
+              <div class="concept-name">E形状</div>
+              <div class="concept-desc">基于E和弦的形状，根音在6弦</div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-letter">D</div>
+              <div class="concept-name">D形状</div>
+              <div class="concept-desc">基于D和弦的形状，根音在4弦或3弦</div>
+            </div>
+          </div>
+          
+          <div class="fretboard-demo">
+            <div class="shape-nav">
+              <button class="shape-btn active">C形</button>
+              <button class="shape-btn">A形</button>
+              <button class="shape-btn">G形</button>
+              <button class="shape-btn">E形</button>
+              <button class="shape-btn">D形</button>
+            </div>
+            <div id="cagedFretboard"></div>
           </div>
         </div>
-
-      </div>
-    </section>
-
-        </section>
-    <section id="sv-types">
-    <!-- Chord Type Variations -->
-    <section class="sv-section">
-      <h2>🔁 四种和弦类型的 Shell Voicing</h2>
-      <p>只需微调 3 音和 7 音，同一个指板位置就能弹出不同性质的和弦。</p>
-
-      <div class="sv-table-wrap">
-        <table class="sv-table">
-          <thead>
-            <tr>
-              <th>类型</th>
-              <th>构成</th>
-              <th>3 音</th>
-              <th>7 音</th>
-              <th>特点</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Maj7 (大七)</td>
-              <td>R - 3 - 7</td>
-              <td>大三度</td>
-              <td>大七度</td>
-              <td>温暖、梦幻</td>
-            </tr>
-            <tr>
-              <td>7 (属七)</td>
-              <td>R - 3 - b7</td>
-              <td>大三度</td>
-              <td>小七度</td>
-              <td>张力、蓝调感</td>
-            </tr>
-            <tr>
-              <td>m7 (小七)</td>
-              <td>R - b3 - b7</td>
-              <td>小三度</td>
-              <td>小七度</td>
-              <td>柔和、忧郁</td>
-            </tr>
-            <tr>
-              <td>m7b5 (半减七)</td>
-              <td>R - b3 - b7</td>
-              <td>小三度</td>
-              <td>小七度 + b5</td>
-              <td>不稳定、需要解决</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
-      <div style="margin-top:12px;color:var(--text-secondary);font-size:0.9rem;text-align:center;">
-        💡 在指板上，<strong>Maj7 → 7</strong> 只需将七音降半音。<strong>7 → m7</strong> 只需将三音降半音。<br>
-        掌握了规律，一个指型就能弹出三种不同色彩的和弦！
-      </div>
-    </section>
-
-        </section>
-    <section id="sv-fretboard">
-    <!-- Fretboard Positions -->
-    <section class="sv-section">
-      <h2>📊 常用 Shell Voicing 指位表</h2>
-      <p>以下是在 6-5-3-2 弦组上，从 C 到 B 的 12 个属七和弦 Shell Voicing 指位。</p>
-
-      <div class="sv-table-wrap">
-        <table class="sv-table">
-          <thead>
-            <tr>
-              <th>和弦</th>
-              <th>6弦（根音）</th>
-              <th>5弦（3音）</th>
-              <th>3弦（7音）</th>
-              <th>2弦（根音）</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>C7</td><td>8 品</td><td>7 品</td><td>9 品</td><td>8 品</td></tr>
-            <tr><td>D7</td><td>10 品</td><td>9 品</td><td>11 品</td><td>10 品</td></tr>
-            <tr><td>E7</td><td>12 品</td><td>11 品</td><td>13 品</td><td>12 品</td></tr>
-            <tr><td>F7</td><td>1 品</td><td>2 品</td><td>1 品</td><td>1 品</td></tr>
-            <tr><td>G7</td><td>3 品</td><td>4 品</td><td>3 品</td><td>3 品</td></tr>
-            <tr><td>A7</td><td>5 品</td><td>6 品</td><td>5 品</td><td>5 品</td></tr>
-            <tr><td>B7</td><td>7 品</td><td>8 品</td><td>7 品</td><td>7 品</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p style="margin-top:12px;color:var(--text-secondary);font-size:0.9rem;">
-        注意规律：属七 Shell Voicing 在 6-5-3-2 弦组上，3 音和 7 音各差一根弦，
-        形成 <strong>R → 3 → 7 → R</strong> 的声部排列。
-      </p>
-    </section>
-
-        </section>
-    <section id="sv-251">
-    <!-- Practice Section -->
-    <section class="sv-section">
-      <h2>🏋️ 练习计划</h2>
-      <div style="display:grid;grid-template-columns:1fr;gap:16px;">
-        <div class="sv-card">
-          <div class="sv-card-header">
-            <div class="sv-icon" style="background:#e63946;">1</div>
-            <h3>掌握一种弦组</h3>
+      <!-- Shell Voicing Section -->
+      <div class="method-card">
+        <div class="method-header">
+          <h2 class="method-title">🧠 Shell Voicing</h2>
+          <p class="method-subtitle">精简和弦的高效按法</p>
+        </div>
+        <div class="method-content">
+          <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+            Shell Voicing是用最少的音构成最完整的和弦意图。它通常只使用3-4个音，让你在紧凑的把位中快速切换和弦。
+          </p>
+          
+          <div class="concept-grid">
+            <div class="concept-card">
+              <div class="concept-letter">R</div>
+              <div class="concept-name">根音</div>
+              <div class="concept-desc">和弦的基础，决定和弦名称</div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-letter">3</div>
+              <div class="concept-name">3音</div>
+              <div class="concept-desc">决定和弦性质是大还是小</div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-letter">7</div>
+              <div class="concept-name">7音</div>
+              <div class="concept-desc">延伸和弦的层次感</div>
+            </div>
           </div>
-          <p>先选择 6-5-3-2 弦组，在指板上找到 12 个属七和弦的 shell voicing。每天沿着指板弹 C7→B7 循环。</p>
-        </div>
-        <div class="sv-card">
-          <div class="sv-card-header">
-            <div class="sv-icon" style="background:#2ec4b6;">2</div>
-            <h3>四种和弦类型转换</h3>
-          </div>
-          <p>在同一个根音上练习：<strong>Maj7 → 7 → m7 → m7b5</strong> 的转换。感受三音和七音半音变化的音响效果。</p>
-        </div>
-        <div class="sv-card">
-          <div class="sv-card-header">
-            <div class="sv-icon" style="background:#ff9f1c;">3</div>
-            <h3>实战：II-V-I 进行</h3>
-          </div>
-          <p>爵士中最经典的进行。用 Shell Voicing 弹奏所有调式的 <strong>II-7 → V7 → Imaj7</strong>。例如 Dm7 → G7 → Cmaj7。</p>
         </div>
       </div>
-
-      <div class="sv-card" style="margin-top:20px;">
-        <div class="sv-card-header">
-          <div class="sv-icon" style="background:#7b2cbf;">🎯</div>
-          <h3>进阶技巧 Drop 2 & Drop 3</h3>
-        </div>
-        <p>
-          Shell Voicing 之后的下一个进阶是 <strong>Drop 2</strong> 和 <strong>Drop 3</strong> voicing。
-          它们是爵士吉他伴奏的"第二门课"——在 Shell 的基础上把某个音符"下放"一个八度，
-          创造出更开放、更具吉他特点的和弦排列。建议在熟练掌握 Shell Voicing 后再学习。
-        </p>
-      </div>
-    </section>
-
+    </div>
   </div>
 
-  
-    </section>
-<!-- ===== Footer ===== -->
+  <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+    <p>&copy; 2026 吉他学习指南. All rights reserved. 🎸</p>
   </footer>
 
-  <!-- ===== Scripts ===== -->
-  <script src="js/nav.js?v=2"></script>
+  <script src="js/nav.js?v=3"></script>
   <script src="js/fretboard-renderer.js"></script>
   <script>
-    (function () {
-      'use strict';
-
-      var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-      var NOTE_LABELS = { 'C#': 'C♯', 'D#': 'D♯', 'F#': 'F♯', 'G#': 'G♯', 'A#': 'A♯' };
-
-      var currentRoot = 'C';
-      var currentShape = 'E';
-
-      var colorMap = {
-        C: { main: '#e63946', active: '#ff5a67' },
-        A: { main: '#2ec4b6', active: '#50ddd0' },
-        G: { main: '#ff9f1c', active: '#ffb84d' },
-        E: { main: '#7b2cbf', active: '#9a4fe0' },
-        D: { main: '#457b9d', active: '#5a9fc4' }
-      };
-
-      // --- Build root note selector ---
-      function buildRootSelector(containerId, onChange) {
-        var container = document.getElementById(containerId);
-        container.innerHTML = '';
-        ALL_NOTES.forEach(function(note) {
-          var btn = document.createElement('button');
-          btn.className = 'root-btn';
-          btn.textContent = NOTE_LABELS[note] || note;
-          if (note === currentRoot) btn.classList.add('active');
-          btn.addEventListener('click', function() {
-            currentRoot = note;
-            container.querySelectorAll('.root-btn').forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            if (onChange) onChange(note);
-          });
-          container.appendChild(btn);
-        });
-      }
-
-      // --- Build shape selector ---
-      function buildShapeSelector(containerId, onChange) {
-        var container = document.getElementById(containerId);
-        container.innerHTML = '';
-        var shapes = ['C', 'A', 'G', 'E', 'D'];
-        shapes.forEach(function(shape) {
-          var btn = document.createElement('button');
-          btn.className = 'shape-btn';
-          var c = colorMap[shape];
-          btn.style.color = c.main;
-          btn.style.borderColor = c.main;
-          btn.innerHTML = shape + '<span class="shape-sub">型</span>';
-          if (shape === currentShape) btn.classList.add('active');
-          var oldOnChange = onChange;
-          btn.addEventListener('click', function() {
-            currentShape = shape;
-            container.querySelectorAll('.shape-btn').forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            if (oldOnChange) oldOnChange(shape);
-          });
-          container.appendChild(btn);
-        });
-      }
-
-      // --- Render interactive fretboard ---
-      function renderInteractive() {
-        var fbEl = document.getElementById('interactiveFretboard');
-        fbEl.innerHTML = '';
-
-        // Show the single shape in detail from a better starting fret
-        // Calculate where the shape sits
-        var shapeDef = window.CAGED_SHAPES[currentShape];
-        var rootStr = shapeDef.rootStrings[0];
-        var openNote = ['E', 'A', 'D', 'G', 'B', 'E'][rootStr];
-        var rootIdx = ALL_NOTES.indexOf(currentRoot);
-        var openIdx = ALL_NOTES.indexOf(openNote);
-        var rootFret = (rootIdx - openIdx + 12) % 12;
-        var startFret = rootFret === 0 ? 1 : rootFret;
-
-        window.renderFretboard(fbEl, {
-          numFrets: 12,
-          startFret: startFret,
-          cagedShape: currentShape,
-          rootNote: currentRoot,
-          width: 700,
-          height: 220,
-          showLabels: true
-        });
-      }
-
-      // --- Render all CAGED positions overview ---
-      function renderOverview(rootNote) {
-        var c = document.getElementById('cagedOverviewContainer');
-        c.innerHTML = '';
-        window.renderAllCAGEDPositions('cagedOverviewContainer', rootNote, 8);
-      }
-
-      // --- Initialize ---
-      function init() {
-        // Root selectors
-        buildRootSelector('rootSelector', function(note) {
-          document.getElementById('overviewRootSelector').querySelectorAll('.root-btn').forEach(function(b) {
-            b.classList.remove('active');
-            if (ALL_NOTES[Array.from(document.getElementById('overviewRootSelector').children).indexOf(b)] === note) {
-              b.classList.add('active');
-            }
-          });
-          renderInteractive();
-          renderOverview(note);
-        });
-
-        buildRootSelector('overviewRootSelector', function(note) {
-          document.getElementById('rootSelector').querySelectorAll('.root-btn').forEach(function(b) {
-            b.classList.remove('active');
-            if (ALL_NOTES[Array.from(document.getElementById('rootSelector').children).indexOf(b)] === note) {
-              b.classList.add('active');
-            }
-          });
-          currentRoot = note;
-          renderInteractive();
-          renderOverview(note);
-        });
-
-        // Shape selector
-        buildShapeSelector('shapeSelector', function() {
-          renderInteractive();
-        });
-
-        // Sync root selectors
-        var allRootBtns = document.querySelectorAll('.root-btn');
-        allRootBtns.forEach(function(btn, i) {
-          if (ALL_NOTES[i] === currentRoot) {
-            btn.classList.add('active');
-          }
-        });
-
-        // Initial render
-        renderInteractive();
-        renderOverview('C');
-      }
-
-      if (window.CAGED_SHAPES) {
-        init();
-      } else {
-        console.error('Fretboard renderer not loaded');
-      }
-
-    })();
-
-    (function () {
-      'use strict';
-
-      var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-
-      var SHELL_NOTES_COLOR = '#e63946';
-      var ROOT_NOTE_COLOR  = '#ffffff';
-      var THIRD_NOTE_COLOR = '#2ec4b6';
-      var SEVENTH_NOTE_COLOR = '#ff9f1c';
-
-      // --- String group definitions ---
-      // Each group: which strings play which role
-      var STRING_GROUPS = {
-        '6532': {
-          name: '6-5-3-2 弦组',
-          description: '低音厚重，适合左手伴奏',
-          notes: [
-            // {string, fret, label, color, stroke}
-            { string: 0, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
-            { string: 1, fret: 7,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
-            { string: 3, fret: 9,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
-            { string: 4, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
-          ],
-          numFrets: 7,
-          startFret: 5
-        },
-        '6543': {
-          name: '6-5-4-3 弦组',
-          description: '中间区域，均衡明亮',
-          notes: [
-            { string: 0, fret: 8,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
-            { string: 1, fret: 7,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
-            { string: 2, fret: 8,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
-            { string: 3, fret: 7,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
-          ],
-          numFrets: 7,
-          startFret: 5
-        },
-        '5432': {
-          name: '5-4-3-2 弦组',
-          description: '高音区域，适合弹唱',
-          notes: [
-            { string: 1, fret: 3,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true },
-            { string: 2, fret: 2,  label: '3', color: THIRD_NOTE_COLOR, stroke: THIRD_NOTE_COLOR },
-            { string: 3, fret: 3,  label: '7', color: SEVENTH_NOTE_COLOR, stroke: SEVENTH_NOTE_COLOR },
-            { string: 4, fret: 2,  label: 'R', color: ROOT_NOTE_COLOR, stroke: SHELL_NOTES_COLOR, root: true }
-          ],
-          numFrets: 7,
-          startFret: 1
-        }
-      };
-
-      // --- Render a string group ---
-      function renderStringGroup(groupId) {
-        var group = STRING_GROUPS[groupId];
-        var containerId = 'fb-group-' + groupId;
-        var container = document.getElementById(containerId);
-        if (!container) return;
-
-        container.innerHTML = '';
-
-        // Add a title
-        var title = document.createElement('div');
-        title.style.cssText = 'text-align:center;margin-bottom:12px;color:var(--text-secondary);font-size:0.85rem;';
-        title.textContent = '以 C7 为例的 ' + group.name + ' Shell Voicing 指位';
-        container.appendChild(title);
-
-        // Build notes with larger dots for root
-        var customNotes = group.notes.map(function(n) {
-          return {
-            string: n.string,
-            fret: n.fret,
-            label: n.label,
-            color: n.color,
-            stroke: n.stroke,
-            r: n.root ? 10 : 7
-          };
-        });
-
-        // Legend
-        var legend = document.createElement('div');
-        legend.style.cssText = 'display:flex;gap:16px;justify-content:center;margin-bottom:12px;flex-wrap:wrap;';
-        legend.innerHTML =
-          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + ROOT_NOTE_COLOR + ';border:2px solid ' + SHELL_NOTES_COLOR + ';"></span> 根音(R)</span>' +
-          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + THIRD_NOTE_COLOR + ';"></span> 三音(3)</span>' +
-          '<span style="display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--text-secondary);"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + SEVENTH_NOTE_COLOR + ';"></span> 七音(7)</span>';
-        container.appendChild(legend);
-
-        // Render fretboard
-        window.renderFretboard(container, {
-          numFrets: group.numFrets,
-          startFret: group.startFret,
-          notes: customNotes,
-          rootNote: 'C',
-          width: 500,
-          height: 200,
-          showLabels: true,
-          highlightRoots: false
-        });
-
-        // Add note description below
-        var desc = document.createElement('div');
-        desc.style.cssText = 'text-align:center;margin-top:12px;font-size:0.9rem;color:var(--text-secondary);line-height:1.6;';
-
-        var noteLabels = group.notes.map(function(n) {
-          return '<span class="note-highlight">' + n.label + '</span>';
-        }).join(' → ');
-        desc.innerHTML = '声部走向：' + noteLabels;
-        container.appendChild(desc);
-      }
-
-      // --- String group selector ---
-      function initStringGroupSelector() {
-        var btns = document.querySelectorAll('.voicing-type-btn');
-        btns.forEach(function(btn) {
-          btn.addEventListener('click', function() {
-            btns.forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-
-            var group = btn.dataset.group;
-            document.querySelectorAll('.voicing-detail').forEach(function(d) {
-              d.style.display = d.dataset.group === group ? 'block' : 'none';
-            });
-          });
-        });
-      }
-
-      // --- Initialize ---
-      function init() {
-        if (!window.renderFretboard) {
-          console.error('Fretboard renderer not loaded');
-          return;
-        }
-
-        initStringGroupSelector();
-
-        // Render all three string groups
-        renderStringGroup('6532');
-        renderStringGroup('6543');
-        renderStringGroup('5432');
-      }
-
-      if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        init();
-      } else {
-        document.addEventListener('DOMContentLoaded', init);
-      }
-
-    })();
-
-
-    // Side nav scroll spy
     (function() {
-      var sideNav = document.getElementById('sideNav');
-      if (!sideNav) return;
-      var links = sideNav.querySelectorAll('a');
-      var sections = [];
-      links.forEach(function(link) {
-        var target = document.querySelector(link.getAttribute('href'));
-        if (target) sections.push({el: target, link: link});
-      });
-      function onScroll() {
-        var scrollY = window.scrollY + 120;
-        var current = null;
-        sections.forEach(function(s) {
-          if (scrollY >= s.el.offsetTop) current = s;
+      // CAGED shape buttons
+      var shapeBtns = document.querySelectorAll('.shape-btn');
+      shapeBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          shapeBtns.forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
         });
-        links.forEach(function(l) { l.classList.remove('active'); });
-        if (current) current.link.classList.add('active');
-      }
-      window.addEventListener('scroll', onScroll);
-      onScroll();
+      });
     })();
   </script>
 </body>

@@ -3,868 +3,580 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solo教程 | 学吉他</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Solo教程 | 吉他学习指南</title>
+  <meta name="description" content="五声音阶入门到进阶技巧，配备节拍器和练习乐句示例">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    .solo-section {
-      max-width: var(--max-width);
+    .phases-container {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 20px 48px;
+      padding: 0 1.5rem;
     }
-
-    .page-content {
-      padding-top: 64px;
-      min-height: 100vh;
-    }
-
-    .status-message {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    /* --- Phase Indicator --- */
-    .phase-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-
-    /* --- Phase Cards --- */
+    
     .phase-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 32px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1.5rem;
       overflow: hidden;
-      transition: box-shadow var(--transition);
+      transition: var(--transition-normal);
+      backdrop-filter: blur(20px);
     }
-
+    
     .phase-card:hover {
-      box-shadow: var(--shadow-hover);
+      border-color: rgba(255, 107, 53, 0.3);
     }
-
+    
     .phase-header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: var(--transition-fast);
+    }
+    
+    .phase-card.open .phase-header {
+      border-bottom-color: var(--glass-border);
+    }
+    
+    .phase-title-group {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 20px 26px;
-      border-bottom: 1px solid var(--card-border);
-      cursor: pointer;
-      user-select: none;
+      gap: 1rem;
     }
-
-    .phase-header:hover {
-      background: rgba(255,255,255,0.02);
-    }
-
-    .phase-icon {
-      font-size: 1.8rem;
+    
+    .phase-number {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: white;
       flex-shrink: 0;
     }
-
+    
     .phase-title {
-      flex: 1;
       font-size: 1.2rem;
       font-weight: 700;
-      color: var(--text-primary);
     }
-
+    
+    .phase-badge {
+      padding: 0.3rem 0.8rem;
+      background: rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      border-radius: var(--radius-xl);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+    }
+    
     .phase-toggle {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      transition: transform 0.3s;
-      width: 28px;
-      text-align: center;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      transition: transform var(--transition-fast);
     }
-
+    
     .phase-card.open .phase-toggle {
       transform: rotate(180deg);
     }
-
+    
     .phase-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease;
+      transition: max-height var(--transition-slow);
     }
-
+    
     .phase-card.open .phase-body {
       max-height: 8000px;
     }
-
-    .phase-body-inner {
-      padding: 20px 26px;
+    
+    .phase-content {
+      padding: 1.5rem;
     }
-
-    /* --- Section items --- */
+    
     .section-item {
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--glass-border);
     }
-
-    [data-theme="light"] .section-item {
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-    }
-
+    
     .section-item:last-child {
       border-bottom: none;
     }
-
-    .section-heading {
-      font-size: 1.05rem;
+    
+    .section-title {
+      font-size: 1.1rem;
       font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 8px;
+      color: var(--accent-secondary);
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0.5rem;
     }
-
-    .section-heading::before {
-      content: '';
-      display: inline-block;
-      width: 4px;
-      height: 18px;
-      border-radius: 2px;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
+    
     .section-content {
-      font-size: 0.95rem;
       color: var(--text-secondary);
       line-height: 1.8;
-      white-space: pre-line;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
     }
-
-    /* --- Fretboard container inside sections --- */
-    .section-fretboard {
-      margin: 14px 0 8px;
-      background: #0d0d0d;
-      border-radius: 8px;
-      padding: 8px;
+    
+    .fretboard-wrapper {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin: 1rem 0;
       overflow-x: auto;
     }
-
-    .section-fretboard svg {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-
-    .fb-description {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      margin-top: 4px;
+    
+    .fretboard-desc {
       text-align: center;
-      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
     }
-
-    /* --- Practice callout --- */
-    .practice-callout {
-      background: rgba(230,57,70,0.06);
-      border-left: 3px solid var(--accent);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin: 10px 0;
-      font-size: 0.9rem;
-      color: var(--text-primary);
-      line-height: 1.7;
-    }
-
-    .practice-callout strong {
-      color: var(--accent);
-    }
-
-    /* --- Highlight boxes --- */
-    .tip-box {
-      padding: 10px 14px;
-      margin: 8px 0;
-      background: rgba(255,255,255,0.03);
-      border-radius: 6px;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .tip-box strong {
-      color: var(--text-primary);
-    }
-
-    /* --- Practice Mode --- */
+    
+    /* Practice Section */
     .practice-section {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 32px;
-      overflow: hidden;
-      transition: box-shadow var(--transition);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+      backdrop-filter: blur(20px);
     }
-
-    .practice-section:hover {
-      box-shadow: var(--shadow-hover);
-    }
-
+    
     .practice-header {
-      padding: 20px 26px;
-      border-bottom: 1px solid var(--card-border);
+      text-align: center;
+      margin-bottom: 2rem;
     }
-
+    
     .practice-header h2 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
     }
-
-    .practice-body {
-      padding: 20px 26px;
+    
+    .practice-header p {
+      color: var(--text-muted);
     }
-
+    
     .practice-controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 1.5rem;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
     }
-
-    .bpm-group {
+    
+    .bpm-control {
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 10px 16px;
+      gap: 1rem;
+      background: var(--bg-secondary);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-xl);
     }
-
-    .bpm-label {
-      font-size: 0.85rem;
+    
+    .bpm-control label {
+      font-weight: 600;
       color: var(--text-secondary);
-      font-weight: 600;
-      white-space: nowrap;
     }
-
-    .bpm-display {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
-      min-width: 60px;
+    
+    .bpm-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-secondary);
+      min-width: 50px;
       text-align: center;
-      font-variant-numeric: tabular-nums;
     }
-
-    .bpm-slider {
-      width: 120px;
-      accent-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
+    
     .practice-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.9rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--radius-xl);
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
+      transition: var(--transition-fast);
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-
-    .practice-btn:active {
-      transform: scale(0.96);
+    
+    .practice-btn.metronome {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
     }
-
-    .btn-metronome {
-      background: #2d6a4f;
-      color: #fff;
+    
+    .practice-btn.metronome:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
     }
-
-    .btn-metronome.active {
-      background: #e63946;
-      box-shadow: 0 0 12px rgba(230,57,70,0.4);
+    
+    .practice-btn.backing {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
     }
-
-    .btn-metronome:hover {
-      opacity: 0.9;
+    
+    .practice-btn.backing:hover {
+      border-color: var(--accent-primary);
     }
-
-    .btn-backing {
-      background: #457b9d;
-      color: #fff;
-    }
-
-    .btn-backing.active {
-      background: #7b2cbf;
-      box-shadow: 0 0 12px rgba(123,44,191,0.4);
-    }
-
-    .btn-backing:hover {
-      opacity: 0.9;
-    }
-
+    
     .beat-indicator {
       display: flex;
-      gap: 8px;
-      margin: 12px 0;
+      justify-content: center;
+      gap: 12px;
+      margin: 1.5rem 0;
     }
-
+    
     .beat-dot {
-      width: 14px;
-      height: 14px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      transition: background 0.08s;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all var(--transition-fast);
     }
-
-    .beat-dot.active-strong {
-      background: var(--accent);
-      box-shadow: 0 0 8px rgba(230,57,70,0.5);
+    
+    .beat-dot.active {
+      background: var(--gradient-primary);
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.8);
+      transform: scale(1.3);
     }
-
-    .beat-dot.active-weak {
-      background: #2ec4b6;
-      box-shadow: 0 0 6px rgba(46,196,182,0.4);
+    
+    .beat-dot:first-child.active {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff4444 100%);
     }
-
-    /* --- Practice Fretboard --- */
-    .practice-fretboard-section {
-      margin-top: 16px;
+    
+    .lick-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--glass-border);
     }
-
-    .practice-fretboard-section h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin: 0 0 10px 0;
-    }
-
-    .practice-fretboard {
-      margin: 0;
-      background: #0d0d0d;
-      border-radius: 8px;
-      padding: 8px;
-      overflow-x: auto;
-    }
-
-    .practice-fretboard svg {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-
-    .practice-fretboard-desc {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      margin-top: 4px;
+    
+    .lick-section h3 {
       text-align: center;
-      font-style: italic;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
     }
-
-    @media (max-width: 767px) {
-      .solo-section { padding: 0 12px 40px; }
-      .phase-header { padding: 14px 16px; }
-      .phase-body-inner { padding: 14px 16px; }
-      .section-heading { font-size: 0.95rem; }
-      .section-content { font-size: 0.9rem; }
-      .phase-title { font-size: 1.05rem; }
-      .practice-controls { flex-direction: column; align-items: stretch; }
-      .bpm-group { flex-wrap: wrap; }
-      .bpm-slider { width: 100%; }
+    
+    .lick-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .lick-btn {
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .lick-btn:hover {
+      border-color: var(--accent-primary);
+      background: rgba(255, 107, 53, 0.1);
+    }
+    
+    .lick-display {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      min-height: 80px;
+    }
+    
+    @media (max-width: 768px) {
+      .phases-container {
+        padding: 0 1rem;
+      }
+      
+      .practice-section {
+        padding: 1.5rem;
+        margin: 1.5rem 1rem;
+      }
+      
+      .practice-controls {
+        flex-direction: column;
+      }
+      
+      .phase-title {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">🎸 学吉他</a>
-      <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
-      <button class="hamburger" aria-label="菜单">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="nav-links">
-        <a href="index.html">首页</a>
-        <a href="chords.html">和弦库</a>
-        <a href="chord-mastery.html">突破前三品</a>
-        <a href="scales.html">音阶</a>
-        <a href="theory.html">乐理</a>
-        <a href="songs.html">练习曲</a>
-        <a href="roadmap.html">学习路线</a>
-        <a href="solo.html">Solo教程</a>
-      </div>
-    </div>
-  </nav>
-
+  <!-- Page Content -->
   <div class="page-content">
-    <header class="page-header">
-      <h1>🎸 Solo教程</h1>
-      <p>从零开始，分阶段学会弹Solo</p>
-    </header>
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="section-tag">高阶技巧</span>
+      <h1 class="page-title">Solo<span>教程</span></h1>
+      <p class="section-desc">
+        五声音阶入门到进阶技巧，配备节拍器和练习乐句示例
+      </p>
+    </div>
 
-    <div class="solo-section" id="solo-lessons">
+    <!-- Phases Container -->
+    <div class="phases-container" id="phasesContainer">
       <div class="status-message">加载中...</div>
     </div>
-  </div>
 
-  <!-- ============ 🎯 练习模式 ============ -->
-  <div class="solo-section">
+    <!-- Practice Section -->
     <div class="practice-section">
       <div class="practice-header">
         <h2>🎯 练习模式</h2>
+        <p>搭配节拍器练习，掌握稳定节奏感</p>
       </div>
-      <div class="practice-body">
-        <!-- Controls -->
-        <div class="practice-controls">
-          <div class="bpm-group">
-            <span class="bpm-label">BPM</span>
-            <input type="range" class="bpm-slider" id="practice-bpm-slider"
-                   min="40" max="160" step="1" value="70"
-                   aria-label="BPM调节">
-            <span class="bpm-display" id="practice-bpm-display">70</span>
-          </div>
-          <div class="btn-group">
-            <button class="practice-btn btn-metronome" id="practice-btn-metronome">🎵 节拍器</button>
-            <button class="practice-btn btn-backing" id="practice-btn-backing">🎸 背景音</button>
-          </div>
+      
+      <div class="practice-controls">
+        <div class="bpm-control">
+          <label>BPM</label>
+          <input type="range" id="bpmSlider" min="40" max="160" value="70" style="width: 150px;">
+          <span class="bpm-value" id="bpmDisplay">70</span>
         </div>
-
-        <!-- Beat indicator dots -->
-        <div class="beat-indicator" id="practice-beat-indicator">
-          <div class="beat-dot" data-beat="1"></div>
-          <div class="beat-dot" data-beat="2"></div>
-          <div class="beat-dot" data-beat="3"></div>
-          <div class="beat-dot" data-beat="4"></div>
+        <button class="practice-btn metronome" id="btnMetronome">
+          <span>🎵</span> 节拍器
+        </button>
+        <button class="practice-btn backing" id="btnBacking">
+          <span>🎸</span> 背景音
+        </button>
+      </div>
+      
+      <div class="beat-indicator">
+        <div class="beat-dot" data-beat="1"></div>
+        <div class="beat-dot" data-beat="2"></div>
+        <div class="beat-dot" data-beat="3"></div>
+        <div class="beat-dot" data-beat="4"></div>
+      </div>
+      
+      <div class="fretboard-wrapper">
+        <div id="practiceFretboard"></div>
+        <div class="fretboard-desc">E小调五声音阶 Pattern 1 指板图</div>
+      </div>
+      
+      <div class="lick-section">
+        <h3>🎵 五声音阶乐句示例</h3>
+        <div class="lick-buttons">
+          <button class="lick-btn" data-lick="1">乐句 1 上行</button>
+          <button class="lick-btn" data-lick="2">乐句 2 下行</button>
+          <button class="lick-btn" data-lick="3">乐句 3 跳跃</button>
+          <button class="lick-btn" data-lick="4">乐句 4 锤勾</button>
         </div>
-
-        <!-- Practice Fretboard -->
-        <div class="practice-fretboard-section">
-          <h3>🎸 E小调五声音阶 — Pattern 1 指板图</h3>
-          <div class="practice-fretboard" id="practice-fretboard"></div>
-          <div class="practice-fretboard-desc">E小调五声音阶第一把位（根音 E），圆点为可演奏的音符</div>
-        </div>
-
-        <!-- Example Licks Player -->
-        <div class="practice-fretboard-section" style="margin-top:20px;">
-          <h3>🎵 五声音阶乐句示例</h3>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-            <button class="practice-btn btn-backing" data-lick="1" style="flex:1;min-width:120px;">乐句 1 上行</button>
-            <button class="practice-btn btn-backing" data-lick="2" style="flex:1;min-width:120px;">乐句 2 下行</button>
-            <button class="practice-btn btn-backing" data-lick="3" style="flex:1;min-width:120px;">乐句 3 跳跃</button>
-            <button class="practice-btn btn-backing" data-lick="4" style="flex:1;min-width:120px;">乐句 4 锤勾</button>
-          </div>
-          <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:8px;background:rgba(255,255,255,0.03);border-radius:8px;padding:10px 14px;font-family:var(--font-mono,'Courier New',monospace);font-size:13px;line-height:1.5;white-space:pre-wrap;" id="lick-display">点击上方按钮播放乐句</div>
-        </div>
+        <div class="lick-display" id="lickDisplay">点击上方按钮播放乐句</div>
       </div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+    <p>&copy; 2026 吉他学习指南. All rights reserved. 🎸</p>
   </footer>
 
-  <script src="js/nav.js?v=2"></script>
+  <script src="js/nav.js?v=3"></script>
   <script src="js/fretboard-renderer.js"></script>
   <script>
-    (function () {
-      'use strict';
-
-      var container = document.getElementById('solo-lessons');
-
-      // Phase badge colors
-      var PHASE_COLORS = [
-        '#2d6a4f',
-        '#457b9d',
-        '#c8960a',
-        '#e63946',
-        '#7b2d8b'
-      ];
-
-      // --- Load data ---
+    (function() {
+      // Load phases data
+      var container = document.getElementById('phasesContainer');
       var xhr = new XMLHttpRequest();
       xhr.open('GET', 'data/solo.json', true);
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           try {
             var data = JSON.parse(xhr.responseText);
-            if (data.soloLessons && data.soloLessons.length) {
-              renderPhases(data.soloLessons);
-            } else {
-              container.innerHTML = '<div class="status-message">暂无Solo教程内容</div>';
-            }
+            renderPhases(data.soloLessons || []);
           } catch (e) {
-            container.innerHTML = '<div class="status-message">数据加载失败</div>';
+            container.innerHTML = '<div class="status-message">无法加载教程数据</div>';
           }
         }
       };
       xhr.send();
 
-      // --- Render all phases ---
       function renderPhases(phases) {
+        if (!phases.length) {
+          container.innerHTML = '<div class="status-message">暂无数据</div>';
+          return;
+        }
+
         container.innerHTML = '';
+        phases.forEach(function(phase, index) {
+          var card = createPhaseCard(phase, index);
+          container.appendChild(card);
+        });
+      }
 
-        phases.forEach(function (phase, pIdx) {
-          var card = document.createElement('div');
-          card.className = 'phase-card';
+      function createPhaseCard(phase, index) {
+        var card = document.createElement('div');
+        card.className = 'phase-card';
+        if (index === 0) card.classList.add('open');
 
-          var badgeBg = PHASE_COLORS[pIdx % PHASE_COLORS.length];
+        var sectionsHtml = (phase.sections || []).map(function(section) {
+          var fretboardHtml = '';
+          if (section.fretboard) {
+            fretboardHtml = '<div class="fretboard-wrapper"><div id="fretboard-' + index + '-' + section.heading.replace(/\s+/g, '') + '"></div></div>';
+          }
+          
+          return '<div class="section-item">' +
+            '<div class="section-title">' + escapeHtml(section.heading) + '</div>' +
+            '<div class="section-content">' + escapeHtml(section.content).replace(/\n/g, '<br>') + '</div>' +
+            fretboardHtml +
+          '</div>';
+        }).join('');
 
-          // Header (clickable accordion)
-          var header = document.createElement('div');
-          header.className = 'phase-header';
-          header.innerHTML =
-            '<span class="phase-icon">' + (phase.emoji || '📖') + '</span>' +
-            '<div>' +
-              '<div class="phase-badge" style="background:' + badgeBg + ';">' + escapeHtml(phase.phase || '') + '</div>' +
-              '<div class="phase-title">' + escapeHtml(phase.id ? phase.id.replace('phase', '第') + '阶段' : '') + '</div>' +
+        card.innerHTML = 
+          '<div class="phase-header">' +
+            '<div class="phase-title-group">' +
+              '<div class="phase-number">' + (index + 1) + '</div>' +
+              '<div>' +
+                '<div class="phase-title">' + escapeHtml(phase.phase) + '</div>' +
+              '</div>' +
             '</div>' +
-            '<span class="phase-toggle">▼</span>';
-          card.appendChild(header);
+            '<div class="phase-toggle">▼</div>' +
+          '</div>' +
+          '<div class="phase-body">' +
+            '<div class="phase-content">' + sectionsHtml + '</div>' +
+          '</div>';
 
-          // Body
-          var body = document.createElement('div');
-          body.className = 'phase-body';
-
-          var inner = document.createElement('div');
-          inner.className = 'phase-body-inner';
-
-          if (phase.sections) {
-            phase.sections.forEach(function (section, sIdx) {
-              var item = document.createElement('div');
-              item.className = 'section-item';
-
-              var heading = document.createElement('div');
-              heading.className = 'section-heading';
-              heading.textContent = section.heading;
-              item.appendChild(heading);
-
-              var content = document.createElement('div');
-              content.className = 'section-content';
-              content.textContent = section.content;
-              item.appendChild(content);
-
-              // Render fretboard if specified
-              if (section.fretboard && window.renderFretboard) {
-                var fbContainer = document.createElement('div');
-                fbContainer.className = 'section-fretboard';
-                fbContainer.id = 'fb-solo-' + pIdx + '-' + sIdx;
-
-                // Wait for DOM, then render
-                setTimeout((function (fbId, fbData) {
-                  return function () {
-                    renderFretboardForSection(fbId, fbData);
-                  };
-                })(fbContainer.id, section.fretboard), 50);
-
-                item.appendChild(fbContainer);
-
-                if (section.fretboard.description) {
-                  var desc = document.createElement('div');
-                  desc.className = 'fb-description';
-                  desc.textContent = section.fretboard.description;
-                  item.appendChild(desc);
-                }
+        card.querySelector('.phase-header').addEventListener('click', function() {
+          card.classList.toggle('open');
+          
+          // Render fretboards if expanding
+          if (card.classList.contains('open') && phase.sections) {
+            phase.sections.forEach(function(section) {
+              if (section.fretboard) {
+                var id = 'fretboard-' + index + '-' + section.heading.replace(/\s+/g, '');
+                renderSectionFretboard(section.fretboard, id);
               }
-
-              inner.appendChild(item);
             });
           }
-
-          body.appendChild(inner);
-          card.appendChild(body);
-          container.appendChild(card);
-
-          // Click to toggle
-          header.addEventListener('click', function () {
-            card.classList.toggle('open');
-          });
         });
 
-        // Open first phase by default
-        var firstCard = container.querySelector('.phase-card');
-        if (firstCard) {
-          firstCard.classList.add('open');
-        }
+        return card;
       }
 
-      // --- Render fretboard based on data type ---
-      function renderFretboardForSection(containerId, fbData) {
-        var el = document.getElementById(containerId);
-        if (!el || !fbData) return;
-
-        if (fbData.type === 'caged' && window.renderFretboard) {
-          window.renderFretboard(el, {
-            numFrets: fbData.numFrets || 5,
-            startFret: fbData.startFret || 0,
-            cagedShape: fbData.cagedShape || 'E',
-            rootNote: fbData.rootNote || 'E',
-            showLabels: fbData.showLabels !== false,
-            width: 600,
-            height: 200,
-            highlightRoots: true
-          });
-        } else if (fbData.type === 'full' && fbData.notes && window.renderFretboard) {
-          window.renderFretboard(el, {
-            numFrets: fbData.numFrets || 12,
-            startFret: fbData.startFret || 0,
-            showLabels: true,
-            notes: fbData.notes,
-            width: 680,
-            height: 220
-          });
-        }
+      function renderSectionFretboard(config, containerId) {
+        var container = document.getElementById(containerId);
+        if (!container || !window.renderFretboard) return;
+        
+        window.renderFretboard(container, {
+          numFrets: config.numFrets || 5,
+          startFret: config.startFret || 0,
+          showLabels: true,
+          notes: config.notes || [],
+          width: container.offsetWidth,
+          height: 180
+        });
       }
 
-      function escapeHtml(str) {
-        var d = document.createElement('div');
-        d.appendChild(document.createTextNode(str));
-        return d.innerHTML;
+      function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
       }
 
-    })();
-
-    // ============ 🎯 Practice Mode ============
-    (function () {
-      'use strict';
-
-      // --- DOM refs ---
-      var bpmSlider = document.getElementById('practice-bpm-slider');
-      var bpmDisplay = document.getElementById('practice-bpm-display');
-      var btnMetronome = document.getElementById('practice-btn-metronome');
-      var btnBacking = document.getElementById('practice-btn-backing');
-      var beatDots = document.querySelectorAll('#practice-beat-indicator .beat-dot');
-
-      // --- State ---
-      var bpm = 70;
+      // Metronome and Practice Mode
+      var bpmSlider = document.getElementById('bpmSlider');
+      var bpmDisplay = document.getElementById('bpmDisplay');
+      var btnMetronome = document.getElementById('btnMetronome');
+      var btnBacking = document.getElementById('btnBacking');
+      var beatDots = document.querySelectorAll('.beat-dot');
+      var lickDisplay = document.getElementById('lickDisplay');
+      
       var metronomeRunning = false;
-      var backingRunning = false;
       var metronomeTimer = null;
-      var currentBeat = 0; // 0-3
-
-      // --- Audio ---
+      var currentBeat = 0;
       var audioCtx = null;
 
-      function getAudioCtx() {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        return audioCtx;
-      }
-
-      // --- Metronome click ---
-      function playClick(beat) {
-        try {
-          var ctx = getAudioCtx();
-          var osc = ctx.createOscillator();
-          var gain = ctx.createGain();
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          var freq = (beat === 0) ? 800 : 500; // 强拍800Hz, 弱拍500Hz
-          osc.frequency.setValueAtTime(freq, ctx.currentTime);
-          osc.type = 'sine';
-
-          gain.gain.setValueAtTime(0.3, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.08);
-        } catch (e) {
-          // Silently fail
-        }
-      }
-
-      // --- Beat indicator ---
-      function updateBeatIndicator(beat) {
-        beatDots.forEach(function (dot, i) {
-          dot.className = 'beat-dot';
-          if (i === beat) {
-            dot.classList.add((i === 0) ? 'active-strong' : 'active-weak');
-          }
-        });
-      }
-
-      function clearBeatIndicator() {
-        beatDots.forEach(function (dot) {
-          dot.className = 'beat-dot';
-        });
-      }
-
-      // --- Metronome loop ---
-      function startMetronome() {
-        if (metronomeTimer) return;
-        bpm = parseInt(bpmSlider.value, 10) || 70;
-        currentBeat = 0;
-        var intervalMs = Math.round(60000 / bpm);
-
-        // Play first beat immediately
-        playClick(0);
-        updateBeatIndicator(0);
-
-        metronomeTimer = setInterval(function () {
-          currentBeat = (currentBeat + 1) % 4;
-          playClick(currentBeat);
-          updateBeatIndicator(currentBeat);
-        }, intervalMs);
-
-        metronomeRunning = true;
-        btnMetronome.textContent = '⏹ 停止节拍器';
-        btnMetronome.classList.add('active');
-      }
-
-      function stopMetronome() {
-        if (metronomeTimer) {
-          clearInterval(metronomeTimer);
-          metronomeTimer = null;
-        }
-        metronomeRunning = false;
-        clearBeatIndicator();
-        btnMetronome.textContent = '🎵 节拍器';
-        btnMetronome.classList.remove('active');
-      }
-
-      function toggleMetronome() {
+      bpmSlider.addEventListener('input', function() {
+        bpmDisplay.textContent = this.value;
         if (metronomeRunning) {
-          stopMetronome();
-        } else {
-          startMetronome();
-        }
-      }
-
-      // --- BPM slider ---
-      bpmSlider.addEventListener('input', function () {
-        bpm = parseInt(this.value, 10) || 70;
-        bpmDisplay.textContent = bpm;
-        if (metronomeRunning) {
-          // Restart metronome with new BPM
           stopMetronome();
           startMetronome();
         }
       });
 
-      // --- Metronome button ---
-      btnMetronome.addEventListener('click', toggleMetronome);
-
-      // --- Backing track (简单背景音) ---
-      var backingOscillators = [];
-      var backingGain = null;
-
-      function startBacking() {
-        try {
-          var ctx = getAudioCtx();
-
-          // Create a gentle drone/chord backing using multiple oscillators
-          var baseFreq = 82.41; // Low E (E2)
-          var chordFreqs = [
-            baseFreq,          // E (root)
-            baseFreq * 6/5,    // G (♭3) — minor third
-            baseFreq * 3/2,    // B (5th)
-            baseFreq * 2       // E (octave)
-          ];
-
-          backingGain = ctx.createGain();
-          backingGain.gain.setValueAtTime(0.08, ctx.currentTime);
-          backingGain.connect(ctx.destination);
-
-          chordFreqs.forEach(function (freq) {
-            var osc = ctx.createOscillator();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(freq, ctx.currentTime);
-            var oscGain = ctx.createGain();
-            // Slight volume variation for warmth
-            oscGain.gain.setValueAtTime(0.6 + Math.random() * 0.2, ctx.currentTime);
-            osc.connect(oscGain);
-            oscGain.connect(backingGain);
-            osc.start();
-            backingOscillators.push(osc);
-          });
-
-          backingRunning = true;
-          btnBacking.textContent = '⏹ 停止背景音';
-          btnBacking.classList.add('active');
-        } catch (e) {
-          console.warn('Backing track error:', e);
-        }
-      }
-
-      function stopBacking() {
-        backingOscillators.forEach(function (osc) {
-          try { osc.stop(); } catch (e) {}
-        });
-        backingOscillators = [];
-        backingRunning = false;
-        btnBacking.textContent = '🎸 背景音';
-        btnBacking.classList.remove('active');
-      }
-
-      function toggleBacking() {
-        if (backingRunning) {
-          stopBacking();
+      btnMetronome.addEventListener('click', function() {
+        if (metronomeRunning) {
+          stopMetronome();
         } else {
-          startBacking();
+          startMetronome();
         }
+      });
+
+      function startMetronome() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        var bpm = parseInt(bpmSlider.value);
+        var interval = 60000 / bpm;
+        
+        metronomeRunning = true;
+        btnMetronome.innerHTML = '<span>⏹</span> 停止';
+        
+        playClick();
+        
+        metronomeTimer = setInterval(function() {
+          currentBeat = (currentBeat + 1) % 4;
+          playClick();
+        }, interval);
       }
 
-      btnBacking.addEventListener('click', toggleBacking);
+      function stopMetronome() {
+        metronomeRunning = false;
+        btnMetronome.innerHTML = '<span>🎵</span> 节拍器';
+        clearInterval(metronomeTimer);
+        metronomeTimer = null;
+        beatDots.forEach(function(dot) { dot.classList.remove('active'); });
+      }
 
-      // --- Render practice fretboard (E minor pentatonic pattern 1) ---
-      function renderPracticeFretboard() {
-        var el = document.getElementById('practice-fretboard');
-        if (!el || !window.renderFretboard) return;
-
-        // E minor pentatonic notes: E, G, A, B, D
-        // Pattern 1 (open position, starting from fret 0)
-        var eminPentNotes = [
-          { string: 0, fret: 0,  label: 'R', color: '#e63946', stroke: '#ff6b7a' },
-          { string: 0, fret: 3,  label: '♭3', color: '#3a3a3a', stroke: '#666' },
-          { string: 1, fret: 0,  label: '4', color: '#3a3a3a', stroke: '#666' },
-          { string: 1, fret: 2,  label: '5', color: '#3a3a3a', stroke: '#666' },
-          { string: 2, fret: 0,  label: '♭7', color: '#3a3a3a', stroke: '#666' },
-          { string: 2, fret: 2,  label: 'R', color: '#e63946', stroke: '#ff6b7a' },
-          { string: 3, fret: 0,  label: '♭3', color: '#3a3a3a', stroke: '#666' },
-          { string: 3, fret: 2,  label: '4', color: '#3a3a3a', stroke: '#666' },
-          { string: 4, fret: 1,  label: '5', color: '#3a3a3a', stroke: '#666' },
-          { string: 4, fret: 3,  label: '♭7', color: '#3a3a3a', stroke: '#666' },
-          { string: 5, fret: 0,  label: 'R', color: '#e63946', stroke: '#ff6b7a' },
-          { string: 5, fret: 3,  label: '♭3', color: '#3a3a3a', stroke: '#666' }
-        ];
-
-        window.renderFretboard(el, {
-          numFrets: 4,
-          startFret: 0,
-          showLabels: true,
-          notes: eminPentNotes,
-          width: 600,
-          height: 200
+      function playClick() {
+        beatDots.forEach(function(dot, i) {
+          dot.classList.toggle('active', i === currentBeat);
         });
+        
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.value = currentBeat === 0 ? 1000 : 800;
+        
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
       }
 
-      // --- Init ---
-      // Render practice fretboard after DOM ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', renderPracticeFretboard);
-      } else {
-        renderPracticeFretboard();
-      }
-
-      // --- Lick Player ---
+      // Lick Player
       var LICKS = {
         1: { name: '上行音阶', notes: [[0,0],[0,3],[1,0],[1,2],[2,0],[2,2],[3,0],[3,2],[4,1],[4,3],[5,0],[5,3]] },
         2: { name: '下行音阶', notes: [[5,3],[5,0],[4,3],[4,1],[3,2],[3,0],[2,2],[2,0],[1,2],[1,0],[0,3],[0,0]] },
@@ -872,71 +584,82 @@
         4: { name: '锤勾弦组合', notes: [[0,0],[0,3],[0,0],[1,0],[1,2],[1,0],[2,0],[2,2],[2,0],[3,0],[3,2],[3,0]] }
       };
 
-      var LICK_DISPLAY = {
-        1: '6弦0品E → 6弦3品G → 5弦0品A → 5弦2品B → 4弦0品D → 4弦2品E → 3弦0品G → 3弦2品A → 2弦1品B → 2弦3品D → 1弦0品E → 1弦3品G',
-        2: '1弦3品G → 1弦0品E → 2弦3品D → 2弦1品B → 3弦2品A → 3弦0品G → 4弦2品E → 4弦0品D → 5弦2品B → 5弦0品A → 6弦3品G → 6弦0品E',
-        3: '6弦0品E → 4弦2品E → 5弦0品A → 3弦2品A → 6弦3品G → 2弦1品B → 5弦2品B → 1弦0品E',
-        4: 'E锤G勾E → A锤B勾A → D锤E勾D → G锤A勾G'
-      };
-
-      var lickAudioCtx = null;
-      var lickTimer = null;
-      var lickPlaying = false;
-
-      function getFreq(stringIdx, fret) {
-        var tuning = ['E', 'A', 'D', 'G', 'B', 'E'];
-        var allNotes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-        var open = tuning[stringIdx];
-        var idx = allNotes.indexOf(open);
-        var noteIdx = (idx + fret) % 12;
-        var octave = Math.floor((idx + fret) / 12);
-        var midi = 12 + noteIdx + octave * 12;
-        if (stringIdx <= 1) midi -= 12;
-        return 440 * Math.pow(2, (midi - 69) / 12);
-      }
-
-      document.querySelectorAll('[data-lick]').forEach(function(btn) {
+      document.querySelectorAll('.lick-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var lickId = this.dataset.lick;
           var lick = LICKS[lickId];
           if (!lick) return;
-
-          // Stop previous
-          if (lickTimer) { clearTimeout(lickTimer); lickTimer = null; }
-          if (lickAudioCtx) { lickAudioCtx.close(); lickAudioCtx = null; }
-          lickPlaying = false;
-
-          var display = document.getElementById('lick-display');
-          display.textContent = '▶ 播放: ' + lick.name + '\n' + (LICK_DISPLAY[lickId] || '');
-
-          lickAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          lickPlaying = true;
-
-          var bpm = 90;
-          var dur = 60000 / bpm;
-
-          lick.notes.forEach(function(n, idx) {
-            lickTimer = setTimeout(function() {
-              try {
-                var osc = lickAudioCtx.createOscillator();
-                var gain = lickAudioCtx.createGain();
-                if (lickAudioCtx.state === 'suspended') lickAudioCtx.resume();
-                osc.type = 'triangle';
-                osc.frequency.value = getFreq(n[0], n[1]);
-                gain.gain.setValueAtTime(0.25, lickAudioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, lickAudioCtx.currentTime + 0.25);
-                osc.connect(gain);
-                gain.connect(lickAudioCtx.destination);
-                osc.start();
-                osc.stop(lickAudioCtx.currentTime + 0.25);
-              } catch(e) {}
-            }, idx * dur);
+          
+          if (metronomeTimer) stopMetronome();
+          
+          lickDisplay.textContent = '▶ 播放: ' + lick.name + '\n' + 
+            lick.notes.map(function(n) {
+              var strings = ['6弦','5弦','4弦','3弦','2弦','1弦'];
+              var notes = ['E','F','F#','G','G#','A','A#','B','C','C#','D','D#'];
+              var string = strings[n[0]];
+              var fret = n[1];
+              var note = notes[(['E','A','D','G','B','E'].indexOf(['E','A','D','G','B','E'][n[0]]) + fret) % 12];
+              return string + fret + '品(' + note + ')';
+            }).join(' → ');
+          
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          
+          var dur = 60000 / 90;
+          lick.notes.forEach(function(n, i) {
+            setTimeout(function() {
+              var osc = audioCtx.createOscillator();
+              var gain = audioCtx.createGain();
+              osc.type = 'triangle';
+              
+              var freqs = [82.41, 110.00, 146.83, 196.00, 246.94, 329.63];
+              osc.frequency.value = freqs[n[0]] * Math.pow(2, n[1]/12);
+              
+              gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.start();
+              osc.stop(audioCtx.currentTime + 0.25);
+            }, i * dur);
           });
         });
       });
 
+      // Render practice fretboard
+      function renderPracticeFretboard() {
+        var el = document.getElementById('practiceFretboard');
+        if (!el || !window.renderFretboard) return;
+        
+        window.renderFretboard(el, {
+          numFrets: 4,
+          startFret: 0,
+          showLabels: true,
+          notes: [
+            { string: 0, fret: 0, label: 'R', color: '#e63946' },
+            { string: 0, fret: 3, label: '♭3', color: '#457b9d' },
+            { string: 1, fret: 0, label: '4', color: '#2ec4b6' },
+            { string: 1, fret: 2, label: '5', color: '#ff9f1c' },
+            { string: 2, fret: 0, label: '♭7', color: '#7b2cbf' },
+            { string: 2, fret: 2, label: 'R', color: '#e63946' },
+            { string: 3, fret: 0, label: '♭3', color: '#457b9d' },
+            { string: 3, fret: 2, label: '4', color: '#2ec4b6' },
+            { string: 4, fret: 1, label: '5', color: '#ff9f1c' },
+            { string: 4, fret: 3, label: '♭7', color: '#7b2cbf' },
+            { string: 5, fret: 0, label: 'R', color: '#e63946' },
+            { string: 5, fret: 3, label: '♭3', color: '#457b9d' }
+          ],
+          width: el.offsetWidth,
+          height: 180
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderPracticeFretboard);
+      } else {
+        renderPracticeFretboard();
+      }
     })();
   </script>
-
 </body>
 </html>

@@ -3,237 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学吉他 | 从零开始的吉他学习之旅</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>吉他学习指南 - 从零开始学吉他</title>
+  <meta name="description" content="系统化吉他学习教程，涵盖和弦、音阶、乐理、Solo等全方位内容">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- ===== Navigation ===== -->
-  <nav class="navbar">
-    <div class="container">
-      <a href="index.html" class="logo">🎸 学吉他</a>
-            <button class="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
-      <button class="hamburger" aria-label="菜单">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links">
-        <a href="index.html">首页</a>
-        <a href="chords.html">和弦库</a>
-        <a href="chord-mastery.html">突破前三品</a>
-        <a href="scales.html">音阶</a>
-        <a href="theory.html">乐理</a>
-        <a href="songs.html">练习曲</a>
-        <a href="roadmap.html">学习路线</a>
-        <a href="solo.html">Solo教程</a>
-      </div>
-    </div>
-  </nav>
-
-    <!-- ===== Hero Section ===== -->
+  <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">🎸 学吉他</h1>
-      <p class="hero-subtitle">从零开始，轻松入门</p>
-      <p class="hero-description">
-        系统化的吉他学习路线，从和弦、音阶到乐理和练习曲，<br>
-        带你一步步掌握这门美妙的乐器。
-      </p>
+    <div class="hero-badge">
+      <span>🎯</span> 适合新手的系统化教程
+    </div>
+    <h1 class="hero-title">
+      开始你的<br>
+      <span>吉他之旅</span>
+    </h1>
+    <p class="hero-subtitle">
+      从第一个和弦到第一段Solo，这里有你需要的全部知识。系统化学习路径，让你的练习事半功倍。
+    </p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+      <a href="roadmap.html" class="btn btn-primary">
+        <span>🚀</span> 开始学习
+      </a>
+      <a href="chords.html" class="btn btn-secondary">
+        <span>🎵</span> 浏览和弦库
+      </a>
     </div>
   </section>
 
-  <style>
-    /* --- Learning Path Guide --- */
-    .path-guide {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 40px 20px 20px;
-    }
-
-    .path-guide-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .path-steps {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .path-step {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      position: relative;
-    }
-
-    .path-step:last-child {
-      border-bottom: none;
-    }
-
-    .ps-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .ps-content {
-      flex: 1;
-    }
-
-    .ps-name {
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
-    .ps-name a {
-      color: var(--text-primary);
-      text-decoration: none;
-    }
-
-    .ps-name a:hover {
-      color: var(--accent);
-    }
-
-    .ps-desc {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
-    }
-
-    .ps-arrow {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-  </style>
-
-    <!-- ===== Learning Path Quick Guide ===== -->
-    <div class="path-guide">
-      <h2 class="path-guide-title">🗺️ 推荐学习顺序</h2>
-      <div class="path-steps">
-        <div class="path-step">
-          <div class="ps-num">1</div>
-          <div class="ps-content">
-            <div class="ps-name"><a href="theory.html">乐理基础</a></div>
-            <div class="ps-desc">认识吉他、音符、指板</div>
-          </div>
-          <div class="ps-arrow">→</div>
-        </div>
-        <div class="path-step">
-          <div class="ps-num">2</div>
-          <div class="ps-content">
-            <div class="ps-name"><a href="chords.html">和弦库</a></div>
-            <div class="ps-desc">掌握 24 个常用和弦</div>
-          </div>
-          <div class="ps-arrow">→</div>
-        </div>
-        <div class="path-step">
-          <div class="ps-num">3</div>
-          <div class="ps-content">
-            <div class="ps-name"><a href="scales.html">音阶练习</a></div>
-            <div class="ps-desc">C大调 + 五声音阶</div>
-          </div>
-          <div class="ps-arrow">→</div>
-        </div>
-        <div class="path-step">
-          <div class="ps-num">4</div>
-          <div class="ps-content">
-            <div class="ps-name"><a href="songs.html">练习曲目</a></div>
-            <div class="ps-desc">在歌曲中实战应用</div>
-          </div>
-          <div class="ps-arrow">→</div>
-        </div>
-        <div class="path-step">
-          <div class="ps-num">5</div>
-          <div class="ps-content">
-            <div class="ps-name"><a href="chord-mastery.html">突破前三品</a></div>
-            <div class="ps-desc">CAGED + Shell Voicing</div>
-          </div>
-          <div class="ps-arrow">→</div>
-        </div>
-        <div class="path-step">
-          <div class="ps-num">6</div>
-          <div class="ps-content">
-            <div class="ps-name"><a href="solo.html">Solo教程</a></div>
-            <div class="ps-desc">分阶段学弹独奏</div>
-          </div>
-          <div class="ps-step-end"></div>
-        </div>
-      </div>
+  <!-- Features Section -->
+  <section class="section" style="margin-top: -4rem;">
+    <div class="section-header">
+      <span class="section-tag">完整课程体系</span>
+      <h2 class="section-title">
+        八大模块 <span>全方位覆盖</span>
+      </h2>
+      <p class="section-desc">
+        从基础到进阶，每一个阶段都有明确的学习目标和练习内容
+      </p>
     </div>
 
-    <!-- ===== Feature Cards ===== -->
-  <div class="cards-grid">
-    <a href="roadmap.html" class="card card-link">
-      <span class="card-icon">📋</span>
-      <h3>学习路线</h3>
-      <p>系统化的学习路径</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-    <a href="chords.html" class="card card-link">
-      <span class="card-icon">🎵</span>
-      <h3>和弦库</h3>
-      <p>掌握常用和弦</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-    <a href="scales.html" class="card card-link">
-      <span class="card-icon">🎼</span>
-      <h3>音阶</h3>
-      <p>探索指板奥秘</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-    <a href="theory.html" class="card card-link">
-      <span class="card-icon">📖</span>
-      <h3>乐理</h3>
-      <p>理解音乐语言</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-    <a href="songs.html" class="card card-link">
-      <span class="card-icon">🎶</span>
-      <h3>练习曲</h3>
-      <p>边学边弹</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-    <a href="caged.html" class="card card-link">
-      <span class="card-icon">🎯</span>
-      <h3>CAGED系统</h3>
-      <p>5个形状破解整个指板</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-    <a href="shell-voicing.html" class="card card-link">
-      <span class="card-icon">🎼</span>
-      <h3>Shell Voicing</h3>
-      <p>和弦进阶：精简而优雅</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-    <a href="solo.html" class="card card-link">
-      <span class="card-icon">🎸</span>
-      <h3>Solo教程</h3>
-      <p>从零学弹Solo</p>
-      <span class="card-arrow">开始学习 →</span>
-    </a>
-  </div>
+    <div class="features-grid">
+      <!-- Chords -->
+      <a href="chords.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">🎵</div>
+        <h3 class="feature-title">和弦库</h3>
+        <p class="feature-desc">常用24个和弦的按法、音组成和指板位置，支持分类筛选和交互式指板图</p>
+        <span class="badge badge-primary" style="margin-top: 1rem;">入门必学</span>
+      </a>
 
-  <!-- ===== Footer ===== -->
+      <!-- CAGED -->
+      <a href="chord-mastery.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">💎</div>
+        <h3 class="feature-title">突破前三品</h3>
+        <p class="feature-desc">CAGED系统和Shell Voicing，让你在指板上自由移动，不再受限于前三品</p>
+        <span class="badge badge-primary" style="margin-top: 1rem;">进阶必看</span>
+      </a>
+
+      <!-- Scales -->
+      <a href="scales.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">🌠</div>
+        <h3 class="feature-title">音阶图</h3>
+        <p class="feature-desc">五声、自然、和声小调等常用音阶，配合音频播放功能，可视化指板图</p>
+        <span class="badge badge-primary" style="margin-top: 1rem;">基础内容</span>
+      </a>
+
+      <!-- Theory -->
+      <a href="theory.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">📖</div>
+        <h3 class="feature-title">乐理知识</h3>
+        <p class="feature-desc">从基础概念到高级和弦理论，包含交互式和弦构建器</p>
+        <span class="badge badge-primary" style="margin-top: 1rem;">理论基础</span>
+      </a>
+
+      <!-- Songs -->
+      <a href="songs.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">🎤</div>
+        <h3 class="feature-title">练习曲目</h3>
+        <p class="feature-desc">经典流行歌曲的和弦谱和六线谱，分级练习，满足不同水平需求</p>
+        <span class="badge badge-primary" style="margin-top: 1rem;">实践应用</span>
+      </a>
+
+      <!-- Solo -->
+      <a href="solo.html" class="feature-card" style="text-decoration: none; color: inherit;">
+        <div class="feature-icon">🎸</div>
+        <h3 class="feature-title">Solo教程</h3>
+        <p class="feature-desc">五声音阶入门到进阶技巧，配备节拍器和练习乐句示例</p>
+        <span class="badge badge-primary" style="margin-top: 1rem;">高阶技巧</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Learning Path Section -->
+  <section class="section" style="background: linear-gradient(180deg, transparent 0%, rgba(255,107,53,0.05) 50%, transparent 100%);">
+    <div class="section-header">
+      <span class="section-tag">推荐路线</span>
+      <h2 class="section-title">
+        从零到 <span>Solo</span> 的完整路径
+      </h2>
+      <p class="section-desc">
+        循序渐进的六步学习法，让你稳扎稳打掌握吉他技术
+      </p>
+    </div>
+
+    <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
+      <div style="display: flex; flex-direction: column; gap: 0;">
+        <!-- Step 1 -->
+        <div style="display: flex; gap: 1.5rem; padding: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+          <div style="flex-shrink: 0; width: 48px; height: 48px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">1</div>
+          <div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;">第一周：和弦基础</h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">学习C、G、Am、F等基础和弦，掌握基本扫弦节奏</p>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div style="display: flex; gap: 1.5rem; padding: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+          <div style="flex-shrink: 0; width: 48px; height: 48px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">2</div>
+          <div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;">第二周：简单歌曲弹唱</h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">用已学和弦弹唱简单民谣，练习和弦转换流畅度</p>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div style="display: flex; gap: 1.5rem; padding: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+          <div style="flex-shrink: 0; width: 48px; height: 48px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">3</div>
+          <div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;">第三周：学习大横按</h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">F和弦大横按法、Bm和弦简化按法，扩展和弦库</p>
+          </div>
+        </div>
+        <!-- Step 4 -->
+        <div style="display: flex; gap: 1.5rem; padding: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+          <div style="flex-shrink: 0; width: 48px; height: 48px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">4</div>
+          <div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;">第四周：CAGED系统</h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">学习和弦在指板上的分布，打破前三品限制</p>
+          </div>
+        </div>
+        <!-- Step 5 -->
+        <div style="display: flex; gap: 1.5rem; padding: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+          <div style="flex-shrink: 0; width: 48px; height: 48px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">5</div>
+          <div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;">第五周：五声音阶</h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">掌握五声音阶指型，开始尝试简单的Solo</p>
+          </div>
+        </div>
+        <!-- Step 6 -->
+        <div style="display: flex; gap: 1.5rem; padding: 1.5rem;">
+          <div style="flex-shrink: 0; width: 48px; height: 48px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">6</div>
+          <div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;">第六周：自由即兴</h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">在伴奏上运用五声音阶进行自由即兴演奏</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 1.5rem; border-top: 1px solid var(--glass-border); text-align: center;">
+        <a href="roadmap.html" class="btn btn-primary" style="width: 100%;">
+          查看完整学习路线图 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="section" style="text-align: center;">
+    <div class="glass-card" style="max-width: 600px; margin: 0 auto; background: var(--gradient-glow);">
+      <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">
+        准备好开始了吗？
+      </h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        拿起你的吉他，按照我们的学习路线，开始今天的练习吧
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="chords.html" class="btn btn-primary">
+          🎵 开始学习和弦
+        </a>
+        <a href="songs.html" class="btn btn-secondary">
+          🎤 浏览练习曲
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2026 吉他学习指南. All rights reserved.</p>
+    <p>&copy; 2026 吉他学习指南. All rights reserved. 🎸</p>
   </footer>
 
-  <script src="js/nav.js?v=2"></script>
+  <script src="js/nav.js?v=3"></script>
 </body>
 </html>
