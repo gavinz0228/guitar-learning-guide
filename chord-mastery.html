@@ -761,12 +761,13 @@
           name: 'G形状',
           rootString: 6,
           rootFret: 8,  // C on 6th string
+          // G形状基于开放G和弦(320003)
           pattern: [
             {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
             {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
-            {string: 3, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
-            {string: 2, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
-            {string: 1, fret: 10, note: 'G', label: '5'},  // 5弦10品 = G (纯五度)
+            {string: 3, fret: 7, note: 'D', label: '5'},   // 3弦7品 = D (纯五度)
+            {string: 2, fret: 5, note: 'C', label: 'R'},   // 4弦5品 = C (根音)
+            {string: 1, fret: 7, note: 'E', label: '3'},   // 5弦7品 = E (大三度)
             {string: 0, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
           ]
         },
@@ -774,6 +775,7 @@
           name: 'E形状',
           rootString: 6,
           rootFret: 8,  // C on 6th string (barre at fret 8)
+          // E形状基于开放E和弦(022100)
           pattern: [
             {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
             {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
@@ -786,14 +788,15 @@
         'D': {
           name: 'D形状',
           rootString: 4,
-          rootFret: 10,  // C on 4th string
+          rootFret: 10,  // C on 4th string (D string)
+          // D形状基于开放D和弦(xx0232)
+          // 只覆盖1-4弦，是高音区形状
           pattern: [
             {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
             {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
             {string: 3, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
-            {string: 2, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
-            {string: 1, fret: 10, note: 'G', label: '5'},  // 5弦10品 = G (纯五度)
-            {string: 0, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
+            {string: 2, fret: 10, note: 'C', label: 'R'}   // 4弦10品 = C (根音)
+            // D形状不按5弦和6弦
           ]
         }
       };
