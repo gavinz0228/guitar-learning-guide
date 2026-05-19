@@ -51,10 +51,19 @@
       a.textContent = item.label;
       a.className = 'nav-link';
 
-      // More flexible matching
-      if (currentPage === item.href || 
-          currentPage.replace('.html', '') === item.href.replace('.html', '') ||
-          (currentPage === 'index.html' && (path === '/' || path === ''))) {
+      // More flexible matching - only match if path contains the item id or is exact match
+      var isActive = false;
+      if (item.href === 'index.html') {
+        // Index page check
+        isActive = (currentPage === 'index.html' && (path === '/' || path === '' || path.endsWith('/')));
+      } else {
+        // Other pages - check if current page matches item id
+        var itemName = item.href.replace('.html', '');
+        var currentName = currentPage.replace('.html', '');
+        isActive = (currentName === itemName);
+      }
+      
+      if (isActive) {
         a.classList.add('active');
       }
 

@@ -648,28 +648,37 @@
         }
 
         var baseFreqs = {
-          'C': 261.63, 'C#': 277.18, 'D': 293.66, 'D#': 311.13,
-          'E': 329.63, 'F': 349.23, 'F#': 369.99, 'G': 392.00,
-          'G#': 415.30, 'A': 440.00, 'A#': 466.16, 'B': 493.88
+          'C': 261.63, 'C#': 277.18, 'Db': 277.18, 'D': 293.66, 'D#': 311.13, 'Eb': 311.13,
+          'E': 329.63, 'F': 349.23, 'F#': 369.99, 'Gb': 369.99, 'G': 392.00,
+          'G#': 415.30, 'Ab': 415.30, 'A': 440.00, 'A#': 466.16, 'Bb': 466.16, 'B': 493.88
         };
 
         scale.notes.forEach(function(note, i) {
           setTimeout(function() {
+            var freq = baseFreqs[note];
+            if (!freq) {
+              // Try to find enharmonic equivalent
+              var enharmonics = {'C': 'B#', 'C#': 'Db', 'D': 'C##', 'D#': 'Eb', 'E': 'Fb', 'F': 'E#', 
+                                'F#': 'Gb', 'G': 'F##', 'G#': 'Ab', 'A': 'G##', 'A#': 'Bb', 'B': 'Cb'};
+              var enharmonic = Object.keys(enharmonics).find(function(k) { return enharmonics[k] === note; });
+              freq = baseFreqs[enharmonic] || 440;
+            }
+            
             var osc = audioCtx.createOscillator();
             var gain = audioCtx.createGain();
             
             osc.type = 'triangle';
-            osc.frequency.value = baseFreqs[note] || 440;
+            osc.frequency.value = freq;
             
             gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
             
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.4);
-          }, i * 400);
+            osc.stop(audioCtx.currentTime + 0.5);
+          }, i * 500);
         });
       }
 
