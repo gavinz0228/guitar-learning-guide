@@ -11,9 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     .mastery-container {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
     }
     
     .method-card {
@@ -654,18 +654,17 @@
         var minFret = Math.min.apply(null, fretboardNotes.map(function(n) { return n.fret; }));
         var startFret = Math.max(0, minFret - 1);
         
-        // Filter out notes beyond fret 16
-        fretboardNotes = fretboardNotes.filter(function(n) { return n.fret <= 16; });
-        
         // Render fretboard - show 16 frets (0-16)
         var container = document.getElementById('shellFretboard');
+        container.style.width = '100%';
+        container.style.overflowX = 'auto';
         if (window.renderFretboard) {
           window.renderFretboard(container, {
             numFrets: 17,
             startFret: 0,
             showLabels: true,
             notes: fretboardNotes,
-            width: container.offsetWidth,
+            width: Math.max(container.offsetWidth, 900),
             height: 320
           });
         }
@@ -841,13 +840,15 @@
         
         // Render - show 16 frets
         var container = document.getElementById('cagedFretboard');
+        container.style.width = '100%';
+        container.style.overflowX = 'auto';
         if (window.renderFretboard) {
           window.renderFretboard(container, {
             numFrets: 17,
             startFret: 0,
             showLabels: true,
             notes: notes,
-            width: container.offsetWidth,
+            width: Math.max(container.offsetWidth, 900),
             height: 320
           });
         }
