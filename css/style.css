@@ -797,7 +797,27 @@ body::before {
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
   .nav-links {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: var(--space-xs);
+    max-width: calc(100vw - 140px);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .nav-links::-webkit-scrollbar {
     display: none;
+  }
+  
+  .nav-link {
+    white-space: nowrap;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.9rem;
+  }
+  
+  .nav-container {
+    padding: 0 var(--space-md);
   }
   
   .hero {
