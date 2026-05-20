@@ -726,77 +726,81 @@
       var currentCAGEDShape = 'C';
       var currentCAGEDRoot = 'C';
       
-      // CAGED shape data - based on open chord patterns transposed to C Major
-      // Standard tuning: 6=E(low), 5=A, 4=D, 3=G, 2=B, 1=E(high)
-      // C Major = C E G (Root, Major 3rd, Perfect 5th)
-      // string index: 0=6弦(low E), 1=5弦(A), 2=4弦(D), 3=3弦(G), 4=2弦(B), 5=1弦(high E)
+      // CAGED shape data - CORRECTED based on standard guitar CAGED system
+      // All patterns shown for C Major chord
+      // String index: 0=6弦(low E), 1=5弦(A), 2=4弦(D), 3=3弦(G), 4=2弦(B), 5=1弦(high E)
       var CAGED_SHAPES = {
         'C': {
           name: 'C形状',
-          rootString: 5,
-          rootFret: 3,  // C on 5th string
+          rootString: 5,  // 根音在5弦
+          rootFret: 3,    // C音在5弦3品
+          // 基于开放C和弦: x32010
           pattern: [
             {string: 5, fret: 0, note: 'E', label: '3'},   // 1弦0品 = E (大三度)
             {string: 4, fret: 1, note: 'C', label: 'R'},   // 2弦1品 = C (根音)
             {string: 3, fret: 0, note: 'G', label: '5'},   // 3弦0品 = G (纯五度)
             {string: 2, fret: 2, note: 'E', label: '3'},   // 4弦2品 = E (大三度)
             {string: 1, fret: 3, note: 'C', label: 'R'},   // 5弦3品 = C (根音)
-            {string: 0, fret: 3, note: 'G', label: '5'}    // 6弦3品 = G (纯五度)
+            {string: 0, fret: -1, note: 'X', label: 'X'}   // 6弦不发声
           ]
         },
         'A': {
           name: 'A形状',
-          rootString: 5,
-          rootFret: 3,  // C on 5th string (barre at fret 3)
+          rootString: 5,  // 根音在5弦
+          rootFret: 3,    // C音在5弦3品(横按)
+          // 基于A和弦形状: x03330 (横按后的手指排列)
           pattern: [
             {string: 5, fret: 3, note: 'G', label: '5'},   // 1弦3品 = G (纯五度)
-            {string: 4, fret: 5, note: 'E', label: '3'},   // 2弦5品 = E (大三度)
-            {string: 3, fret: 5, note: 'C', label: 'R'},   // 3弦5品 = C (根音)
-            {string: 2, fret: 5, note: 'G', label: '5'},   // 4弦5品 = G (纯五度)
-            {string: 1, fret: 3, note: 'C', label: 'R'},   // 5弦3品 = C (根音)
-            {string: 0, fret: 3, note: 'G', label: '5'}    // 6弦3品 = G (纯五度)
+            {string: 4, fret: 5, note: 'C', label: 'R'},   // 2弦5品 = C (根音)
+            {string: 3, fret: 5, note: 'G', label: '5'},   // 3弦5品 = G (纯五度)
+            {string: 2, fret: 5, note: 'C', label: 'R'},   // 4弦5品 = C (根音)
+            {string: 1, fret: 3, note: 'C', label: 'R'},   // 5弦3品 = C (根音) - 横按
+            {string: 0, fret: 3, note: 'G', label: '5'}    // 6弦3品 = G (纯五度) - 横按
           ]
         },
         'G': {
           name: 'G形状',
-          rootString: 6,
-          rootFret: 8,  // C on 6th string
-          // G形状基于开放G和弦(320003)
+          rootString: 6,  // 根音在6弦
+          rootFret: 8,    // C音在6弦8品
+          // 基于G和弦形状: 3x0033 移动到C调
+          // 开放G: 320003, C调版: 8x50108 或简化版
           pattern: [
             {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
             {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
-            {string: 3, fret: 7, note: 'D', label: '5'},   // 3弦7品 = D (纯五度)
-            {string: 2, fret: 5, note: 'C', label: 'R'},   // 4弦5品 = C (根音)
+            {string: 3, fret: 5, note: 'C', label: 'R'},   // 3弦5品 = C (根音)
+            {string: 2, fret: 5, note: 'G', label: '5'},   // 4弦5品 = G (纯五度) - 或者空弦
             {string: 1, fret: 7, note: 'E', label: '3'},   // 5弦7品 = E (大三度)
             {string: 0, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
           ]
         },
         'E': {
           name: 'E形状',
-          rootString: 6,
-          rootFret: 8,  // C on 6th string (barre at fret 8)
-          // E形状基于开放E和弦(022100)
+          rootString: 6,  // 根音在6弦
+          rootFret: 8,    // C音在6弦8品(横按)
+          // 基于E和弦形状: 022100 横按到8品
+          pattern: [
+            {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音) - 横按
+            {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度) - 横按
+            {string: 3, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
+            {string: 2, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
+            {string: 1, fret: 10, note: 'G', label: '5'},  // 5弦10品 = G (纯五度)
+            {string: 0, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音) - 横按
+          ]
+        },
+        'D': {
+          name: 'D形状',
+          rootString: 4,  // 根音在4弦(D弦)
+          rootFret: 10,   // C音在4弦10品
+          // 基于D和弦形状: xx0232 移动到C调
+          // D和弦: 根音在4弦空弦(D), 形状: 0-2-3-2
+          // C调版: 4弦10品是C, 根据形状计算其他音
           pattern: [
             {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
             {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
             {string: 3, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
             {string: 2, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
-            {string: 1, fret: 10, note: 'G', label: '5'},  // 5弦10品 = G (纯五度)
-            {string: 0, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
-          ]
-        },
-        'D': {
-          name: 'D形状',
-          rootString: 4,
-          rootFret: 10,  // C on 4th string (D string)
-          // D形状基于开放D和弦(xx0232)
-          // 只覆盖1-4弦，是高音区形状
-          pattern: [
-            {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
-            {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
-            {string: 3, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
-            {string: 2, fret: 10, note: 'C', label: 'R'}   // 4弦10品 = C (根音)
-            // D形状不按5弦和6弦
+            {string: 1, fret: -1, note: 'X', label: 'X'},  // 5弦不发声
+            {string: 0, fret: -1, note: 'X', label: 'X'}   // 6弦不发声
           ]
         }
       };
@@ -829,6 +833,9 @@
         
         // Transpose pattern to new root
         var notes = shapeData.pattern.map(function(p) {
+          // Skip muted strings
+          if (p.label === 'X' || p.fret < 0) return null;
+          
           var fret = p.fret + transpose;
           // Keep in displayable range
           while (fret > 16) fret -= 12;
@@ -840,7 +847,7 @@
             label: p.label,
             color: p.label === 'R' ? '#e63946' : (p.label === '3' ? '#457b9d' : '#ff9f1c')
           };
-        }).filter(function(n) { return n.fret >= 0 && n.fret <= 16; });
+        }).filter(function(n) { return n !== null && n.fret >= 0 && n.fret <= 16; });
         
         // Render - show 16 frets
         var container = document.getElementById('cagedFretboard');
