@@ -8,12 +8,12 @@
   var navItems = [
     { id: 'index', label: '首页', href: 'index.html' },
     { id: 'chords', label: '和弦库', href: 'chords.html' },
-    { id: 'chord-mastery', label: '突破前三品', href: 'chord-mastery.html' },
     { id: 'scales', label: '音阶', href: 'scales.html' },
     { id: 'theory', label: '乐理', href: 'theory.html' },
     { id: 'songs', label: '练习曲', href: 'songs.html' },
     { id: 'solo', label: 'Solo', href: 'solo.html' },
-    { id: 'roadmap', label: '学习路线', href: 'roadmap.html' }
+    { id: 'chord-mastery', label: '突破前三品', href: 'chord-mastery.html' },
+    { id: 'roadmap', label: '路线图', href: 'roadmap.html' }
   ];
 
   function createNav() {
