@@ -10,12 +10,12 @@
   --bg-secondary: #0a0a0f;
   --bg-tertiary: #101018;
   
-  /* Glass Surface Colors */
+  /* Premium Glass Effect */
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-bg-light: rgba(255, 255, 255, 0.06);
   --glass-bg-hover: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-light: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-light: rgba(255, 255, 255, 0.12);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   --glass-shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.5);
   
@@ -103,11 +103,11 @@ body::before {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: var(--space-sm) var(--space-md);
-  background: rgba(5, 5, 8, 0.7);
+  padding: 0.75rem 1.5rem;
+  background: rgba(5, 5, 8, 0.8);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .nav-container {
@@ -120,9 +120,9 @@ body::before {
 }
 
 .nav-brand {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #ff7a45 0%, #ffb347 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -133,35 +133,35 @@ body::before {
 
 .nav-links {
   display: flex;
-  gap: var(--space-xs);
+  gap: 0.25rem;
   list-style: none;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
   color: var(--text-secondary);
   text-decoration: none;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.875rem;
+  border-radius: 10px;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   transition: var(--transition-normal);
   position: relative;
-  background: var(--glass-bg);
+  background: transparent;
   border: 1px solid transparent;
 }
 
 .nav-link:hover {
   color: var(--text-primary);
-  background: var(--glass-bg-light);
-  border-color: var(--glass-border-light);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-link.active {
   color: var(--text-accent);
   background: rgba(255, 179, 71, 0.1);
-  border-color: rgba(255, 179, 71, 0.3);
+  border-color: rgba(255, 179, 71, 0.2);
 }
 
 /* ─── Page Content ─── */
