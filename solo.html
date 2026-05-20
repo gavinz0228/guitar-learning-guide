@@ -443,6 +443,16 @@
             '<div class="section-title">' + escapeHtml(section.heading) + '</div>' +
             '<div class="section-content">' + escapeHtml(section.content).replace(/\n/g, '<br>') + '</div>' +
             fretboardHtml +
+            (section.example && section.example.notes ? 
+              '<div class="example-player" style="margin-top:12px;">' +
+                '<button class="practice-btn btn-backing" data-example-notes="' + 
+                  escapeHtml(JSON.stringify(section.example.notes)) + '" ' +
+                  'data-example-bpm="' + (section.example.bpm || 80) + '" ' +
+                  'data-example-desc="' + escapeHtml(section.example.description || '示例') + '" ' +
+                  'style="font-size:0.8rem;padding:6px 12px;">' +
+                  '🎵 播放' + escapeHtml(section.example.description || '示例') +
+                '</button>' +
+              '</div>' : '') +
           '</div>';
         }).join('');
 
@@ -640,6 +650,81 @@
             }, i * dur);
           });
         });
+      });
+
+      // Example Player - for individual technique demonstrations
+      document.addEventListener('click', function(e) {
+        if (e.target.matches('[data-example-notes]')) {
+          e.preventDefault();
+          
+          // Stop any existing playback
+          if (window.exampleTimer) {
+            clearTimeout(window.exampleTimer);
+            window.exampleTimer = null;
+          }
+          if (window.exampleAudioCtx) {
+            window.exampleAudioCtx.close();
+            window.exampleAudioCtx = null;
+          }
+          
+          // Get data from button
+          var notes = JSON.parse(e.target.dataset.exampleNotes);
+          var bpm = parseInt(e.target.dataset.exampleBpm) || 80;
+          var desc = e.target.dataset.exampleDesc || '示例';
+          
+          // Create audio context
+          window.exampleAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (window.exampleAudioCtx.state === 'suspended') {
+            window.exampleAudioCtx.resume();
+          }
+          
+          // Play the example
+          var dur = 60000 / bpm;
+          e.target.textContent = '⏸ 停止';
+          e.target.classList.add('playing');
+          
+          notes.forEach(function(note, idx) {
+            window.exampleTimer = setTimeout(function() {
+              try {
+                var osc = window.exampleAudioCtx.createOscillator();
+                var gain = window.exampleAudioCtx.createGain();
+                
+                // Calculate frequency from string and fret
+                var baseFreqs = [329.63, 246.94, 196.00, 146.83, 110.00, 82.41]; // 1-6 string
+                var freq = baseFreqs[note[0]] * Math.pow(2, note[1]/12);
+                
+                osc.type = 'triangle';
+                osc.frequency.value = freq;
+                
+                // Envelope
+                gain.gain.setValueAtTime(0.3, window.exampleAudioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, window.exampleAudioCtx.currentTime + 0.2);
+                
+                osc.connect(gain);
+                gain.connect(window.exampleAudioCtx.destination);
+                
+                osc.start();
+                osc.stop(window.exampleAudioCtx.currentTime + 0.2);
+                
+                // Highlight the button for visual feedback
+                e.target.style.background = 'var(--accent)';
+                setTimeout(function() {
+                  e.target.style.background = '';
+                }, 150);
+                
+              } catch(err) {
+                console.error('Example playback error:', err);
+              }
+            }, idx * dur);
+          });
+          
+          // Reset button after playback
+          var totalDur = notes.length * dur + 200;
+          setTimeout(function() {
+            e.target.textContent = '🎵 播放' + desc;
+            e.target.classList.remove('playing');
+          }, totalDur);
+        }
       });
 
       // Render practice fretboard
