@@ -182,6 +182,9 @@ body::before {
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-shadow);
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-tag {
