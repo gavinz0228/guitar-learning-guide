@@ -545,48 +545,94 @@
       function calculateShellVoicing(root, type, rootString) {
         var formula = SHELL_FORMULAS[type];
         var notes = [];
-        var rootIndex = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'].indexOf(root);
-        
-        // Define which strings to use based on root string
-        // If root on 6th string, use strings 4,3,2 (D,G,B strings)
-        // If root on 5th string, use strings 3,2,1 (G,B,E strings)
-        var stringSets = {
-          6: [3, 2, 1],  // 4=D, 3=G, 2=B strings
-          5: [2, 1, 0]   // 3=G, 2=B, 1=E strings
-        };
-        var strings = stringSets[rootString];
-        
-        // Find root position on the root string
         var rootFret = getFretForNote(rootString === 6 ? 5 : 4, root);
         
-        // For each chord tone, find position on corresponding string
-        formula.intervals.forEach(function(interval, i) {
-          var toneIndex = (rootIndex + interval) % 12;
-          var toneNote = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'][toneIndex];
-          var targetString = strings[i];
-          
-          // Find fret for this note on target string
-          var fret = getFretForNote(targetString, toneNote);
-          
-          // If fret is beyond 16, try lower octave (subtract 12)
-          if (fret > 16) {
-            fret -= 12;
+        // If rootFret is not found, default to 0
+        if (rootFret < 0) rootFret = 0;
+        
+        // Root note
+        var rootNoteObj = {
+          string: rootString === 6 ? 5 : 4,  // index 5 for 6th string, index 4 for 5th string
+          fret: rootFret,
+          note: root,
+          label: 'R',
+          interval: 0
+        };
+        notes.push(rootNoteObj);
+        
+        if (rootString === 6) {
+          // Root on 6th string
+          // 4th string (index 3) is 7th
+          // 3rd string (index 2) is 3rd
+          var f7, f3, l7, l3;
+          if (type === 'maj7') {
+            f7 = rootFret + 1; l7 = '7';
+            f3 = rootFret + 1; l3 = '3';
+          } else if (type === '7') {
+            f7 = rootFret;     l7 = '♭7';
+            f3 = rootFret + 1; l3 = '3';
+          } else if (type === 'm7') {
+            f7 = rootFret;     l7 = '♭7';
+            f3 = rootFret;     l3 = '♭3';
+          } else if (type === 'm7b5') {
+            f7 = rootFret;     l7 = '♭7';
+            f3 = rootFret;     l3 = '♭3';
           }
-          // If still negative or beyond range, try higher octave
-          if (fret < 0) {
-            fret += 12;
+          
+          notes.push({
+            string: 3, // 4th string (D)
+            fret: f7,
+            note: getNoteAtFret(3, f7),
+            label: l7,
+            interval: type === 'maj7' ? 11 : 10
+          });
+          
+          notes.push({
+            string: 2, // 3rd string (G)
+            fret: f3,
+            note: getNoteAtFret(2, f3),
+            label: l3,
+            interval: (type === 'maj7' || type === '7') ? 4 : 3
+          });
+          
+        } else {
+          // Root on 5th string
+          // 3rd string (index 2) is 7th
+          // 2nd string (index 1) is 3rd
+          var f7, f3, l7, l3;
+          if (type === 'maj7') {
+            f7 = rootFret + 1; l7 = '7';
+            f3 = rootFret + 2; l3 = '3';
+          } else if (type === '7') {
+            f7 = rootFret;     l7 = '♭7';
+            f3 = rootFret + 2; l3 = '3';
+          } else if (type === 'm7') {
+            f7 = rootFret;     l7 = '♭7';
+            f3 = rootFret + 1; l3 = '♭3';
+          } else if (type === 'm7b5') {
+            f7 = rootFret;     l7 = '♭7';
+            f3 = rootFret + 1; l3 = '♭3';
           }
           
-          if (fret >= 0 && fret <= 16) {
-            notes.push({
-              string: targetString,
-              fret: fret,
-              note: toneNote,
-              label: formula.labels[i],
-              interval: interval
-            });
-          }
-        });
+          notes.push({
+            string: 2, // 3rd string (G)
+            fret: f7,
+            note: getNoteAtFret(2, f7),
+            label: l7,
+            interval: type === 'maj7' ? 11 : 10
+          });
+          
+          notes.push({
+            string: 1, // 2nd string (B)
+            fret: f3,
+            note: getNoteAtFret(1, f3),
+            label: l3,
+            interval: (type === 'maj7' || type === '7') ? 4 : 3
+          });
+        }
+        
+        // Filter out notes with frets > 16 or < 0
+        notes = notes.filter(function(n) { return n.fret >= 0 && n.fret <= 16; });
         
         return {
           root: root,
