@@ -175,7 +175,10 @@ body::before {
 .page-header {
   text-align: center;
   margin-bottom: 2rem;
-  padding: 2rem 2rem 0.5rem;
+  padding: 2.5rem 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
@@ -635,7 +638,7 @@ body::before {
   }
   
   .page-header {
-    padding: 2rem 1.5rem 0.5rem;
+    padding: 2rem 1.5rem;
   }
   
   .chord-grid,
