@@ -84,7 +84,7 @@
         [1, -1, '3rd'],  // A string: 3rd
         [2, -3, '5th'],  // D string: 5th
         [3, -3, 'root'], // G string: root
-        [4, 0, '5th'],   // B string: 5th
+        [4, -3, '3rd'],  // B string: 3rd
         [5, 0, 'root']   // e string: root
       ],
       description: '以 G 和弦开放手型为基础，根音在低 E 弦、G 弦和高 E 弦'

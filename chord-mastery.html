@@ -762,13 +762,12 @@
           name: 'G形状',
           rootString: 6,  // 根音在6弦
           rootFret: 8,    // C音在6弦8品
-          // 基于G和弦形状: 3x0033 移动到C调
-          // 开放G: 320003, C调版: 8x50108 或简化版
+          // 基于G和弦形状: 875558
           pattern: [
             {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
-            {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
+            {string: 4, fret: 5, note: 'E', label: '3'},   // 2弦5品 = E (大三度)
             {string: 3, fret: 5, note: 'C', label: 'R'},   // 3弦5品 = C (根音)
-            {string: 2, fret: 5, note: 'G', label: '5'},   // 4弦5品 = G (纯五度) - 或者空弦
+            {string: 2, fret: 5, note: 'G', label: '5'},   // 4弦5品 = G (纯五度)
             {string: 1, fret: 7, note: 'E', label: '3'},   // 5弦7品 = E (大三度)
             {string: 0, fret: 8, note: 'C', label: 'R'}    // 6弦8品 = C (根音)
           ]
