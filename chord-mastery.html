@@ -865,34 +865,51 @@
         // CAGED patterns are stored for C major, so we need to shift by the interval from C to target
         var transpose = getSemitoneOffset('C', currentCAGEDRoot);
         
-        // Calculate new root fret
-        var newRootFret = shapeData.rootFret + transpose;
-        // Keep it in reasonable range (0-12)
-        while (newRootFret > 12) newRootFret -= 12;
+        // Transpose pattern to new root as a whole shape (preserve chord shape)
+        var rawNotes = shapeData.pattern.map(function(p) {
+          if (p.label === 'X' || p.fret < 0) return null;
+          return {
+            string: p.string,
+            fret: p.fret + transpose,
+            label: p.label
+          };
+        }).filter(function(n) { return n !== null; });
+
+        // Find min and max frets of the transposed shape to check boundaries
+        var minFret = 99;
+        var maxFret = -99;
+        rawNotes.forEach(function(n) {
+          if (n.fret < minFret) minFret = n.fret;
+          if (n.fret > maxFret) maxFret = n.fret;
+        });
+
+        // Shift the entire shape down by 12 frets if any fret > 16 or if we can keep it in lower part (minFret >= 12)
+        var finalShift = 0;
+        if (maxFret > 16 || minFret >= 12) {
+          if (minFret - 12 >= 0) {
+            finalShift = -12;
+          }
+        }
+
+        // Apply final shift and map to final notes list
+        var notes = rawNotes.map(function(n) {
+          var finalFret = n.fret + finalShift;
+          return {
+            string: n.string,
+            fret: finalFret,
+            label: n.label,
+            color: n.label === 'R' ? '#e63946' : (n.label === '3' ? '#457b9d' : '#ff9f1c')
+          };
+        });
+
+        // Calculate the actual root fret shown in the title
+        var newRootFret = shapeData.rootFret + transpose + finalShift;
         
         document.getElementById('cagedTitle').textContent = 
           currentCAGEDShape + '形状 - ' + currentCAGEDRoot + ' Major (' + 
           currentCAGEDRoot + ' ' + shapeData.rootString + '弦 ' + (newRootFret === 0 ? '空弦' : newRootFret + '品') + ')';
         
-        // Transpose pattern to new root
-        var notes = shapeData.pattern.map(function(p) {
-          // Skip muted strings
-          if (p.label === 'X' || p.fret < 0) return null;
-          
-          var fret = p.fret + transpose;
-          // Keep in displayable range
-          while (fret > 16) fret -= 12;
-          while (fret < 0) fret += 12;
-          
-          return {
-            string: p.string,
-            fret: fret,
-            label: p.label,
-            color: p.label === 'R' ? '#e63946' : (p.label === '3' ? '#457b9d' : '#ff9f1c')
-          };
-        }).filter(function(n) { return n !== null && n.fret >= 0 && n.fret <= 16; });
-        
-        // Render - show 16 frets
+        // Render - show 17 frets (0-16)
         var container = document.getElementById('cagedFretboard');
         container.style.width = '100%';
         container.style.overflowX = 'auto';
