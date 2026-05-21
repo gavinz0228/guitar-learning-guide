@@ -753,7 +753,14 @@
         var rootIdx = ALL_NOTES.indexOf(currentRoot);
         var openIdx = ALL_NOTES.indexOf(openNote);
         var rootFret = (rootIdx - openIdx + 12) % 12;
-        var startFret = rootFret === 0 ? 1 : rootFret;
+        
+        // Calculate minimum fret of the shape to determine starting fret
+        var minFret = rootFret;
+        shapeDef.shape.forEach(function(p) {
+          var fret = rootFret + p[1];
+          if (fret < minFret) minFret = fret;
+        });
+        var startFret = Math.max(0, minFret);
 
         window.renderFretboard(fbEl, {
           numFrets: 12,

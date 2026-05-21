@@ -509,8 +509,14 @@
       var openIdx = ALL_NOTES.indexOf(open);
       var rootFret = (rootIdx - openIdx + 12) % 12;
 
-      // If rootFret is 0, it means open position — show from fret 1
-      var start = rootFret === 0 ? 1 : rootFret;
+      // Calculate minimum fret of the shape to determine starting fret
+      var minFret = rootFret;
+      def.shape.forEach(function(p) {
+        var fret = rootFret + p[1];
+        if (fret < minFret) minFret = fret;
+      });
+      var start = Math.max(0, minFret);
+      
       positions.push({ shape: shape, startFret: start, rootFret: rootFret });
     });
 
