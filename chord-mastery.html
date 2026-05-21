@@ -13,7 +13,7 @@
     .mastery-container {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 0;
+      padding: 0 2rem;
     }
     
     .method-card {
@@ -748,12 +748,12 @@
           name: 'A形状',
           rootString: 5,  // 根音在5弦
           rootFret: 3,    // C音在5弦3品(横按)
-          // 基于A和弦形状: x03330 (横按后的手指排列)
+          // 基于A和弦形状: x35553
           pattern: [
             {string: 5, fret: 3, note: 'G', label: '5'},   // 1弦3品 = G (纯五度)
-            {string: 4, fret: 5, note: 'C', label: 'R'},   // 2弦5品 = C (根音)
-            {string: 3, fret: 5, note: 'G', label: '5'},   // 3弦5品 = G (纯五度)
-            {string: 2, fret: 5, note: 'C', label: 'R'},   // 4弦5品 = C (根音)
+            {string: 4, fret: 5, note: 'E', label: '3'},   // 2弦5品 = E (大三度)
+            {string: 3, fret: 5, note: 'C', label: 'R'},   // 3弦5品 = C (根音)
+            {string: 2, fret: 5, note: 'G', label: '5'},   // 4弦5品 = G (纯五度)
             {string: 1, fret: 3, note: 'C', label: 'R'},   // 5弦3品 = C (根音) - 横按
             {string: 0, fret: 3, note: 'G', label: '5'}    // 6弦3品 = G (纯五度) - 横按
           ]
@@ -791,13 +791,11 @@
           name: 'D形状',
           rootString: 4,  // 根音在4弦(D弦)
           rootFret: 10,   // C音在4弦10品
-          // 基于D和弦形状: xx0232 移动到C调
-          // D和弦: 根音在4弦空弦(D), 形状: 0-2-3-2
-          // C调版: 4弦10品是C, 根据形状计算其他音
+          // 基于D和弦形状: xx10-12-13-12 移动到C调
           pattern: [
-            {string: 5, fret: 8, note: 'C', label: 'R'},   // 1弦8品 = C (根音)
-            {string: 4, fret: 8, note: 'G', label: '5'},   // 2弦8品 = G (纯五度)
-            {string: 3, fret: 9, note: 'E', label: '3'},   // 3弦9品 = E (大三度)
+            {string: 5, fret: 12, note: 'E', label: '3'},  // 1弦12品 = E (大三度)
+            {string: 4, fret: 13, note: 'C', label: 'R'},  // 2弦13品 = C (根音)
+            {string: 3, fret: 12, note: 'G', label: '5'},  // 3弦12品 = G (纯五度)
             {string: 2, fret: 10, note: 'C', label: 'R'},  // 4弦10品 = C (根音)
             {string: 1, fret: -1, note: 'X', label: 'X'},  // 5弦不发声
             {string: 0, fret: -1, note: 'X', label: 'X'}   // 6弦不发声

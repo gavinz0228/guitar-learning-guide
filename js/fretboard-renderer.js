@@ -49,92 +49,71 @@
   // rootStrings lists which strings carry root notes in the open position.
   var CAGED_SHAPES = {
     // C shape — based on open C chord (x32010)
-    // Strings that ring open: A(3)=C(root), D(2)=E(3rd), G(0)=G(5th), B(1)=C(root), e(0)=E(3rd)
-    // Lowest root: string 1 (A string)
-    // X: string 0 (low E)
     C: {
       name: 'C 型',
       rootStrings: [1, 4],  // A string, B string
       shape: [
-        [1, 0],  // A string: root → C
-        [4, 1],  // D string: +1 → E (3rd)
-        [2, 2],  // G string: +2 → G (5th)
-        [3, 1],  // B string: +1 → C (root)
-        [5, 0]   // e string: 0 → E (3rd)
+        [1, 0, 'root'],  // A string: root
+        [2, -1, '3rd'],  // D string: 3rd
+        [3, -3, '5th'],  // G string: 5th
+        [4, -2, 'root'], // B string: root
+        [5, -3, '3rd']   // e string: 3rd
       ],
       description: '以 C 和弦开放手型为基础，根音在 A 弦和 B 弦'
     },
     // A shape — based on open A chord (x02220)
-    // Actually standard open A chord fret indications: A(0), D(2), G(2), B(2), e(0)
-    // But CAGED A-shape is the barre form: low E root, barre across 5 strings
-    // Root on string 0 (low E) — the barre creates the nut
-    // Shape relative to barre fret (lowest root string = 0):
     A: {
       name: 'A 型',
-      rootStrings: [0, 3],  // lowE, D
+      rootStrings: [1, 3],  // A string, G string
       shape: [
-        [0, 0],  // low E: root
-        [2, 2],  // D string: +2 → E (5th)
-        [3, 2],  // G string: +2 → A (root)
-        [4, 2],  // B string: +2 → C# (3rd)
-        [5, 0]   // e string: 0 → E (5th)
+        [0, 0, '5th'],   // low E: 5th
+        [1, 0, 'root'],  // A string: root
+        [2, 2, '5th'],   // D string: 5th
+        [3, 2, 'root'],  // G string: root
+        [4, 2, '3rd'],   // B string: 3rd
+        [5, 0, '5th']    // e string: 5th
       ],
-      description: '以 A 和弦开放手型为基础，根音在低 E 弦和 D 弦'
+      description: '以 A 和弦开放手型为基础，根音在 A 弦和 G 弦'
     },
     // G shape — based on open G chord (320003)
-    // Strings: lowE(3)=G(root), A(2)=B(3rd), D(0)=G(root), G(0)=D(5th), B(0)=B(3rd), e(3)=G(root)
-    // Lowest root: string 0 (low E)
     G: {
       name: 'G 型',
-      rootStrings: [0, 2, 5],  // lowE, A, highE
+      rootStrings: [0, 3, 5],  // lowE, G, highE
       shape: [
-        [0, 3],  // low E: +3 → G (root)
-        [1, 2],  // A string: +2 → B (3rd)
-        [3, 0],  // G string: 0 → D (5th)
-        [4, 0],  // B string: 0 → B (3rd)
-        [5, 3]   // e string: +3 → G (root)
+        [0, 0, 'root'],  // low E: root
+        [1, -1, '3rd'],  // A string: 3rd
+        [2, -3, '5th'],  // D string: 5th
+        [3, -3, 'root'], // G string: root
+        [4, 0, '5th'],   // B string: 5th
+        [5, 0, 'root']   // e string: root
       ],
-      description: '以 G 和弦开放手型为基础，根音在低 E 弦、A 弦、高 E 弦'
+      description: '以 G 和弦开放手型为基础，根音在低 E 弦、G 弦和高 E 弦'
     },
     // E shape — based on open E chord (022100)
-    // Strings: lowE(0)=E(root), A(2)=B(5th), D(2)=E(root), G(1)=G#(3rd), B(0)=B(5th), e(0)=E(root)
-    // Lowest root: string 0 (low E)
-    // This is the most common barre chord shape
     E: {
       name: 'E 型',
-      rootStrings: [0, 5],  // lowE, highE
+      rootStrings: [0, 2, 5],  // lowE, D, highE
       shape: [
-        [0, 0],  // low E: root
-        [1, 2],  // A string: +2 → B (5th)
-        [3, 1],  // G string: +1 → G# (3rd)
-        [2, 2],  // D string: +2 → E (root)
-        [4, 0],  // B string: 0  → B (5th)
-        [5, 0]   // e string: root
+        [0, 0, 'root'],  // low E: root
+        [1, 2, '5th'],   // A string: 5th
+        [2, 2, 'root'],  // D string: root
+        [3, 1, '3rd'],   // G string: 3rd
+        [4, 0, '5th'],   // B string: 5th
+        [5, 0, 'root']   // e string: root
       ],
-      description: '以 E 和弦开放手型为基础，根音在低 E 弦和高 E 弦，最常用的封闭和弦手型'
+      description: '以 E 和弦开放手型为基础，根音在低 E 弦、D 弦和高 E 弦，最常用的封闭和弦手型'
     },
     // D shape — based on open D chord (xx0232)
-    // Strings: D(0)=D(root), G(2)=A(5th), B(3)=F#(3rd), e(2)=D(root)
-    // Lowest root: string 1 (A string? No, D shape starts from D string)
-    // Actually in CAGED, D shape plays strings 1-4 (A,D,G,B,e), lowest root on A(5th) string
-    // Wait — standard D chord plays strings 4-1 (D,G,B,e)
-    // But CAGED D-shape when barre'd: root on A string (5th string)
-    // Shape relative to lowest root (string 1 / A string):
     D: {
       name: 'D 型',
-      rootStrings: [1, 4],  // A, highE
+      rootStrings: [2, 4],  // D string, B string
       shape: [
-        [1, 0],  // A string: root
-        [2, -1], // D string: -1 → F# (3rd)  
-        // Actually: open D chord = D(0), G(2), B(3), e(2)
-        // In barre form: A string root, D string -1 from root = F# (3rd)
-        // Wait: if root is on A string, and we use D shape...
-        // D shape barre: A string=root, D string=root-1(3rd), G string=root+1(5th), 
-        // B string=root+2(3rd), e string=root-1
-        [3, -1], // G string: -1 → D (5th? No...)
-        [4, -1]  // B string: -1 → C# (3rd? No...)
+        [2, 0, 'root'],  // D string: root
+        [3, 2, '5th'],   // G string: 5th
+        [4, 3, 'root'],  // B string: root
+        [5, 2, '3rd']    // e string: 3rd
       ],
-      description: '以 D 和弦开放手型为基础，根音在 A 弦和高 E 弦'
+      description: '以 D 和弦开放手型为基础，根音在 D 弦和 B 弦'
     }
   };
 
