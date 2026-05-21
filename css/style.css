@@ -320,7 +320,8 @@ body::before {
   background: transparent;
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-normal);
@@ -328,13 +329,13 @@ body::before {
 
 .filter-tab:hover {
   background: var(--glass-bg-light);
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .filter-tab.active {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-light);
-  color: var(--text-accent);
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: #000;
 }
 
 /* ─── Grids ─── */
