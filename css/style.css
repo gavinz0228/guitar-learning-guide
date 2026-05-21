@@ -635,7 +635,7 @@ body::before {
   }
   
   .page-header {
-    padding: var(--space-lg);
+    padding: 2rem 1.5rem 0.5rem;
   }
   
   .chord-grid,
