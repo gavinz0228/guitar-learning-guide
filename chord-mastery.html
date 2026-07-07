@@ -239,6 +239,81 @@
       color: var(--text-muted);
       font-size: 1.2rem;
     }
+
+    .ea-principle-grid,
+    .ea-trainer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .ea-principle-card,
+    .ea-trainer-panel {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .ea-principle-card strong,
+    .ea-trainer-panel strong {
+      color: var(--accent-secondary);
+    }
+
+    .ea-rule-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .ea-rule {
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.22);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .ea-display {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .ea-big-value {
+      display: block;
+      margin-top: 0.35rem;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--accent-secondary);
+    }
+
+    .ea-fingering {
+      font-family: 'Fira Code', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    .ea-quiz-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+    }
+
+    .ea-answer-buttons {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
     
     @media (max-width: 768px) {
       .mastery-container {
@@ -251,6 +326,14 @@
       
       .control-group {
         width: 100%;
+      }
+
+      .ea-principle-grid,
+      .ea-trainer-grid,
+      .ea-rule-strip,
+      .ea-display,
+      .ea-quiz-row {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -335,6 +418,30 @@
                 <strong>使用方法</strong>：选择一个和弦名（如 G），然后查找这个音在各个形状中的位置。例如 G 和弦可以用 E形状（根音在6弦3品）、A形状（根音在5弦10品）等按出。
               </p>
             </div>
+
+            <h3 style="font-size: 1.3rem; margin: 1.5rem 0 1rem; color: var(--accent-secondary);">🎯 为什么先练 E 手型和 A 手型？</h3>
+            <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1.5rem;">
+              <p style="line-height: 1.8; margin-bottom: 1rem;">
+                完整 CAGED 有五个形状，但真正突破前三品时，最先要稳定的是 <strong>E 手型</strong> 和 <strong>A 手型</strong>。它们分别覆盖 6 弦根音和 5 弦根音，是大横按、常用转调和高把位和弦的主干。
+              </p>
+              <div class="ea-principle-grid">
+                <div class="ea-principle-card">
+                  <strong>E 手型：6 弦根音</strong>
+                  <p style="margin-top: 0.5rem; color: var(--text-secondary); line-height: 1.7;">来自开放 E 和弦。整体移动后，6 弦几品是什么音，它就是什么大横按和弦，例如 G = 6弦3品 E手型。</p>
+                </div>
+                <div class="ea-principle-card">
+                  <strong>A 手型：5 弦根音</strong>
+                  <p style="margin-top: 0.5rem; color: var(--text-secondary); line-height: 1.7;">来自开放 A 和弦。整体移动后，5 弦几品是什么音，它就是什么和弦，例如 C = 5弦3品 A手型。</p>
+                </div>
+              </div>
+              <div class="ea-rule-strip">
+                <div class="ea-rule">6弦根音 → 用 E 手型</div>
+                <div class="ea-rule">5弦根音 → 用 A 手型</div>
+              </div>
+              <p style="line-height: 1.8; margin-top: 1rem; color: var(--text-secondary);">
+                建议顺序：先练 E/A 大三和弦，再练 E/A 小三和弦，最后加 7 与 m7。C、D、G 手型可以作为连接和局部三和弦扩展，不必一开始全部背完。
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -414,6 +521,81 @@
             
             <div class="shape-info" id="shellInfo">
               这是G大七和弦的Shell Voicing，根音在6弦3品。按法：食指按6弦3品（根音G），中指按5弦2品（7音F#），无名指按4弦0品（3音B）。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- E/A Shape Trainer -->
+      <div class="method-card" id="eaTrainerCard">
+        <div class="method-header">
+          <h2 class="method-title">🎯 E/A 手型训练器</h2>
+          <p class="method-subtitle">先把 6 弦根音的 E 手型、5 弦根音的 A 手型练熟</p>
+        </div>
+        <div class="method-content">
+          <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+            看到根音弦，先选手型：6 弦根音用 E 手型，5 弦根音用 A 手型。再选择 Major / minor / 7 / m7，马上得到对应的大横按指法。
+          </p>
+
+          <div class="ea-trainer-grid">
+            <div class="ea-trainer-panel">
+              <span class="control-label">根音弦</span>
+              <div class="control-options" id="eaRootStringSelector" style="margin-top: 0.75rem;">
+                <button class="option-btn active" data-shape="E">6弦根音</button>
+                <button class="option-btn" data-shape="A">5弦根音</button>
+              </div>
+            </div>
+            <div class="ea-trainer-panel">
+              <span class="control-label">和弦类型</span>
+              <div class="control-options" id="eaTypeSelector" style="margin-top: 0.75rem;">
+                <button class="option-btn active" data-type="maj">Major</button>
+                <button class="option-btn" data-type="min">minor</button>
+                <button class="option-btn" data-type="dom7">7</button>
+                <button class="option-btn" data-type="min7">m7</button>
+              </div>
+            </div>
+            <div class="ea-trainer-panel" style="grid-column: 1 / -1;">
+              <span class="control-label">根音</span>
+              <div class="control-options" id="eaRootSelector" style="margin-top: 0.75rem;">
+                <button class="option-btn" data-root="F">F</button>
+                <button class="option-btn active" data-root="G">G</button>
+                <button class="option-btn" data-root="A">A</button>
+                <button class="option-btn" data-root="B">B</button>
+                <button class="option-btn" data-root="C">C</button>
+                <button class="option-btn" data-root="D">D</button>
+                <button class="option-btn" data-root="E">E</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="ea-display">
+            <div class="ea-trainer-panel">
+              <span class="info-label">当前和弦</span>
+              <span class="ea-big-value" id="eaChordName">G Major</span>
+            </div>
+            <div class="ea-trainer-panel">
+              <span class="info-label">推荐手型</span>
+              <span class="ea-big-value" id="eaShapeName">E 手型</span>
+            </div>
+            <div class="ea-trainer-panel">
+              <span class="info-label">常用指法</span>
+              <span class="ea-big-value ea-fingering" id="eaFingering">355433</span>
+            </div>
+          </div>
+
+          <div class="shape-info" id="eaTrainerFeedback">
+            6弦根音 G 在 3 品，所以用 E 手型。先确认根音，再套形状。
+          </div>
+
+          <div class="ea-quiz-row">
+            <div>
+              <span class="control-label">快速测验</span>
+              <div id="eaShapeAnswer" style="margin-top: 0.4rem; font-weight: 800; color: var(--text-primary);">看到 6弦 3品 的 G Major，应该用哪个手型？</div>
+            </div>
+            <div class="ea-answer-buttons">
+              <button class="option-btn" data-answer="E">E 手型</button>
+              <button class="option-btn" data-answer="A">A 手型</button>
+              <button class="btn btn-primary" id="nextEaQuestionBtn" type="button">下一题</button>
             </div>
           </div>
         </div>
@@ -766,6 +948,127 @@
       
       // Initial render
       updateShellDisplay();
+
+      // ==================== E/A SHAPE TRAINER ====================
+
+      var eaShape = 'E';
+      var eaType = 'maj';
+      var eaRoot = 'G';
+      var eaQuestion = null;
+
+      var EA_SHAPES = {
+        E: {
+          name: 'E 手型',
+          stringLabel: '6弦根音',
+          frets: { F: 1, G: 3, A: 5, B: 7, C: 8, D: 10, E: 12 },
+          patterns: {
+            maj: { name: 'Major', suffix: '', offsets: [0, 2, 2, 1, 0, 0] },
+            min: { name: 'minor', suffix: 'm', offsets: [0, 2, 2, 0, 0, 0] },
+            dom7: { name: '7',     suffix: '7',  offsets: [0, 2, 0, 1, 0, 0] },
+            min7: { name: 'm7',    suffix: 'm7', offsets: [0, 2, 0, 0, 0, 0] }
+          }
+        },
+        A: {
+          name: 'A 手型',
+          stringLabel: '5弦根音',
+          frets: { B: 2, C: 3, D: 5, E: 7, F: 8, G: 10, A: 12 },
+          patterns: {
+            maj: { name: 'Major', suffix: '', offsets: ['x', 0, 2, 2, 2, 0] },
+            min: { name: 'minor', suffix: 'm', offsets: ['x', 0, 2, 2, 1, 0] },
+            dom7: { name: '7',     suffix: '7',  offsets: ['x', 0, 2, 0, 2, 0] },
+            min7: { name: 'm7',    suffix: 'm7', offsets: ['x', 0, 2, 0, 1, 0] }
+          }
+        }
+      };
+
+      function eaFingering(shapeKey, typeKey, root) {
+        var shape = EA_SHAPES[shapeKey];
+        var base = shape.frets[root];
+        var pattern = shape.patterns[typeKey];
+        return pattern.offsets.map(function(offset) {
+          return offset === 'x' ? 'x' : String(base + offset);
+        }).join('');
+      }
+
+      function updateEaTrainer() {
+        var shape = EA_SHAPES[eaShape];
+        var pattern = shape.patterns[eaType];
+        var rootFret = shape.frets[eaRoot];
+        var chordName = eaRoot + pattern.suffix;
+        document.getElementById('eaChordName').textContent = eaRoot + ' ' + pattern.name;
+        document.getElementById('eaShapeName').textContent = shape.name;
+        document.getElementById('eaFingering').textContent = eaFingering(eaShape, eaType, eaRoot);
+        document.getElementById('eaTrainerFeedback').textContent =
+          shape.stringLabel + ' ' + eaRoot + ' 在 ' + rootFret + ' 品，所以用 ' + shape.name + '。' +
+          chordName + ' 常用指法：' + eaFingering(eaShape, eaType, eaRoot) + '。先确认根音，再套形状。';
+      }
+
+      function setEaActive(selector, attr, value) {
+        document.querySelectorAll(selector + ' .option-btn').forEach(function(btn) {
+          btn.classList.toggle('active', btn.dataset[attr] === value);
+        });
+      }
+
+      function makeEaQuestion() {
+        var shapes = ['E', 'A'];
+        var rootsByShape = { E: ['F', 'G', 'A', 'B', 'C', 'D'], A: ['B', 'C', 'D', 'E', 'F', 'G'] };
+        var types = ['maj', 'min', 'dom7', 'min7'];
+        var shapeKey = shapes[Math.floor(Math.random() * shapes.length)];
+        var root = rootsByShape[shapeKey][Math.floor(Math.random() * rootsByShape[shapeKey].length)];
+        var type = types[Math.floor(Math.random() * types.length)];
+        var shape = EA_SHAPES[shapeKey];
+        var pattern = shape.patterns[type];
+        eaQuestion = { shape: shapeKey, root: root, type: type };
+        document.getElementById('eaShapeAnswer').textContent =
+          '看到 ' + shape.stringLabel + ' ' + shape.frets[root] + '品 的 ' + root + ' ' + pattern.name + '，应该用哪个手型？';
+        document.getElementById('eaTrainerFeedback').textContent = '先看根音在哪根弦：6 弦选 E 手型，5 弦选 A 手型。';
+      }
+
+      function checkEaAnswer(answer) {
+        if (!eaQuestion) makeEaQuestion();
+        var ok = answer === eaQuestion.shape;
+        var shape = EA_SHAPES[eaQuestion.shape];
+        var pattern = shape.patterns[eaQuestion.type];
+        document.getElementById('eaTrainerFeedback').textContent = ok
+          ? '答对！' + shape.stringLabel + ' 对应 ' + shape.name + '。' + eaQuestion.root + pattern.suffix + ' 指法是 ' + eaFingering(eaQuestion.shape, eaQuestion.type, eaQuestion.root) + '。'
+          : '再想一次：' + shape.stringLabel + ' 应该用 ' + shape.name + '，口诀是 6弦根音 → 用 E 手型，5弦根音 → 用 A 手型。';
+      }
+
+      document.querySelectorAll('#eaRootStringSelector .option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          eaShape = this.dataset.shape;
+          setEaActive('#eaRootStringSelector', 'shape', eaShape);
+          if (!EA_SHAPES[eaShape].frets[eaRoot]) eaRoot = eaShape === 'E' ? 'G' : 'C';
+          setEaActive('#eaRootSelector', 'root', eaRoot);
+          updateEaTrainer();
+        });
+      });
+
+      document.querySelectorAll('#eaTypeSelector .option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          eaType = this.dataset.type;
+          setEaActive('#eaTypeSelector', 'type', eaType);
+          updateEaTrainer();
+        });
+      });
+
+      document.querySelectorAll('#eaRootSelector .option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          eaRoot = this.dataset.root;
+          if (!EA_SHAPES[eaShape].frets[eaRoot]) eaShape = eaRoot === 'F' ? 'E' : 'A';
+          setEaActive('#eaRootStringSelector', 'shape', eaShape);
+          setEaActive('#eaRootSelector', 'root', eaRoot);
+          updateEaTrainer();
+        });
+      });
+
+      document.querySelectorAll('.ea-answer-buttons [data-answer]').forEach(function(btn) {
+        btn.addEventListener('click', function() { checkEaAnswer(this.dataset.answer); });
+      });
+
+      document.getElementById('nextEaQuestionBtn').addEventListener('click', makeEaQuestion);
+      updateEaTrainer();
+      makeEaQuestion();
 
       // ==================== CAGED SYSTEM ====================
       

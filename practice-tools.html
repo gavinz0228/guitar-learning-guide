@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>练习工具 | 吉他学习指南</title>
+  <meta name="description" content="节拍器、节奏型播放器和前三品音名小游戏，帮助吉他初学者稳定节奏并熟悉前三品音名。">
+  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    .page-content {
+      padding-top: calc(70px + 2.4rem);
+      padding-bottom: 1.25rem;
+    }
+
+    .page-header {
+      margin-bottom: 1.35rem;
+      padding-top: 1.1rem;
+      padding-bottom: 0;
+    }
+
+    .section-tag {
+      margin-bottom: 0.8rem;
+    }
+
+    .page-title {
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      line-height: 1.55;
+    }
+
+    .tools-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: minmax(360px, 0.92fr) minmax(520px, 1.08fr);
+      gap: 1.35rem;
+      align-items: start;
+    }
+
+    .tool-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      backdrop-filter: blur(20px) saturate(150%);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .tool-header {
+      padding: 1.15rem 1.35rem;
+      background: linear-gradient(135deg, rgba(255,122,69,0.16) 0%, rgba(255,179,71,0.06) 100%);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .tool-title {
+      font-size: clamp(1.35rem, 2.3vw, 1.85rem);
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tool-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+    }
+
+    .tool-body {
+      padding: 1.25rem;
+    }
+
+    .compact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .meter-panel {
+      background: rgba(0,0,0,0.22);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 0.9rem;
+      min-width: 0;
+    }
+
+    .panel-label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.65rem;
+    }
+
+    .bpm-control {
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .mini-btn, .tool-select {
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      border-radius: 12px;
+      min-height: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .mini-btn:hover, .tool-select:hover {
+      border-color: var(--glass-border-light);
+      background: var(--glass-bg-hover);
+    }
+
+    .bpm-display {
+      text-align: center;
+      font-family: 'Fira Code', monospace;
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--text-accent);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .bpm-unit {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+
+    .tool-select {
+      width: 100%;
+      padding: 0 0.75rem;
+      color-scheme: dark;
+    }
+
+    .beat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+      margin: 0.85rem 0;
+    }
+
+    .beat-dot {
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-border);
+      transition: transform 80ms ease, background 80ms ease, color 80ms ease;
+    }
+
+    .beat-dot.active {
+      transform: translateY(-2px) scale(1.03);
+      color: #080810;
+      background: var(--gradient-primary);
+      box-shadow: 0 10px 28px rgba(255,122,69,0.28);
+    }
+
+    .metronome-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .wide-btn {
+      width: 100%;
+      min-height: 44px;
+    }
+
+    .rhythm-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .rhythm-card {
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.045);
+      padding: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      min-width: 0;
+    }
+
+    .rhythm-card:hover, .rhythm-card.active {
+      background: rgba(255,122,69,0.12);
+      border-color: rgba(255,179,71,0.34);
+      transform: translateY(-2px);
+    }
+
+    .rhythm-name {
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .rhythm-pattern {
+      font-family: 'Fira Code', monospace;
+      color: var(--text-accent);
+      font-size: 0.96rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .rhythm-desc {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-top: 0.35rem;
+    }
+
+    .now-playing {
+      background: rgba(255,179,71,0.08);
+      border-left: 3px solid var(--accent-primary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      color: var(--text-secondary);
+      padding: 0.9rem 1rem;
+      min-height: 48px;
+    }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .game-topbar {
+      display: grid;
+      grid-template-columns: 1.25fr 0.8fr 0.8fr;
+      gap: 0.75rem;
+      align-items: stretch;
+    }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .mode-switch .option-btn {
+      min-height: 44px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .stat-value {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--text-accent);
+      font-weight: 800;
+    }
+
+    .question-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.85rem;
+      align-items: center;
+      background: rgba(0,0,0,0.24);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 0.85rem 1rem;
+    }
+
+    .question-label {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.35rem;
+    }
+
+    .question-text {
+      font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    .fretboard-game-wrap {
+      overflow-x: auto;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 0.85rem;
+    }
+
+    .fretboard-game {
+      min-width: 600px;
+      display: grid;
+      grid-template-columns: 44px repeat(4, minmax(96px, 1fr));
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #090912;
+    }
+
+    .fret-cell, .fret-head {
+      min-height: 48px;
+      display: grid;
+      place-items: center;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .fret-head {
+      min-height: 36px;
+      background: rgba(255,255,255,0.04);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .fret-label {
+      background: rgba(255,122,69,0.08);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    .fret-button {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.055);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      font-weight: 800;
+      transition: var(--transition-fast);
+    }
+
+    .fret-button:hover, .fret-button.highlight {
+      color: #050508;
+      background: var(--gradient-primary);
+      border-color: transparent;
+      transform: scale(1.08);
+    }
+
+    .fret-button.correct {
+      color: #04130d;
+      background: #43d17a;
+      border-color: transparent;
+      box-shadow: 0 0 0 5px rgba(67,209,122,0.14);
+    }
+
+    .fret-button.wrong {
+      color: #fff;
+      background: #e63946;
+      border-color: transparent;
+      box-shadow: 0 0 0 5px rgba(230,57,70,0.12);
+    }
+
+    .answers-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .answer-btn {
+      min-height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.045);
+      color: var(--text-primary);
+      font-family: 'Fira Code', monospace;
+      font-weight: 800;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .answer-btn:hover {
+      background: var(--glass-bg-hover);
+      transform: translateY(-1px);
+    }
+
+    .answer-btn.correct {
+      background: #43d17a;
+      color: #04130d;
+      border-color: transparent;
+    }
+
+    .answer-btn.wrong {
+      background: #e63946;
+      color: white;
+      border-color: transparent;
+    }
+
+    .feedback {
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: var(--text-secondary);
+      background: rgba(255,255,255,0.045);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+    }
+
+    .note-map-hint {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
+      padding: 0.85rem;
+      background: rgba(255,179,71,0.07);
+      border: 1px solid rgba(255,179,71,0.18);
+      border-radius: var(--radius-md);
+    }
+
+    .note-map-item {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .note-map-item strong {
+      color: var(--text-accent);
+      margin-right: 0.35rem;
+    }
+
+    @media (max-width: 1080px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .game-topbar { grid-template-columns: 1fr 1fr; }
+      .game-topbar .meter-panel:first-child { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 720px) {
+      .tools-container { padding: 0 1rem; }
+      .tool-body, .tool-header { padding: 1rem; }
+      .compact-grid, .rhythm-grid, .metronome-actions, .game-topbar, .question-card { grid-template-columns: 1fr; }
+      .mode-switch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .answers-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .note-map-hint { grid-template-columns: 1fr; }
+      .beat-row { grid-template-columns: repeat(4, minmax(54px, 1fr)); overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-content">
+    <div class="page-header">
+      <span class="section-tag">每日训练</span>
+      <h1 class="page-title">练习<span>工具</span></h1>
+      <p class="section-desc">节拍器、节奏型播放器和前三品音名小游戏，帮助你把“知道”变成“弹得稳”。</p>
+    </div>
+
+    <main class="tools-container">
+      <div class="tools-grid">
+        <section class="tool-card" id="metronomeCard">
+          <div class="tool-header">
+            <h2 class="tool-title">🥁 节拍器 + 节奏型播放器</h2>
+            <p class="tool-subtitle">调 BPM、选拍号、跟着高亮箭头练扫弦。</p>
+          </div>
+          <div class="tool-body">
+            <div class="compact-grid">
+              <div class="meter-panel">
+                <span class="panel-label">速度</span>
+                <div class="bpm-control">
+                  <button class="mini-btn" id="bpmDownBtn" type="button" aria-label="降低 BPM">−</button>
+                  <div>
+                    <div class="bpm-display" id="bpmValue">80</div>
+                    <span class="bpm-unit">BPM</span>
+                  </div>
+                  <button class="mini-btn" id="bpmUpBtn" type="button" aria-label="提高 BPM">+</button>
+                </div>
+              </div>
+              <div class="meter-panel">
+                <label class="panel-label" for="timeSignatureSelect">拍号</label>
+                <select class="tool-select" id="timeSignatureSelect">
+                  <option value="4">4/4 常用</option>
+                  <option value="3">3/4 华尔兹</option>
+                  <option value="6">6/8 摇摆</option>
+                </select>
+              </div>
+              <div class="meter-panel">
+                <label class="panel-label" for="subdivisionSelect">细分</label>
+                <select class="tool-select" id="subdivisionSelect">
+                  <option value="1">四分音符</option>
+                  <option value="2">八分音符</option>
+                  <option value="4">十六分音符</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="beat-row" id="beatRow" aria-label="节拍灯">
+              <div class="beat-dot active">1</div>
+              <div class="beat-dot">2</div>
+              <div class="beat-dot">3</div>
+              <div class="beat-dot">4</div>
+            </div>
+
+            <div class="metronome-actions">
+              <button class="btn btn-primary wide-btn" id="startMetronomeBtn" type="button">▶ 开始</button>
+              <button class="btn wide-btn" id="tapTempoBtn" type="button">👆 Tap Tempo</button>
+            </div>
+
+            <div class="now-playing" id="rhythmStatus">选择一个节奏型，然后点击开始。建议先从 70–80 BPM 开始。</div>
+
+            <div style="height: 1rem;"></div>
+            <span class="panel-label">常用扫弦节奏</span>
+            <div class="rhythm-grid" id="rhythmPatternGrid">
+              <button class="rhythm-card active" type="button" data-pattern="D D D D" data-name="四下扫" data-desc="最稳的入门节奏，每拍一个下扫。">
+                <div class="rhythm-name">四下扫</div>
+                <div class="rhythm-pattern">下 下 下 下</div>
+                <div class="rhythm-desc">C ↔ G 转换入门</div>
+              </button>
+              <button class="rhythm-card" type="button" data-pattern="D DU UDU" data-name="民谣八分" data-desc="最常见流行/民谣扫弦。">
+                <div class="rhythm-name">民谣八分</div>
+                <div class="rhythm-pattern">下 下上 上下上</div>
+                <div class="rhythm-desc">弹唱常用</div>
+              </button>
+              <button class="rhythm-card" type="button" data-pattern="D - DU - U DU" data-name="空拍律动" data-desc="带空拍，训练右手持续摆动。">
+                <div class="rhythm-name">空拍律动</div>
+                <div class="rhythm-pattern">下 空下上 空上 下上</div>
+                <div class="rhythm-desc">节奏稳定训练</div>
+              </button>
+              <button class="rhythm-card" type="button" data-pattern="D DU D DU" data-name="3/4 分解感" data-desc="适合慢歌和三拍子。">
+                <div class="rhythm-name">3/4 分解感</div>
+                <div class="rhythm-pattern">下 下上 下 下上</div>
+                <div class="rhythm-desc">慢歌/华尔兹</div>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="tool-card" id="noteGameCard">
+          <div class="tool-header">
+            <h2 class="tool-title">🎯 前三品音名小游戏</h2>
+            <p class="tool-subtitle">在空弦到 3 品之间反复找音，建立指板地图。</p>
+          </div>
+          <div class="tool-body game-layout">
+            <div class="game-topbar">
+              <div class="meter-panel">
+                <span class="panel-label">模式</span>
+                <div class="mode-switch" id="gameModeSwitch">
+                  <button class="option-btn active" type="button" data-mode="identify">识别位置</button>
+                  <button class="option-btn" type="button" data-mode="find">随机找音</button>
+                </div>
+              </div>
+              <div class="meter-panel">
+                <span class="panel-label">正确率</span>
+                <div class="stat-value" id="scoreValue">0 / 0</div>
+              </div>
+              <div class="meter-panel">
+                <span class="panel-label">连续答对</span>
+                <div class="stat-value" id="streakValue">0</div>
+              </div>
+            </div>
+
+            <div class="question-card">
+              <div>
+                <div class="question-label">当前题目</div>
+                <div class="question-text" id="questionText">载入题目中…</div>
+              </div>
+              <button class="btn btn-primary" id="nextQuestionBtn" type="button">下一题 →</button>
+            </div>
+
+            <div class="fretboard-game-wrap">
+              <div class="fretboard-game" id="fretboardGame" aria-label="前三品可点击指板"></div>
+            </div>
+
+            <div class="answers-grid" id="answerOptions" aria-label="音名答案选项"></div>
+            <div class="feedback" id="gameFeedback">提示：空弦也算在“前三品地图”里。先记住 6 根空弦 E A D G B E。</div>
+            <div class="note-map-hint" id="noteMapHint" aria-label="前三品速记表">
+              <div class="note-map-item"><strong>6/1弦</strong>E-F-F#-G</div>
+              <div class="note-map-item"><strong>5弦</strong>A-A#-B-C</div>
+              <div class="note-map-item"><strong>4弦</strong>D-D#-E-F</div>
+              <div class="note-map-item"><strong>3弦</strong>G-G#-A-A#</div>
+              <div class="note-map-item"><strong>2弦</strong>B-C-C#-D</div>
+              <div class="note-map-item"><strong>口诀</strong>空弦音 + 每品升半音</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 吉他学习指南. All rights reserved. 🎸</p>
+  </footer>
+
+  <script src="js/nav.js?v=7"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var NOTE_ORDER = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+      var STRING_TUNING_LOW_TO_HIGH = ['E', 'A', 'D', 'G', 'B', 'E'];
+      var STRING_LABELS = ['6弦 E', '5弦 A', '4弦 D', '3弦 G', '2弦 B', '1弦 E'];
+
+      function noteAt(stringIndex, fret) {
+        var openIndex = NOTE_ORDER.indexOf(STRING_TUNING_LOW_TO_HIGH[stringIndex]);
+        return NOTE_ORDER[(openIndex + fret) % 12];
+      }
+
+      // ==================== Metronome + Rhythm Player ====================
+      var bpm = 80;
+      var isPlaying = false;
+      var timerId = null;
+      var beatIndex = 0;
+      var audioCtx = null;
+      var selectedPattern = { name: '四下扫', pattern: 'D D D D', desc: '最稳的入门节奏，每拍一个下扫。' };
+      var tapTimes = [];
+
+      var bpmValue = document.getElementById('bpmValue');
+      var beatRow = document.getElementById('beatRow');
+      var status = document.getElementById('rhythmStatus');
+      var timeSignatureSelect = document.getElementById('timeSignatureSelect');
+      var subdivisionSelect = document.getElementById('subdivisionSelect');
+      var startBtn = document.getElementById('startMetronomeBtn');
+
+      function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
+
+      function setBpm(next) {
+        bpm = clamp(Math.round(next), 40, 220);
+        bpmValue.textContent = bpm;
+        if (isPlaying) restartMetronome();
+      }
+
+      function getPatternSteps() {
+        return selectedPattern.pattern.trim().split(/\s+/);
+      }
+
+      function updateBeatDots() {
+        var beats = parseInt(timeSignatureSelect.value, 10);
+        beatRow.innerHTML = '';
+        for (var i = 0; i < beats; i++) {
+          var dot = document.createElement('div');
+          dot.className = 'beat-dot' + (i === beatIndex % beats ? ' active' : '');
+          dot.textContent = i + 1;
+          beatRow.appendChild(dot);
+        }
+      }
+
+      function ensureAudio() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+      }
+
+      function clickSound(accent, symbol) {
+        ensureAudio();
+        var now = audioCtx.currentTime;
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        var isRest = symbol === '-';
+        osc.type = symbol === 'U' ? 'triangle' : 'square';
+        osc.frequency.value = isRest ? 220 : (accent ? 1120 : (symbol === 'U' ? 760 : 920));
+        gain.gain.setValueAtTime(isRest ? 0.018 : 0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + (isRest ? 0.045 : 0.075));
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      }
+
+      function rhythmLabel(symbol) {
+        if (symbol === 'D') return '下扫';
+        if (symbol === 'U') return '上扫';
+        if (symbol === 'DU') return '下上';
+        if (symbol === 'UDU') return '上下上';
+        if (symbol === '-') return '空拍';
+        return symbol;
+      }
+
+      function tick() {
+        var beats = parseInt(timeSignatureSelect.value, 10);
+        var steps = getPatternSteps();
+        var symbol = steps[beatIndex % steps.length];
+        updateBeatDots();
+        clickSound(beatIndex % beats === 0, symbol === 'DU' ? 'D' : symbol);
+        status.textContent = selectedPattern.name + '：第 ' + ((beatIndex % beats) + 1) + ' 拍 · ' + rhythmLabel(symbol) + '（' + bpm + ' BPM）';
+        beatIndex += 1;
+      }
+
+      function intervalMs() {
+        var subdiv = parseInt(subdivisionSelect.value, 10);
+        return 60000 / bpm / subdiv;
+      }
+
+      function startMetronome() {
+        if (isPlaying) return;
+        isPlaying = true;
+        startBtn.textContent = '⏸ 停止';
+        beatIndex = 0;
+        tick();
+        timerId = window.setInterval(tick, intervalMs());
+      }
+
+      function stopMetronome() {
+        isPlaying = false;
+        startBtn.textContent = '▶ 开始';
+        if (timerId) window.clearInterval(timerId);
+        timerId = null;
+        status.textContent = '已停止。换和弦训练建议：每 4 拍换一次，先求稳再提速。';
+      }
+
+      function restartMetronome() {
+        if (!isPlaying) { updateBeatDots(); return; }
+        if (timerId) window.clearInterval(timerId);
+        beatIndex = 0;
+        tick();
+        timerId = window.setInterval(tick, intervalMs());
+      }
+
+      document.getElementById('bpmDownBtn').addEventListener('click', function() { setBpm(bpm - 5); });
+      document.getElementById('bpmUpBtn').addEventListener('click', function() { setBpm(bpm + 5); });
+      startBtn.addEventListener('click', function() { isPlaying ? stopMetronome() : startMetronome(); });
+      timeSignatureSelect.addEventListener('change', restartMetronome);
+      subdivisionSelect.addEventListener('change', restartMetronome);
+      document.getElementById('tapTempoBtn').addEventListener('click', function() {
+        var now = Date.now();
+        tapTimes.push(now);
+        tapTimes = tapTimes.filter(function(t) { return now - t < 3000; }).slice(-5);
+        if (tapTimes.length >= 2) {
+          var gaps = [];
+          for (var i = 1; i < tapTimes.length; i++) gaps.push(tapTimes[i] - tapTimes[i - 1]);
+          var avg = gaps.reduce(function(a, b) { return a + b; }, 0) / gaps.length;
+          setBpm(60000 / avg);
+          status.textContent = 'Tap Tempo 已设置为 ' + bpm + ' BPM。';
+        } else {
+          status.textContent = '继续点击 Tap Tempo 计算速度。';
+        }
+      });
+
+      document.querySelectorAll('#rhythmPatternGrid .rhythm-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+          document.querySelectorAll('#rhythmPatternGrid .rhythm-card').forEach(function(c) { c.classList.remove('active'); });
+          card.classList.add('active');
+          selectedPattern = { name: card.dataset.name, pattern: card.dataset.pattern, desc: card.dataset.desc };
+          status.textContent = selectedPattern.name + '：' + selectedPattern.desc;
+          restartMetronome();
+        });
+      });
+      updateBeatDots();
+
+      // ==================== First Three Frets Note Game ====================
+      var mode = 'identify';
+      var currentQuestion = null;
+      var correct = 0;
+      var total = 0;
+      var streak = 0;
+      var answered = false;
+
+      var fretboard = document.getElementById('fretboardGame');
+      var answers = document.getElementById('answerOptions');
+      var questionText = document.getElementById('questionText');
+      var feedback = document.getElementById('gameFeedback');
+      var scoreValue = document.getElementById('scoreValue');
+      var streakValue = document.getElementById('streakValue');
+
+      function buildPositions() {
+        var positions = [];
+        for (var s = 0; s < 6; s++) {
+          for (var f = 0; f <= 3; f++) {
+            positions.push({ string: s, fret: f, note: noteAt(s, f) });
+          }
+        }
+        return positions;
+      }
+      var POSITIONS = buildPositions();
+
+      function renderFretboard() {
+        fretboard.innerHTML = '';
+        var corner = document.createElement('div');
+        corner.className = 'fret-head';
+        corner.textContent = '弦/品';
+        fretboard.appendChild(corner);
+        ['空弦', '1品', '2品', '3品'].forEach(function(label) {
+          var h = document.createElement('div');
+          h.className = 'fret-head';
+          h.textContent = label;
+          fretboard.appendChild(h);
+        });
+        for (var s = 0; s < 6; s++) {
+          var label = document.createElement('div');
+          label.className = 'fret-cell fret-label';
+          label.textContent = STRING_LABELS[s];
+          fretboard.appendChild(label);
+          for (var f = 0; f <= 3; f++) {
+            var cell = document.createElement('div');
+            cell.className = 'fret-cell';
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'fret-button';
+            btn.dataset.string = s;
+            btn.dataset.fret = f;
+            btn.dataset.note = noteAt(s, f);
+            btn.setAttribute('aria-label', STRING_LABELS[s] + ' ' + (f === 0 ? '空弦' : f + '品'));
+            btn.textContent = '?';
+            btn.addEventListener('click', handleFretClick);
+            cell.appendChild(btn);
+            fretboard.appendChild(cell);
+          }
+        }
+      }
+
+      function revealPosition(pos) {
+        document.querySelectorAll('.fret-button').forEach(function(btn) {
+          if (+btn.dataset.string === pos.string && +btn.dataset.fret === pos.fret) {
+            btn.textContent = btn.dataset.note;
+          }
+        });
+      }
+
+      function revealMatchingNotes(note) {
+        document.querySelectorAll('.fret-button').forEach(function(btn) {
+          if (btn.dataset.note === note) {
+            btn.textContent = btn.dataset.note;
+            btn.classList.add('correct');
+          }
+        });
+      }
+
+      function makeQuestion() {
+        answered = false;
+        document.querySelectorAll('.answer-btn, .fret-button').forEach(function(el) {
+          el.classList.remove('correct', 'wrong', 'highlight');
+          if (el.classList.contains('fret-button')) el.textContent = '?';
+        });
+        var pos = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
+        currentQuestion = pos;
+        if (mode === 'identify') {
+          questionText.textContent = STRING_LABELS[pos.string] + ' · ' + (pos.fret === 0 ? '空弦' : pos.fret + '品') + ' 是什么音？';
+          document.querySelectorAll('.fret-button').forEach(function(btn) {
+            if (+btn.dataset.string === pos.string && +btn.dataset.fret === pos.fret) btn.classList.add('highlight');
+          });
+          feedback.textContent = '看高亮位置，从空弦音开始往后数半音。';
+        } else {
+          questionText.textContent = '请在前三品找到所有 ' + pos.note + ' 音中的任意一个';
+          feedback.textContent = '点击指板上的位置。答对后会显示这个位置的音名。';
+        }
+      }
+
+      function renderAnswers() {
+        answers.innerHTML = '';
+        NOTE_ORDER.forEach(function(note) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'answer-btn';
+          btn.textContent = note;
+          btn.dataset.note = note;
+          btn.addEventListener('click', function() { handleAnswer(note, btn); });
+          answers.appendChild(btn);
+        });
+      }
+
+      function updateScore(isCorrect) {
+        total += 1;
+        if (isCorrect) { correct += 1; streak += 1; }
+        else { streak = 0; }
+        scoreValue.textContent = correct + ' / ' + total;
+        streakValue.textContent = streak;
+      }
+
+      function handleAnswer(note, btn) {
+        if (answered || mode !== 'identify') return;
+        answered = true;
+        var ok = note === currentQuestion.note;
+        btn.classList.add(ok ? 'correct' : 'wrong');
+        document.querySelectorAll('.answer-btn').forEach(function(b) {
+          if (b.dataset.note === currentQuestion.note) b.classList.add('correct');
+        });
+        updateScore(ok);
+        revealPosition(currentQuestion);
+        feedback.textContent = ok ? '答对！' + currentQuestion.note + ' 就在这个位置。' : '再记一次：正确答案是 ' + currentQuestion.note + '，从这根空弦往后数半音。';
+      }
+
+      function handleFretClick(event) {
+        if (mode !== 'find' || answered) return;
+        var btn = event.currentTarget;
+        var ok = btn.dataset.note === currentQuestion.note;
+        answered = true;
+        btn.textContent = btn.dataset.note;
+        btn.classList.add(ok ? 'correct' : 'wrong');
+        revealMatchingNotes(currentQuestion.note);
+        updateScore(ok);
+        feedback.textContent = ok ? '找到了！' + btn.dataset.note + '：' + STRING_LABELS[+btn.dataset.string] + ' ' + (+btn.dataset.fret === 0 ? '空弦' : btn.dataset.fret + '品') + '。' : '这格是 ' + btn.dataset.note + '，绿色才是 ' + currentQuestion.note + '。';
+      }
+
+      document.querySelectorAll('#gameModeSwitch .option-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#gameModeSwitch .option-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          mode = btn.dataset.mode;
+          renderFretboard();
+          makeQuestion();
+        });
+      });
+      document.getElementById('nextQuestionBtn').addEventListener('click', makeQuestion);
+
+      renderAnswers();
+      renderFretboard();
+      makeQuestion();
+
+      window.__practiceToolsTest = {
+        noteAt: noteAt,
+        setBpm: setBpm,
+        get bpm() { return bpm; },
+        get currentQuestion() { return currentQuestion; },
+        positions: POSITIONS,
+        get selectedPattern() { return selectedPattern; },
+        stopMetronome: stopMetronome
+      };
+    })();
+  </script>
+</body>
+</html>
