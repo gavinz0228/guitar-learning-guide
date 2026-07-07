@@ -21,24 +21,104 @@
           "fretboard": {
             "type": "full",
             "startFret": 0,
-            "numFrets": 12,
+            "numFrets": 13,
             "notes": [
-              {"string": 0, "fret": 0, "label": "E", "color": "#e63946"},
-              {"string": 0, "fret": 1, "label": "F", "color": "#457b9d"},
-              {"string": 0, "fret": 3, "label": "G", "color": "#457b9d"},
-              {"string": 0, "fret": 5, "label": "A", "color": "#457b9d"},
-              {"string": 0, "fret": 7, "label": "B", "color": "#457b9d"},
-              {"string": 0, "fret": 8, "label": "C", "color": "#457b9d"},
-              {"string": 0, "fret": 10, "label": "D", "color": "#457b9d"},
-              {"string": 0, "fret": 12, "label": "E", "color": "#e63946"},
-              {"string": 1, "fret": 0, "label": "A", "color": "#2ec4b6"},
-              {"string": 1, "fret": 2, "label": "B", "color": "#457b9d"},
-              {"string": 1, "fret": 3, "label": "C", "color": "#457b9d"},
-              {"string": 1, "fret": 5, "label": "D", "color": "#457b9d"},
-              {"string": 1, "fret": 7, "label": "E", "color": "#2ec4b6"},
-              {"string": 1, "fret": 8, "label": "F", "color": "#457b9d"},
-              {"string": 1, "fret": 10, "label": "G", "color": "#457b9d"},
-              {"string": 1, "fret": 12, "label": "A", "color": "#2ec4b6"}
+              {
+                "string": 0,
+                "fret": 0,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 0,
+                "fret": 1,
+                "label": "F",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 3,
+                "label": "G",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 5,
+                "label": "A",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 7,
+                "label": "B",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 8,
+                "label": "C",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 10,
+                "label": "D",
+                "color": "#457b9d"
+              },
+              {
+                "string": 0,
+                "fret": 12,
+                "label": "E",
+                "color": "#e63946"
+              },
+              {
+                "string": 1,
+                "fret": 0,
+                "label": "A",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 1,
+                "fret": 2,
+                "label": "B",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 3,
+                "label": "C",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 5,
+                "label": "D",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 7,
+                "label": "E",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 1,
+                "fret": 8,
+                "label": "F",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 10,
+                "label": "G",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 12,
+                "label": "A",
+                "color": "#2ec4b6"
+              }
             ]
           }
         }
@@ -58,17 +138,72 @@
             "numFrets": 4,
             "description": "A 小调五声音阶 Pattern 1 — A(红) C(蓝) D(绿) E(黄) G(紫) 全部在0-4品内",
             "notes": [
-              {"string": 0, "fret": 0, "label": "E", "color": "#f1c40f"},
-              {"string": 0, "fret": 3, "label": "G", "color": "#9b59b6"},
-              {"string": 1, "fret": 0, "label": "A", "color": "#e63946"},
-              {"string": 2, "fret": 0, "label": "D", "color": "#2ec4b6"},
-              {"string": 2, "fret": 2, "label": "E", "color": "#f1c40f"},
-              {"string": 3, "fret": 0, "label": "G", "color": "#9b59b6"},
-              {"string": 3, "fret": 2, "label": "A", "color": "#e63946"},
-              {"string": 4, "fret": 1, "label": "C", "color": "#457b9d"},
-              {"string": 4, "fret": 3, "label": "D", "color": "#2ec4b6"},
-              {"string": 5, "fret": 0, "label": "E", "color": "#f1c40f"},
-              {"string": 5, "fret": 3, "label": "G", "color": "#9b59b6"}
+              {
+                "string": 0,
+                "fret": 0,
+                "label": "E",
+                "color": "#f1c40f"
+              },
+              {
+                "string": 0,
+                "fret": 3,
+                "label": "G",
+                "color": "#9b59b6"
+              },
+              {
+                "string": 1,
+                "fret": 0,
+                "label": "A",
+                "color": "#e63946"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "D",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 2,
+                "fret": 2,
+                "label": "E",
+                "color": "#f1c40f"
+              },
+              {
+                "string": 3,
+                "fret": 0,
+                "label": "G",
+                "color": "#9b59b6"
+              },
+              {
+                "string": 3,
+                "fret": 2,
+                "label": "A",
+                "color": "#e63946"
+              },
+              {
+                "string": 4,
+                "fret": 1,
+                "label": "C",
+                "color": "#457b9d"
+              },
+              {
+                "string": 4,
+                "fret": 3,
+                "label": "D",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 5,
+                "fret": 0,
+                "label": "E",
+                "color": "#f1c40f"
+              },
+              {
+                "string": 5,
+                "fret": 3,
+                "label": "G",
+                "color": "#9b59b6"
+              }
             ]
           }
         },
@@ -81,17 +216,72 @@
             "numFrets": 4,
             "description": "A 小调五声音阶（级数标注）— 注意：这个指型就是 Pattern 1，只是用级数来标注。根音A在5弦0品和3弦2品",
             "notes": [
-              {"string": 0, "fret": 0, "label": "5", "color": "#ff9f1c"},
-              {"string": 0, "fret": 3, "label": "b7", "color": "#7b2cbf"},
-              {"string": 1, "fret": 0, "label": "R", "color": "#e63946"},
-              {"string": 2, "fret": 0, "label": "4", "color": "#2ec4b6"},
-              {"string": 2, "fret": 2, "label": "5", "color": "#ff9f1c"},
-              {"string": 3, "fret": 0, "label": "b7", "color": "#7b2cbf"},
-              {"string": 3, "fret": 2, "label": "R", "color": "#e63946"},
-              {"string": 4, "fret": 1, "label": "b3", "color": "#457b9d"},
-              {"string": 4, "fret": 3, "label": "4", "color": "#2ec4b6"},
-              {"string": 5, "fret": 0, "label": "5", "color": "#ff9f1c"},
-              {"string": 5, "fret": 3, "label": "b7", "color": "#7b2cbf"}
+              {
+                "string": 0,
+                "fret": 0,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 0,
+                "fret": 3,
+                "label": "b7",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 1,
+                "fret": 0,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 2,
+                "fret": 2,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 3,
+                "fret": 0,
+                "label": "b7",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 3,
+                "fret": 2,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 4,
+                "fret": 1,
+                "label": "b3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 4,
+                "fret": 3,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 5,
+                "fret": 0,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 5,
+                "fret": 3,
+                "label": "b7",
+                "color": "#7b2cbf"
+              }
             ]
           }
         },
@@ -124,18 +314,78 @@
             "numFrets": 4,
             "description": "A 小调五声音阶 Pattern 1（上移 5 品）— 红=根音 A",
             "notes": [
-              {"string": 0, "fret": 5, "label": "R", "color": "#e63946"},
-              {"string": 0, "fret": 8, "label": "b3", "color": "#457b9d"},
-              {"string": 1, "fret": 5, "label": "4", "color": "#2ec4b6"},
-              {"string": 1, "fret": 7, "label": "5", "color": "#ff9f1c"},
-              {"string": 2, "fret": 5, "label": "b7", "color": "#7b2cbf"},
-              {"string": 2, "fret": 7, "label": "R", "color": "#e63946"},
-              {"string": 3, "fret": 5, "label": "b3", "color": "#457b9d"},
-              {"string": 3, "fret": 7, "label": "4", "color": "#2ec4b6"},
-              {"string": 4, "fret": 6, "label": "5", "color": "#ff9f1c"},
-              {"string": 4, "fret": 8, "label": "b7", "color": "#7b2cbf"},
-              {"string": 5, "fret": 5, "label": "R", "color": "#e63946"},
-              {"string": 5, "fret": 8, "label": "b3", "color": "#457b9d"}
+              {
+                "string": 0,
+                "fret": 5,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 0,
+                "fret": 8,
+                "label": "b3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 1,
+                "fret": 5,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 1,
+                "fret": 7,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 2,
+                "fret": 5,
+                "label": "b7",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 2,
+                "fret": 7,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 3,
+                "fret": 5,
+                "label": "b3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 3,
+                "fret": 7,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 4,
+                "fret": 6,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 4,
+                "fret": 8,
+                "label": "b7",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 5,
+                "fret": 5,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 5,
+                "fret": 8,
+                "label": "b3",
+                "color": "#457b9d"
+              }
             ]
           }
         },
@@ -168,22 +418,80 @@
       "sections": [
         {
           "heading": "锤弦（Hammer-on）——右手不动的音符",
-          "content": "锤弦（标记 h，如 0h3）：弹响低品后，右手不动，左手扎实所需的高品。声音不断，且可以快速连接。\n\n例如：6 弦空弦 E 弹响后，中指/无名指快速锤在 3 品，发出 G 的音。标记：0h3\n\n🎯 练习：\n1. 单弦锤弦：在 6 弦上做 0h3、5 弦上做 0h3、4 弦上做 0h2\n2. 锤弦组合：4 弦 0h2（从 D 锤到 E）\n3. 在 A 小调五声音阶中做锤弦：6 弦 E→锤→G，5 弦 A→锤→C\n\n🎈 要点：锤弦时手指要快速、有力地打下去，不是按下去。它会让你的 Solo 有\u201c流动\u201d的感觉。\n\n🎵 点击下方\u201c播放锤弦示例\u201d听听看：",
+          "content": "锤弦（标记 h，如 0h3）：弹响低品后，右手不动，左手扎实所需的高品。声音不断，且可以快速连接。\n\n例如：6 弦空弦 E 弹响后，中指/无名指快速锤在 3 品，发出 G 的音。标记：0h3\n\n🎯 练习：\n1. 单弦锤弦：在 6 弦上做 0h3、5 弦上做 0h3、4 弦上做 0h2\n2. 锤弦组合：4 弦 0h2（从 D 锤到 E）\n3. 在 A 小调五声音阶中做锤弦：6 弦 E→锤→G，5 弦 A→锤→C\n\n🎈 要点：锤弦时手指要快速、有力地打下去，不是按下去。它会让你的 Solo 有“流动”的感觉。\n\n🎵 点击下方“播放锤弦示例”听听看：",
           "fretboard": null,
           "example": {
             "type": "hammer-on",
-            "notes": [[0,0],[0,3],[1,0],[1,3],[2,0],[2,2],[3,0],[3,2]],
+            "notes": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                3,
+                2
+              ]
+            ],
             "bpm": 80,
             "description": "6弦0h3，5弦0h3，4弦0h2，3弦0h2 示例"
           }
         },
         {
           "heading": "勾弦（Pull-off）— 音符的回落",
-          "content": "勾弦（标记 p，如 3p0）：按住高品弹响后，手指向外勾弦发出低品的音，右手不拨第二次。\n\n例如：6 弦 3 品 G 弹响后，无名指向掌心方向勾弦发出空弦 E 的音。标记：3p0\n\n🎯 练习：\n1. 单弦勾弦：6 弦 3p0、5 弦 3p0、4 弦 2p0\n2. 锤勾组合练习（H-P-H）：在 5 弦上做 3p0h3（按住 3 品→勾回空弦→锤回 3 品）\n3. 在五声音阶中做锤勾：6弦 E→锤→G→勾→E、5弦 A→锤→C→勾→A\n\n🎈 要点：勾弦时手指向掌心内部勾，不是向上挑。指尖轻轻带一下弦就可以。\n\n🎵 点击下方\u201c播放勾弦示例\u201d听听看：",
+          "content": "勾弦（标记 p，如 3p0）：按住高品弹响后，手指向外勾弦发出低品的音，右手不拨第二次。\n\n例如：6 弦 3 品 G 弹响后，无名指向掌心方向勾弦发出空弦 E 的音。标记：3p0\n\n🎯 练习：\n1. 单弦勾弦：6 弦 3p0、5 弦 3p0、4 弦 2p0\n2. 锤勾组合练习（H-P-H）：在 5 弦上做 3p0h3（按住 3 品→勾回空弦→锤回 3 品）\n3. 在五声音阶中做锤勾：6弦 E→锤→G→勾→E、5弦 A→锤→C→勾→A\n\n🎈 要点：勾弦时手指向掌心内部勾，不是向上挑。指尖轻轻带一下弦就可以。\n\n🎵 点击下方“播放勾弦示例”听听看：",
           "fretboard": null,
           "example": {
             "type": "pull-off",
-            "notes": [[0,3],[0,0],[1,3],[1,0],[2,2],[2,0]],
+            "notes": [
+              [
+                0,
+                3
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                0
+              ]
+            ],
             "bpm": 80,
             "description": "3p0、2p0 A小调五声勾弦"
           }
@@ -195,11 +503,36 @@
         },
         {
           "heading": "推弦（Bend）— Solo的灵魂技巧",
-          "content": "滑音（标记 / 上滑、\\ 下滑）：按弦手指从起始品滑到目标品，中间不离开弦。\n\n例如：6 弦 3 品 G → 按住滑到 5 品 A → 标记 3/5\n\n🎯 练习：\n1. 单弦上下滑：3/5、5/7、7/9，然后下滑 9\\7、7\\5、5\\3\n2. 在五声音阶中做滑音：弹 E（6弦0品）→ 滑到 G... 不行，空弦不能往上滑。所以：按住 G（6弦3品）滑到 A（6弦5品）\n\n🎈 要点：滑的过程中始终用力按住弦，不能松。速度要均匀——太快像杂音，太慢没感觉。\n\n🎵 点击下方\u201c播放滑音示例\u201d听听看：",
+          "content": "滑音（标记 / 上滑、\\ 下滑）：按弦手指从起始品滑到目标品，中间不离开弦。\n\n例如：6 弦 3 品 G → 按住滑到 5 品 A → 标记 3/5\n\n🎯 练习：\n1. 单弦上下滑：3/5、5/7、7/9，然后下滑 9\\7、7\\5、5\\3\n2. 在五声音阶中做滑音：弹 E（6弦0品）→ 滑到 G... 不行，空弦不能往上滑。所以：按住 G（6弦3品）滑到 A（6弦5品）\n\n🎈 要点：滑的过程中始终用力按住弦，不能松。速度要均匀——太快像杂音，太慢没感觉。\n\n🎵 点击下方“播放滑音示例”听听看：",
           "fretboard": null,
           "example": {
             "type": "slide",
-            "notes": [[0,3],[0,5],[1,2],[1,4],[2,0],[2,2]],
+            "notes": [
+              [
+                0,
+                3
+              ],
+              [
+                0,
+                5
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                2
+              ]
+            ],
             "bpm": 80,
             "description": "3/5、2/4 上滑"
           }
@@ -277,20 +610,90 @@
             "numFrets": 5,
             "description": "A小调蓝调音阶 — 红=根音, 蓝调音(Eb/4弦1品, 2弦4品)用白色突出显示",
             "notes": [
-              {"string": 0, "fret": 0, "label": "5", "color": "#ff9f1c"},
-              {"string": 0, "fret": 3, "label": "b7", "color": "#7b2cbf"},
-              {"string": 1, "fret": 0, "label": "R", "color": "#e63946"},
-              {"string": 1, "fret": 3, "label": "b3", "color": "#457b9d"},
-              {"string": 2, "fret": 0, "label": "4", "color": "#2ec4b6"},
-              {"string": 2, "fret": 1, "label": "b5", "color": "#ffffff"},
-              {"string": 2, "fret": 2, "label": "5", "color": "#ff9f1c"},
-              {"string": 3, "fret": 0, "label": "b7", "color": "#7b2cbf"},
-              {"string": 3, "fret": 2, "label": "R", "color": "#e63946"},
-              {"string": 4, "fret": 1, "label": "b3", "color": "#457b9d"},
-              {"string": 4, "fret": 3, "label": "4", "color": "#2ec4b6"},
-              {"string": 4, "fret": 4, "label": "b5", "color": "#ffffff"},
-              {"string": 5, "fret": 0, "label": "5", "color": "#ff9f1c"},
-              {"string": 5, "fret": 3, "label": "b7", "color": "#7b2cbf"}
+              {
+                "string": 0,
+                "fret": 0,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 0,
+                "fret": 3,
+                "label": "b7",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 1,
+                "fret": 0,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 1,
+                "fret": 3,
+                "label": "b3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 2,
+                "fret": 0,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 2,
+                "fret": 1,
+                "label": "b5",
+                "color": "#ffffff"
+              },
+              {
+                "string": 2,
+                "fret": 2,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 3,
+                "fret": 0,
+                "label": "b7",
+                "color": "#7b2cbf"
+              },
+              {
+                "string": 3,
+                "fret": 2,
+                "label": "R",
+                "color": "#e63946"
+              },
+              {
+                "string": 4,
+                "fret": 1,
+                "label": "b3",
+                "color": "#457b9d"
+              },
+              {
+                "string": 4,
+                "fret": 3,
+                "label": "4",
+                "color": "#2ec4b6"
+              },
+              {
+                "string": 4,
+                "fret": 4,
+                "label": "b5",
+                "color": "#ffffff"
+              },
+              {
+                "string": 5,
+                "fret": 0,
+                "label": "5",
+                "color": "#ff9f1c"
+              },
+              {
+                "string": 5,
+                "fret": 3,
+                "label": "b7",
+                "color": "#7b2cbf"
+              }
             ]
           }
         }

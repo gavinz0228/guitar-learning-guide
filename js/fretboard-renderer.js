@@ -41,80 +41,77 @@
   var ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
   // --- CAGED shape definitions ---
-  // Each shape defines which strings and frets to highlight
-  // format: [string (0=lowE, 5=highE), fret_offset_from_lowest_root]
-  // The fret_offset is relative to the lowest root string's root fret position.
-  // Roles (root/3rd/5th/7th) are computed dynamically at render time
-  // based on the actual interval between the note and the current root.
-  // rootStrings lists which strings carry root notes in the open position.
+  // Each shape defines [string, open_fret, role] for the OPEN position.
+  // At render time, all frets are shifted by (current_root_fret - open_position_root_fret).
+  // This ensures each string independently gets its correct note.
   var CAGED_SHAPES = {
     // C shape — based on open C chord (x32010)
     C: {
       name: 'C 型',
-      rootStrings: [1, 4],  // A string, B string
+      rootStrings: [1, 4],  // A string (idx 1), B string (idx 4)
       shape: [
-        [1, 0, 'root'],  // A string: root
-        [2, -1, '3rd'],  // D string: 3rd
-        [3, -3, '5th'],  // G string: 5th
-        [4, -2, 'root'], // B string: root
-        [5, -3, '3rd']   // e string: 3rd
+        [1, 3, 'root'],   // A string fret 3
+        [2, 2, '3rd'],   // D string fret 2
+        [3, 0, '5th'],   // G string open
+        [4, 1, 'root'],  // B string fret 1
+        [5, 0, '3rd']    // e string open
       ],
       description: '以 C 和弦开放手型为基础，根音在 A 弦和 B 弦'
     },
     // A shape — based on open A chord (x02220)
     A: {
       name: 'A 型',
-      rootStrings: [1, 3],  // A string, G string
+      rootStrings: [1, 3],  // A string (idx 1), G string (idx 3)
       shape: [
-        [0, 0, '5th'],   // low E: 5th
-        [1, 0, 'root'],  // A string: root
-        [2, 2, '5th'],   // D string: 5th
-        [3, 2, 'root'],  // G string: root
-        [4, 2, '3rd'],   // B string: 3rd
-        [5, 0, '5th']    // e string: 5th
+        [1, 0, 'root'],  // A string open
+        [2, 2, '5th'],   // D string fret 2
+        [3, 2, 'root'],  // G string fret 2
+        [4, 2, '3rd'],   // B string fret 2
+        [5, 0, '5th']    // e string open
       ],
       description: '以 A 和弦开放手型为基础，根音在 A 弦和 G 弦'
     },
     // G shape — based on open G chord (320003)
     G: {
       name: 'G 型',
-      rootStrings: [0, 3, 5],  // lowE, G, highE
+      rootStrings: [0, 3, 5],  // lowE (0), G (3), highE (5)
       shape: [
-        [0, 0, 'root'],  // low E: root
-        [1, -1, '3rd'],  // A string: 3rd
-        [2, -3, '5th'],  // D string: 5th
-        [3, -3, 'root'], // G string: root
-        [4, -3, '3rd'],  // B string: 3rd
-        [5, 0, 'root']   // e string: root
+        [0, 3, 'root'],  // low E fret 3
+        [1, 2, '3rd'],   // A string fret 2
+        [2, 0, '5th'],   // D string open
+        [3, 0, 'root'],  // G string open
+        [4, 2, '3rd'],   // B string fret 2
+        [5, 3, 'root']   // e string fret 3
       ],
       description: '以 G 和弦开放手型为基础，根音在低 E 弦、G 弦和高 E 弦'
     },
     // E shape — based on open E chord (022100)
     E: {
       name: 'E 型',
-      rootStrings: [0, 2, 5],  // lowE, D, highE
+      rootStrings: [0, 2, 5],  // lowE (0), D (2), highE (5)
       shape: [
-        [0, 0, 'root'],  // low E: root
-        [1, 2, '5th'],   // A string: 5th
-        [2, 2, 'root'],  // D string: root
-        [3, 1, '3rd'],   // G string: 3rd
-        [4, 0, '5th'],   // B string: 5th
-        [5, 0, 'root']   // e string: root
+        [0, 0, 'root'],  // low E open
+        [1, 2, '5th'],   // A string fret 2
+        [2, 2, 'root'],  // D string fret 2
+        [3, 1, '3rd'],   // G string fret 1
+        [4, 0, '5th'],   // B string open
+        [5, 0, 'root']   // e string open
       ],
-      description: '以 E 和弦开放手型为基础，根音在低 E 弦、D 弦和高 E 弦，最常用的封闭和弦手型'
+      description: '以 E 和弦开放手型为基础，根音在低 E 弦、D 弦和高 E 弦'
     },
     // D shape — based on open D chord (xx0232)
     D: {
       name: 'D 型',
-      rootStrings: [2, 4],  // D string, B string
+      rootStrings: [2, 4],  // D string (idx 2), B string (idx 4)
       shape: [
-        [2, 0, 'root'],  // D string: root
-        [3, 2, '5th'],   // G string: 5th
-        [4, 3, 'root'],  // B string: root
-        [5, 2, '3rd']    // e string: 3rd
+        [2, 0, 'root'],  // D string open
+        [3, 2, '5th'],   // G string fret 2
+        [4, 3, 'root'],  // B string fret 3
+        [5, 2, '3rd']    // e string fret 2
       ],
       description: '以 D 和弦开放手型为基础，根音在 D 弦和 B 弦'
     }
+  };
   };
 
   // Interval (in semitones) from a root note to 3rd (major) and 5th (perfect)
@@ -317,7 +314,6 @@
       var shapeDef = CAGED_SHAPES[cagedShape];
       var color = COLORS[cagedShape + '_SHAPE'];
 
-      // Calculate root fret offset
       // For each root string, find the fret where note == rootNote
       var rootFrets = {};
       shapeDef.rootStrings.forEach(function(str) {
@@ -330,83 +326,82 @@
         }
       });
 
-      // Get the most common root fret
-      var fretValues = Object.values(rootFrets);
-      var rootFret = fretValues[0] || 0;
-
-      // Adjust for startFret — only show if within range
-      if (rootFret >= startFret && rootFret < startFret + numFrets) {
-        var baseFret = rootFret;
-
-        // Draw shape dots
-        shapeDef.shape.forEach(function(point) {
-          var str = point[0];
-          var offset = point[1];
-          var role = point[2];
-          var fret = baseFret + offset;
-
-          if (fret >= startFret && fret < startFret + numFrets) {
-            var dotX = LEFT_MARGIN + (fret - startFret + 0.5) * fretSpacing;
-            var dotY = GRID_TOP + str * stringSpacing;
-            var isRoot = (role === 'root');
-            var dotColor = isRoot ? COLORS.ROOT : color;
-            var dotR = isRoot ? 9 : 7;
-
-            // Glow for roots
-            if (isRoot) {
-              var glow = createSVGElement('circle');
-              glow.setAttribute('cx', dotX);
-              glow.setAttribute('cy', dotY);
-              glow.setAttribute('r', 12);
-              glow.setAttribute('fill', 'none');
-              glow.setAttribute('stroke', COLORS.ROOT.stroke);
-              glow.setAttribute('stroke-width', 2);
-              glow.setAttribute('opacity', '0.4');
-              svg.appendChild(glow);
-            }
-
-            drawDot(svg, dotX, dotY, dotR, dotColor.fill, dotColor.stroke, isRoot ? 2.5 : 1.5);
-
-            // Role label inside dot
-            var label = '';
-            if (role === 'root') label = 'R';
-            else if (role === '3rd') label = '3';
-            else if (role === '5th') label = '5';
-            else if (role === '7th') label = '7';
-
-            if (showLabels && label) {
-              drawSVGText(svg, dotX, dotY + 1, label, {
-                'fill': isRoot ? '#1a1a1a' : '#fff',
-                'font-size': isRoot ? '10px' : '8px',
-                'font-family': 'system-ui, sans-serif',
-                'text-anchor': 'middle',
-                'dominant-baseline': 'central',
-                'font-weight': 'bold'
-              });
-            }
+      // Find the lowest open-position root fret to compute shift
+      var minOpenFret = null;
+      var minRootStr = null;
+      shapeDef.shape.forEach(function(p) {
+        if (p[2] === 'root' && p[0] in rootFrets) {
+          if (minOpenFret === null || p[1] < minOpenFret) {
+            minOpenFret = p[1];
+            minRootStr = p[0];
           }
-        });
+        }
+      });
 
-        // Draw shape label
-        drawSVGText(svg, LEFT_MARGIN + numFrets * fretSpacing - 4, GRID_TOP - 4, cagedShape + ' Shape (' + rootNote + ')', {
+      // shift = current root fret on lowest root string - open position root fret
+      var shift = (minRootStr !== null && minRootStr in rootFrets)
+        ? rootFrets[minRootStr] - minOpenFret
+        : 0;
+
+      // Draw shape dots with per-string correct frets
+      shapeDef.shape.forEach(function(point) {
+        var str = point[0];
+        var openFret = point[1];
+        var role = point[2];
+        var fret = openFret + shift;
+
+        if (fret >= startFret && fret < startFret + numFrets) {
+          var dotX = LEFT_MARGIN + (fret - startFret + 0.5) * fretSpacing;
+          var dotY = GRID_TOP + str * stringSpacing;
+          var isRoot = (role === 'root');
+          var dotColor = isRoot ? COLORS.ROOT : color;
+          var dotR = isRoot ? 9 : 7;
+
+          // Glow for roots
+          if (isRoot) {
+            var glow = createSVGElement('circle');
+            glow.setAttribute('cx', dotX);
+            glow.setAttribute('cy', dotY);
+            glow.setAttribute('r', 12);
+            glow.setAttribute('fill', 'none');
+            glow.setAttribute('stroke', COLORS.ROOT.stroke);
+            glow.setAttribute('stroke-width', 2);
+            glow.setAttribute('opacity', '0.4');
+            svg.appendChild(glow);
+          }
+
+          drawDot(svg, dotX, dotY, dotR, dotColor.fill, dotColor.stroke, isRoot ? 2.5 : 1.5);
+
+          // Role label inside dot
+          var label = '';
+          if (role === 'root') label = 'R';
+          else if (role === '3rd') label = '3';
+          else if (role === '5th') label = '5';
+          else if (role === '7th') label = '7';
+
+          if (showLabels && label) {
+            drawSVGText(svg, dotX, dotY + 1, label, {
+              'fill': isRoot ? '#1a1a1a' : '#fff',
+              'font-size': isRoot ? '10px' : '8px',
+              'font-family': 'system-ui, sans-serif',
+              'text-anchor': 'middle',
+              'dominant-baseline': 'central',
+              'font-weight': 'bold'
+            });
+          }
+        }
+      });
+
+      // Draw shape label
+      drawSVGText(svg, LEFT_MARGIN + numFrets * fretSpacing - 4,
+        cagedShape + ' Shape (' + rootNote + ')', {
           'fill': color.fill,
           'font-size': '12px',
           'font-family': 'system-ui, sans-serif',
           'text-anchor': 'end',
           'font-weight': 'bold'
         });
-      } else {
-        // Shape is outside visible range — show a hint
-        drawSVGText(svg, LEFT_MARGIN + fretboardWidth / 2, GRID_TOP + 2.5 * stringSpacing, '该手型在指板外（根音在 ' + rootFret + ' 品）', {
-          'fill': COLORS.TEXT_DIM,
-          'font-size': '13px',
-          'font-family': 'system-ui, sans-serif',
-          'text-anchor': 'middle',
-          'dominant-baseline': 'central',
-          'font-style': 'italic'
-        });
-      }
-    }
+    }    }
 
     // --- Draw custom notes ---
     customNotes.forEach(function(note) {

@@ -117,7 +117,7 @@
           "fretboard": {
             "type": "full",
             "startFret": 0,
-            "numFrets": 12,
+            "numFrets": 13,
             "description": "6弦(E弦)上的全音半音关系 — 红线标注半音",
             "notes": [
               {
@@ -184,7 +184,7 @@
           "fretboard": {
             "type": "full",
             "startFret": 0,
-            "numFrets": 12,
+            "numFrets": 13,
             "description": "6弦(E弦)和5弦(A弦)上的所有音符 — 别忘了利用品记定位",
             "notes": [
               {
