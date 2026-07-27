@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
   <title>CAGED 系统 | 学吉他</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -678,7 +679,7 @@
 
   <!-- ===== Scripts ===== -->
   <script src="js/nav.js?v=6"></script>
-  <script src="js/fretboard-renderer.js"></script>
+  <script src="js/fretboard-renderer.js?v=4"></script>
   <script>
     (function () {
       'use strict';
@@ -827,7 +828,15 @@
       if (window.CAGED_SHAPES) {
         init();
       } else {
-        console.error('Fretboard renderer not loaded');
+        // Fretboard renderer may not be loaded yet; wait for it
+        var checkInterval = setInterval(function() {
+          if (window.CAGED_SHAPES) {
+            clearInterval(checkInterval);
+            init();
+          }
+        }, 100);
+        // Timeout after 3 seconds
+        setTimeout(function() { clearInterval(checkInterval); }, 3000);
       }
 
     })();

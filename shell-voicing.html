@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
   <title>Shell Voicing | 学吉他</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -543,7 +544,7 @@
 
   <!-- ===== Scripts ===== -->
   <script src="js/nav.js?v=6"></script>
-  <script src="js/fretboard-renderer.js"></script>
+  <script src="js/fretboard-renderer.js?v=4"></script>
   <script>
     (function () {
       'use strict';
@@ -672,7 +673,17 @@
       // --- Initialize ---
       function init() {
         if (!window.renderFretboard) {
-          console.error('Fretboard renderer not loaded');
+          // Renderer may not be loaded yet; wait for it
+          var checkInterval = setInterval(function() {
+            if (window.renderFretboard) {
+              clearInterval(checkInterval);
+              initStringGroupSelector();
+              renderStringGroup('643');
+              renderStringGroup('543');
+              renderStringGroup('532');
+            }
+          }, 100);
+          setTimeout(function() { clearInterval(checkInterval); }, 3000);
           return;
         }
 

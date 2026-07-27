@@ -112,8 +112,6 @@
       description: '以 D 和弦开放手型为基础，根音在 D 弦和 B 弦'
     }
   };
-  };
-
   // Interval (in semitones) from a root note to 3rd (major) and 5th (perfect)
   var INTERVAL_TO_ROLE = {
     0: 'root',
@@ -393,7 +391,7 @@
       });
 
       // Draw shape label
-      drawSVGText(svg, LEFT_MARGIN + numFrets * fretSpacing - 4,
+      drawSVGText(svg, LEFT_MARGIN + numFrets * fretSpacing - 4, height - 5,
         cagedShape + ' Shape (' + rootNote + ')', {
           'fill': color.fill,
           'font-size': '12px',
@@ -401,7 +399,7 @@
           'text-anchor': 'end',
           'font-weight': 'bold'
         });
-    }    }
+    }
 
     // --- Draw custom notes ---
     customNotes.forEach(function(note) {
